@@ -1,0 +1,8 @@
+-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\Inc -I ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include -I ..\Drivers\STM32F4xx_HAL_Driver\Inc -I ..\Drivers\BSP\STM324xG_EVAL -I ..\Drivers\BSP\Components -I ..\Middlewares\Third_Party\LwIP\src\include -I ..\Middlewares\Third_Party\LwIP\system -I ..\Utilities -I ..\Utilities\Log --C99
+-I.\RTE\Compiler
+-I.\RTE\_STM324xG_EVAL
+-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include
+-IC:\Keil_v5\ARM\PACK\Keil\ARM_Compiler\1.5.0\Include
+-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+-D__UVISION_VERSION="525" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_STM324xG_EVAL --C99
+-o .\stm324xg_eval\mem.o --omf_browse .\stm324xg_eval\mem.crf --depend .\stm324xg_eval\mem.d "..\Middlewares\Third_Party\LwIP\src\core\mem.c"

@@ -1,0 +1,5 @@
+{
+    "ewp": "${workspaceFolder}\\File\\EWARM\\Project.ewp",
+    "configuration": "STM324xG_EVAL",
+    "toolchain": "C:\\\\Program Files\\\\IAR Systems\\\\Embedded Workbench 9.1"
+}

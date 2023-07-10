@@ -1,0 +1,10 @@
+-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\Drivers\BSP\STM324xG_EVAL -I ..\Drivers\BSP\Components -I ..\Middlewares\Third_Party\LwIP\src\include -I ..\Middlewares\Third_Party\LwIP\system -I ..\Utilities -I ..\Utilities\Log -I ..\Inc -I ..\Src -I ..\Drivers\CMSIS\Include -I ..\Drivers\BSP\STM324xG_EVAL -I ..\Drivers\STM32F4xx_HAL_Driver\Inc --C99
+-I.\RTE\Compiler
+-I.\RTE\Device\STM32F407IGTx
+-I.\RTE\_STM324xG_EVAL
+-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include
+-IC:\Keil_v5\ARM\PACK\Keil\ARM_Compiler\1.4.0\Include
+-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\STM32F4xx_HAL_Driver\Inc
+-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_STM324xG_EVAL --C99
+-o .\stm324xg_eval\stm32f4xx_hal_usart_1.o --omf_browse .\stm324xg_eval\stm32f4xx_hal_usart_1.crf --depend .\stm324xg_eval\stm32f4xx_hal_usart_1.d "C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_usart.c"

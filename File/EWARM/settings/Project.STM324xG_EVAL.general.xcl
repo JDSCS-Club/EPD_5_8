@@ -1,0 +1,13 @@
+"C:\Program Files\IAR Systems\Embedded Workbench 9.0 EWARM FS 9.20.3\arm\bin\armPROC.dll" 
+
+"C:\Program Files\IAR Systems\Embedded Workbench 9.0 EWARM FS 9.20.3\arm\bin\armJLINK.dll" 
+
+"C:\D\SW2_Team\emu_208_ledc\File\EWARM\STM324xG_EVAL\Exe\Project.out" 
+
+--plugin="C:\Program Files\IAR Systems\Embedded Workbench 9.0 EWARM FS 9.20.3\arm\bin\armbat.dll" 
+
+--flash_loader="C:\D\SW2_Team\emu_208_ledc\File\EWARM\Project.board" 
+
+
+
+

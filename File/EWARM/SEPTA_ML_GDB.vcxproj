@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|VisualGDB">
+      <Configuration>Debug</Configuration>
+      <Platform>VisualGDB</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|VisualGDB">
+      <Configuration>Release</Configuration>
+      <Platform>VisualGDB</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{A47F2BD9-191E-4078-A687-04DE7D4110D4}</ProjectGuid>
+    <BSP_ID>com.sysprogs.arm.stm32</BSP_ID>
+    <BSP_VERSION>2022.01</BSP_VERSION>
+    <InPlaceBSPSubdir />
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|VisualGDB'">
+    <MCUPropertyListFile>$(ProjectDir)stm32.props</MCUPropertyListFile>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|VisualGDB'">
+    <MCUPropertyListFile>$(ProjectDir)stm32.props</MCUPropertyListFile>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|VisualGDB'">
+    <GNUConfigurationType>Debug</GNUConfigurationType>
+    <ToolchainID>com.visualgdb.arm-eabi</ToolchainID>
+    <ToolchainVersion>10.3.1/10.2.90/r1</ToolchainVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|VisualGDB'">
+    <ToolchainID>com.visualgdb.arm-eabi</ToolchainID>
+    <ToolchainVersion>10.3.1/10.2.90/r1</ToolchainVersion>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|VisualGDB'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>../Drivers/CMSIS/Include;..\Inc;..\Drivers\CMSIS\Device\ST\STM32F4xx;..\Drivers\STM32F4xx_HAL_Driver\Inc;..\Drivers\BSP\STM324xG_EVAL;..\Drivers\BSP;..\Middlewares\Third_Party\LwIP\src;..\Middlewares\Third_Party\LwIP\system;..\Utilities;..\Utilities\Log;..\Middlewares\Third_Party\LwIP\src\include;..\Src;..\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\Middlewares\Third_Party\LwIP\src\include\lwip;..\Drivers\display;..\Drivers\display\fonts;..\Drivers\display\OLED;..\Drivers\display\GUI;..\Drivers\display\Example;..\Drivers\display\Config;%(ClCompile.AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>DEBUG=1;USE_HAL_DRIVER;STM32F407xx;USE_STM324xG_EVAL;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions />
+      <CLanguageStandard />
+      <CPPLanguageStandard />
+    </ClCompile>
+    <Link>
+      <LibrarySearchDirectories>%(Link.LibrarySearchDirectories)</LibrarySearchDirectories>
+      <AdditionalLibraryNames>%(Link.AdditionalLibraryNames)</AdditionalLibraryNames>
+      <AdditionalLinkerInputs>%(Link.AdditionalLinkerInputs)</AdditionalLinkerInputs>
+      <AdditionalOptions />
+      <LinkerScript />
+      <ProduceRelocationRecords>true</ProduceRelocationRecords>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|VisualGDB'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\Inc;..\Drivers\CMSIS\Device\ST\STM32F4xx;..\Drivers\STM32F4xx_HAL_Driver\Inc;..\Drivers\BSP\STM324xG_EVAL;..\Drivers\BSP;..\Middlewares\Third_Party\LwIP\src;..\Middlewares\Third_Party\LwIP\system;..\Utilities;..\Utilities\Log;..\Middlewares\Third_Party\LwIP\src\include;..\Src;..\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\Middlewares\Third_Party\LwIP\src\include\lwip;..\Drivers\display;..\Drivers\display\fonts;..\Drivers\display\OLED;..\Drivers\display\GUI;..\Drivers\display\Example;..\Drivers\display\Config;%(ClCompile.AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG=1;RELEASE=1;USE_HAL_DRIVER;STM32F407xx;USE_STM324xG_EVAL;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions />
+      <CLanguageStandard />
+      <CPPLanguageStandard />
+    </ClCompile>
+    <Link>
+      <LibrarySearchDirectories>%(Link.LibrarySearchDirectories)</LibrarySearchDirectories>
+      <AdditionalLibraryNames>%(Link.AdditionalLibraryNames)</AdditionalLibraryNames>
+      <AdditionalLinkerInputs>%(Link.AdditionalLinkerInputs)</AdditionalLinkerInputs>
+      <AdditionalOptions />
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Src\app_ethernet.c" />
+    <ClCompile Include="..\Src\CRC8.c" />
+    <ClCompile Include="..\Src\ethernetif.c" />
+    <ClCompile Include="..\Src\Flash.c" />
+    <ClCompile Include="..\Src\main.c" />
+    <ClCompile Include="..\Src\stm32f4xx_hal_msp.c" />
+    <ClCompile Include="..\Src\stm32f4xx_it.c" />
+    <ClCompile Include="..\Src\tcp_echoserver.c" />
+    <ClCompile Include="..\Src\Timer.c" />
+    <ClCompile Include="..\Src\USRAT.c" />
+    <ClCompile Include="..\Src\WWDG.c" />
+    <None Include="..\readme.txt" />
+    <ClCompile Include="..\Drivers\BSP\Components\ili9325\ili9325.c" />
+    <ClCompile Include="..\Drivers\BSP\Components\stmpe811\stmpe811.c" />
+    <ClCompile Include="..\Drivers\BSP\STM324xG_EVAL\stm324xg_eval.c" />
+    <ClCompile Include="..\Drivers\BSP\STM324xG_EVAL\stm324xg_eval_io.c" />
+    <ClCompile Include="..\Drivers\BSP\STM324xG_EVAL\stm324xg_eval_sram.c" />
+    <ClCompile Include="..\Src\system_stm32f4xx.c" />
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.c" />
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.c" />
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma.c" />
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma_ex.c" />
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_eth.c" />
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash.c" />
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash_ex.c" />
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_gpio.c" />
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_i2c.c" />
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_i2c_ex.c" />
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_i2s.c" />
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_i2s_ex.c" />
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr.c" />
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr_ex.c" />
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc.c" />
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc_ex.c" />
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_spi.c" />
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_sram.c" />
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim.c" />
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim_ex.c" />
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_uart.c" />
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_wwdg.c" />
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_ll_fsmc.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\api\api_lib.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\api\api_msg.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\api\err.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\api\netbuf.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\api\netdb.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\api\netifapi.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\api\sockets.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\api\tcpip.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\def.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\dns.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\inet_chksum.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\init.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\ip.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\mem.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\memp.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\netif.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\pbuf.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\raw.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\stats.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\sys.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\tcp.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\tcp_in.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\tcp_out.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\timeouts.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\udp.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\ipv4\autoip.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\ipv4\dhcp.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\ipv4\etharp.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\ipv4\icmp.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\ipv4\igmp.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\ipv4\ip4.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\ipv4\ip4_addr.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\ipv4\ip4_frag.c" />
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\netif\ethernet.c" />
+    <None Include="ClassDiagram.cd" />
+    <None Include="stm32.props" />
+    <ClCompile Include="$(BSP_ROOT)\STM32F4xxxx\StartupFiles\startup_stm32f407xx.c" />
+    <None Include="SEPTA_ML_GDB-Debug.vgdbsettings" />
+    <None Include="SEPTA_ML_GDB-Release.vgdbsettings" />
+    <None Include="stm32.xml" />
+    <ClCompile Include="..\Src\udp_echoclient.c" />
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rtc.c" />
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rtc_ex.c" />
+    <ClCompile Include="..\Src\debug_task.c" />
+    <ClCompile Include="..\Utilities\Fonts\font12.c" />
+    <ClCompile Include="..\Utilities\Fonts\font12CN.c" />
+    <ClCompile Include="..\Utilities\Fonts\font16.c" />
+    <ClCompile Include="..\Utilities\Fonts\font20.c" />
+    <ClCompile Include="..\Utilities\Fonts\font24.c" />
+    <ClCompile Include="..\Utilities\Fonts\font24CN.c" />
+    <ClCompile Include="..\Utilities\Fonts\font8.c" />
+    <ClInclude Include="..\Utilities\Fonts\fonts.h" />
+    <ClCompile Include="..\Drivers\display\Config\DEV_Config.c" />
+    <ClCompile Include="..\Drivers\display\Example\ImageData.c" />
+    <ClCompile Include="..\Drivers\display\Example\OLED_0in91_test.c" />
+    <ClCompile Include="..\Drivers\display\Example\OLED_0in95_rgb_test.c" />
+    <ClCompile Include="..\Drivers\display\Example\OLED_0in96_test.c" />
+    <ClCompile Include="..\Drivers\display\Example\OLED_1in3_c_test.c" />
+    <ClCompile Include="..\Drivers\display\Example\OLED_1in3_test.c" />
+    <ClCompile Include="..\Drivers\display\Example\OLED_1in5_rgb_test.c" />
+    <ClCompile Include="..\Drivers\display\Example\OLED_1in5_test.c" />
+    <ClInclude Include="..\Drivers\display\Example\test.h" />
+    <ClCompile Include="..\Drivers\display\GUI\GUI_Paint.c" />
+    <ClCompile Include="..\Drivers\display\OLED\OLED_0in91.c" />
+    <ClCompile Include="..\Drivers\display\OLED\OLED_0in95_rgb.c" />
+    <ClCompile Include="..\Drivers\display\OLED\OLED_0in96.c" />
+    <ClCompile Include="..\Drivers\display\OLED\OLED_1in3.c" />
+    <ClCompile Include="..\Drivers\display\OLED\OLED_1in3_c.c" />
+    <ClCompile Include="..\Drivers\display\OLED\OLED_1in5.c" />
+    <ClCompile Include="..\Drivers\display\OLED\OLED_1in5_rgb.c" />
+    <ClCompile Include="..\Src\I2C.c" />
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_adc.c" />
+    <ClCompile Include="..\Src\AmpGpio.c" />
+  </ItemGroup>
+</Project>

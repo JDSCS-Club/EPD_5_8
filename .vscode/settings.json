@@ -1,0 +1,6 @@
+{
+    "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools",
+    "files.associations": {
+        "color_code_256.h": "c"
+    }
+}

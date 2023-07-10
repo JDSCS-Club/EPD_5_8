@@ -1,0 +1,115 @@
+﻿  app_ethernet.c
+  CRC8.c
+  ethernetif.c
+  Flash.c
+  LED.c
+  main.c
+  spi_flash.c
+  stm32f4xx_hal_msp.c
+  D:/GitHub_Pro/LEDC5_1(SeptaMl)/LwIP_TCP_Echo_Server(SDI)_Ver1.1.1/Src/LED.c: In function 'LED_FONT_POSITION':
+D:\GitHub_Pro\LEDC5_1(SeptaMl)\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\Src\LED.c(352,7): warning :  implicit declaration of function 'SPI_FLASH_BufferRead' [-Wimplicit-function-declaration]
+    352 |       SPI_FLASH_BufferRead(s_LED_FONT_MAP, spData_Ko, 16); /* Read data from SPI FLASH memory */
+        |       ^~~~~~~~~~~~~~~~~~~~
+  D:/GitHub_Pro/LEDC5_1(SeptaMl)/LwIP_TCP_Echo_Server(SDI)_Ver1.1.1/Src/LED.c: In function 'LED_Block_Screen_Buf':
+D:\GitHub_Pro\LEDC5_1(SeptaMl)\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\Src\LED.c(699,28): warning :  cast to pointer from integer of different size [-Wint-to-pointer-cast]
+    699 |         mFdi_Screen_Print =(FDI_SCREEN_BOKCK *) (SRAM_USED_TO_STREAM_BUF + sBlk_Blink_Time);
+        |                            ^
+  D:/GitHub_Pro/LEDC5_1(SeptaMl)/LwIP_TCP_Echo_Server(SDI)_Ver1.1.1/Src/main.c: In function 'Time_Main':
+D:\GitHub_Pro\LEDC5_1(SeptaMl)\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\Src\main.c(1066,5): warning :  implicit declaration of function 'igmp_joingroup' [-Wimplicit-function-declaration]
+   1066 |     igmp_joingroup(&gnetif.ip_addr,&allsystems);
+        |     ^~~~~~~~~~~~~~
+  D:/GitHub_Pro/LEDC5_1(SeptaMl)/LwIP_TCP_Echo_Server(SDI)_Ver1.1.1/Src/stm32f4xx_hal_msp.c: In function 'HAL_RTC_MspInit':
+D:\GitHub_Pro\LEDC5_1(SeptaMl)\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\Src\stm32f4xx_hal_msp.c(196,3): warning :  implicit declaration of function 'Error_Handler'; did you mean 'Flash_Error_Handler'? [-Wimplicit-function-declaration]
+    196 |   Error_Handler();
+        |   ^~~~~~~~~~~~~
+        |   Flash_Error_Handler
+  stm32f4xx_it.c
+  tcp_echoserver.c
+  Timer.c
+  USRAT.c
+  WWDG.c
+  ili9325.c
+  stmpe811.c
+  stm324xg_eval.c
+  stm324xg_eval_io.c
+  stm324xg_eval_lcd.c
+  stm324xg_eval_sram.c
+  system_stm32f4xx.c
+  stm32f4xx_hal.c
+  stm32f4xx_hal_cortex.c
+  stm32f4xx_hal_dma.c
+  stm32f4xx_hal_dma_ex.c
+  stm32f4xx_hal_eth.c
+  stm32f4xx_hal_flash.c
+  stm32f4xx_hal_flash_ex.c
+  stm32f4xx_hal_gpio.c
+  stm32f4xx_hal_i2c.c
+  stm32f4xx_hal_i2c_ex.c
+  stm32f4xx_hal_i2s.c
+  stm32f4xx_hal_i2s_ex.c
+  stm32f4xx_hal_pwr.c
+  stm32f4xx_hal_pwr_ex.c
+  stm32f4xx_hal_rcc.c
+  stm32f4xx_hal_rcc_ex.c
+  stm32f4xx_hal_spi.c
+  stm32f4xx_hal_sram.c
+  stm32f4xx_hal_tim.c
+  stm32f4xx_hal_tim_ex.c
+  stm32f4xx_hal_uart.c
+  stm32f4xx_hal_wwdg.c
+  stm32f4xx_ll_fsmc.c
+  api_lib.c
+  api_msg.c
+  err.c
+  netbuf.c
+  netdb.c
+  netifapi.c
+  sockets.c
+  tcpip.c
+  def.c
+  dns.c
+  inet_chksum.c
+  init.c
+  ip.c
+  mem.c
+  memp.c
+  netif.c
+  pbuf.c
+  raw.c
+  stats.c
+  sys.c
+  tcp.c
+  tcp_in.c
+  tcp_out.c
+  timeouts.c
+  udp.c
+  autoip.c
+  dhcp.c
+  etharp.c
+  D:\GitHub_Pro\LEDC5_1(SeptaMl)\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\Middlewares\Third_Party\LwIP\src\core\udp.c(49):
+  D:/GitHub_Pro/LEDC5_1(SeptaMl)/LwIP_TCP_Echo_Server(SDI)_Ver1.1.1/Middlewares/Third_Party/LwIP/src/core/udp.c: In function 'udp_input':
+..\Inc\main.h(58,48): warning :  left shift count >= width of type [-Wshift-count-overflow]
+     58 | #define MAKE_5_BYTE(B1,B2,B3,B4,B5) (((B1&0xff)<<32) | ((B2&0xff)<<24) | ((B3&0xff)<<16) | ((B4&0xff)<<8) | ((B5)&0xff))
+        |                                                ^~
+  D:\GitHub_Pro\LEDC5_1(SeptaMl)\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\Middlewares\Third_Party\LwIP\src\core\udp.c(390,41): note :  in expansion of macro 'MAKE_5_BYTE'
+    390 |                         sRxBitCompare = MAKE_5_BYTE(mLed_Process_Flag.sCrc_Public_Struct.sBlock_State_5.Byte,
+        |                                         ^~~~~~~~~~~
+  icmp.c
+  igmp.c
+  ip4.c
+  ip4_addr.c
+  ip4_frag.c
+  ethernet.c
+  startup_stm32f407xx.c
+  udp_echoclient.c
+  D:/GitHub_Pro/LEDC5_1(SeptaMl)/LwIP_TCP_Echo_Server(SDI)_Ver1.1.1/Middlewares/Third_Party/LwIP/src/core/ipv4/igmp.c: In function 'igmp_init':
+D:\GitHub_Pro\LEDC5_1(SeptaMl)\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\Middlewares\Third_Party\LwIP\src\core\ipv4\igmp.c(118,5): warning :  implicit declaration of function 'MyPrintf_USART1' [-Wimplicit-function-declaration]
+    118 |     MyPrintf_USART1("~~~~~~~~~~~~~~~~~~~~~igmp_init: initializing\n");
+        |     ^~~~~~~~~~~~~~~
+  stm32f4xx_hal_rtc.c
+  stm32f4xx_hal_rtc_ex.c
+  Linking ../VisualGDB/Debug/SEPTA_ML_GDB...
+  ------------------- Memory utilization report -------------------
+  Used FLASH: 102KB out of 1024KB (9%) [+8860]
+  Used SRAM: 58KB out of 128KB (45%) [+404]
+  Used CCMRAM: 0 bytes out of 64KB (0%)

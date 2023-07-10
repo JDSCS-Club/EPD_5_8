@@ -1,0 +1,508 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source files">
+      <UniqueIdentifier>{99d3c087-ba2e-4205-870c-1185f0eab62c}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header files">
+      <UniqueIdentifier>{896fc92e-a2d7-4bdb-b76e-d538ed5cd365}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource files">
+      <UniqueIdentifier>{7849cdd7-6762-4621-b2f0-00d1b08f477f}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Source files\Application">
+      <UniqueIdentifier>{4d1d227f-83d2-44db-bda8-45491b8ee056}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Application\EWARM">
+      <UniqueIdentifier>{cf52f651-9b5e-4b53-ad30-9b52934384f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Application\User">
+      <UniqueIdentifier>{36fe57de-c735-403c-8a7e-050694b14215}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Application\Utilities">
+      <UniqueIdentifier>{6a6402ee-2383-4d73-94a2-33fbd5296ad3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Doc">
+      <UniqueIdentifier>{8a5a7ea8-dbd3-4679-8793-efb31596459b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Drivers">
+      <UniqueIdentifier>{b3b179d0-01e0-43b9-b00c-159105f4babe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Drivers\BSP">
+      <UniqueIdentifier>{9c37ee3b-9685-4e5f-8da8-ec9f9c9e792f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Drivers\BSP\Components">
+      <UniqueIdentifier>{7f750a90-1fd1-461e-980f-392543cbbd9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Drivers\BSP\STM324xG_EVAL">
+      <UniqueIdentifier>{b7952a95-8e01-4e30-9b73-a8211ea95ddf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Drivers\CMSIS">
+      <UniqueIdentifier>{7dbac2c5-1d83-4e66-ba35-47b0fd4cd890}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Drivers\STM32F4xx_HAL_Driver">
+      <UniqueIdentifier>{3483f902-34c5-4cc8-8fd0-bc7eaa896b3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Middlewares">
+      <UniqueIdentifier>{e9772136-8797-4a5f-a038-04578787bd3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Middlewares\LwIP">
+      <UniqueIdentifier>{670ee584-3308-4d00-b915-5f519fe10642}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Middlewares\LwIP\Api">
+      <UniqueIdentifier>{bb1f8462-01ef-42d3-a985-4d617018b686}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Middlewares\LwIP\Core">
+      <UniqueIdentifier>{eb343969-2f26-485c-a379-d8085c255aeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Middlewares\LwIP\Core\IPv4">
+      <UniqueIdentifier>{2262a9f0-ba07-48dd-8273-778400fb2924}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Middlewares\LwIP\Netif">
+      <UniqueIdentifier>{a4bf1394-ba0d-444d-a756-3233c8a8141e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Device-specific files">
+      <UniqueIdentifier>{b043d56c-8c42-4ded-bbaa-7121a1768c3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Application">
+      <UniqueIdentifier>{38cfc3f5-d8f9-4b21-98bb-48e3634fbc77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Application\EWARM">
+      <UniqueIdentifier>{74471f68-8861-4779-9c37-7e50f1cf1ade}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Application\User">
+      <UniqueIdentifier>{485e008a-428b-4825-8b0d-2bee0393939c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Application\Utilities">
+      <UniqueIdentifier>{a35e3368-1f39-41ee-8ed6-3ac14bfee267}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Doc">
+      <UniqueIdentifier>{002c6a93-40d1-4fa9-8467-27acdec4989d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Drivers">
+      <UniqueIdentifier>{543f6245-14c6-4ebb-88de-3b794a239d6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Drivers\BSP">
+      <UniqueIdentifier>{3d9c4802-120d-4ab0-b720-5e297860e2cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Drivers\BSP\Components">
+      <UniqueIdentifier>{b7deee21-c1bc-408c-a8a6-2bfecaa97c91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Drivers\BSP\STM324xG_EVAL">
+      <UniqueIdentifier>{3a750777-36e1-42d4-91b8-13538b6f0e8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Drivers\CMSIS">
+      <UniqueIdentifier>{5763cbf4-862d-45d7-a5f0-b019035df09e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Drivers\STM32F4xx_HAL_Driver">
+      <UniqueIdentifier>{1e2e58e4-1b35-4344-9ea4-5ea99539ef9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Middlewares">
+      <UniqueIdentifier>{462b3e7a-a294-44ed-83c6-873af3d34f8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Middlewares\LwIP">
+      <UniqueIdentifier>{e2277b9b-fe26-4de2-9a60-2a955e77c6e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Middlewares\LwIP\Api">
+      <UniqueIdentifier>{3b4b5832-0b1e-4b1d-9b9b-1c574feb2d02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Middlewares\LwIP\Core">
+      <UniqueIdentifier>{cf28e2e8-bc12-4bfd-bac5-1e66ab457bba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Middlewares\LwIP\Core\IPv4">
+      <UniqueIdentifier>{68fb80c7-d90e-4c10-b01f-b20142c3027b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Middlewares\LwIP\Netif">
+      <UniqueIdentifier>{8660f8b3-f45f-40ef-a7c0-71a143feba02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Device-specific files">
+      <UniqueIdentifier>{09966653-84fb-4d92-9f2c-9314571eca3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VisualGDB settings">
+      <UniqueIdentifier>{3b711878-279f-4d0a-8aad-6a6cf906f1b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Application\Utilities\Fonts">
+      <UniqueIdentifier>{835a94fb-6da3-44b3-af9a-862fbcdf7793}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Drivers\display">
+      <UniqueIdentifier>{f43d8ee2-1af3-4183-9134-95db5b5b5d5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Drivers\display\Config">
+      <UniqueIdentifier>{1c8f522a-00f7-4e87-a0b8-ab524794d4f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Drivers\display\Example">
+      <UniqueIdentifier>{7f306eb8-64c9-4adf-98a2-aa02a75c3b04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Drivers\display\GUI">
+      <UniqueIdentifier>{a6c80ed6-caf5-4536-a19f-6017fc725f0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Drivers\display\OLED">
+      <UniqueIdentifier>{0489f95c-853e-49d8-a23e-920405e58150}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Application\Utilities\Fonts">
+      <UniqueIdentifier>{8a833158-154e-46c9-894b-9e675a0f421c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Drivers\display">
+      <UniqueIdentifier>{338f2424-2263-4d89-99ea-ba57d481a3b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Drivers\display\Config">
+      <UniqueIdentifier>{9abd7d87-ed03-41bf-8626-6eff55820edb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Drivers\display\Example">
+      <UniqueIdentifier>{1a4294a4-26e6-419f-886d-3da573d5b431}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Drivers\display\GUI">
+      <UniqueIdentifier>{645f501a-616f-40f3-8414-099ecd04b495}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\Drivers\display\OLED">
+      <UniqueIdentifier>{9faac6ea-a533-4bf1-9833-c2d6d4f36e10}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Src\app_ethernet.c">
+      <Filter>Source files\Application\User</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\CRC8.c">
+      <Filter>Source files\Application\User</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\ethernetif.c">
+      <Filter>Source files\Application\User</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Flash.c">
+      <Filter>Source files\Application\User</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\main.c">
+      <Filter>Source files\Application\User</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\stm32f4xx_hal_msp.c">
+      <Filter>Source files\Application\User</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\stm32f4xx_it.c">
+      <Filter>Source files\Application\User</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\tcp_echoserver.c">
+      <Filter>Source files\Application\User</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Timer.c">
+      <Filter>Source files\Application\User</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\USRAT.c">
+      <Filter>Source files\Application\User</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\WWDG.c">
+      <Filter>Source files\Application\User</Filter>
+    </ClCompile>
+    <None Include="..\readme.txt">
+      <Filter>Source files\Doc</Filter>
+    </None>
+    <ClCompile Include="..\Drivers\BSP\Components\ili9325\ili9325.c">
+      <Filter>Source files\Drivers\BSP\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\BSP\Components\stmpe811\stmpe811.c">
+      <Filter>Source files\Drivers\BSP\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\BSP\STM324xG_EVAL\stm324xg_eval.c">
+      <Filter>Source files\Drivers\BSP\STM324xG_EVAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\BSP\STM324xG_EVAL\stm324xg_eval_io.c">
+      <Filter>Source files\Drivers\BSP\STM324xG_EVAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\BSP\STM324xG_EVAL\stm324xg_eval_sram.c">
+      <Filter>Source files\Drivers\BSP\STM324xG_EVAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\system_stm32f4xx.c">
+      <Filter>Source files\Drivers\CMSIS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.c">
+      <Filter>Source files\Drivers\STM32F4xx_HAL_Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.c">
+      <Filter>Source files\Drivers\STM32F4xx_HAL_Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma.c">
+      <Filter>Source files\Drivers\STM32F4xx_HAL_Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma_ex.c">
+      <Filter>Source files\Drivers\STM32F4xx_HAL_Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_eth.c">
+      <Filter>Source files\Drivers\STM32F4xx_HAL_Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash.c">
+      <Filter>Source files\Drivers\STM32F4xx_HAL_Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash_ex.c">
+      <Filter>Source files\Drivers\STM32F4xx_HAL_Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_gpio.c">
+      <Filter>Source files\Drivers\STM32F4xx_HAL_Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_i2c.c">
+      <Filter>Source files\Drivers\STM32F4xx_HAL_Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_i2c_ex.c">
+      <Filter>Source files\Drivers\STM32F4xx_HAL_Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_i2s.c">
+      <Filter>Source files\Drivers\STM32F4xx_HAL_Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_i2s_ex.c">
+      <Filter>Source files\Drivers\STM32F4xx_HAL_Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr.c">
+      <Filter>Source files\Drivers\STM32F4xx_HAL_Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr_ex.c">
+      <Filter>Source files\Drivers\STM32F4xx_HAL_Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc.c">
+      <Filter>Source files\Drivers\STM32F4xx_HAL_Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc_ex.c">
+      <Filter>Source files\Drivers\STM32F4xx_HAL_Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_spi.c">
+      <Filter>Source files\Drivers\STM32F4xx_HAL_Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_sram.c">
+      <Filter>Source files\Drivers\STM32F4xx_HAL_Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim.c">
+      <Filter>Source files\Drivers\STM32F4xx_HAL_Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim_ex.c">
+      <Filter>Source files\Drivers\STM32F4xx_HAL_Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_uart.c">
+      <Filter>Source files\Drivers\STM32F4xx_HAL_Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_wwdg.c">
+      <Filter>Source files\Drivers\STM32F4xx_HAL_Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_ll_fsmc.c">
+      <Filter>Source files\Drivers\STM32F4xx_HAL_Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\api\api_lib.c">
+      <Filter>Source files\Middlewares\LwIP\Api</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\api\api_msg.c">
+      <Filter>Source files\Middlewares\LwIP\Api</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\api\err.c">
+      <Filter>Source files\Middlewares\LwIP\Api</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\api\netbuf.c">
+      <Filter>Source files\Middlewares\LwIP\Api</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\api\netdb.c">
+      <Filter>Source files\Middlewares\LwIP\Api</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\api\netifapi.c">
+      <Filter>Source files\Middlewares\LwIP\Api</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\api\sockets.c">
+      <Filter>Source files\Middlewares\LwIP\Api</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\api\tcpip.c">
+      <Filter>Source files\Middlewares\LwIP\Api</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\def.c">
+      <Filter>Source files\Middlewares\LwIP\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\dns.c">
+      <Filter>Source files\Middlewares\LwIP\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\inet_chksum.c">
+      <Filter>Source files\Middlewares\LwIP\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\init.c">
+      <Filter>Source files\Middlewares\LwIP\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\ip.c">
+      <Filter>Source files\Middlewares\LwIP\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\mem.c">
+      <Filter>Source files\Middlewares\LwIP\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\memp.c">
+      <Filter>Source files\Middlewares\LwIP\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\netif.c">
+      <Filter>Source files\Middlewares\LwIP\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\pbuf.c">
+      <Filter>Source files\Middlewares\LwIP\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\raw.c">
+      <Filter>Source files\Middlewares\LwIP\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\stats.c">
+      <Filter>Source files\Middlewares\LwIP\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\sys.c">
+      <Filter>Source files\Middlewares\LwIP\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\tcp.c">
+      <Filter>Source files\Middlewares\LwIP\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\tcp_in.c">
+      <Filter>Source files\Middlewares\LwIP\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\tcp_out.c">
+      <Filter>Source files\Middlewares\LwIP\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\timeouts.c">
+      <Filter>Source files\Middlewares\LwIP\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\udp.c">
+      <Filter>Source files\Middlewares\LwIP\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\ipv4\autoip.c">
+      <Filter>Source files\Middlewares\LwIP\Core\IPv4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\ipv4\dhcp.c">
+      <Filter>Source files\Middlewares\LwIP\Core\IPv4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\ipv4\etharp.c">
+      <Filter>Source files\Middlewares\LwIP\Core\IPv4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\ipv4\icmp.c">
+      <Filter>Source files\Middlewares\LwIP\Core\IPv4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\ipv4\igmp.c">
+      <Filter>Source files\Middlewares\LwIP\Core\IPv4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\ipv4\ip4.c">
+      <Filter>Source files\Middlewares\LwIP\Core\IPv4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\ipv4\ip4_addr.c">
+      <Filter>Source files\Middlewares\LwIP\Core\IPv4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\core\ipv4\ip4_frag.c">
+      <Filter>Source files\Middlewares\LwIP\Core\IPv4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Middlewares\Third_Party\LwIP\src\netif\ethernet.c">
+      <Filter>Source files\Middlewares\LwIP\Netif</Filter>
+    </ClCompile>
+    <None Include="stm32.props">
+      <Filter>Source files\Device-specific files</Filter>
+    </None>
+    <ClCompile Include="$(BSP_ROOT)\STM32F4xxxx\StartupFiles\startup_stm32f407xx.c">
+      <Filter>Source files\Device-specific files</Filter>
+    </ClCompile>
+    <None Include="SEPTA_ML_GDB-Debug.vgdbsettings">
+      <Filter>VisualGDB settings</Filter>
+    </None>
+    <None Include="SEPTA_ML_GDB-Release.vgdbsettings">
+      <Filter>VisualGDB settings</Filter>
+    </None>
+    <None Include="stm32.xml">
+      <Filter>VisualGDB settings</Filter>
+    </None>
+    <ClCompile Include="..\Src\udp_echoclient.c">
+      <Filter>Source files\Application\User</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rtc.c">
+      <Filter>Source files\Drivers\STM32F4xx_HAL_Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rtc_ex.c">
+      <Filter>Source files\Drivers\STM32F4xx_HAL_Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\debug_task.c">
+      <Filter>Source files\Application\User</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Utilities\Fonts\font12.c">
+      <Filter>Source files\Application\Utilities\Fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Utilities\Fonts\font12CN.c">
+      <Filter>Source files\Application\Utilities\Fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Utilities\Fonts\font16.c">
+      <Filter>Source files\Application\Utilities\Fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Utilities\Fonts\font20.c">
+      <Filter>Source files\Application\Utilities\Fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Utilities\Fonts\font24.c">
+      <Filter>Source files\Application\Utilities\Fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Utilities\Fonts\font24CN.c">
+      <Filter>Source files\Application\Utilities\Fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Utilities\Fonts\font8.c">
+      <Filter>Source files\Application\Utilities\Fonts</Filter>
+    </ClCompile>
+    <ClInclude Include="..\Utilities\Fonts\fonts.h">
+      <Filter>Source files\Application\Utilities\Fonts</Filter>
+    </ClInclude>
+    <ClCompile Include="..\Drivers\display\Config\DEV_Config.c">
+      <Filter>Source files\Drivers\display\Config</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\display\Example\ImageData.c">
+      <Filter>Source files\Drivers\display\Example</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\display\Example\OLED_0in91_test.c">
+      <Filter>Source files\Drivers\display\Example</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\display\Example\OLED_0in95_rgb_test.c">
+      <Filter>Source files\Drivers\display\Example</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\display\Example\OLED_0in96_test.c">
+      <Filter>Source files\Drivers\display\Example</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\display\Example\OLED_1in3_c_test.c">
+      <Filter>Source files\Drivers\display\Example</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\display\Example\OLED_1in3_test.c">
+      <Filter>Source files\Drivers\display\Example</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\display\Example\OLED_1in5_rgb_test.c">
+      <Filter>Source files\Drivers\display\Example</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\display\Example\OLED_1in5_test.c">
+      <Filter>Source files\Drivers\display\Example</Filter>
+    </ClCompile>
+    <ClInclude Include="..\Drivers\display\Example\test.h">
+      <Filter>Source files\Drivers\display\Example</Filter>
+    </ClInclude>
+    <ClCompile Include="..\Drivers\display\GUI\GUI_Paint.c">
+      <Filter>Source files\Drivers\display\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\display\OLED\OLED_0in91.c">
+      <Filter>Source files\Drivers\display\OLED</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\display\OLED\OLED_0in95_rgb.c">
+      <Filter>Source files\Drivers\display\OLED</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\display\OLED\OLED_0in96.c">
+      <Filter>Source files\Drivers\display\OLED</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\display\OLED\OLED_1in3.c">
+      <Filter>Source files\Drivers\display\OLED</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\display\OLED\OLED_1in3_c.c">
+      <Filter>Source files\Drivers\display\OLED</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\display\OLED\OLED_1in5.c">
+      <Filter>Source files\Drivers\display\OLED</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\display\OLED\OLED_1in5_rgb.c">
+      <Filter>Source files\Drivers\display\OLED</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\I2C.c">
+      <Filter>Source files\Application\User</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_adc.c">
+      <Filter>Source files\Drivers\STM32F4xx_HAL_Driver</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\AmpGpio.c">
+      <Filter>Source files\Application\User</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+</Project>

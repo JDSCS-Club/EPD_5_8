@@ -1,0 +1,368 @@
+<?xml version="1.0"?>
+<settings>
+    <Stack>
+        <FillEnabled>0</FillEnabled>
+        <OverflowWarningsEnabled>1</OverflowWarningsEnabled>
+        <WarningThreshold>90</WarningThreshold>
+        <SpWarningsEnabled>1</SpWarningsEnabled>
+        <WarnLogOnly>1</WarnLogOnly>
+        <UseTrigger>1</UseTrigger>
+        <TriggerName>main</TriggerName>
+        <LimitSize>0</LimitSize>
+        <ByteLimit>50</ByteLimit>
+    </Stack>
+    <StLinkDriver>
+        <CStepIntDis>_ 0</CStepIntDis>
+        <LeaveTargetRunning>_ 0</LeaveTargetRunning>
+    </StLinkDriver>
+    <DebugChecksum>
+        <Checksum>355105134</Checksum>
+    </DebugChecksum>
+    <Exceptions>
+        <StopOnUncaught>_ 0</StopOnUncaught>
+        <StopOnThrow>_ 0</StopOnThrow>
+    </Exceptions>
+    <CodeCoverage>
+        <Enabled>1</Enabled>
+        <ShowSource>0</ShowSource>
+        <HideCovered>0</HideCovered>
+    </CodeCoverage>
+    <Disassembly>
+        <MixedMode>1</MixedMode>
+        <InstrCount>1</InstrCount>
+    </Disassembly>
+    <CallStack>
+        <ShowArgs>0</ShowArgs>
+    </CallStack>
+    <JLinkDriver>
+        <jlinkResetStyle>12</jlinkResetStyle>
+        <jlinkResetStrategy>0</jlinkResetStrategy>
+        <TraceBufferSize>0x100</TraceBufferSize>
+        <TraceStallIfFIFOFull>0x0</TraceStallIfFIFOFull>
+        <TracePortSize>0x4</TracePortSize>
+        <LeaveTargetRunning>_ 0</LeaveTargetRunning>
+        <CStepIntDis>_ 0</CStepIntDis>
+    </JLinkDriver>
+    <InterruptStripe>
+        <Title0>WWDG</Title0>
+        <Setup0>3 1 3 0 1 0 0 2152264084534041800 1512970760543729272</Setup0>
+        <Title1>TIM5</Title1>
+        <Setup1>3 1 3 0 1 0 0 126373538979911820 8486614989552387580</Setup1>
+        <Title2>USART3</Title2>
+        <Setup2>3 1 3 0 1 0 0 2914140344592 104</Setup2>
+        <Title3>TIM4</Title3>
+        <Setup3>3 1 3 0 1 0 0 126373538979911820 8486614989552387580</Setup3>
+        <Title4>SysTick</Title4>
+        <Setup4>3 1 3 0 1 0 0 126373538979911820 8486614989552387580</Setup4>
+        <Title5>EXTI0</Title5>
+        <Setup5>3 1 3 0 1 0 0 2916061777856 104</Setup5>
+        <Title6>DMA2_Stream4</Title6>
+        <Setup6>3 1 3 0 1 0 0 1057041535 140726831215411</Setup6>
+        <Title7>DMA2_Stream0</Title7>
+        <Setup7>3 1 3 0 1 0 0 -369021288 140731638084403</Setup7>
+        <Title8>RTC_Alarm</Title8>
+        <Setup8>3 1 3 0 1 0 0 553719085 140731638084403</Setup8>
+        <Title9>USART1</Title9>
+        <Setup9>3 1 3 0 1 0 0 2423088813752031912 1621186069336222648</Setup9>
+        <Title10>I2C1_EV</Title10>
+        <Setup10>3 1 3 0 1 0 0 33631524 140731638084403</Setup10>
+        <Title11>I2C1_ER</Title11>
+        <Setup11>3 1 3 0 1 0 0 33631524 140731638084403</Setup11>
+        <Title12 />
+        <Setup12>3 1 3 0 1 0 0 3102676747412143656 2322058761341562336</Setup12>
+        <Title13>Reset</Title13>
+        <Setup13>3 1 3 0 1 0 0 126373538979911820 8486614989552387580</Setup13>
+        <Title14>I2C3_ER</Title14>
+        <Setup14>3 1 3 0 1 0 0 -369021288 140731638084403</Setup14>
+        <Title15>DMA1_Stream5</Title15>
+        <Setup15>3 1 3 0 1 0 0 -369021288 140731638084403</Setup15>
+        <Title16>DMA1_Stream3</Title16>
+        <Setup16>3 1 3 0 1 0 0 8486652875458935414 7379845003989521637</Setup16>
+        <Title17>DMA1_Stream1</Title17>
+        <Setup17>3 1 3 0 1 0 0 -3270509800803124712 8449294504942565028</Setup17>
+        <Title18>TIM8_CC</Title18>
+        <Setup18>3 1 3 0 1 0 0 1125759100637680278 7379843473500798976</Setup18>
+        <Title19>OTG_HS_WKUP</Title19>
+        <Setup19>3 1 3 0 1 0 0 1125759100637680278 7379843473500798976</Setup19>
+        <Sort>0</Sort>
+    </InterruptStripe>
+    <DataStripe>
+        <Title0>Paint_DrawString_EN</Title0>
+        <Setup0>0 2 0 0 1 0 0 0 4294967295</Setup0>
+        <Title1>d_EthernetRxCnt</Title1>
+        <Setup1>4 2 2 0 1 1 0 0 1000</Setup1>
+        <Title2>mLed_Timer_Cnt</Title2>
+        <Setup2>0 2 0 0 1 0 0 -2147483648 2147483647</Setup2>
+        <Title3>nLedPrintf_Flag</Title3>
+        <Setup3>0 2 2 0 1 0 0 0 5</Setup3>
+    </DataStripe>
+    <EventStripe>
+        <Title0>ITM4</Title0>
+        <Setup0>1 1 3 1 1 0 0 0 0</Setup0>
+        <Title1>ITM3</Title1>
+        <Setup1>1 1 3 1 1 0 0 0 0</Setup1>
+        <Title2>ITM2</Title2>
+        <Setup2>1 1 3 1 1 0 0 0 0</Setup2>
+        <Title3>ITM1</Title3>
+        <Setup3>0 1 0 1 1 0 0 0 0</Setup3>
+    </EventStripe>
+    <SWOTraceHWSettings>
+        <OverrideDefaultClocks>1</OverrideDefaultClocks>
+        <CpuClock>168000000</CpuClock>
+        <ClockAutoDetect>1</ClockAutoDetect>
+        <ClockWanted>64000</ClockWanted>
+        <JtagSpeed>64000</JtagSpeed>
+        <Prescaler>2625</Prescaler>
+        <TimeStampPrescIndex>3</TimeStampPrescIndex>
+        <TimeStampPrescData>3</TimeStampPrescData>
+        <PcSampCYCTAP>1</PcSampCYCTAP>
+        <PcSampPOSTCNT>1</PcSampPOSTCNT>
+        <PcSampIndex>14</PcSampIndex>
+        <DataLogMode>0</DataLogMode>
+        <ITMportsEnable>63</ITMportsEnable>
+        <ITMportsTermIO>0</ITMportsTermIO>
+        <ITMportsLogFile>0</ITMportsLogFile>
+        <ITMlogFile>$PROJ_DIR$\ITM.log</ITMlogFile>
+    </SWOTraceHWSettings>
+    <PowerStripe>
+        <Title0>I0</Title0>
+        <Setup0>2 2 0 0 1 1 0 0 1000</Setup0>
+    </PowerStripe>
+    <Jet>
+        <JetConnSerialNo>1158</JetConnSerialNo>
+        <JetConnFoundProbes />
+        <PrevWtdReset>Connect during reset</PrevWtdReset>
+        <OnlineReset>Software</OnlineReset>
+        <DisableInterrupts>0</DisableInterrupts>
+        <LeaveRunning>1</LeaveRunning>
+        <MultiCoreRunAll>0</MultiCoreRunAll>
+    </Jet>
+    <PlDriver>
+        <FirstRun>0</FirstRun>
+        <MemConfigValue />
+    </PlDriver>
+    <SWOManager>
+        <SamplingDivider>8192</SamplingDivider>
+        <OverrideClock>1</OverrideClock>
+        <CpuClock>168000000</CpuClock>
+        <SwoClock>0</SwoClock>
+        <DataLogMode>0</DataLogMode>
+        <ItmPortsEnabled>31</ItmPortsEnabled>
+        <ItmTermIOPorts>1</ItmTermIOPorts>
+        <ItmLogPorts>0</ItmLogPorts>
+        <ItmLogFile>$PROJ_DIR$\ITM.log</ItmLogFile>
+        <PowerForcePC>1</PowerForcePC>
+        <PowerConnectPC>1</PowerConnectPC>
+    </SWOManager>
+    <ArmDriver>
+        <EnableCache>1</EnableCache>
+        <EnforceMemoryConfiguration>1</EnforceMemoryConfiguration>
+    </ArmDriver>
+    <PlDdfRanges>
+        <ConfigRanges0>Memory ROM 536805376 32768 1</ConfigRanges0>
+        <ConfigRanges1>Memory OptionBytes 536854528 64 2</ConfigRanges1>
+        <ConfigRanges2>Memory Periph0 1073741824 524288 2</ConfigRanges2>
+        <ConfigRanges3>Memory Periph_BitBand 1107296256 16777216 2</ConfigRanges3>
+        <ConfigRanges4>Memory Periph1 1342177280 397312 2</ConfigRanges4>
+        <ConfigRanges5>Memory SystemSFR 3758096384 1048576 2</ConfigRanges5>
+        <ConfigRanges6>Memory ExtDev 1610612736 1073741824 2</ConfigRanges6>
+        <ConfigRanges7>Memory Periph2 2684354560 4096 2</ConfigRanges7>
+        <ConfigRanges8>Memory RemapMem 0 1048576 1</ConfigRanges8>
+        <ConfigRanges9>Memory Flash 134217728 1048576 1</ConfigRanges9>
+        <ConfigRanges10>Memory RAM0 268435456 65536 0</ConfigRanges10>
+        <ConfigRanges11>Memory RAM1 536870912 131072 0</ConfigRanges11>
+        <ConfigRanges12>Memory RAM_BitBand 570425344 4194304 0</ConfigRanges12>
+    </PlDdfRanges>
+    <PlCacheRanges>
+        <CustomRanges0>0 0 1048576 1 0</CustomRanges0>
+        <CustomRangesText0 />
+        <CustomRanges1>0 134217728 1048576 1 0</CustomRanges1>
+        <CustomRangesText1 />
+        <CustomRanges2>0 268435456 65536 0 0</CustomRanges2>
+        <CustomRangesText2 />
+        <CustomRanges3>0 536805376 32768 1 0</CustomRanges3>
+        <CustomRangesText3 />
+        <CustomRanges4>0 536854528 64 2 0</CustomRanges4>
+        <CustomRangesText4 />
+        <CustomRanges5>0 536870912 131072 0 0</CustomRanges5>
+        <CustomRangesText5 />
+        <CustomRanges6>0 570425344 4194304 0 0</CustomRanges6>
+        <CustomRangesText6 />
+        <CustomRanges7>0 1073741824 524288 2 0</CustomRanges7>
+        <CustomRangesText7 />
+        <CustomRanges8>0 1107296256 16777216 2 0</CustomRanges8>
+        <CustomRangesText8 />
+        <CustomRanges9>0 1342177280 397312 2 0</CustomRanges9>
+        <CustomRangesText9 />
+        <CustomRanges10>0 1610612736 1073741824 2 0</CustomRanges10>
+        <CustomRangesText10 />
+        <CustomRanges11>0 2684354560 4096 2 0</CustomRanges11>
+        <CustomRangesText11 />
+        <CustomRanges12>0 3758096384 1048576 2 0</CustomRanges12>
+        <CustomRangesText12 />
+    </PlCacheRanges>
+    <Trace1>
+        <Enabled>1</Enabled>
+        <ShowSource>0</ShowSource>
+    </Trace1>
+    <ETMTraceWindow>
+        <PortWidth>4</PortWidth>
+        <PortMode>0</PortMode>
+        <CaptureDataValues>1</CaptureDataValues>
+        <CaptureDataAddresses>1</CaptureDataAddresses>
+        <CaptureDataRange>1</CaptureDataRange>
+        <DataFirst>2048</DataFirst>
+        <DataLast>65535</DataLast>
+        <StopWhen>1</StopWhen>
+        <StallCPU>1</StallCPU>
+        <NoPCCapture>1</NoPCCapture>
+    </ETMTraceWindow>
+    <struct_types>
+        <Fmt0>AnsSetFlag-tAnsCnt	3	0</Fmt0>
+        <Fmt1>ETH_DMADescTypeDef-Buffer2NextDescAddr	4	0</Fmt1>
+        <Fmt2>ETH_DMADescTypeDef-ControlBufferSize	4	0</Fmt2>
+        <Fmt3>ETH_DMADescTypeDef-Status	4	0</Fmt3>
+        <Fmt4>ETH_HandleTypeDef-RxDesc	4	0</Fmt4>
+        <Fmt5>ip4_addr_p_t-addr	4	0</Fmt5>
+        <Fmt6>ip4_addr_t-addr	4	0</Fmt6>
+        <Fmt7>ip_addr_t-addr	5	0</Fmt7>
+        <Fmt8>mLED_PROCESS_Flag-sMy_IP_Info	3	0</Fmt8>
+        <Fmt9>struct netif-flags	4	0</Fmt9>
+        <Fmt10>struct sys_timeo-time	2	0</Fmt10>
+        <Fmt11>struct udp_hdr-dest	3	0</Fmt11>
+    </struct_types>
+    <array_types>
+        <Fmt0>uint8_t[100]	5	0</Fmt0>
+        <Fmt1>uint8_t[2]	4	0</Fmt1>
+    </array_types>
+    <watch_formats>
+        <Fmt0>{W}1:ipaddr	4	1</Fmt0>
+        <Fmt1>{W}1:sCRC_Check1	4	0</Fmt1>
+        <Fmt2>{W}1:sCRC_Check2	4	0</Fmt2>
+        <Fmt3>{W}1:sCnt	3	0</Fmt3>
+        <Fmt4>{W}1:sCompareCnt	3	0</Fmt4>
+        <Fmt5>{W}1:sRxBitCompare	4	0</Fmt5>
+        <Fmt6>{W}42:Color256_Test_Cnt	3	0</Fmt6>
+        <Fmt7>{W}42:Color256_Test_Cnt2	3	0</Fmt7>
+        <Fmt8>{W}42:FlashAddressPosion	4	0</Fmt8>
+        <Fmt9>{W}42:SPI_FLASH_ID	4	0</Fmt9>
+        <Fmt10>{W}42:Tcp_flag	4	0</Fmt10>
+        <Fmt11>{W}42:Temp	4	0</Fmt11>
+        <Fmt12>{W}42:d_BuffCheck	3	0</Fmt12>
+        <Fmt13>{W}42:d_EthernetBuff[53]	4	0</Fmt13>
+        <Fmt14>{W}42:d_EthernetRxCnt	4	0</Fmt14>
+        <Fmt15>{W}42:d_RingPop_Cnt	3	0</Fmt15>
+        <Fmt16>{W}42:d_RingPush_Cnt	3	0</Fmt16>
+        <Fmt17>{W}42:d_hexSwith_Read	4	0</Fmt17>
+        <Fmt18>{W}42:d_hexSwith_Read2	4	0</Fmt18>
+        <Fmt19>{W}42:daa	3	0</Fmt19>
+        <Fmt20>{W}42:gnetif.ip_addr.addr	4	0</Fmt20>
+        <Fmt21>{W}42:mDI_CheckFlag	3	0</Fmt21>
+        <Fmt22>{W}42:mLCD_InputData	1	0</Fmt22>
+        <Fmt23>{W}42:mLed_Process_Flag.sAmp_Falut_val	1	0</Fmt23>
+        <Fmt24>{W}42:mLed_Process_Flag.sDHCP_IP_Val	3	0</Fmt24>
+        <Fmt25>{W}42:mLed_Process_Flag.sScreen_Page_Cnt	3	0</Fmt25>
+        <Fmt26>{W}42:next_timeout	2	0</Fmt26>
+        <Fmt27>{W}42:pmEthernet_Rx_struct	4	0</Fmt27>
+        <Fmt28>{W}42:s_SpkCheck	1	0</Fmt28>
+    </watch_formats>
+    <Trace2>
+        <Enabled>1</Enabled>
+        <ShowSource>1</ShowSource>
+    </Trace2>
+    <SWOTraceWindow>
+        <PcSampling>0</PcSampling>
+        <InterruptLogs>0</InterruptLogs>
+        <ForcedTimeStamps>0</ForcedTimeStamps>
+        <EventCPI>1</EventCPI>
+        <EventEXC>1</EventEXC>
+        <EventFOLD>1</EventFOLD>
+        <EventLSU>1</EventLSU>
+        <EventSLEEP>1</EventSLEEP>
+    </SWOTraceWindow>
+    <PowerLog>
+        <GraphEnabled>1</GraphEnabled>
+        <LogEnabled>1</LogEnabled>
+        <ShowTimeLog>1</ShowTimeLog>
+        <Title_0>I0</Title_0>
+        <Symbol_0>0 4 0</Symbol_0>
+        <LiveEnabled>0</LiveEnabled>
+        <LiveFile>PowerLogLive.log</LiveFile>
+    </PowerLog>
+    <DataLog>
+        <GraphEnabled>1</GraphEnabled>
+        <LogEnabled>1</LogEnabled>
+        <ShowTimeLog>1</ShowTimeLog>
+        <Title_0>Paint_DrawString_EN</Title_0>
+        <Symbol_0>0 4 1</Symbol_0>
+        <Title_1>d_EthernetRxCnt</Title_1>
+        <Symbol_1>0 1 0</Symbol_1>
+        <Title_2>mLed_Timer_Cnt</Title_2>
+        <Symbol_2>1 4 1</Symbol_2>
+        <Title_3>nLedPrintf_Flag</Title_3>
+        <Symbol_3>0 4 1</Symbol_3>
+        <SumEnabled>0</SumEnabled>
+        <ShowTimeSum>1</ShowTimeSum>
+    </DataLog>
+    <InterruptLog>
+        <GraphEnabled>1</GraphEnabled>
+        <LogEnabled>1</LogEnabled>
+        <ShowTimeLog>1</ShowTimeLog>
+        <SumEnabled>1</SumEnabled>
+        <ShowTimeSum>1</ShowTimeSum>
+        <SumSortOrder>0</SumSortOrder>
+    </InterruptLog>
+    <EventLog>
+        <GraphEnabled>1</GraphEnabled>
+        <LogEnabled>1</LogEnabled>
+        <ShowTimeLog>1</ShowTimeLog>
+        <Title_0>Ch3</Title_0>
+        <Symbol_0>0 0 1</Symbol_0>
+        <Title_1>Ch2</Title_1>
+        <Symbol_1>0 0 1</Symbol_1>
+        <Title_2>Ch1</Title_2>
+        <Symbol_2>0 0 1</Symbol_2>
+        <Title_3>Ch0</Title_3>
+        <Symbol_3>0 0 1</Symbol_3>
+        <SumEnabled>1</SumEnabled>
+        <ShowTimeSum>1</ShowTimeSum>
+        <SumSortOrder>0</SumSortOrder>
+    </EventLog>
+    <TermIOLog>
+        <LoggingEnabled>_ 0</LoggingEnabled>
+        <LogFile>_ "$PROJ_DIR$\TermIO.log"</LogFile>
+    </TermIOLog>
+    <DriverProfiling>
+        <Enabled>1</Enabled>
+        <Mode>3</Mode>
+        <Graph>0</Graph>
+        <Symbiont>1</Symbiont>
+        <Exclusions />
+    </DriverProfiling>
+    <CallStackLog>
+        <Enabled>1</Enabled>
+    </CallStackLog>
+    <CallStackStripe>
+        <ShowTiming>1</ShowTiming>
+    </CallStackStripe>
+    <PowerProbe>
+        <Frequency>10000</Frequency>
+        <Probe0>I0</Probe0>
+        <ProbeSetup0>2 1 1 2 0 0</ProbeSetup0>
+    </PowerProbe>
+    <LogFile>
+        <LoggingEnabled>_ 0</LoggingEnabled>
+        <LogFile>_ ""</LogFile>
+        <Category2>_ 0</Category2>
+    </LogFile>
+    <DisassembleMode>
+        <mode>0</mode>
+    </DisassembleMode>
+    <Breakpoints2>
+        <Count>0</Count>
+    </Breakpoints2>
+    <Aliases>
+        <Count>0</Count>
+        <SuppressDialog>0</SuppressDialog>
+    </Aliases>
+</settings>

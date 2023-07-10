@@ -1,0 +1,30 @@
+# !SESSION 2018-07-03 23:48:32.621
+# version: 1.1
+# verbose: true
+# The following option strings are specified for this debug session:
+# 	null
+| main | 2018-07-03 23:48:32.621 | com.iar.ide.common | /debug | com.iar.ide.common.logging.Logger | traceFile | 194 | Using CMSIS pack repositories: http://links.iar.com/cmsis/pack |
+# !SESSION 2018-07-04 09:27:48.072
+# version: 1.1
+# verbose: true
+# The following option strings are specified for this debug session:
+# 	null
+| main | 2018-07-04 09:27:48.072 | com.iar.ide.common | /debug | com.iar.ide.common.logging.Logger | traceFile | 194 | Using CMSIS pack repositories: http://links.iar.com/cmsis/pack |
+# !SESSION 2018-07-04 09:29:15.831
+# version: 1.1
+# verbose: true
+# The following option strings are specified for this debug session:
+# 	null
+| Worker-3 | 2018-07-04 09:29:15.831 | com.iar.ide.common | /debug | com.iar.ide.common.logging.Logger | traceFile | 194 | Using CMSIS pack repositories: http://links.iar.com/cmsis/pack |
+# !SESSION 2018-07-06 09:26:12.172
+# version: 1.1
+# verbose: true
+# The following option strings are specified for this debug session:
+# 	null
+| main | 2018-07-06 09:26:12.172 | com.iar.ide.common | /debug | com.iar.ide.common.logging.Logger | traceFile | 194 | Using CMSIS pack repositories: http://links.iar.com/cmsis/pack |
+# !SESSION 2018-08-27 19:02:43.511
+# version: 1.1
+# verbose: true
+# The following option strings are specified for this debug session:
+# 	null
+| Worker-3 | 2018-08-27 19:02:43.511 | com.iar.ide.common | /debug | com.iar.ide.common.logging.Logger | traceFile | 194 | Using CMSIS pack repositories: http://links.iar.com/cmsis/pack |
