@@ -17,7 +17,6 @@
 #include "stm32f4xx_hal.h"
 #include "spi_flash.h"
 #include "USRAT.h"
-#include "main.h"
 
 /* Private typedef -----------------------------------------------------------*/
 #define SPI_FLASH_PageSize    256
@@ -78,12 +77,11 @@ void SPI_FLASH_Main(void)
 {
     uint32_t sSpi_Mermory_Address = 0;
 	
-	if((mSPI_Time_Cnt>=5000) && (mSPI_Time_Cnt<=5500))
+	if((mSPI_Time_Cnt==5000))
 	{
 		
         mSPI_Time_Cnt++;
         
-        mSPI_Time_Cnt = 5600;
         
         mSPI_Write_Cnt = mSPI_Write_Cnt %70;
         
@@ -92,7 +90,7 @@ void SPI_FLASH_Main(void)
 		SPI_FLASH_ID = SPI_FLASH_ReadID(); /* Get SPI Flash ID */
 		//SPI_FLASH_BufferRead(Rx_Buffer, sSpi_Mermory_Address, SPI_RX_BufferSize()); /* Read data from SPI FLASH memory */
 		
-		if(SST26VF032B_FLASH_ID == (SPI_FLASH_ID&0xFFFFFF))
+		if(SST26VF032B_FLASH_ID == (SPI_FLASH_ID&0xFFFF))
 		{
      
           
@@ -137,31 +135,23 @@ void SPI_FLASH_Main(void)
 void HAL_SPI_MspInit(SPI_HandleTypeDef* hspi)
 {
 	GPIO_InitTypeDef GPIO_InitStruct;
-	if (hspi->Instance == SPI1)
+	if (hspi->Instance == SPI2)
 	{
 
 		  /* Peripheral clock enable */
-		__HAL_RCC_SPI1_CLK_ENABLE();
+		__HAL_RCC_SPI2_CLK_ENABLE();
   
 		/**SPI1 GPIO Configuration    
 		PA5     ------> SPI1_SCK
 		PA7     ------> SPI1_MOSI
 		PB4     ------> SPI1_MISO 
 		*/
-		GPIO_InitStruct.Pin = GPIO_PIN_5; 
+		GPIO_InitStruct.Pin = GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3;
 		GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
 		GPIO_InitStruct.Pull = GPIO_NOPULL;
 		GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
 		GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
-		HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-		GPIO_InitStruct.Pin = GPIO_PIN_5 | GPIO_PIN_6;		
-		GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-		GPIO_InitStruct.Pull = GPIO_NOPULL;
-		GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-		GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
-		HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
+		HAL_GPIO_Init(GPIOI, &GPIO_InitStruct);
 
 	}
 	
@@ -174,20 +164,18 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* hspi)
 void HAL_SPI_MspDeInit(SPI_HandleTypeDef* hspi)
 {
 
-	if (hspi->Instance == SPI1)
+	if (hspi->Instance == SPI2)
 	{
 
 		  /* Peripheral clock disable */
-		__HAL_RCC_SPI1_CLK_ENABLE();
+		__HAL_RCC_SPI2_CLK_DISABLE();
   
 		/**SPI1 GPIO Configuration    
 		PA5     ------> SPI1_SCK
 		PA7     ------> SPI1_MOSI
 		PB4     ------> SPI1_MISO 
 		*/
-		HAL_GPIO_DeInit(GPIOB, GPIO_PIN_5);
-		HAL_GPIO_DeInit(GPIOA, GPIO_PIN_5 | GPIO_PIN_6);
-
+		HAL_GPIO_DeInit(GPIOI, GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3);
 
 
 	}
@@ -204,29 +192,23 @@ void SPI_FLASH_Init(void)
 
 	GPIO_InitTypeDef   GPIO_InitStructure;
 
-	__GPIOA_CLK_ENABLE();
-	__GPIOB_CLK_ENABLE();
+	__GPIOI_CLK_ENABLE();
 
-
-	GPIO_InitStructure.Pin = GPIO_PIN_5 ;
+	GPIO_InitStructure.Pin = GPIO_PIN_0 |  GPIO_PIN_5 | GPIO_PIN_4;
 	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
 	GPIO_InitStructure.Pull = GPIO_PULLUP;
 	GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_MEDIUM;
-	HAL_GPIO_Init(GPIOB, &GPIO_InitStructure); 
-
-	GPIO_InitStructure.Pin = GPIO_PIN_5 |  GPIO_PIN_6 ;
-	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
-	GPIO_InitStructure.Pull = GPIO_PULLUP;
-	GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_MEDIUM;
-	HAL_GPIO_Init(GPIOA, &GPIO_InitStructure); 
+	HAL_GPIO_Init(GPIOI, &GPIO_InitStructure); 
 
 
-	HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,GPIO_PIN_SET);
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5|GPIO_PIN_6,GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOI, GPIO_PIN_0,GPIO_PIN_SET);
+
+	HAL_GPIO_WritePin(GPIOI,GPIO_PIN_5,GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOI,GPIO_PIN_4,GPIO_PIN_SET);
 
 
 
-	SpiMemoryHandle.Instance = SPI1;
+	SpiMemoryHandle.Instance = SPI2;
 	SpiMemoryHandle.Init.Mode = SPI_MODE_MASTER;
 	SpiMemoryHandle.Init.Direction = SPI_DIRECTION_2LINES;
 	SpiMemoryHandle.Init.DataSize = SPI_DATASIZE_8BIT;
@@ -263,7 +245,7 @@ void SPI_FLASH_SectorErase(uint32_t SectorAddr)
 
 	SPI_FLASH_WriteEnable();
 
-	SPI_FLASH_CS0_LOW();
+	SPI_FLASH_CS_LOW();
 
 	tx_spi_buf[0] = SE;
 	HAL_SPI_TransmitReceive(&SpiMemoryHandle,tx_spi_buf,rx_spi_buf,1,1);
@@ -276,7 +258,7 @@ void SPI_FLASH_SectorErase(uint32_t SectorAddr)
 	HAL_SPI_TransmitReceive(&SpiMemoryHandle,tx_spi_buf,rx_spi_buf,1,1);
 
 
-	SPI_FLASH_CS0_HIGH();
+	SPI_FLASH_CS_HIGH();
 
 	SPI_FLASH_WaitForWriteEnd();
 }
@@ -295,13 +277,13 @@ void SPI_Chip_Erase(void)
 	/* Send write enable instruction */
 	SPI_FLASH_WriteEnable();
 
-	SPI_FLASH_CS0_LOW();
+	SPI_FLASH_CS_LOW();
 
 	
 	tx_spi_buf[0] = CE;
 	HAL_SPI_TransmitReceive(&SpiMemoryHandle,tx_spi_buf,rx_spi_buf,1,1);
 
-	SPI_FLASH_CS0_HIGH();
+	SPI_FLASH_CS_HIGH();
     
 	//SPI_FLASH_WriteDisable();
 
@@ -321,13 +303,13 @@ void SPI_FLASH_BulkErase(void)
 	/* Send write enable instruction */
 	SPI_FLASH_WriteEnable();
 
-	SPI_FLASH_CS0_LOW();
+	SPI_FLASH_CS_LOW();
 
 	
 	tx_spi_buf[0] = BE;
 	HAL_SPI_TransmitReceive(&SpiMemoryHandle, tx_spi_buf, rx_spi_buf, 1, 1);
 
-	SPI_FLASH_CS0_HIGH();
+	SPI_FLASH_CS_HIGH();
     
 	//SPI_FLASH_WriteDisable();
 
@@ -348,7 +330,7 @@ void SPI_FLASH_PageWrite(uint8_t* pBuffer, uint32_t WriteAddr, uint16_t NumByteT
 
     SPI_FLASH_WriteEnable();
 
-    SPI_FLASH_CS0_LOW();
+    SPI_FLASH_CS_LOW();
 
 
     tx_spi_buf[0] = WRITE;
@@ -374,7 +356,7 @@ void SPI_FLASH_PageWrite(uint8_t* pBuffer, uint32_t WriteAddr, uint16_t NumByteT
     }
 
 
-    SPI_FLASH_CS0_HIGH();
+    SPI_FLASH_CS_HIGH();
 
     SPI_FLASH_WaitForWriteEnd();
 
@@ -469,7 +451,7 @@ void SPI_FLASH_BufferRead(uint8_t* pBuffer, uint32_t ReadAddr, uint16_t NumByteT
 
 	SPI_FLASH_WriteEnable();
 
-	SPI_FLASH_CS0_LOW();
+	SPI_FLASH_CS_LOW();
 
 	tx_spi_buf[0] = HS_READ; // HighSpeed_Read_Cont COMM
 	HAL_SPI_TransmitReceive(&SpiMemoryHandle,tx_spi_buf,rx_spi_buf,1,1);
@@ -497,7 +479,7 @@ void SPI_FLASH_BufferRead(uint8_t* pBuffer, uint32_t ReadAddr, uint16_t NumByteT
 		pBuffer++;
 	}
 
-	SPI_FLASH_CS0_HIGH();
+	SPI_FLASH_CS_HIGH();
 	  
 }
 
@@ -514,7 +496,7 @@ uint32_t SPI_FLASH_ReadID(void)
 	uint8_t rx_spi_buf[100];
 
 
-	SPI_FLASH_CS0_LOW();
+	SPI_FLASH_CS_LOW();
 
 	tx_spi_buf[0] = RDID;
 	HAL_SPI_TransmitReceive(&SpiMemoryHandle,tx_spi_buf,rx_spi_buf,1,1);
@@ -534,7 +516,7 @@ uint32_t SPI_FLASH_ReadID(void)
 	Temp2 = rx_spi_buf[0];
 
 
-	SPI_FLASH_CS0_HIGH();
+	SPI_FLASH_CS_HIGH();
 
 
 	Temp = (Temp0 << 16) | (Temp1 << 8) | Temp2;
@@ -556,7 +538,7 @@ void SPI_FLASH_StartReadSequence(uint32_t ReadAddr)
 
 	SPI_FLASH_WriteEnable();
 
-	SPI_FLASH_CS0_LOW();
+	SPI_FLASH_CS_LOW();
 
 	tx_spi_buf[0] = READ;
 	HAL_SPI_TransmitReceive(&SpiMemoryHandle, tx_spi_buf, rx_spi_buf, 1, 1);
@@ -569,7 +551,7 @@ void SPI_FLASH_StartReadSequence(uint32_t ReadAddr)
 	HAL_SPI_TransmitReceive(&SpiMemoryHandle, tx_spi_buf, rx_spi_buf, 1, 1);
 
 
-	SPI_FLASH_CS0_HIGH();
+	SPI_FLASH_CS_HIGH();
 
 	SPI_FLASH_WaitForWriteEnd();
 	
@@ -641,12 +623,12 @@ void SPI_FLASH_WriteEnable(void)
 	uint8_t tx_spi_buf[100];
 	uint8_t rx_spi_buf[100];
 
-	SPI_FLASH_CS0_LOW();
+	SPI_FLASH_CS_LOW();
 
 	tx_spi_buf[0] = WREN; // 0x06
 	HAL_SPI_TransmitReceive(&SpiMemoryHandle,tx_spi_buf,rx_spi_buf,1,1);
 
-	SPI_FLASH_CS0_HIGH();
+	SPI_FLASH_CS_HIGH();
 }
 
 /*****************************************************************************
@@ -660,12 +642,12 @@ void SPI_FLASH_WriteDisable(void)
 	uint8_t tx_spi_buf[100];
 	uint8_t rx_spi_buf[100];
 	/* Select the FLASH: Chip Select low */
-	SPI_FLASH_CS0_LOW();
+	SPI_FLASH_CS_LOW();
 
 	tx_spi_buf[0] = WRDI; // 
 	HAL_SPI_TransmitReceive(&SpiMemoryHandle,tx_spi_buf,rx_spi_buf,1,1);
 
-	SPI_FLASH_CS0_HIGH();
+	SPI_FLASH_CS_HIGH();
 	
 	
 }
@@ -683,7 +665,7 @@ void SPI_FLASH_WaitForWriteEnd(void)
     uint8_t rx_spi_buf[100];
 
 
-    SPI_FLASH_CS0_LOW();
+    SPI_FLASH_CS_LOW();
 
     tx_spi_buf[0] = RDSR;
     HAL_SPI_TransmitReceive(&SpiMemoryHandle,tx_spi_buf,rx_spi_buf,1,1);
@@ -699,7 +681,7 @@ void SPI_FLASH_WaitForWriteEnd(void)
     }
     while ((FLASH_Status & WIP_Flag) == 0x80); /* Write in progress */
 
-    SPI_FLASH_CS0_HIGH();
+    SPI_FLASH_CS_HIGH();
 	
 }
 
@@ -715,12 +697,12 @@ void SPI_FLASH_GlobalBlockProtec(void)
     uint8_t tx_spi_buf[100];
     uint8_t rx_spi_buf[100];
 
-    SPI_FLASH_CS0_LOW();
+    SPI_FLASH_CS_LOW();
 
     tx_spi_buf[0] = ULBPR;
     HAL_SPI_TransmitReceive(&SpiMemoryHandle,tx_spi_buf,rx_spi_buf,1,1);
 
-    SPI_FLASH_CS0_HIGH();
+    SPI_FLASH_CS_HIGH();
 
 }
 
@@ -730,13 +712,13 @@ void SPI_FLASH_GlobalBlockProtec(void)
 * @param -
 * @retval-
 ******************************************************************************/
-//void Error_Handler(void)
-//{
-//    /* Turn LED5 on */
-//    while(1)
-//    {
-//    }
-//}
+void Error_Handler(void)
+{
+    /* Turn LED5 on */
+    while(1)
+    {
+    }
+}
 
 /*****************************************************************************
 * @brief -

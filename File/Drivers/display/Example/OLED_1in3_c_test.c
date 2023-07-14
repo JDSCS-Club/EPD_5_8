@@ -112,13 +112,40 @@ void OLED_Print(void)
         else
         {
             Paint_DrawString_EN(10, 17, &mLCDPrintBuf_2[0][0], &Font8, WHITE, WHITE);  // ANSM 상태
+            
+            
+            if(mLed_Process_Flag.tAmp_Vol_UpFlag == true)
+            {
+                    
+                    if(mLed_Process_Flag.sVolTestFlg == 1) // 양산
+                    {
+                        sprintf(&mLCDPrintBuf_2[1][0], "AMP_VOL_UP");
+                    }
+                    else
+                    {
+                        sprintf(&mLCDPrintBuf_2[1][0], "AMP_VOL_UP_Train");
+                    }
+            }
+            else if(mLed_Process_Flag.tAmp_Vol_UpFlag == false )
+            {
+                    
+                    if(mLed_Process_Flag.sVolTestFlg == 1) // 양산
+                    {
+                        sprintf(&mLCDPrintBuf_2[1][0], "AMP_VOL_DEFAULT");
+                    }
+                    else
+                    {
+                        sprintf(&mLCDPrintBuf_2[1][0], "AMP_VOL_DEFAULT_Train");
+                    }
+            }
+                    
+                  
             Paint_DrawString_EN(10, 27, &mLCDPrintBuf_2[1][0], &Font8, WHITE, WHITE);  // AMP VOL 상태.
             
+     
         }
         
 
-        
-        
         Paint_DrawString_EN(10, 37, &mLCDPrintBuf[2][0], &Font8, WHITE, WHITE); //AMP 고장 상태.
         //Paint_DrawNum(10, 37, 123.456789, &Font12, 4, WHITE, WHITE);
         

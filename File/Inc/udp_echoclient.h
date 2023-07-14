@@ -32,7 +32,7 @@ extern void udp_echoclient_connect(void);
 extern void udp_receive_callback(void *arg, struct udp_pcb *upcb, struct pbuf *p, const ip_addr_t *addr, u16_t port);
 
 
-extern void udp_SysLog_Connect(char * format, ... );
+extern void udp_SysLog_Connect(int Kind_Code, char * format, ... );
 extern void udp_SysLog(char * format, ... );
 
 

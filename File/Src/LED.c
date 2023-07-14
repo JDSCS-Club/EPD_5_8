@@ -24,7 +24,7 @@
 
 
 
-#define COLDEPTH 	    3 
+#define COLDEPTH 		3
 #define BRIGHTNESS		100
 #define ROWS 			16
 #define COLUMNS 		64
@@ -58,60 +58,38 @@ void LED_GPIO_Init(void)
     
 	GPIO_InitTypeDef   GPIO_InitStructure;
 
-	 /*LED OE */
-	__GPIOD_CLK_ENABLE();
+	 /*LDM0-R0 */
+	__GPIOA_CLK_ENABLE();
 	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
 	GPIO_InitStructure.Pull = GPIO_PULLUP;
-	GPIO_InitStructure.Pin =  LED_OE_R |LED_OE_G |LED_OE_B;
+	GPIO_InitStructure.Pin = GPIO_PIN_6;
 	GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-	HAL_GPIO_Init(LED_OE_Port, &GPIO_InitStructure); 
+	HAL_GPIO_Init(GPIOA, &GPIO_InitStructure); 
 	
 	
-	/* CLK */
+	/*LDM0-B0 , LDM0-G0*/
 	__GPIOB_CLK_ENABLE();
 	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
 	GPIO_InitStructure.Pull = GPIO_PULLUP;
-	GPIO_InitStructure.Pin = LED_CLK;
+	GPIO_InitStructure.Pin = GPIO_PIN_0 | GPIO_PIN_5;
 	GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-	HAL_GPIO_Init(LED_CLK_Port, &GPIO_InitStructure);
-
-
-
-      /* LAT */
-	__GPIOB_CLK_ENABLE();
-	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
-	GPIO_InitStructure.Pull = GPIO_PULLUP;
-	GPIO_InitStructure.Pin =  LED_LAT; 
-	GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-	HAL_GPIO_Init(LED_LAT_Port, &GPIO_InitStructure);
+	HAL_GPIO_Init(GPIOB, &GPIO_InitStructure);
 	
-    /* DIS  */
-	__GPIOB_CLK_ENABLE();
+	__GPIOC_CLK_ENABLE();
 	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
 	GPIO_InitStructure.Pull = GPIO_PULLUP;
-	GPIO_InitStructure.Pin = LED_DIS; 
+	GPIO_InitStructure.Pin =  GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8;
 	GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-	HAL_GPIO_Init(LED_DIS_Port, &GPIO_InitStructure);
+	HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
+	
+	
+	__GPIOF_CLK_ENABLE();
+	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
+	GPIO_InitStructure.Pull = GPIO_PULLUP;
+	GPIO_InitStructure.Pin = GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9;
+	GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+	HAL_GPIO_Init(GPIOF, &GPIO_InitStructure);
     
-
-    /* ADD */
-    __GPIOC_CLK_ENABLE();
-	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
-	GPIO_InitStructure.Pull = GPIO_PULLUP;
-	GPIO_InitStructure.Pin = LED_ADD_0 | LED_ADD_1 | LED_ADD_2 | LED_ADD_3; 
-	GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-	HAL_GPIO_Init(LED_ADD_Port, &GPIO_InitStructure);
-
-
-
-    /* DATA */
-    __GPIOC_CLK_ENABLE();
-	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
-	GPIO_InitStructure.Pull = GPIO_PULLUP;
-	GPIO_InitStructure.Pin = LED_DATA_R_1 | LED_DATA_G_1 | LED_DATA_B_1 | LED_DATA_R_2 | LED_DATA_G_2 | LED_DATA_B_2; 
-	GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-	HAL_GPIO_Init(LED_DATA_Port, &GPIO_InitStructure);
-  
 
 
 	memset(pVdDot, 0, 6144);
@@ -172,8 +150,6 @@ uint8_t dTest_Print_Flag = 1;
 uint8_t mSEPTA_Mark_Flag = 0;
 
 
- uint8_t sColorCode = 0;
-
 void LED_SCREEN_PRINT(void)
 {
 	uint8_t rowcounter = 0;
@@ -187,12 +163,12 @@ void LED_SCREEN_PRINT(void)
     ***********************/
 	uint8_t brightvalue = 100;  //if needed to dim display even more
     
-    
+    uint8_t sColorCode = 0;
     uint16_t sColorCode_Cnt = 0;
     
     uint16_t sDelyTime = 0;
 	
-    //uint8_t *pVd = (uint8_t *)SRAM_USED_TO_SCREEN_OUT; // 0x20011800 ;
+    uint8_t *pVd = (uint8_t *)SRAM_USED_TO_SCREEN_OUT; // 0x20011800 ; ; 
 
     
     if(dTest_Print_Flag)
@@ -200,147 +176,106 @@ void LED_SCREEN_PRINT(void)
       dTest_Print_Flag = 0;
 
       
-//        if(mLed_Process_Flag.sPattern_Test_Flag)
-//        {
-//            mLed_Process_Flag.sPattern_Test_Flag = LED_Pattern_TEST();
-//            LED_Block_Screen_Buf();
-//        }
-//		else if (mLed_Process_Flag.sReClock_Start_Flage) //시간 설정 부분.
-//		{
-//            LED_FONT_POSITION(&mLed_Process_Flag.sRx_PII_Ascii_Buf[0]);
-//            
-//			LED_Block_Screen_Buf();
-//		}
-//        else if(mLed_Process_Flag.sScreen_ScanFlag)
-//        {
-//
-//            
-//            mLed_Process_Flag.sScreen_ScanFlag = 0;
-//
-//            LED_Block_Screen_Buf();
-//        }
-//        else if(LED_Imag_ScreenNormal_Cnt()) // 노말 버번 출력 기능.
-//        {
-//            LED_Block_Screen_Buf();
-//        }
-    
-         HAL_GPIO_WritePin(LED_DIS_Port, LED_DIS, GPIO_PIN_RESET);  //DIS
+        if(mLed_Process_Flag.sPattern_Test_Flag)
+        {
+            mLed_Process_Flag.sPattern_Test_Flag = LED_Pattern_TEST();
+            LED_Block_Screen_Buf();
+        }
+		else if (mLed_Process_Flag.sReClock_Start_Flage) //시간 설정 부분.
+		{
+            LED_FONT_POSITION(&mLed_Process_Flag.sRx_PII_Ascii_Buf[0]);
+            
+			LED_Block_Screen_Buf();
+		}
+        else if(mLed_Process_Flag.sScreen_ScanFlag)
+        {
 
-             
+            
+            mLed_Process_Flag.sScreen_ScanFlag = 0;
+
+            LED_Block_Screen_Buf();
+        }
+        else if(LED_Imag_ScreenNormal_Cnt()) // 노말 버번 출력 기능.
+        {
+            LED_Block_Screen_Buf();
+        }
+    
+    
         for (pwmindex = 7; pwmindex>=(7-(COLDEPTH-1)); pwmindex--)
         { 
           sColorCode_Cnt = 0;
-
-          
-            //sColorCode = 0;
-            for (rowcounter=0 ; rowcounter<(16) ; rowcounter++) 
+            for (rowcounter=0 ; rowcounter<(16/2) ; rowcounter++) 
             {
                 //GPIO_SetBits(OEPORT,OEPIN);
-                HAL_GPIO_WritePin(LED_OE_Port, LED_OE_R, GPIO_PIN_SET);  // OE - High
-                HAL_GPIO_WritePin(LED_OE_Port, LED_OE_G, GPIO_PIN_SET);  // OE - High
-                HAL_GPIO_WritePin(LED_OE_Port, LED_OE_B, GPIO_PIN_SET);  // OE - High
+                HAL_GPIO_WritePin(GPIOF, GPIO_PIN_9, GPIO_PIN_SET);  // OE - High
 
-                 
-                for (colcounter=0 ; colcounter<128 ; colcounter++) 
+                for (colcounter=0 ; colcounter<384 ; colcounter++) 
                 {
                   
                     //상단 칼라 코드 값을 확인 한다.
-                   //sColorCode = 100;//pVd[sColorCode_Cnt];
-                    
-                   // sColorCode = (sColorCode > 250) ? 0 : sColorCode;
-                    
-                    
-                    //HAL_GPIO_WritePin(GPIOF, GPIO_PIN_7, GPIO_PIN_RESET);  // CLK Low
-                    HAL_GPIO_WritePin(LED_CLK_Port, LED_CLK, GPIO_PIN_RESET);  // CLK Low
+                    sColorCode = pVd[sColorCode_Cnt];
+  
+                    HAL_GPIO_WritePin(GPIOF, GPIO_PIN_7, GPIO_PIN_RESET);  // CLK Low
 
                     
-                    
-                    if (((m_ColorCode_256[sColorCode][0] >> pwmindex) & 0x01)==1) HAL_GPIO_WritePin(LED_DATA_Port,LED_DATA_R_1,GPIO_PIN_SET);// RED
-                    else HAL_GPIO_WritePin(LED_DATA_Port,LED_DATA_R_1,GPIO_PIN_RESET);
+                    if (((m_ColorCode_256[sColorCode][0] >> pwmindex) & 0x01)==1) HAL_GPIO_WritePin(GPIOA,GPIO_PIN_6,GPIO_PIN_SET);// RED
+                    else HAL_GPIO_WritePin(GPIOA,GPIO_PIN_6,GPIO_PIN_RESET);
 
-                    if (((m_ColorCode_256[sColorCode][2] >> pwmindex) & 0x01)==1) HAL_GPIO_WritePin(LED_DATA_Port,LED_DATA_G_1,GPIO_PIN_SET);
-                    else HAL_GPIO_WritePin(LED_DATA_Port,LED_DATA_G_1,GPIO_PIN_RESET);
+                    if (((m_ColorCode_256[sColorCode][1] >> pwmindex) & 0x01)==1) HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,GPIO_PIN_SET);
+                    else HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,GPIO_PIN_RESET);
 
-                    if (((m_ColorCode_256[sColorCode][1] >> pwmindex) & 0x01)==1) HAL_GPIO_WritePin(LED_DATA_Port,LED_DATA_B_1,GPIO_PIN_SET);
-                    else HAL_GPIO_WritePin(LED_DATA_Port,LED_DATA_B_1,GPIO_PIN_RESET);
+                    if (((m_ColorCode_256[sColorCode][2] >> pwmindex) & 0x01)==1) HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_SET);
+                    else HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
                     
                     //하단 칼라 코드 값을 확인 한다.   
                     //screen width siae 96 * 16 (line) = 1536
-                    // sColorCode = pVd[3072 + sColorCode_Cnt];
-                    
-                   
-                    
-                    if (((m_ColorCode_256[sColorCode][0] >> pwmindex) & 0x01)==1) HAL_GPIO_WritePin(LED_DATA_Port,LED_DATA_R_2,GPIO_PIN_SET);// RED
-                    else HAL_GPIO_WritePin(LED_DATA_Port,LED_DATA_R_2,GPIO_PIN_RESET);
-
-                    if (((m_ColorCode_256[sColorCode][1] >> pwmindex) & 0x01)==1) HAL_GPIO_WritePin(LED_DATA_Port,LED_DATA_G_2,GPIO_PIN_SET);
-                    else HAL_GPIO_WritePin(LED_DATA_Port,LED_DATA_G_2,GPIO_PIN_RESET);
-
-                    if (((m_ColorCode_256[sColorCode][2] >> pwmindex) & 0x01)==1) HAL_GPIO_WritePin(LED_DATA_Port,LED_DATA_B_2,GPIO_PIN_SET);
-                    else HAL_GPIO_WritePin(LED_DATA_Port,LED_DATA_B_2,GPIO_PIN_RESET);
-                    
-
-                                          
-                   //HAL_GPIO_WritePin(GPIOF, GPIO_PIN_7, GPIO_PIN_SET);  // CLK High
-                    HAL_GPIO_WritePin(LED_CLK_Port, LED_CLK, GPIO_PIN_SET);  // CLK High
-
-                    
-                    //sColorCode++;
+                     sColorCode = pVd[3072 + sColorCode_Cnt];
                      
-//                    if (colcounter>brightvalue)  //HAL_GPIO_WritePin(GPIOF, GPIO_PIN_9, GPIO_PIN_RESET);  // OE - High
-//                    {
-//                        HAL_GPIO_WritePin(LED_OE_Port, LED_OE_R, GPIO_PIN_SET);  // OE - High
-//                        HAL_GPIO_WritePin(LED_OE_Port, LED_OE_G, GPIO_PIN_SET);  // OE - High
-//                        HAL_GPIO_WritePin(LED_OE_Port, LED_OE_B, GPIO_PIN_SET);  // OE - High
-//                    }
+                     if (((m_ColorCode_256[sColorCode][0] >> pwmindex) & 0x01)==1) HAL_GPIO_WritePin(GPIOC,GPIO_PIN_6,GPIO_PIN_SET);
+                    else HAL_GPIO_WritePin(GPIOC,GPIO_PIN_6,GPIO_PIN_RESET);
+
+                    if (((m_ColorCode_256[sColorCode][1] >> pwmindex) & 0x01)==1) HAL_GPIO_WritePin(GPIOC,GPIO_PIN_7,GPIO_PIN_SET);
+                    else HAL_GPIO_WritePin(GPIOC,GPIO_PIN_7,GPIO_PIN_RESET);
+
+                    if (((m_ColorCode_256[sColorCode][2] >> pwmindex) & 0x01)==1) HAL_GPIO_WritePin(GPIOC,GPIO_PIN_8,GPIO_PIN_SET);
+                    else HAL_GPIO_WritePin(GPIOC,GPIO_PIN_8,GPIO_PIN_RESET);
+
                     
+                     HAL_GPIO_WritePin(GPIOF, GPIO_PIN_7, GPIO_PIN_SET);  // CLK High
+                     
+                    if (colcounter>brightvalue)  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_9, GPIO_PIN_RESET);  // OE - High
                     
-                    //sColorCode_Cnt++;
+                    sColorCode_Cnt++;
                 }
                 
-                //sColorCode = sColorCode+rowcounter;
                 
                 
-                
-                
-                
-                
-                 //HAL_GPIO_WritePin(GPIOF, GPIO_PIN_9, GPIO_PIN_SET);  // OE - High
-                HAL_GPIO_WritePin(LED_OE_Port, LED_OE_R, GPIO_PIN_SET);  // OE - High
-                HAL_GPIO_WritePin(LED_OE_Port, LED_OE_G, GPIO_PIN_SET);  // OE - High
-                HAL_GPIO_WritePin(LED_OE_Port, LED_OE_B, GPIO_PIN_SET);  // OE - High
-	
-
+                 HAL_GPIO_WritePin(GPIOF, GPIO_PIN_9, GPIO_PIN_SET);  // OE - High
                 
                 sDelyTime = 100;
                 while(sDelyTime--);
                 //HAL_Delay(1);
                 
-                //HAL_GPIO_WritePin(GPIOF,GPIO_PIN_8,GPIO_PIN_SET); // LAT - High
-                HAL_GPIO_WritePin(LED_LAT_Port,LED_LAT,GPIO_PIN_SET); // LAT - High
+                HAL_GPIO_WritePin(GPIOF,GPIO_PIN_8,GPIO_PIN_SET); // LAT - High
+                
+                
+                HAL_GPIO_WritePin(GPIOF, GPIO_PIN_4, ((rowcounter & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET)); //A0
+                HAL_GPIO_WritePin(GPIOF, GPIO_PIN_5, ((rowcounter & 0x02) ? GPIO_PIN_SET : GPIO_PIN_RESET));  //A1
+                HAL_GPIO_WritePin(GPIOF, GPIO_PIN_6, ((rowcounter & 0x04) ? GPIO_PIN_SET : GPIO_PIN_RESET));  //A2      
+        
 
                 
-                HAL_GPIO_WritePin(LED_ADD_Port, LED_ADD_0, ((rowcounter & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET));  //A0
-                HAL_GPIO_WritePin(LED_ADD_Port, LED_ADD_1, ((rowcounter & 0x02) ? GPIO_PIN_SET : GPIO_PIN_RESET));  //A1
-                HAL_GPIO_WritePin(LED_ADD_Port, LED_ADD_2, ((rowcounter & 0x04) ? GPIO_PIN_SET : GPIO_PIN_RESET));  //A2      
-                HAL_GPIO_WritePin(LED_ADD_Port, LED_ADD_3, ((rowcounter & 0x08) ? GPIO_PIN_SET : GPIO_PIN_RESET));  //A2      
-
-  
-                //HAL_GPIO_WritePin(GPIOF,GPIO_PIN_8,GPIO_PIN_RESET); // LAT - Low
-                HAL_GPIO_WritePin(LED_LAT_Port,LED_LAT,GPIO_PIN_RESET); // LAT - High
-
+                HAL_GPIO_WritePin(GPIOF,GPIO_PIN_8,GPIO_PIN_RESET); // LAT - Low
                 
-                sDelyTime = 200;
+                sDelyTime = 100;
                 while(sDelyTime--);
                 //HAL_Delay(delaybrightness);
                 //HAL_Delay(1);
 
-                //HAL_GPIO_WritePin(GPIOF, GPIO_PIN_9, GPIO_PIN_RESET);  // OE - Low
-                HAL_GPIO_WritePin(LED_OE_Port, LED_OE_R, GPIO_PIN_RESET);  // OE - Low
-                HAL_GPIO_WritePin(LED_OE_Port, LED_OE_G, GPIO_PIN_RESET);  // OE - Low
-                HAL_GPIO_WritePin(LED_OE_Port, LED_OE_B, GPIO_PIN_RESET);  // OE - Low
-	
-                sDelyTime = (128*(pwmindex-(8-COLDEPTH)+1)*(pwmindex-(8-COLDEPTH)+1)-59)+150;
+                HAL_GPIO_WritePin(GPIOF, GPIO_PIN_9, GPIO_PIN_RESET);  // OE - Low
+                
+                
+                sDelyTime = (192*(pwmindex-(8-COLDEPTH)+1)*(pwmindex-(8-COLDEPTH)+1)-59)+150;
                 
                 while(sDelyTime--);
                
@@ -348,20 +283,19 @@ void LED_SCREEN_PRINT(void)
                 //HAL_Delay(59*(pwmindex-(8-COLDEPTH)+1)*(pwmindex-(8-COLDEPTH)+1)-59);
                 
                 
+                
+                
+
+                
             }
         }
         
-       // HAL_GPIO_WritePin(LED_DIS_Port, LED_DIS, GPIO_PIN_SET);  // DIS
-
         dTest_Print_Flag = 1;
     }
-
-   //HAL_GPIO_WritePin(LED_DIS_Port, LED_DIS, GPIO_PIN_SET);  // DIS
     
-    
-    HAL_GPIO_WritePin(LED_OE_Port, LED_OE_R, GPIO_PIN_SET);  // OE - High
-    HAL_GPIO_WritePin(LED_OE_Port, LED_OE_G, GPIO_PIN_SET);  // OE - High
-    HAL_GPIO_WritePin(LED_OE_Port, LED_OE_B, GPIO_PIN_SET);  // OE - High
+    HAL_GPIO_WritePin(GPIOF, GPIO_PIN_9, GPIO_PIN_SET);  // OE - High
+	
+	
 	
 }
 
@@ -422,7 +356,7 @@ void LED_FONT_POSITION(uint8_t *nAscii_Len_Buf)
 						spData_Ko = (nAscii_Len_Buf[sAsciiCnt] - 0x20) * 16;
 
 
-						//SPI_FLASH_BufferRead(s_LED_FONT_MAP, spData_Ko, 16); /* Read data from SPI FLASH memory */
+						SPI_FLASH_BufferRead(s_LED_FONT_MAP, spData_Ko, 16); /* Read data from SPI FLASH memory */
 
 
 						spData = (uint8_t *)&s_LED_FONT_MAP[0];
@@ -468,7 +402,7 @@ void LED_FONT_POSITION(uint8_t *nAscii_Len_Buf)
 
 					//spData = (uint8_t *)&m_LED_FONT_MAP[spData_Ko]; // 한글 폰트 버퍼에서 위치를 전달 한다.
 
-					//SPI_FLASH_BufferRead(s_LED_FONT_MAP, spData_Ko, 32); /* Read data from SPI FLASH memory */
+					SPI_FLASH_BufferRead(s_LED_FONT_MAP, spData_Ko, 32); /* Read data from SPI FLASH memory */
 
 
 					spData = (uint8_t *)&s_LED_FONT_MAP[0];
@@ -777,7 +711,7 @@ void LED_Block_Screen_Buf(void)
     }
     else
     {   // 통신 수신 데이타가 없다면,  기본 이미지  표출.
-        mFdi_Screen_Print =(FDI_SCREEN_BOKCK *)m_SEPTA_MARK_FDI;
+        mFdi_Screen_Print =(FDI_SCREEN_BOKCK *)m_336_MARK_FTNDD;
     }
 	
 	uint8_t *pVd = (uint8_t *)SRAM_USED_TO_SCREEN_OUT; // 0x2001ABFF ; 

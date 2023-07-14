@@ -196,7 +196,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
         USART_TIM();
         
 	    //LED_Timer_1ms(); // LED 1ms  타이커,
-        SPI_FLASH_Timer_1ms();
+        //SPI_FLASH_Timer_1ms();
         //lcd_Timer();
         
        
@@ -223,12 +223,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
             nTime_Flage_100us++;
             
 
-            if(!(nTime_Flage_100us%10))
+            if(!(nTime_Flage_100us%1000))
             {
                 
                 
                     //MyPrintf_USART1("TIM5 : %d \n\r",HAL_GetTick());
-                    nLedPrintf_Flag = 1;
+                    //nLedPrintf_Flag = 1;
                     // LED_init(); // LED 디스 플레이 함수.
                 
                     //OLED_Print(); // 약 350ms 필요.

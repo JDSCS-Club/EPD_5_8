@@ -27564,7 +27564,7 @@ extern void udp_echoclient_connect(void);
 extern void udp_receive_callback(void *arg, struct udp_pcb *upcb, struct pbuf *p, const ip_addr_t *addr, u16_t port);
 
 
-extern void udp_SysLog_Connect(char * format, ... );
+extern void udp_SysLog_Connect(int Kind_Code, char * format, ... );
 extern void udp_SysLog(char * format, ... );
 
 
@@ -28141,6 +28141,11 @@ extern volatile uint16_t ADCValue[6];
 
 
 
+ 
+
+
+
+
    
 
 
@@ -28201,8 +28206,6 @@ extern volatile uint16_t ADCValue[6];
 
 
 
-
-
  
 
 
@@ -28226,28 +28229,16 @@ extern volatile uint16_t ADCValue[6];
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+         
  
  
    
 void Time_Main(void);
     
+
+
+
+
 
 void UDPdebug_print_JDS(struct udp_hdr *udphdr);
     
@@ -28699,19 +28690,19 @@ typedef struct
     uint8_t sEth_Rx_Request_Flag;       
     uint16_t sEth_Rx_Finish_TimeCnt;    
 
-    uint16_t sScreen_Play_Time;         
-    uint8_t sScreen_Max_Page;           
-    uint8_t sScreen_CrcCheck_Mac_Page;  
-    uint8_t sScreen_Display_Data_Page;
-    
-    uint8_t sScreen_Page_Cnt;           
-    uint8_t sScreen_ScanFlag;           
+
+
+
+
+
+
+
     
      
-    uint8_t sScreen_Page_Cnt_Rx_Comand_Flag;
-    uint8_t sScreen_Page_Cnt_Rx_Comand;
-    uint8_t sScreen_Page_Cnt_Rx_ReComand;
-    uint8_t sScreen_Page_Check_Buf[18];
+
+
+
+
     
     
 
@@ -28725,17 +28716,17 @@ typedef struct
       uint8_t  sRx_Public_Buf[100];        
     
     
-    uint8_t  sAscii_Code_Flag;          
-    uint8_t  sRx_PII_Ascii_Buf[384];    
-    uint16_t sScroll_Cnt_Finish;        
-    uint8_t  sAscii_Rx_Cnt;             
-    uint8_t  sAscii_Re_Rx_Cnt;          
-    uint8_t  sAscii_Color_Code;         
-    int16_t sAscii_Char_RxLen;         
-    uint8_t  sAscii_NorMal_Flag;        
-    
-    uint8_t sPattern_Test_Flag;
-    uint8_t sPattern_Test_ColorData; 
+
+
+
+
+
+
+
+
+
+
+
 
     uint8_t sClock_Start_Flage;
     uint8_t sReClock_Start_Flage; 
@@ -28774,6 +28765,7 @@ typedef struct
     uint8_t sCurrentTestFlag; 
     uint16_t sCurrentVal; 
     
+    uint8_t sVolTestFlg; 
     
 }mLED_PROCESS_Flag;
 
@@ -30100,35 +30092,6 @@ void setAmp_Mute_2(_Bool state);
 
 
 
-     
-     
-     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -30159,8 +30122,6 @@ uint8_t LED_Pattern_TEST(void);
 void LED_Timer_1ms(void);
 
 extern char mStringBuf[15][40] ;
-
-extern uint8_t sColorCode;
 
 
 
@@ -30378,8 +30339,6 @@ extern uint8_t SPI_Index;
 extern uint8_t SPI_Rx_Buffer[100];
 
 extern SPI_HandleTypeDef SpiMemoryHandle;
-
-
 
 
 
@@ -31701,7 +31660,7 @@ const unsigned char completeVersion[] =
 	'.',
 	(0 + '0'),
 	'.',
-	(0 + '0'),
+	(2 + '0'),
 	
 	
     
@@ -31720,14 +31679,14 @@ const unsigned char completeVersion[] =
 const unsigned char completeVersionBuild[] = 
 {
 	'B',
-	("May 10 2023"[ 9]),
-	("May 10 2023"[10]),
+	("Jul 14 2023"[ 9]),
+	("Jul 14 2023"[10]),
    
-	((("May 10 2023"[0] == 'O') || ("May 10 2023"[0] == 'N') || ("May 10 2023"[0] == 'D')) ? '1' : '0'),
-	( (("May 10 2023"[0] == 'J' && "May 10 2023"[1] == 'a' && "May 10 2023"[2] == 'n')) ? '1' : (("May 10 2023"[0] == 'F')) ? '2' : (("May 10 2023"[0] == 'M' && "May 10 2023"[1] == 'a' && "May 10 2023"[2] == 'r')) ? '3' : (("May 10 2023"[0] == 'A' && "May 10 2023"[1] == 'p')) ? '4' : (("May 10 2023"[0] == 'M' && "May 10 2023"[1] == 'a' && "May 10 2023"[2] == 'y')) ? '5' : (("May 10 2023"[0] == 'J' && "May 10 2023"[1] == 'u' && "May 10 2023"[2] == 'n')) ? '6' : (("May 10 2023"[0] == 'J' && "May 10 2023"[1] == 'u' && "May 10 2023"[2] == 'l')) ? '7' : (("May 10 2023"[0] == 'A' && "May 10 2023"[1] == 'u')) ? '8' : (("May 10 2023"[0] == 'S')) ? '9' : (("May 10 2023"[0] == 'O')) ? '0' : (("May 10 2023"[0] == 'N')) ? '1' : (("May 10 2023"[0] == 'D')) ? '2' : '?' ),
+	((("Jul 14 2023"[0] == 'O') || ("Jul 14 2023"[0] == 'N') || ("Jul 14 2023"[0] == 'D')) ? '1' : '0'),
+	( (("Jul 14 2023"[0] == 'J' && "Jul 14 2023"[1] == 'a' && "Jul 14 2023"[2] == 'n')) ? '1' : (("Jul 14 2023"[0] == 'F')) ? '2' : (("Jul 14 2023"[0] == 'M' && "Jul 14 2023"[1] == 'a' && "Jul 14 2023"[2] == 'r')) ? '3' : (("Jul 14 2023"[0] == 'A' && "Jul 14 2023"[1] == 'p')) ? '4' : (("Jul 14 2023"[0] == 'M' && "Jul 14 2023"[1] == 'a' && "Jul 14 2023"[2] == 'y')) ? '5' : (("Jul 14 2023"[0] == 'J' && "Jul 14 2023"[1] == 'u' && "Jul 14 2023"[2] == 'n')) ? '6' : (("Jul 14 2023"[0] == 'J' && "Jul 14 2023"[1] == 'u' && "Jul 14 2023"[2] == 'l')) ? '7' : (("Jul 14 2023"[0] == 'A' && "Jul 14 2023"[1] == 'u')) ? '8' : (("Jul 14 2023"[0] == 'S')) ? '9' : (("Jul 14 2023"[0] == 'O')) ? '0' : (("Jul 14 2023"[0] == 'N')) ? '1' : (("Jul 14 2023"[0] == 'D')) ? '2' : '?' ),
    
-	(("May 10 2023"[4] >= '0') ? ("May 10 2023"[4]) : '0'),
-	("May 10 2023"[ 5]),
+	(("Jul 14 2023"[4] >= '0') ? ("Jul 14 2023"[4]) : '0'),
+	("Jul 14 2023"[ 5]),
 	
 	
     
@@ -31767,7 +31726,6 @@ int d_TestSp_SR_Flag = 0;
 int main(void)
 {
     
-    uint8_t     nRbuf[10]; 
 	
 	
 
@@ -31776,102 +31734,51 @@ int main(void)
 
 
  
-    
-
+  
 	HAL_Init();  
-    
-    
 
 	 
 	SystemClock_Config();
 
-    
-    
 	 
 	BSP_Config();
 
-    
-    
 	 
 	lwip_init();
 
-    
-   
 	 
 	Netif_Config();
 
 	 
 	
 
-   
-    
 	 
 	User_notification(&gnetif);
 
-    
-    LED_GPIO_Init();
-    
 
 	Timer_init(); 
 
 	USRAT_init();
 
     
-	
-    
+	MX_I2C1_Init();
+   
     
 	
    
 
-    
-    
-    
-    I2C_HAL_ReadBytes(&hi2c1,0x48,0x00,(uint8_t *)nRbuf,2);
-    
-    
-
-
-
-
-
-
-
-
-    
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	
 	
 
-    MyPrintf_USART1("Power i2c OK = %02x-%02x\r\n",nRbuf[0],nRbuf[1]);
-    
-	Flash_Init();
-    
-    SPI_FLASH_Init();
-    
+	
 	HAL_Delay(10);
 
 
     
     
 	
-   
+    
     
     
 
@@ -31879,7 +31786,7 @@ int main(void)
 	
     
 	
-
+	
 	
     MyPrintf_USART1("SystemClock  = %d/ AHB(HCLK) : %d / APB1(PCLK1) : %d / APBP2(PCLK2) : %d \n\r", HAL_RCC_GetSysClockFreq(), HAL_RCC_GetHCLKFreq(), HAL_RCC_GetPCLK1Freq(), HAL_RCC_GetPCLK2Freq());
     MyPrintf_USART1("---- AMP ID Switch  = [%d--%d] \n\r",IP_ADDR1_INPUT_DATA,IP_ADDR2_INPUT_DATA);
@@ -31889,11 +31796,11 @@ int main(void)
 	MyPrintf_USART1("-%s\r\n", completeVersionBuild);
     
     
-
-
-
-
-
+	sprintf(&mLCDPrintBuf[1][0], "%s-%s", completeVersion, completeVersionBuild);
+    
+    sprintf(&mLCDPrintBuf_2[0][0], "ANSM_ON");
+    
+    sprintf(&mLCDPrintBuf_2[1][0], "AMP_VOL_DEFAULT");
     
    
 
@@ -31908,7 +31815,6 @@ int main(void)
     static int sOLED_InitCnt = 0;
     
     
-    
     mLed_Process_Flag.sMy_IP_Info = IP_ADDR1_INPUT_DATA;
 	mLed_Process_Flag.sAnsm_Run_Flag = 1;
     memset(mLed_Process_Flag.sSt_Buf_Val,0x00,sizeof(mLed_Process_Flag.sSt_Buf_Val)); 
@@ -31917,11 +31823,10 @@ int main(void)
     sprintf(&mLCDPrintBuf[2][0], "--------------------");
     
     
+     AUDIO_AMP_Boot_Set();
     
     
-    WWDG_Init(); 
     
-    ethernetif_set_link(&gnetif);
     
 	while (1)
 	{  
@@ -31930,24 +31835,152 @@ int main(void)
      
         ethernetif_input(&gnetif);
         
-        
-        
-        
 		 
 		sys_check_timeouts();
     
 		   
-		Flash_Main();
+		
 	  
-		SPI_FLASH_Main();
+		
     
 		USARTRX_MainPro();
     
-	if(nLedPrintf_Flag)
-	{
-		nLedPrintf_Flag = 0;
-		LED_SCREEN_PRINT();
-	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        
+
+
+
+
+
+
+
+
+
+    
+            
+        
+       
+
 
         
 
@@ -31964,6 +31997,9 @@ int main(void)
 
 
 
+ 
+        
+        
 
 
 
@@ -31975,139 +32011,9 @@ int main(void)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+          
+    
+		
 
 
 
@@ -32160,7 +32066,21 @@ static void BSP_Config(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 
-	  
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    	  
 	do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (2U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (2U)))); ((void)(tmpreg)); } while(0U);
 	GPIO_InitStructure.Pin = ((uint16_t)0x0001);
 	GPIO_InitStructure.Mode = 0x10210000U;
@@ -32168,26 +32088,10 @@ static void BSP_Config(void)
 	HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0800U)), &GPIO_InitStructure);
 
 	 
-
-
+	HAL_NVIC_SetPriority(EXTI0_IRQn, 0xF, 0);
+	HAL_NVIC_EnableIRQ(EXTI0_IRQn); 
     
     
-	HAL_NVIC_SetPriority(EXTI0_IRQn, 0x0, 0);
-	HAL_NVIC_EnableIRQ(EXTI0_IRQn);
-    
-
-    
-    IP_ADDR_VAL_DATA = (0x01 % 11) * 100;
-	IP_ADDR_VAL_DATA = IP_ADDR_VAL_DATA + ((0x01 % 11) * 10);
-    
-    
-
-	do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (3U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (3U)))); ((void)(tmpreg)); } while(0U);
-
-	GPIO_InitStructure.Mode = 0x00000001U;
-	GPIO_InitStructure.Pull = 0x00000002U;
-	GPIO_InitStructure.Pin = ((uint16_t)0x0040);
-	HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), &GPIO_InitStructure);
     
 	 
 	
@@ -32199,37 +32103,11 @@ static void BSP_Config(void)
 
 
 
-	do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (3U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (3U)))); ((void)(tmpreg)); } while(0U);
-	GPIO_InitStructure.Mode = 0x00000001U;
-	GPIO_InitStructure.Pull = 0x00000001U;
-	GPIO_InitStructure.Pin =  ((uint16_t)0x0080) |((uint16_t)0x0400) |((uint16_t)0x0800);
-	GPIO_InitStructure.Speed = 0x00000003U;
-	HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), &GPIO_InitStructure); 
-
-
-
-	do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (4U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (4U)))); ((void)(tmpreg)); } while(0U);
-	GPIO_InitStructure.Mode = 0x00000001U;
-	GPIO_InitStructure.Pull = 0x00000001U;
-	GPIO_InitStructure.Pin =  ((uint16_t)0x0001) |((uint16_t)0x0002);
-	GPIO_InitStructure.Speed = 0x00000003U;
-	HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x1000U)), &GPIO_InitStructure); 
-	
 
 
 
 
 
-
-
-
-    do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (0U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (0U)))); ((void)(tmpreg)); } while(0U);
-	GPIO_InitStructure.Mode = 0x00000001U;
-	GPIO_InitStructure.Pull = 0x00000001U;
-	GPIO_InitStructure.Pin = ((uint16_t)0x0010);
-	HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0000U)), &GPIO_InitStructure);
-    
-    
 
 
 
@@ -32378,12 +32256,8 @@ static void Netif_Config(void)
 	     
 	netif_add(&gnetif, &ipaddr, &netmask, &gw, 0, &ethernetif_init, &ethernet_input);
 
-    HAL_Delay(10);
-    
 	 
 	netif_set_default(&gnetif);
-    
-    HAL_Delay(10);
 
 	if ((((&gnetif)->flags & 0x04U) ? (u8_t)1 : (u8_t)0))
 	{
@@ -32418,6 +32292,12 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	{
 		ethernetif_set_link(&gnetif);
 	}
+    
+    
+
+
+
+
 }
 
 
@@ -32598,10 +32478,6 @@ void Time_Main(void)
     uint8_t     nRbuf_2[2];
     
     static uint8_t d_10Sec_Cnt = 0;
-    
-    static uint8_t mResetCnt = 0;
-    
-    static uint8_t sTime_Cnt_1000ms = 0;
    
 	
 	m_Main_TIM_Cnt++;
@@ -32636,86 +32512,61 @@ void Time_Main(void)
 
     if (!(m_Main_TIM_Cnt % 1000)) 
 	{
+        
+        
+        
+            processCurrentVal();
+            
+            
         if(mLed_Process_Flag.sCurrentTestFlag == 1) 
         {
-            
-          
             
         }
         else if(mLed_Process_Flag.sCurrentTestFlag == 0)
         {
             
         }
-        
-        sTime_Cnt_1000ms++;
-        
-        if(sTime_Cnt_1000ms & 0x01)
-        {
-            HAL_GPIO_TogglePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0080));
-        }
-        else if(sTime_Cnt_1000ms & 0x02)
-        {
-            HAL_GPIO_TogglePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0400)); 
-        }
-        else if(sTime_Cnt_1000ms & 0x04)
-        {
-            HAL_GPIO_TogglePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0800)); 
-        }
-        else if(sTime_Cnt_1000ms & 0x08)
-        {
-            HAL_GPIO_TogglePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x1000U)), ((uint16_t)0x0001)); 
-        }
-        else
-        {
-            HAL_GPIO_TogglePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x1000U)), ((uint16_t)0x0002)); 
-        }
-
-
-		
-
-        
-        
 
         
     }
     
         
             
-	if (!(m_Main_TIM_Cnt % 60000)) 
-	{
 
-        
-        d_10Sec_Cnt++;
 
-        
-        sprintf(&mLCDPrintBuf[0][0], "IP : %s", ip4addr_ntoa(&gnetif.ip_addr));
-        
-         if(mLed_Process_Flag.sAudio_Play_mode == 1)
-         {
-             
-         }
-         else
-         {
-             sprintf(&mLCDPrintBuf[2][0], "-----*****-----Temp-%02d",mLed_Process_Flag.sCpu_Temp);
-         }
-        
-         
-         udp_SysLog("(%dT,%d)[build : %s] -> SPK_%01d%01d%01d%01d--TEMP : %d -- ANSM : %d -- Current : %03d mA ",
-                    
-                            mLed_Process_Flag.sTrainID,
-                            mLed_Process_Flag.sDHCP_IP_Val,
-                            completeVersionBuild,
-                           ((mLed_Process_Flag.sSt_Buf_Val[0] & 0x80) == 0x80 ? 1 : 0) ,
-                           ((mLed_Process_Flag.sSt_Buf_Val[1] & 0x80) == 0x80 ? 1 : 0) ,
-                           ((mLed_Process_Flag.sSt_Buf_Val[2] & 0x80) == 0x80 ? 1 : 0) ,
-                           ((mLed_Process_Flag.sSt_Buf_Val[3] & 0x08) == 0x08 ? 1 : 0) ,
-                            mLed_Process_Flag.sCpu_Temp,
-                            mAnsSetFlag.tAnsCnt,
-                            mLed_Process_Flag.sCurrentVal );
-         
-         
-    
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         
         
@@ -32732,14 +32583,6 @@ void Time_Main(void)
     if (!(m_Main_TIM_Cnt % 10000)) 
     {
         
-        sColorCode++;
-        
-        sColorCode = sColorCode < 250 ? sColorCode : 0;
-        
-
-
-
-
         
         MyPrintf_USART1("~~~~~~~~~~~~NewPulse 4_line PAMP~~~~~~~~~~~~\n\r");
 		MyPrintf_USART1("CPU RUN Time  = %d Second  \n\r", (m_Main_TIM_Cnt / 1000));
@@ -32751,58 +32594,6 @@ void Time_Main(void)
         
         
         mTimerFlag_10s = 1;
-        
-        
-        mResetCnt++;
-        
-        HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0040), 0); 
-        HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0040), 0); 
-        HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0040), 1); 
-        HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0040), 1); 
-
-
-        HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0040), 0); 
-        HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0040), 0); 
-
-        HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0040), 1); 
-        HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0040), 1); 
-        
-        
-        
-        
-        
-        
-       
-            
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         
         
 		if ((((&gnetif)->flags & 0x04U) ? (u8_t)1 : (u8_t)0))  
@@ -32817,25 +32608,25 @@ void Time_Main(void)
         
 
     
+			mLed_Process_Flag.sEth_UpLInk_Cnt++;
+        
+			if (mLed_Process_Flag.sEth_Rx_RESET_Flag){mLed_Process_Flag.sEth_Rx_RESET_Flag--; }
+            
+            
+            mLed_Process_Flag.sEth_Rx_Cnt++;
+            
+            if(mLed_Process_Flag.sEth_Rx_Cnt == 6)
+            {
+                mLed_Process_Flag.sEth_Rx_RESET_Flag = 2; 
+            }
+            else if(mLed_Process_Flag.sEth_Rx_Cnt == 8) 
+            {
+                 udp_SysLog_Connect(0," @@@@  CPU Processing SystemReset ");
+			     MyPrintf_USART1(" @@@@  CPU Processing SystemReset \n\r");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			     
+                
+            }
 			
 		}
 		else
@@ -32844,11 +32635,11 @@ void Time_Main(void)
             
 			MyPrintf_USART1(" @@@@ netif_is_link_Down \n\r");
             
-			if ((m_Main_TIM_Cnt_Reset) >= 6) 
-			{
-                
-				HAL_NVIC_SystemReset();
-			}
+
+
+
+
+
 
             
 		}
@@ -32991,8 +32782,15 @@ static void RTC_TimeShow(uint8_t* showtime)
 
 	
     
-	sprintf(&mLCDPrintBuf[3][0], "%02d:%02d:%02d", BCD_BIN(stimestructureget.Hours), BCD_BIN(stimestructureget.Minutes), BCD_BIN(stimestructureget.Seconds));
+    if(getSW_RS()|| getSW_AR() || getSW_SL() || getSW_SL()) 
+    {
+        sprintf(&mLCDPrintBuf[3][0], "%02d:%02d:%02d", BCD_BIN(stimestructureget.Hours), BCD_BIN(stimestructureget.Minutes), BCD_BIN(stimestructureget.Seconds));
+    }
+    else
+    {
+        sprintf(&mLCDPrintBuf[3][0], "%02d:%02d:%02d-(%02d/%02d)", BCD_BIN(stimestructureget.Hours), BCD_BIN(stimestructureget.Minutes), BCD_BIN(stimestructureget.Seconds),IP_ADDR1_INPUT_DATA,IP_ADDR2_INPUT_DATA);
 
+    }
 }
 
 
@@ -33252,15 +33050,15 @@ void AUDIO_AMP_Boot_Set(void)
     HAL_Delay(100);
     
     nRbuf_1[0] = 0xFF;
-    I2C_HAL_ReadBytes(&hi2c2, AMP_ID_1, 0x06, (uint8_t *)nRbuf_1, 1);
+    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x06, (uint8_t *)nRbuf_1, 1);
     MyPrintf_USART1("getAmp1 Mode read :%02X \r\n", nRbuf_1[0]); 
 
     nRbuf_1[0] = 0xFF;
-    I2C_HAL_ReadBytes(&hi2c2, AMP_ID_2, 0x06, (uint8_t *)nRbuf_1, 1);     
+    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x06, (uint8_t *)nRbuf_1, 1);     
     MyPrintf_USART1("getAmp2 Mode read :%02X \r\n", nRbuf_1[0]); 
 
     nRbuf_1[0] = 0xFF;
-    I2C_HAL_ReadBytes(&hi2c2, AMP_ID_3, 0x06, (uint8_t *)nRbuf_1, 1);
+    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x06, (uint8_t *)nRbuf_1, 1);
     MyPrintf_USART1("getAmp3 Mode read :%02X \r\n", nRbuf_1[0]); 
    
     

@@ -26,67 +26,6 @@
 #endif
    
    
-//GPOP ë‚´ìš© ì„¤ì •. 
-#define LED_OE_R                   GPIO_PIN_12
-#define LED_OE_Port                GPIOD
-
-#define LED_OE_G                  GPIO_PIN_13
-#define LED_OE_Port               GPIOD
-
-#define LED_OE_B                  GPIO_PIN_14
-#define LED_OE_Port               GPIOD
-
-
-#define LED_CLK                   GPIO_PIN_9
-#define LED_CLK_Port               GPIOB
-
-
-#define LED_LAT                    GPIO_PIN_14
-#define LED_LAT_Port                GPIOB
-
-#define LED_DIS                     GPIO_PIN_15
-#define LED_DIS_Port                GPIOB
-
-     
-     
-     
-#define LED_ADD_0                   GPIO_PIN_12
-#define LED_ADD_Port              GPIOC
-
-#define LED_ADD_1                   GPIO_PIN_13
-#define LED_ADD_Port              GPIOC
-
-#define LED_ADD_2                   GPIO_PIN_14
-#define LED_ADD_Port              GPIOC
-
-#define LED_ADD_3                   GPIO_PIN_15
-#define LED_ADD_Port              GPIOC
-
-
-
-#define LED_DATA_R_1                  GPIO_PIN_6
-#define LED_DATA_Port             GPIOC
-
-#define LED_DATA_G_1                  GPIO_PIN_7
-#define LED_DATA_Port             GPIOC
-
-
-#define LED_DATA_B_1                  GPIO_PIN_8
-#define LED_DATA_Port             GPIOC
-
-
-
-#define LED_DATA_R_2              GPIO_PIN_9
-#define LED_DATA_Port             GPIOC
-
-
-#define LED_DATA_B_2              GPIO_PIN_10
-#define LED_DATA_Port             GPIOC
-
-
-#define LED_DATA_G_2              GPIO_PIN_11
-#define LED_DATA_Port             GPIOC
-
 
 //#include "stm32f4xx_hal.h"
 
@@ -129,12 +68,10 @@ void LED_Timer_1ms(void);
 
 extern char mStringBuf[15][40] ;
 
-extern uint8_t sColorCode;
 
 
 
-
-//// PII Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+//// PII Ç¥Ãâ ¹®Àå Á¤¸®
 //typedef struct
 //{
 //	uint8_t s16_Dot[1][160];
@@ -148,7 +85,7 @@ extern uint8_t sColorCode;
 //}FDI_SCREEN_BOKCK, *pFDI_SCREEN_BOKCK;
 
 ///////////////////////////////////////////////////
-// FDI LED ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼
+// FDI LED ¸ðµâ Ãâ·Â ±¸Á¶Ã¼
 //
 ///////////////////////////////////////////////////
 

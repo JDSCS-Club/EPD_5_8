@@ -156,7 +156,7 @@ void udp_echoclient_connect(void)
   * @param  None
   * @retval None
   ******************************************************************************/
-void udp_SysLog_Connect(char * format, ... )
+void udp_SysLog_Connect(int Kind_Code,char * format, ... )
 {
     
     va_list args;
@@ -192,7 +192,14 @@ void udp_SysLog_Connect(char * format, ... )
             //udp_bind(upcb, &upcb->local_ip, upcb->local_port);
 
             /* configure destination IP address and port */
-            err= udp_connect(upcb, &DestIPaddr, 30000);
+            if(Kind_Code)  // 버전 정보 전송 조건
+            {
+                err= udp_connect(upcb, &DestIPaddr, VER_PORT); // 
+            }
+            else // 상태 데이타 응답.
+            {
+                err= udp_connect(upcb, &DestIPaddr, SD_PORT); // 
+            }
 
             if (err == ERR_OK) 
             {

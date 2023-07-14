@@ -27560,7 +27560,7 @@ extern void udp_echoclient_connect(void);
 extern void udp_receive_callback(void *arg, struct udp_pcb *upcb, struct pbuf *p, const ip_addr_t *addr, u16_t port);
 
 
-extern void udp_SysLog_Connect(char * format, ... );
+extern void udp_SysLog_Connect(int Kind_Code, char * format, ... );
 extern void udp_SysLog(char * format, ... );
 
 
@@ -28137,6 +28137,11 @@ extern volatile uint16_t ADCValue[6];
 
 
 
+ 
+
+
+
+
    
 
 
@@ -28197,8 +28202,6 @@ extern volatile uint16_t ADCValue[6];
 
 
 
-
-
  
 
 
@@ -28222,28 +28225,16 @@ extern volatile uint16_t ADCValue[6];
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+         
  
  
    
 void Time_Main(void);
     
+
+
+
+
 
 void UDPdebug_print_JDS(struct udp_hdr *udphdr);
     
@@ -28695,19 +28686,19 @@ typedef struct
     uint8_t sEth_Rx_Request_Flag;       
     uint16_t sEth_Rx_Finish_TimeCnt;    
 
-    uint16_t sScreen_Play_Time;         
-    uint8_t sScreen_Max_Page;           
-    uint8_t sScreen_CrcCheck_Mac_Page;  
-    uint8_t sScreen_Display_Data_Page;
-    
-    uint8_t sScreen_Page_Cnt;           
-    uint8_t sScreen_ScanFlag;           
+
+
+
+
+
+
+
     
      
-    uint8_t sScreen_Page_Cnt_Rx_Comand_Flag;
-    uint8_t sScreen_Page_Cnt_Rx_Comand;
-    uint8_t sScreen_Page_Cnt_Rx_ReComand;
-    uint8_t sScreen_Page_Check_Buf[18];
+
+
+
+
     
     
 
@@ -28721,17 +28712,17 @@ typedef struct
       uint8_t  sRx_Public_Buf[100];        
     
     
-    uint8_t  sAscii_Code_Flag;          
-    uint8_t  sRx_PII_Ascii_Buf[384];    
-    uint16_t sScroll_Cnt_Finish;        
-    uint8_t  sAscii_Rx_Cnt;             
-    uint8_t  sAscii_Re_Rx_Cnt;          
-    uint8_t  sAscii_Color_Code;         
-    int16_t sAscii_Char_RxLen;         
-    uint8_t  sAscii_NorMal_Flag;        
-    
-    uint8_t sPattern_Test_Flag;
-    uint8_t sPattern_Test_ColorData; 
+
+
+
+
+
+
+
+
+
+
+
 
     uint8_t sClock_Start_Flage;
     uint8_t sReClock_Start_Flage; 
@@ -28770,6 +28761,7 @@ typedef struct
     uint8_t sCurrentTestFlag; 
     uint16_t sCurrentVal; 
     
+    uint8_t sVolTestFlg; 
     
 }mLED_PROCESS_Flag;
 
@@ -29153,9 +29145,9 @@ void DHCP_Process(struct netif *netif)
           dhcp_stop(netif);
           
            
-          (&ipaddr)->addr = ((u32_t)(((uint8_t) ((IP_ADDR2_INPUT_DATA & 0x01) ? 96 : 97)) & 0xff) << 24) | ((u32_t)(((uint8_t) (IP_ADDR1_INPUT_DATA & 0x0F)) & 0xff) << 16) | ((u32_t)(((uint8_t) 128) & 0xff) << 8) | (u32_t)(((uint8_t) 10) & 0xff);
+          (&ipaddr)->addr = ((u32_t)(((uint8_t) 130) & 0xff) << 24) | ((u32_t)(((uint8_t) 1) & 0xff) << 16) | ((u32_t)(((uint8_t) 168) & 0xff) << 8) | (u32_t)(((uint8_t) 192) & 0xff);
           (&netmask)->addr = ((u32_t)(((uint8_t) 0) & 0xff) << 24) | ((u32_t)(((uint8_t) 0) & 0xff) << 16) | ((u32_t)(((uint8_t) 255) & 0xff) << 8) | (u32_t)(((uint8_t) 255) & 0xff);
-          (&gw)->addr = ((u32_t)(((uint8_t) 1) & 0xff) << 24) | ((u32_t)(((uint8_t) 0) & 0xff) << 16) | ((u32_t)(((uint8_t) 0) & 0xff) << 8) | (u32_t)(((uint8_t) 10) & 0xff);
+          (&gw)->addr = ((u32_t)(((uint8_t) 1) & 0xff) << 24) | ((u32_t)(((uint8_t) 0) & 0xff) << 16) | ((u32_t)(((uint8_t) 168) & 0xff) << 8) | (u32_t)(((uint8_t) 192) & 0xff);
           netif_set_addr(netif, &ipaddr, &netmask, &gw);
           
           

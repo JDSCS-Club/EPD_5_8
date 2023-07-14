@@ -113,8 +113,8 @@ extern __IO uint16_t ADCValue[6];
 
 
 /* AMP 관련  ------------------------------------------------------------*/
-#define TEST_ROOM 0 // 0 == 현차 -- 1 == 양산. 관련  응량 설정 하는 부분. 관리.
-#define AMP_H_TEMP 1 // 0 == 저온 동작 조건 / 1 == 고온 동작 조건 ( 저온 동작 조건에서 고장 발생 하는 장치에 대하여 적용)
+#define TEST_ROOM 1 // 0 == 현차 -- 1 == 양산. 관련  응량 설정 하는 부분. 관리.
+#define AMP_H_TEMP 0 // 0 == 저온 동작 조건 / 1 == 고온 동작 조건 ( 저온 동작 조건에서 고장 발생 하는 장치에 대하여 적용)
 
 
 /* Exported constants --------------------------------------------------------*/
@@ -125,10 +125,17 @@ extern __IO uint16_t ADCValue[6];
 //#define DEST_IP_ADDR2   100
 //#define DEST_IP_ADDR3   100
 
+
 #define DEST_IP_ADDR0   255
 #define DEST_IP_ADDR1   255
 #define DEST_IP_ADDR2   255
 #define DEST_IP_ADDR3   255
+ 
+
+
+#define VER_PORT  3338
+#define SD_PORT   30000
+
 
 #define UDP_SERVER_PORT    30013   /* define the UDP local connection port */
 #define UDP_CLIENT_PORT    30013   /* define the UDP remote connection port */   
@@ -144,10 +151,10 @@ extern __IO uint16_t ADCValue[6];
 
 
 /*Static IP ADDRESS: IP_ADDR0.IP_ADDR1.IP_ADDR2.IP_ADDR3 */
-#define IP_ADDR0   (uint8_t) 10
-#define IP_ADDR1   (uint8_t) 128
-#define IP_ADDR2   (uint8_t) (IP_ADDR1_INPUT_DATA & 0x0F) //((IP_ADDR4_INPUT_DATA<<4)|IP_ADDR3_INPUT_DATA)
-#define IP_ADDR3   (uint8_t) ((IP_ADDR2_INPUT_DATA & 0x01) ? 96 : 97)
+#define IP_ADDR0   (uint8_t) 192
+#define IP_ADDR1   (uint8_t) 168
+#define IP_ADDR2   (uint8_t) 1 //(IP_ADDR1_INPUT_DATA & 0x0F) //((IP_ADDR4_INPUT_DATA<<4)|IP_ADDR3_INPUT_DATA)
+#define IP_ADDR3   (uint8_t) 130//((IP_ADDR2_INPUT_DATA & 0x01) ? 96 : 97)
    
    
 /*NETMASK*/
@@ -157,8 +164,8 @@ extern __IO uint16_t ADCValue[6];
 #define NETMASK_ADDR3   (uint8_t) 0
 
 /*Gateway Address*/
-#define GW_ADDR0   (uint8_t) 10 //10
-#define GW_ADDR1   (uint8_t) 0 //61
+#define GW_ADDR0   (uint8_t) 192 //10
+#define GW_ADDR1   (uint8_t) 168 //61
 #define GW_ADDR2   (uint8_t) 0 //0
 #define GW_ADDR3   (uint8_t) 1 //1
 
@@ -166,7 +173,7 @@ extern __IO uint16_t ADCValue[6];
 #define MAC_ADDR0   0x18
 #define MAC_ADDR1   0x30
 #define MAC_ADDR2   0x09 + (IP_ADDR_VAL_DATA>>24)&0xFF
-#define MAC_ADDR3   0    + (IP_ADDR_VAL_DATA>>16)&0xFF
+#define MAC_ADDR3   10    + (IP_ADDR_VAL_DATA>>16)&0xFF
 #define MAC_ADDR4   0x32 + (IP_ADDR_VAL_DATA>>8)&0xFF
 #define MAC_ADDR5   0x28 + (IP_ADDR_VAL_DATA>>0)&0xFF
 
@@ -226,105 +233,39 @@ extern __IO uint16_t ADCValue[6];
 #endif
 
 
+/* Private defines -----------------------------------------------------------*/
+//#define SPI1_SCK_Pin            GPIO_PIN_5
+//#define SPI1_SCK_               GPIO_Port GPIOA
+//#define SPI1_MISO_Pin           GPIO_PIN_6
+//#define SPI1_MISO_GPIO_Port     GPIOA
+//#define SPI1_MOSI_Pin           GPIO_PIN_7
+//#define SPI1_MOSI_GPIO_Port     GPIOA
+//#define IIC_SCL_SOFT_Pin        GPIO_PIN_6
+//#define IIC_SCL_SOFT_GPIO_Port  GPIOC
+//#define IIC_SDA_SOFT_Pin        GPIO_PIN_8
+//#define IIC_SDA_SOFT_GPIO_Port  GPIOC
 
 
- 
-//GPOP 내용 설정. 
-//ADDRESS 입력 스위치
-#define ID_SWITCH_1_0              GPIO_PIN_3
-#define ID_SWITCH_1_0_Port               GPIOE
-
-#define ID_SWITCH_1_1              GPIO_PIN_4
-#define ID_SWITCH_1_1_Port               GPIOE
-
-#define ID_SWITCH_1_2              GPIO_PIN_5
-#define ID_SWITCH_1_2_Port               GPIOE
-
-#define ID_SWITCH_1_3              GPIO_PIN_6
-#define ID_SWITCH_1_3_Port               GPIOE
-
-
-#define ID_SWITCH_2_0              GPIO_PIN_7
-#define ID_SWITCH_2_0_Port               GPIOE
-
-#define ID_SWITCH_2_1              GPIO_PIN_8
-#define ID_SWITCH_2_1_Port               GPIOE
-
-#define ID_SWITCH_2_2              GPIO_PIN_9
-#define ID_SWITCH_2_2_Port               GPIOE
-
-#define ID_SWITCH_2_3              GPIO_PIN_10
-#define ID_SWITCH_2_3_Port               GPIOE
-
-
-#define ID_SWITCH_3_0              GPIO_PIN_11
-#define ID_SWITCH_3_0_Port               GPIOE
-
-#define ID_SWITCH_3_1              GPIO_PIN_12
-#define ID_SWITCH_3_1_Port               GPIOE
-
-#define ID_SWITCH_3_2              GPIO_PIN_13
-#define ID_SWITCH_3_2_Port               GPIOE
-
-#define ID_SWITCH_3_3              GPIO_PIN_14
-#define ID_SWITCH_3_3_Port               GPIOE
-
-
-
-
-// PICTO 
-#define PICTO_LED1                 GPIO_PIN_7
-#define PICTO_LED1_Port                 GPIOD 
-
-#define PICTO_LED2                 GPIO_PIN_10
-#define PICTO_LED2_Port                 GPIOD 
-
-#define PICTO_LED3                 GPIO_PIN_11
-#define PICTO_LED3_Port                 GPIOD 
-
-#define PICTO_LED4                  GPIO_PIN_0
-#define PICTO_LED4_Port                 GPIOE 
-
-#define PICTO_LED5                  GPIO_PIN_1
-#define PICTO_LED5_Port                 GPIOE 
-
-///////////////////////////////
-
-#define STATUS_LED                  GPIO_PIN_11 
-#define STATUS_LED_Port                 GPIOA 
-
-#define SPI_CS1                     GPIO_PIN_1 
-#define SPI_CS1_Port                    GPIOD 
-#define SPI_CS0                     GPIO_PIN_4 
-#define SPI_CS0_Port                    GPIOA 
-
-
-#define WP_MEM                      GPIO_PIN_2
-#define WP_MEM_Port                     GPIOD 
-
-#define PHY_RST                     GPIO_PIN_6 
-#define PHY_RST_Port                    GPIOD 
-
-#define PWRDN_INT                   GPIO_PIN_0 
-#define PWRDN_INT_Port                  GPIOC
-
-#define WDT_ST                      GPIO_PIN_8
-#define WDT_ST_Port                     GPIOA
-
-
-//INPUT 
-#define TEST_MODE                   GPIO_PIN_8 
-#define TEST_MODE_Port                  GPIOB 
-
-#define MODE_SET                    GPIO_PIN_0
-#define MODE_SET_Port                   GPIOD
-
-
+//#define OLED_DC_Pin             GPIO_PIN_8
+//#define OLED_DC_GPIO_Port       GPIOA
+//#define OLED_RST_Pin            GPIO_PIN_9
+//#define OLED_RST_GPIO_Port      GPIOA
+//#define OLED_CS_Pin             GPIO_PIN_6
+//#define OLED_CS_GPIO_Port       GPIOB
+//#define I2C1_SCL_Pin            GPIO_PIN_8
+//#define I2C1_SCL_GPIO_Port      GPIOB
+//#define I2C1_SDA_Pin            GPIO_PIN_9
+//#define I2C1_SDA_GPIO_Port      GPIOB
+         
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
    
 void Time_Main(void);
     
+
+
+
+
 
 void UDPdebug_print_JDS(struct udp_hdr *udphdr);
     
@@ -776,19 +717,19 @@ typedef struct
     uint8_t sEth_Rx_Request_Flag;       // 상태 데이타 응답 플레그
     uint16_t sEth_Rx_Finish_TimeCnt;    // 이미지 데이타 수신 완료 시간을 확인 하다, 3초 동안 수신이 없으면 종결로  처리.
 
-    uint16_t sScreen_Play_Time;         //표출 시간.
-    uint8_t sScreen_Max_Page;           //통신 으로 수신한 데이타 카운터 총 카운터 .
-    uint8_t sScreen_CrcCheck_Mac_Page;  // CRC 값을 확인 하여 체크한  max page
-    uint8_t sScreen_Display_Data_Page;
-    
-    uint8_t sScreen_Page_Cnt;           //현재 표출 해야 하는 페이지 카운트
-    uint8_t sScreen_ScanFlag;           //표출 시간에 한번식 동작.
+//    uint16_t sScreen_Play_Time;         //표출 시간.
+//    uint8_t sScreen_Max_Page;           //통신 으로 수신한 데이타 카운터 총 카운터 .
+//    uint8_t sScreen_CrcCheck_Mac_Page;  // CRC 값을 확인 하여 체크한  max page
+//    uint8_t sScreen_Display_Data_Page;
+//    
+//    uint8_t sScreen_Page_Cnt;           //현재 표출 해야 하는 페이지 카운트
+//    uint8_t sScreen_ScanFlag;           //표출 시간에 한번식 동작.
     
      // 통신으로 수시한 페이지 싱크 비트
-    uint8_t sScreen_Page_Cnt_Rx_Comand_Flag;
-    uint8_t sScreen_Page_Cnt_Rx_Comand;
-    uint8_t sScreen_Page_Cnt_Rx_ReComand;
-    uint8_t sScreen_Page_Check_Buf[18];
+//    uint8_t sScreen_Page_Cnt_Rx_Comand_Flag;
+//    uint8_t sScreen_Page_Cnt_Rx_Comand;
+//    uint8_t sScreen_Page_Cnt_Rx_ReComand;
+//    uint8_t sScreen_Page_Check_Buf[18];
     
     
 
@@ -802,17 +743,17 @@ typedef struct
       uint8_t  sRx_Public_Buf[100];        // 프로토콜 수신 데이타 버퍼.
     
     
-    uint8_t  sAscii_Code_Flag;          // PII 에서 문자를 수신 확인 하기 위해 사용.
-    uint8_t  sRx_PII_Ascii_Buf[384];    //PII 에서 버퍼 데이타 수신 보관 하는 버퍼.
-    uint16_t sScroll_Cnt_Finish;        //스크롤 진행 중인지 확인 하는 부분//
-    uint8_t  sAscii_Rx_Cnt;             //문자 통신 수신 카운터
-    uint8_t  sAscii_Re_Rx_Cnt;          //문자 통신 수신 카운터 기억
-    uint8_t  sAscii_Color_Code;         //수신한 문자 칼라 코드.
-    int16_t sAscii_Char_RxLen;         // 수신한 총 문자
-    uint8_t  sAscii_NorMal_Flag;        //버번 현시를 위해 사용 하는 Flag
-    
-    uint8_t sPattern_Test_Flag;
-    uint8_t sPattern_Test_ColorData; //패턴 TEST 칼라 코드 값을 확인 한다.
+//    uint8_t  sAscii_Code_Flag;          // PII 에서 문자를 수신 확인 하기 위해 사용.
+//    uint8_t  sRx_PII_Ascii_Buf[384];    //PII 에서 버퍼 데이타 수신 보관 하는 버퍼.
+//    uint16_t sScroll_Cnt_Finish;        //스크롤 진행 중인지 확인 하는 부분//
+//    uint8_t  sAscii_Rx_Cnt;             //문자 통신 수신 카운터
+//    uint8_t  sAscii_Re_Rx_Cnt;          //문자 통신 수신 카운터 기억
+//    uint8_t  sAscii_Color_Code;         //수신한 문자 칼라 코드.
+//    int16_t sAscii_Char_RxLen;         // 수신한 총 문자
+//    uint8_t  sAscii_NorMal_Flag;        //버번 현시를 위해 사용 하는 Flag
+//    
+//    uint8_t sPattern_Test_Flag;
+//    uint8_t sPattern_Test_ColorData; //패턴 TEST 칼라 코드 값을 확인 한다.
 
     uint8_t sClock_Start_Flage;
     uint8_t sReClock_Start_Flage; //동작 상태를 현시 하는 변수.
@@ -851,6 +792,7 @@ typedef struct
     uint8_t sCurrentTestFlag; // PTT 시험을 시작 하는 플레그.
     uint16_t sCurrentVal; // top Pcb 전체 전류를 측정 한다.
     
+    uint8_t sVolTestFlg; //아이리코와 현차 볼륨레벨을 조정한다.  1 = ON / 0 = OFF
     
 }mLED_PROCESS_Flag;
 

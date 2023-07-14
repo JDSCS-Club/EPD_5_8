@@ -21970,32 +21970,32 @@ void Flash_Init(void)
 
 void Flash_Main(void)
 {
-	if((mFLASH_TIM_Cnt == 7000))
-	{
-            
-        mFLASH_TIM_Cnt++;
-            
-        
-         BootFlashReadAddress = ((uint32_t)0x080E0000);
-        
-         FLASH_Read_Len(&BootFlashReadAddress,dFlashReadBuf,20);
-         
-         
-          if (strncmp ((char*)(dFlashReadBuf), "SW_UpData_BootLoad!!", 20))
-          {
 
-                
-                Flash_Write((uint8_t *)mFlashMemoySaveBuf,20);
-                
-                
-          }
-          else
-          {
 
-                
-          }
 
-	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 }
 

@@ -1,14 +1,20 @@
 "--endian=little" 
 
-"--cpu=Cortex-M3" 
+"--cpu=Cortex-M4" 
 
-"--fpu=None" 
+"--fpu=VFPv4_SP" 
+
+"-p" 
+
+"C:\Program Files\IAR Systems\Embedded Workbench 9.1\arm\CONFIG\debugger\ST\STM32F407VG.ddf" 
 
 "--drv_verify_download" 
 
 "--semihosting" 
 
-"--drv_communication_log=C:\Program Files\IAR Systems\Embedded Workbench 9.0 EWARM FS 9.20.3\arm\cspycomm.log" 
+"--device=STM32F407VG" 
+
+"--drv_communication_log=C:\Program Files\IAR Systems\Embedded Workbench 9.1\arm\cspycomm.log" 
 
 "--drv_communication=USB:#174301289" 
 
@@ -19,8 +25,6 @@
 "--drv_restore_breakpoints=main" 
 
 "--jlink_reset_strategy=0,0" 
-
-"--drv_interface=SWD" 
 
 "--drv_catch_exceptions=0xff1" 
 

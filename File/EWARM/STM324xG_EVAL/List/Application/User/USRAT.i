@@ -27725,7 +27725,7 @@ extern void udp_echoclient_connect(void);
 extern void udp_receive_callback(void *arg, struct udp_pcb *upcb, struct pbuf *p, const ip_addr_t *addr, u16_t port);
 
 
-extern void udp_SysLog_Connect(char * format, ... );
+extern void udp_SysLog_Connect(int Kind_Code, char * format, ... );
 extern void udp_SysLog(char * format, ... );
 
 
@@ -28151,6 +28151,11 @@ extern volatile uint16_t ADCValue[6];
 
 
 
+ 
+
+
+
+
    
 
 
@@ -28211,8 +28216,6 @@ extern volatile uint16_t ADCValue[6];
 
 
 
-
-
  
 
 
@@ -28236,28 +28239,16 @@ extern volatile uint16_t ADCValue[6];
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+         
  
  
    
 void Time_Main(void);
     
+
+
+
+
 
 void UDPdebug_print_JDS(struct udp_hdr *udphdr);
     
@@ -28709,19 +28700,19 @@ typedef struct
     uint8_t sEth_Rx_Request_Flag;       
     uint16_t sEth_Rx_Finish_TimeCnt;    
 
-    uint16_t sScreen_Play_Time;         
-    uint8_t sScreen_Max_Page;           
-    uint8_t sScreen_CrcCheck_Mac_Page;  
-    uint8_t sScreen_Display_Data_Page;
-    
-    uint8_t sScreen_Page_Cnt;           
-    uint8_t sScreen_ScanFlag;           
+
+
+
+
+
+
+
     
      
-    uint8_t sScreen_Page_Cnt_Rx_Comand_Flag;
-    uint8_t sScreen_Page_Cnt_Rx_Comand;
-    uint8_t sScreen_Page_Cnt_Rx_ReComand;
-    uint8_t sScreen_Page_Check_Buf[18];
+
+
+
+
     
     
 
@@ -28735,17 +28726,17 @@ typedef struct
       uint8_t  sRx_Public_Buf[100];        
     
     
-    uint8_t  sAscii_Code_Flag;          
-    uint8_t  sRx_PII_Ascii_Buf[384];    
-    uint16_t sScroll_Cnt_Finish;        
-    uint8_t  sAscii_Rx_Cnt;             
-    uint8_t  sAscii_Re_Rx_Cnt;          
-    uint8_t  sAscii_Color_Code;         
-    int16_t sAscii_Char_RxLen;         
-    uint8_t  sAscii_NorMal_Flag;        
-    
-    uint8_t sPattern_Test_Flag;
-    uint8_t sPattern_Test_ColorData; 
+
+
+
+
+
+
+
+
+
+
+
 
     uint8_t sClock_Start_Flage;
     uint8_t sReClock_Start_Flage; 
@@ -28784,6 +28775,7 @@ typedef struct
     uint8_t sCurrentTestFlag; 
     uint16_t sCurrentVal; 
     
+    uint8_t sVolTestFlg; 
     
 }mLED_PROCESS_Flag;
 
@@ -29165,26 +29157,26 @@ void USRAT_init(void)
 
  
       
+           
+    UartHandle1.Instance          = ((USART_TypeDef *) ((0x40000000U + 0x00010000U) + 0x1000U));
+
+    UartHandle1.Init.BaudRate     = 115200;
+    UartHandle1.Init.WordLength   = 0x00000000U;
+    UartHandle1.Init.StopBits     = 0x00000000U;
+    UartHandle1.Init.Parity       = 0x00000000U;
+    UartHandle1.Init.HwFlowCtl    = 0x00000000U;
+    UartHandle1.Init.Mode         = ((uint32_t)((0x1U << (3U)) |(0x1U << (2U))));
+    UartHandle1.Init.OverSampling = 0x00000000U;
 
 
+    HAL_UART_Init(&UartHandle1);
 
-
-
-
-
-
-
-
-
-
-
-
-
+    HAL_UART_Receive_IT(&UartHandle1, (uint8_t *)mUSART_RXBuf_1ch, 1);   
 
 
     
     
-     
+    
     UartHandle3.Instance          = ((USART_TypeDef *) (0x40000000U + 0x4800U));
 
     UartHandle3.Init.BaudRate     = 115200;
@@ -29200,7 +29192,6 @@ void USRAT_init(void)
 
     HAL_UART_Receive_IT(&UartHandle3, (uint8_t *)mUSART_RXBuf_3ch, 1);
 
-    
 
 
 
@@ -29222,7 +29213,8 @@ void USRAT_init(void)
 
 
 
- 
+
+
     USART_1Ch.nRxOK = HAL_BUSY;
     USART_1Ch.nRxOK_Cnt = 0;
     USART_1Ch.nRxLen = 40; 
@@ -29243,7 +29235,7 @@ void USRAT_init(void)
     memset(USART_1Ch.nTxBuffer,0,sizeof(mUSART_TXBuf_1ch));
     memset(USART_1Ch.nRxBuf_BackUp,0,sizeof(mUSART_RXBufBackUp_1ch));
 
-     
+    
     USART_3Ch.nRxOK = 0;
     USART_3Ch.nRxOK_Cnt = 0;
     USART_3Ch.nRxLen = 20; 
@@ -29607,23 +29599,22 @@ void MyPrintf_USART1(char *format, ... )
 	va_list args;
 	static char szBuf[1024];
     
-    mChen = 3;
+    mChen = 1;
 	
 	__builtin_va_start(args, format);
 	vsprintf(szBuf, format, args);
-    
-	DP_RING_BUF_PUSH((uint8_t*)szBuf,strlen(szBuf),1);
+	
     
 	
     
-
-
-
-
-
-
-
-
+    if(mChen == 0x01)
+    {
+        DP_RING_BUF_PUSH((uint8_t*)szBuf,strlen(szBuf),1);
+    }
+    else
+    {
+        DP_RING_BUF_PUSH((uint8_t*)szBuf,strlen(szBuf),3);
+    }
     
 	
 
@@ -29761,15 +29752,25 @@ void USART_RingBuf_Pro(void)
 
         if(((sCh) & 0x0ff) == 1)
         {
-            if(UartHandle3.gState == HAL_UART_STATE_READY) 
+            if(UartHandle1.gState == HAL_UART_STATE_READY) 
             {
                 
                 DP_RING_BUF_POP(USART_1Ch.nTxBuffer,&USART_1Ch.nTxLen);
-                HAL_UART_Transmit_IT(&UartHandle3, (uint8_t*)USART_1Ch.nTxBuffer,USART_1Ch.nTxLen);
+                HAL_UART_Transmit_IT(&UartHandle1, (uint8_t*)USART_1Ch.nTxBuffer,USART_1Ch.nTxLen);
             }
 
         }
         
+        else if(((sCh) & 0x0ff) == 3)
+        {
+            if(UartHandle3.gState == HAL_UART_STATE_READY) 
+            {
+                
+                DP_RING_BUF_POP(USART_3Ch.nTxBuffer,&USART_3Ch.nTxLen);
+                HAL_UART_Transmit_IT(&UartHandle3, (uint8_t*)USART_3Ch.nTxBuffer,USART_3Ch.nTxLen);
+            }
+
+        }
 
 
 

@@ -134,18 +134,31 @@ void RTC_Alarm_IRQHandler(void)
   * @param  None
   * @retval None
   */
-      
-      //EXTI0_IRQn
 //void EXTI15_10_IRQHandler(void) 
 //{
-//  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
+//  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_8);
 //}
 
 
-void EXTI0_IRQHandler(void) 
+
+//EPD
+//void EXTI9_5_IRQHandler(void)
+//{
+//    HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_8);
+//    
+//}
+
+
+//LEDC
+void EXTI0_IRQHandler(void)
 {
-  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
+     HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
+    
 }
+
+
+
+
 
 /**
   * @brief  This function handles I2C event interrupt request.  

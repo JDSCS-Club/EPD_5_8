@@ -27613,7 +27613,7 @@ extern void udp_echoclient_connect(void);
 extern void udp_receive_callback(void *arg, struct udp_pcb *upcb, struct pbuf *p, const ip_addr_t *addr, u16_t port);
 
 
-extern void udp_SysLog_Connect(char * format, ... );
+extern void udp_SysLog_Connect(int Kind_Code, char * format, ... );
 extern void udp_SysLog(char * format, ... );
 
 
@@ -28190,6 +28190,11 @@ extern volatile uint16_t ADCValue[6];
 
 
 
+ 
+
+
+
+
    
 
 
@@ -28250,8 +28255,6 @@ extern volatile uint16_t ADCValue[6];
 
 
 
-
-
  
 
 
@@ -28275,28 +28278,16 @@ extern volatile uint16_t ADCValue[6];
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+         
  
  
    
 void Time_Main(void);
     
+
+
+
+
 
 void UDPdebug_print_JDS(struct udp_hdr *udphdr);
     
@@ -28748,19 +28739,19 @@ typedef struct
     uint8_t sEth_Rx_Request_Flag;       
     uint16_t sEth_Rx_Finish_TimeCnt;    
 
-    uint16_t sScreen_Play_Time;         
-    uint8_t sScreen_Max_Page;           
-    uint8_t sScreen_CrcCheck_Mac_Page;  
-    uint8_t sScreen_Display_Data_Page;
-    
-    uint8_t sScreen_Page_Cnt;           
-    uint8_t sScreen_ScanFlag;           
+
+
+
+
+
+
+
     
      
-    uint8_t sScreen_Page_Cnt_Rx_Comand_Flag;
-    uint8_t sScreen_Page_Cnt_Rx_Comand;
-    uint8_t sScreen_Page_Cnt_Rx_ReComand;
-    uint8_t sScreen_Page_Check_Buf[18];
+
+
+
+
     
     
 
@@ -28774,17 +28765,17 @@ typedef struct
       uint8_t  sRx_Public_Buf[100];        
     
     
-    uint8_t  sAscii_Code_Flag;          
-    uint8_t  sRx_PII_Ascii_Buf[384];    
-    uint16_t sScroll_Cnt_Finish;        
-    uint8_t  sAscii_Rx_Cnt;             
-    uint8_t  sAscii_Re_Rx_Cnt;          
-    uint8_t  sAscii_Color_Code;         
-    int16_t sAscii_Char_RxLen;         
-    uint8_t  sAscii_NorMal_Flag;        
-    
-    uint8_t sPattern_Test_Flag;
-    uint8_t sPattern_Test_ColorData; 
+
+
+
+
+
+
+
+
+
+
+
 
     uint8_t sClock_Start_Flage;
     uint8_t sReClock_Start_Flage; 
@@ -28823,6 +28814,7 @@ typedef struct
     uint8_t sCurrentTestFlag; 
     uint16_t sCurrentVal; 
     
+    uint8_t sVolTestFlg; 
     
 }mLED_PROCESS_Flag;
 
@@ -30032,13 +30024,40 @@ void OLED_Print(void)
         else
         {
             Paint_DrawString_EN(10, 17, &mLCDPrintBuf_2[0][0], &Font8, 0xFFFF, 0xFFFF);  
+            
+            
+            if(mLed_Process_Flag.tAmp_Vol_UpFlag == 1)
+            {
+                    
+                    if(mLed_Process_Flag.sVolTestFlg == 1) 
+                    {
+                        sprintf(&mLCDPrintBuf_2[1][0], "AMP_VOL_UP");
+                    }
+                    else
+                    {
+                        sprintf(&mLCDPrintBuf_2[1][0], "AMP_VOL_UP_Train");
+                    }
+            }
+            else if(mLed_Process_Flag.tAmp_Vol_UpFlag == 0 )
+            {
+                    
+                    if(mLed_Process_Flag.sVolTestFlg == 1) 
+                    {
+                        sprintf(&mLCDPrintBuf_2[1][0], "AMP_VOL_DEFAULT");
+                    }
+                    else
+                    {
+                        sprintf(&mLCDPrintBuf_2[1][0], "AMP_VOL_DEFAULT_Train");
+                    }
+            }
+                    
+                  
             Paint_DrawString_EN(10, 27, &mLCDPrintBuf_2[1][0], &Font8, 0xFFFF, 0xFFFF);  
             
+     
         }
         
 
-        
-        
         Paint_DrawString_EN(10, 37, &mLCDPrintBuf[2][0], &Font8, 0xFFFF, 0xFFFF); 
         
         

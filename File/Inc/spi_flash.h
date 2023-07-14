@@ -39,7 +39,7 @@
 #define  SPI_FLASH_WriteAddress     0x10000
 #define  SPI_FLASH_ReadAddress      SPI_FLASH_WriteAddress
 #define  SPI_FLASH_SectorToErase    SPI_FLASH_WriteAddress
-#define  SST26VF032B_FLASH_ID        0xC8471A
+#define  SST26VF032B_FLASH_ID        0x002642
 
 extern uint8_t SPI_Tx_Buffer[SPI_Buff_SIZE];
 extern __IO uint32_t SPI_FLASH_ID;
@@ -55,12 +55,8 @@ extern SPI_HandleTypeDef SpiMemoryHandle;
 
 
 
-#define SPI_FLASH_CS0_LOW()        HAL_GPIO_WritePin(SPI_CS0_Port,GPIO_PIN_4,GPIO_PIN_RESET);
-#define SPI_FLASH_CS0_HIGH()        HAL_GPIO_WritePin(SPI_CS0_Port,GPIO_PIN_4,GPIO_PIN_SET);
-
-
-#define SPI_FLASH_CS1_LOW()        HAL_GPIO_WritePin(SPI_CS1_Port,SPI_CS1,GPIO_PIN_RESET);
-#define SPI_FLASH_CS1_HIGH()        HAL_GPIO_WritePin(SPI_CS1_Port,SPI_CS1,GPIO_PIN_SET);
+#define SPI_FLASH_CS_LOW()        HAL_GPIO_WritePin(GPIOI,GPIO_PIN_0,GPIO_PIN_RESET);
+#define SPI_FLASH_CS_HIGH()        HAL_GPIO_WritePin(GPIOI,GPIO_PIN_0,GPIO_PIN_SET);
 
 
 /* Exported functions ------------------------------------------------------- */

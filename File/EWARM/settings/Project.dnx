@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <settings>
     <Stack>
-        <FillEnabled>0</FillEnabled>
+        <FillEnabled>1</FillEnabled>
         <OverflowWarningsEnabled>1</OverflowWarningsEnabled>
         <WarningThreshold>90</WarningThreshold>
         <SpWarningsEnabled>1</SpWarningsEnabled>
@@ -16,7 +16,7 @@
         <LeaveTargetRunning>_ 0</LeaveTargetRunning>
     </StLinkDriver>
     <DebugChecksum>
-        <Checksum>355105134</Checksum>
+        <Checksum>3564806715</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -44,46 +44,46 @@
         <CStepIntDis>_ 0</CStepIntDis>
     </JLinkDriver>
     <InterruptStripe>
-        <Title0>WWDG</Title0>
-        <Setup0>3 1 3 0 1 0 0 2152264084534041800 1512970760543729272</Setup0>
-        <Title1>TIM5</Title1>
-        <Setup1>3 1 3 0 1 0 0 126373538979911820 8486614989552387580</Setup1>
-        <Title2>USART3</Title2>
-        <Setup2>3 1 3 0 1 0 0 2914140344592 104</Setup2>
-        <Title3>TIM4</Title3>
-        <Setup3>3 1 3 0 1 0 0 126373538979911820 8486614989552387580</Setup3>
-        <Title4>SysTick</Title4>
-        <Setup4>3 1 3 0 1 0 0 126373538979911820 8486614989552387580</Setup4>
-        <Title5>EXTI0</Title5>
-        <Setup5>3 1 3 0 1 0 0 2916061777856 104</Setup5>
-        <Title6>DMA2_Stream4</Title6>
-        <Setup6>3 1 3 0 1 0 0 1057041535 140726831215411</Setup6>
-        <Title7>DMA2_Stream0</Title7>
-        <Setup7>3 1 3 0 1 0 0 -369021288 140731638084403</Setup7>
-        <Title8>RTC_Alarm</Title8>
-        <Setup8>3 1 3 0 1 0 0 553719085 140731638084403</Setup8>
-        <Title9>USART1</Title9>
-        <Setup9>3 1 3 0 1 0 0 2423088813752031912 1621186069336222648</Setup9>
-        <Title10>I2C1_EV</Title10>
-        <Setup10>3 1 3 0 1 0 0 33631524 140731638084403</Setup10>
-        <Title11>I2C1_ER</Title11>
-        <Setup11>3 1 3 0 1 0 0 33631524 140731638084403</Setup11>
-        <Title12 />
-        <Setup12>3 1 3 0 1 0 0 3102676747412143656 2322058761341562336</Setup12>
-        <Title13>Reset</Title13>
-        <Setup13>3 1 3 0 1 0 0 126373538979911820 8486614989552387580</Setup13>
-        <Title14>I2C3_ER</Title14>
-        <Setup14>3 1 3 0 1 0 0 -369021288 140731638084403</Setup14>
-        <Title15>DMA1_Stream5</Title15>
-        <Setup15>3 1 3 0 1 0 0 -369021288 140731638084403</Setup15>
-        <Title16>DMA1_Stream3</Title16>
-        <Setup16>3 1 3 0 1 0 0 8486652875458935414 7379845003989521637</Setup16>
-        <Title17>DMA1_Stream1</Title17>
-        <Setup17>3 1 3 0 1 0 0 -3270509800803124712 8449294504942565028</Setup17>
-        <Title18>TIM8_CC</Title18>
-        <Setup18>3 1 3 0 1 0 0 1125759100637680278 7379843473500798976</Setup18>
-        <Title19>OTG_HS_WKUP</Title19>
-        <Setup19>3 1 3 0 1 0 0 1125759100637680278 7379843473500798976</Setup19>
+        <Title0>DMA2_Stream4</Title0>
+        <Setup0>3 1 3 0 1 0 0 1057041535 140726831215411</Setup0>
+        <Title1>DMA2_Stream0</Title1>
+        <Setup1>3 1 3 0 1 0 0 -369021288 140731638084403</Setup1>
+        <Title2>RTC_Alarm</Title2>
+        <Setup2>3 1 3 0 1 0 0 553719085 140731638084403</Setup2>
+        <Title3>WWDG</Title3>
+        <Setup3>3 1 3 0 1 0 0 2152264084534041800 1512970760543729272</Setup3>
+        <Title4>USART1</Title4>
+        <Setup4>3 1 3 0 1 0 0 2423088813752031912 1621186069336222648</Setup4>
+        <Title5>I2C1_EV</Title5>
+        <Setup5>3 1 3 0 1 0 0 33631524 140731638084403</Setup5>
+        <Title6>TIM5</Title6>
+        <Setup6>3 1 3 0 1 0 0 126373538979911820 8486614989552387580</Setup6>
+        <Title7>TIM4</Title7>
+        <Setup7>3 1 3 0 1 0 0 126373538979911820 8486614989552387580</Setup7>
+        <Title8>SysTick</Title8>
+        <Setup8>3 1 3 0 1 0 0 126373538979911820 8486614989552387580</Setup8>
+        <Title9>I2C1_ER</Title9>
+        <Setup9>3 1 3 0 1 0 0 33631524 140731638084403</Setup9>
+        <Title10 />
+        <Setup10>3 1 3 0 1 0 0 3102676747412143656 2322058761341562336</Setup10>
+        <Title11>Reset</Title11>
+        <Setup11>3 1 3 0 1 0 0 126373538979911820 8486614989552387580</Setup11>
+        <Title12>I2C3_ER</Title12>
+        <Setup12>3 1 3 0 1 0 0 -369021288 140731638084403</Setup12>
+        <Title13>DMA1_Stream5</Title13>
+        <Setup13>3 1 3 0 1 0 0 -369021288 140731638084403</Setup13>
+        <Title14>DMA1_Stream3</Title14>
+        <Setup14>3 1 3 0 1 0 0 8486652875458935414 7379845003989521637</Setup14>
+        <Title15>DMA1_Stream1</Title15>
+        <Setup15>3 1 3 0 1 0 0 -3270509800803124712 8449294504942565028</Setup15>
+        <Title16>TIM8_CC</Title16>
+        <Setup16>3 1 3 0 1 0 0 1125759100637680278 7379843473500798976</Setup16>
+        <Title17>OTG_HS_WKUP</Title17>
+        <Setup17>3 1 3 0 1 0 0 1125759100637680278 7379843473500798976</Setup17>
+        <Title18>DMA1_Stream4</Title18>
+        <Setup18>3 1 3 0 1 0 0 8955335793794938348 -1080519587324029016</Setup18>
+        <Title19>UART4</Title19>
+        <Setup19>3 1 3 0 1 0 0 1526415331474396488 7537851240131058632</Setup19>
         <Sort>0</Sort>
     </InterruptStripe>
     <DataStripe>
@@ -126,7 +126,7 @@
     </SWOTraceHWSettings>
     <PowerStripe>
         <Title0>I0</Title0>
-        <Setup0>2 2 0 0 1 1 0 0 1000</Setup0>
+        <Setup0>2 2 0 0 1 1 0 0 500</Setup0>
     </PowerStripe>
     <Jet>
         <JetConnSerialNo>1158</JetConnSerialNo>
@@ -139,15 +139,15 @@
     </Jet>
     <PlDriver>
         <FirstRun>0</FirstRun>
-        <MemConfigValue />
+        <MemConfigValue>C:\Program Files\IAR Systems\Embedded Workbench 9.1\arm\CONFIG\debugger\ST\STM32F407VG.ddf</MemConfigValue>
     </PlDriver>
     <SWOManager>
         <SamplingDivider>8192</SamplingDivider>
-        <OverrideClock>1</OverrideClock>
+        <OverrideClock>0</OverrideClock>
         <CpuClock>168000000</CpuClock>
         <SwoClock>0</SwoClock>
         <DataLogMode>0</DataLogMode>
-        <ItmPortsEnabled>31</ItmPortsEnabled>
+        <ItmPortsEnabled>63</ItmPortsEnabled>
         <ItmTermIOPorts>1</ItmTermIOPorts>
         <ItmLogPorts>0</ItmLogPorts>
         <ItmLogFile>$PROJ_DIR$\ITM.log</ItmLogFile>
@@ -173,34 +173,6 @@
         <ConfigRanges11>Memory RAM1 536870912 131072 0</ConfigRanges11>
         <ConfigRanges12>Memory RAM_BitBand 570425344 4194304 0</ConfigRanges12>
     </PlDdfRanges>
-    <PlCacheRanges>
-        <CustomRanges0>0 0 1048576 1 0</CustomRanges0>
-        <CustomRangesText0 />
-        <CustomRanges1>0 134217728 1048576 1 0</CustomRanges1>
-        <CustomRangesText1 />
-        <CustomRanges2>0 268435456 65536 0 0</CustomRanges2>
-        <CustomRangesText2 />
-        <CustomRanges3>0 536805376 32768 1 0</CustomRanges3>
-        <CustomRangesText3 />
-        <CustomRanges4>0 536854528 64 2 0</CustomRanges4>
-        <CustomRangesText4 />
-        <CustomRanges5>0 536870912 131072 0 0</CustomRanges5>
-        <CustomRangesText5 />
-        <CustomRanges6>0 570425344 4194304 0 0</CustomRanges6>
-        <CustomRangesText6 />
-        <CustomRanges7>0 1073741824 524288 2 0</CustomRanges7>
-        <CustomRangesText7 />
-        <CustomRanges8>0 1107296256 16777216 2 0</CustomRanges8>
-        <CustomRangesText8 />
-        <CustomRanges9>0 1342177280 397312 2 0</CustomRanges9>
-        <CustomRangesText9 />
-        <CustomRanges10>0 1610612736 1073741824 2 0</CustomRanges10>
-        <CustomRangesText10 />
-        <CustomRanges11>0 2684354560 4096 2 0</CustomRanges11>
-        <CustomRangesText11 />
-        <CustomRanges12>0 3758096384 1048576 2 0</CustomRanges12>
-        <CustomRangesText12 />
-    </PlCacheRanges>
     <Trace1>
         <Enabled>1</Enabled>
         <ShowSource>0</ShowSource>
@@ -217,59 +189,6 @@
         <StallCPU>1</StallCPU>
         <NoPCCapture>1</NoPCCapture>
     </ETMTraceWindow>
-    <struct_types>
-        <Fmt0>AnsSetFlag-tAnsCnt	3	0</Fmt0>
-        <Fmt1>ETH_DMADescTypeDef-Buffer2NextDescAddr	4	0</Fmt1>
-        <Fmt2>ETH_DMADescTypeDef-ControlBufferSize	4	0</Fmt2>
-        <Fmt3>ETH_DMADescTypeDef-Status	4	0</Fmt3>
-        <Fmt4>ETH_HandleTypeDef-RxDesc	4	0</Fmt4>
-        <Fmt5>ip4_addr_p_t-addr	4	0</Fmt5>
-        <Fmt6>ip4_addr_t-addr	4	0</Fmt6>
-        <Fmt7>ip_addr_t-addr	5	0</Fmt7>
-        <Fmt8>mLED_PROCESS_Flag-sMy_IP_Info	3	0</Fmt8>
-        <Fmt9>struct netif-flags	4	0</Fmt9>
-        <Fmt10>struct sys_timeo-time	2	0</Fmt10>
-        <Fmt11>struct udp_hdr-dest	3	0</Fmt11>
-    </struct_types>
-    <array_types>
-        <Fmt0>uint8_t[100]	5	0</Fmt0>
-        <Fmt1>uint8_t[2]	4	0</Fmt1>
-    </array_types>
-    <watch_formats>
-        <Fmt0>{W}1:ipaddr	4	1</Fmt0>
-        <Fmt1>{W}1:sCRC_Check1	4	0</Fmt1>
-        <Fmt2>{W}1:sCRC_Check2	4	0</Fmt2>
-        <Fmt3>{W}1:sCnt	3	0</Fmt3>
-        <Fmt4>{W}1:sCompareCnt	3	0</Fmt4>
-        <Fmt5>{W}1:sRxBitCompare	4	0</Fmt5>
-        <Fmt6>{W}42:Color256_Test_Cnt	3	0</Fmt6>
-        <Fmt7>{W}42:Color256_Test_Cnt2	3	0</Fmt7>
-        <Fmt8>{W}42:FlashAddressPosion	4	0</Fmt8>
-        <Fmt9>{W}42:SPI_FLASH_ID	4	0</Fmt9>
-        <Fmt10>{W}42:Tcp_flag	4	0</Fmt10>
-        <Fmt11>{W}42:Temp	4	0</Fmt11>
-        <Fmt12>{W}42:d_BuffCheck	3	0</Fmt12>
-        <Fmt13>{W}42:d_EthernetBuff[53]	4	0</Fmt13>
-        <Fmt14>{W}42:d_EthernetRxCnt	4	0</Fmt14>
-        <Fmt15>{W}42:d_RingPop_Cnt	3	0</Fmt15>
-        <Fmt16>{W}42:d_RingPush_Cnt	3	0</Fmt16>
-        <Fmt17>{W}42:d_hexSwith_Read	4	0</Fmt17>
-        <Fmt18>{W}42:d_hexSwith_Read2	4	0</Fmt18>
-        <Fmt19>{W}42:daa	3	0</Fmt19>
-        <Fmt20>{W}42:gnetif.ip_addr.addr	4	0</Fmt20>
-        <Fmt21>{W}42:mDI_CheckFlag	3	0</Fmt21>
-        <Fmt22>{W}42:mLCD_InputData	1	0</Fmt22>
-        <Fmt23>{W}42:mLed_Process_Flag.sAmp_Falut_val	1	0</Fmt23>
-        <Fmt24>{W}42:mLed_Process_Flag.sDHCP_IP_Val	3	0</Fmt24>
-        <Fmt25>{W}42:mLed_Process_Flag.sScreen_Page_Cnt	3	0</Fmt25>
-        <Fmt26>{W}42:next_timeout	2	0</Fmt26>
-        <Fmt27>{W}42:pmEthernet_Rx_struct	4	0</Fmt27>
-        <Fmt28>{W}42:s_SpkCheck	1	0</Fmt28>
-    </watch_formats>
-    <Trace2>
-        <Enabled>1</Enabled>
-        <ShowSource>1</ShowSource>
-    </Trace2>
     <SWOTraceWindow>
         <PcSampling>0</PcSampling>
         <InterruptLogs>0</InterruptLogs>
@@ -328,16 +247,72 @@
         <ShowTimeSum>1</ShowTimeSum>
         <SumSortOrder>0</SumSortOrder>
     </EventLog>
+    <PowerProbe>
+        <Frequency>10000</Frequency>
+        <Probe0>I0</Probe0>
+        <ProbeSetup0>2 1 1 2 0 0</ProbeSetup0>
+    </PowerProbe>
+    <struct_types>
+        <Fmt0>AnsSetFlag-tAnsCnt	3	0</Fmt0>
+        <Fmt1>ETH_DMADescTypeDef-Buffer2NextDescAddr	4	0</Fmt1>
+        <Fmt2>ETH_DMADescTypeDef-ControlBufferSize	4	0</Fmt2>
+        <Fmt3>ETH_DMADescTypeDef-Status	4	0</Fmt3>
+        <Fmt4>ETH_HandleTypeDef-RxDesc	4	0</Fmt4>
+        <Fmt5>ip4_addr_p_t-addr	4	0</Fmt5>
+        <Fmt6>ip4_addr_t-addr	4	0</Fmt6>
+        <Fmt7>ip_addr_t-addr	5	0</Fmt7>
+        <Fmt8>mLED_PROCESS_Flag-sMy_IP_Info	3	0</Fmt8>
+        <Fmt9>struct netif-flags	4	0</Fmt9>
+        <Fmt10>struct sys_timeo-time	2	0</Fmt10>
+        <Fmt11>struct udp_hdr-dest	3	0</Fmt11>
+    </struct_types>
+    <array_types>
+        <Fmt0>uint8_t[100]	5	0</Fmt0>
+        <Fmt1>uint8_t[2]	4	0</Fmt1>
+    </array_types>
+    <watch_formats>
+        <Fmt0>{W}1:ipaddr	4	1</Fmt0>
+        <Fmt1>{W}1:sCRC_Check1	4	0</Fmt1>
+        <Fmt2>{W}1:sCRC_Check2	4	0</Fmt2>
+        <Fmt3>{W}1:sCnt	3	0</Fmt3>
+        <Fmt4>{W}1:sCompareCnt	3	0</Fmt4>
+        <Fmt5>{W}1:sRxBitCompare	4	0</Fmt5>
+        <Fmt6>{W}42:Color256_Test_Cnt	3	0</Fmt6>
+        <Fmt7>{W}42:Color256_Test_Cnt2	3	0</Fmt7>
+        <Fmt8>{W}42:FlashAddressPosion	4	0</Fmt8>
+        <Fmt9>{W}42:SPI_FLASH_ID	4	0</Fmt9>
+        <Fmt10>{W}42:Tcp_flag	4	0</Fmt10>
+        <Fmt11>{W}42:d_BuffCheck	3	0</Fmt11>
+        <Fmt12>{W}42:d_EthernetBuff[53]	4	0</Fmt12>
+        <Fmt13>{W}42:d_EthernetRxCnt	4	0</Fmt13>
+        <Fmt14>{W}42:d_RingPop_Cnt	3	0</Fmt14>
+        <Fmt15>{W}42:d_RingPush_Cnt	3	0</Fmt15>
+        <Fmt16>{W}42:d_hexSwith_Read	4	0</Fmt16>
+        <Fmt17>{W}42:d_hexSwith_Read2	4	0</Fmt17>
+        <Fmt18>{W}42:daa	3	0</Fmt18>
+        <Fmt19>{W}42:gnetif.ip_addr.addr	4	0</Fmt19>
+        <Fmt20>{W}42:mDI_CheckFlag	3	0</Fmt20>
+        <Fmt21>{W}42:mLCD_InputData	1	0</Fmt21>
+        <Fmt22>{W}42:mLed_Process_Flag.sAmp_Falut_val	1	0</Fmt22>
+        <Fmt23>{W}42:mLed_Process_Flag.sDHCP_IP_Val	3	0</Fmt23>
+        <Fmt24>{W}42:mLed_Process_Flag.sScreen_Page_Cnt	3	0</Fmt24>
+        <Fmt25>{W}42:next_timeout	2	0</Fmt25>
+        <Fmt26>{W}42:pmEthernet_Rx_struct	4	0</Fmt26>
+        <Fmt27>{W}42:s_SpkCheck	1	0</Fmt27>
+    </watch_formats>
+    <Trace2>
+        <Enabled>1</Enabled>
+        <ShowSource>0</ShowSource>
+    </Trace2>
     <TermIOLog>
         <LoggingEnabled>_ 0</LoggingEnabled>
         <LogFile>_ "$PROJ_DIR$\TermIO.log"</LogFile>
     </TermIOLog>
     <DriverProfiling>
         <Enabled>1</Enabled>
-        <Mode>3</Mode>
-        <Graph>0</Graph>
+        <Mode>1</Mode>
+        <Graph>1</Graph>
         <Symbiont>1</Symbiont>
-        <Exclusions />
     </DriverProfiling>
     <CallStackLog>
         <Enabled>1</Enabled>
@@ -345,11 +320,6 @@
     <CallStackStripe>
         <ShowTiming>1</ShowTiming>
     </CallStackStripe>
-    <PowerProbe>
-        <Frequency>10000</Frequency>
-        <Probe0>I0</Probe0>
-        <ProbeSetup0>2 1 1 2 0 0</ProbeSetup0>
-    </PowerProbe>
     <LogFile>
         <LoggingEnabled>_ 0</LoggingEnabled>
         <LogFile>_ ""</LogFile>
@@ -359,10 +329,33 @@
         <mode>0</mode>
     </DisassembleMode>
     <Breakpoints2>
-        <Count>0</Count>
+        <Bp0>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Middlewares\Third_Party\LwIP\src\core\ipv4\igmp.c}.505.3" 0 0 1 "" 0 "" 0</Bp0>
+        <Bp1>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Middlewares\Third_Party\LwIP\src\core\ipv4\igmp.c}.498.3" 0 0 1 "" 0 "" 0</Bp1>
+        <Bp2>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Middlewares\Third_Party\LwIP\src\core\ipv4\igmp.c}.503.3" 0 0 1 "" 0 "" 0</Bp2>
+        <Count>3</Count>
     </Breakpoints2>
     <Aliases>
-        <Count>0</Count>
-        <SuppressDialog>0</SuppressDialog>
+        <A0>_ "C:\Users\jang duksu\Documents\Github\SEPTA_ML\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\EWARM\startup_stm32f407xx.s" ""</A0>
+        <A1>_ "D:\GitHub_Pro\LEDC5.1_TRACE_TEST\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\EWARM\startup_stm32f407xx.s" ""</A1>
+        <A2>_ "D:\GitHub_Pro\LEDC5.1_TRACE_TEST\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\Src\app_ethernet.c" ""</A2>
+        <A3>_ "D:\GitHub_Pro\LEDC5.1_TRACE_TEST\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\Src\main.c" ""</A3>
+        <A4>_ "D:\GitHub_Pro\LEDC5.1_TRACE_TEST\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\Src\system_stm32f4xx.c" ""</A4>
+        <A5>_ "D:\GitHub_Pro\LEDC5_1(SeptaMl)\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.c" ""</A5>
+        <A6>_ "D:\GitHub_Pro\LEDC5_1(SeptaMl)\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_eth.c" ""</A6>
+        <A7>_ "D:\GitHub_Pro\LEDC5_1(SeptaMl)\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_gpio.c" ""</A7>
+        <A8>_ "D:\GitHub_Pro\LEDC5_1(SeptaMl)\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc.c" ""</A8>
+        <A9>_ "D:\GitHub_Pro\LEDC5_1(SeptaMl)\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\EWARM\startup_stm32f407xx.s" ""</A9>
+        <A10>_ "D:\GitHub_Pro\LEDC5_1(SeptaMl)\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\Middlewares\Third_Party\LwIP\src\core\memp.c" ""</A10>
+        <A11>_ "D:\GitHub_Pro\LEDC5_1(SeptaMl)\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\Middlewares\Third_Party\LwIP\src\core\timeouts.c" ""</A11>
+        <A12>_ "D:\STM32F_Pro\Keil\LEDC_5.0\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\Src\main.c" ""</A12>
+        <A13>_ "D:\STM32F_Pro\Keil\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\Middlewares\Third_Party\LwIP\src\core\inet_chksum.c" ""</A13>
+        <A14>_ "D:\STM32F_Pro\Keil\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\Src\app_ethernet.c" ""</A14>
+        <A15>_ "\\Mac\JDS_SD\JDS_PRO\LEDC_5.1_TRACE_TEST\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.c" ""</A15>
+        <A16>_ "\\Mac\JDS_SD\JDS_PRO\LEDC_5.1_TRACE_TEST\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_eth.c" ""</A16>
+        <A17>_ "\\Mac\JDS_SD\JDS_PRO\LEDC_5.1_TRACE_TEST\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_gpio.c" ""</A17>
+        <A18>_ "\\Mac\JDS_SD\JDS_PRO\LEDC_5.1_TRACE_TEST\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc.c" ""</A18>
+        <A19>_ "\\Mac\JDS_SD\JDS_PRO\LEDC_5.1_TRACE_TEST\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\EWARM\startup_stm32f407xx.s" ""</A19>
+        <Count>20</Count>
+        <SuppressDialog>1</SuppressDialog>
     </Aliases>
 </settings>

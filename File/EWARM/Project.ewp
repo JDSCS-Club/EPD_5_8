@@ -665,7 +665,7 @@
                 </option>
                 <option>
                     <name>OOCOutputFile</name>
-                    <state>4_AMP.bin</state>
+                    <state>4_AMP_$DATE$.bin</state>
                 </option>
                 <option>
                     <name>OOCCommandLineProducer</name>
@@ -683,7 +683,7 @@
             <data>
                 <extensions></extensions>
                 <cmdline></cmdline>
-                <hasPrio>0</hasPrio>
+                <hasPrio>1</hasPrio>
                 <buildSequence>inputOutputBased</buildSequence>
             </data>
         </settings>
@@ -772,11 +772,11 @@
                 </option>
                 <option>
                     <name>IlinkIcfOverride</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>IlinkIcfFile</name>
-                    <state>$TOOLKIT_DIR$/config/linker/ST/stm32f407xG.icf</state>
+                    <state>C:\D\JDS_DATA\LEDC_EMU_TEST\File\EWARM\stm32f407xx_flash.icf</state>
                 </option>
                 <option>
                     <name>IlinkIcfFileSlave</name>
@@ -1123,13 +1123,7 @@
                 <name>$PROJ_DIR$\..\Src\I2C.c</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\..\Src\LED.c</name>
-            </file>
-            <file>
                 <name>$PROJ_DIR$\..\Src\main.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\Src\spi_flash.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\stm32f4xx_hal_msp.c</name>

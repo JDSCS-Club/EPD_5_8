@@ -27090,35 +27090,6 @@ void ethernetif_notify_conn_changed(struct netif *netif);
 
 
 
-     
-     
-     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -27149,8 +27120,6 @@ uint8_t LED_Pattern_TEST(void);
 void LED_Timer_1ms(void);
 
 extern char mStringBuf[15][40] ;
-
-extern uint8_t sColorCode;
 
 
 
@@ -28572,7 +28541,7 @@ extern void udp_echoclient_connect(void);
 extern void udp_receive_callback(void *arg, struct udp_pcb *upcb, struct pbuf *p, const ip_addr_t *addr, u16_t port);
 
 
-extern void udp_SysLog_Connect(char * format, ... );
+extern void udp_SysLog_Connect(int Kind_Code, char * format, ... );
 extern void udp_SysLog(char * format, ... );
 
 
@@ -29149,6 +29118,11 @@ extern volatile uint16_t ADCValue[6];
 
 
 
+ 
+
+
+
+
    
 
 
@@ -29209,8 +29183,6 @@ extern volatile uint16_t ADCValue[6];
 
 
 
-
-
  
 
 
@@ -29234,28 +29206,16 @@ extern volatile uint16_t ADCValue[6];
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+         
  
  
    
 void Time_Main(void);
     
+
+
+
+
 
 void UDPdebug_print_JDS(struct udp_hdr *udphdr);
     
@@ -29707,19 +29667,19 @@ typedef struct
     uint8_t sEth_Rx_Request_Flag;       
     uint16_t sEth_Rx_Finish_TimeCnt;    
 
-    uint16_t sScreen_Play_Time;         
-    uint8_t sScreen_Max_Page;           
-    uint8_t sScreen_CrcCheck_Mac_Page;  
-    uint8_t sScreen_Display_Data_Page;
-    
-    uint8_t sScreen_Page_Cnt;           
-    uint8_t sScreen_ScanFlag;           
+
+
+
+
+
+
+
     
      
-    uint8_t sScreen_Page_Cnt_Rx_Comand_Flag;
-    uint8_t sScreen_Page_Cnt_Rx_Comand;
-    uint8_t sScreen_Page_Cnt_Rx_ReComand;
-    uint8_t sScreen_Page_Check_Buf[18];
+
+
+
+
     
     
 
@@ -29733,17 +29693,17 @@ typedef struct
       uint8_t  sRx_Public_Buf[100];        
     
     
-    uint8_t  sAscii_Code_Flag;          
-    uint8_t  sRx_PII_Ascii_Buf[384];    
-    uint16_t sScroll_Cnt_Finish;        
-    uint8_t  sAscii_Rx_Cnt;             
-    uint8_t  sAscii_Re_Rx_Cnt;          
-    uint8_t  sAscii_Color_Code;         
-    int16_t sAscii_Char_RxLen;         
-    uint8_t  sAscii_NorMal_Flag;        
-    
-    uint8_t sPattern_Test_Flag;
-    uint8_t sPattern_Test_ColorData; 
+
+
+
+
+
+
+
+
+
+
+
 
     uint8_t sClock_Start_Flage;
     uint8_t sReClock_Start_Flage; 
@@ -29782,6 +29742,7 @@ typedef struct
     uint8_t sCurrentTestFlag; 
     uint16_t sCurrentVal; 
     
+    uint8_t sVolTestFlg; 
     
 }mLED_PROCESS_Flag;
 
@@ -30078,69 +30039,83 @@ ETH_HandleTypeDef EthHandle;
  
 void HAL_ETH_MspInit(ETH_HandleTypeDef *heth)
 { 
-  GPIO_InitTypeDef GPIO_InitStructure;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+     GPIO_InitTypeDef GPIO_InitStructure;
   
    
   do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (0U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (0U)))); ((void)(tmpreg)); } while(0U);
   do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (1U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (1U)))); ((void)(tmpreg)); } while(0U);
   do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (2U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (2U)))); ((void)(tmpreg)); } while(0U);
   do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (4U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (4U)))); ((void)(tmpreg)); } while(0U);
-  
-
-
-
-
-
-
- 
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   
   
     GPIO_InitStructure.Pin = ((uint16_t)0x0004);
@@ -30178,12 +30153,7 @@ void HAL_ETH_MspInit(ETH_HandleTypeDef *heth)
   
 
     do { do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (25U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (25U)))); ((void)(tmpreg)); } while(0U); do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (26U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (26U)))); ((void)(tmpreg)); } while(0U); do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (27U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (27U)))); ((void)(tmpreg)); } while(0U); } while(0U);
-
-
-
-
-
-
+    
 }
 
 
@@ -30204,17 +30174,9 @@ static void low_level_init(struct netif *netif)
   uint8_t sHSW_2 = 0;
   uint8_t sHSW_3 = 0;
   
-  static int sAddr_Cnt = 0;
-  
-  sAddr_Cnt++;
-  
-  sAddr_Cnt = (sAddr_Cnt > 31 ) ? 0 : sAddr_Cnt;
-  
-  MyPrintf_USART1(">>>>>>>>>>>---------(%d)\r\n",sAddr_Cnt);
-  
 
   
-  uint8_t macaddress[6]= { 0x18, 0x30, 0x09 + (IP_ADDR_VAL_DATA>>24)&0xFF, 0 + (IP_ADDR_VAL_DATA>>16)&0xFF, 0x32 + (IP_ADDR_VAL_DATA>>8)&0xFF, 0x28 + (IP_ADDR_VAL_DATA>>0)&0xFF };
+  uint8_t macaddress[6]= { 0x18, 0x30, 0x09 + (IP_ADDR_VAL_DATA>>24)&0xFF, 10 + (IP_ADDR_VAL_DATA>>16)&0xFF, 0x32 + (IP_ADDR_VAL_DATA>>8)&0xFF, 0x28 + (IP_ADDR_VAL_DATA>>0)&0xFF };
   
   
 
@@ -30235,23 +30197,13 @@ static void low_level_init(struct netif *netif)
   
   EthHandle.Instance = ((ETH_TypeDef *) ((0x40000000U + 0x00020000U) + 0x8000U));  
   EthHandle.Init.MACAddr = macaddress;
-  EthHandle.Init.AutoNegotiation = 0x00000000U;
+  EthHandle.Init.AutoNegotiation = 0x00000001U;
   EthHandle.Init.Speed = 0x00004000U;
   EthHandle.Init.DuplexMode = 0x00000800U;
   EthHandle.Init.MediaInterface = 0x00000000U;
   EthHandle.Init.RxMode = 0x00000000U;
   EthHandle.Init.ChecksumMode = 0x00000000U;
-  
-  
   EthHandle.Init.PhyAddress = 0x01;
-  
-  
-  
-  
-  
-  
-  
-  HAL_Delay(10);
   
    
   if (HAL_ETH_Init(&EthHandle) == HAL_OK)
@@ -30263,11 +30215,9 @@ static void low_level_init(struct netif *netif)
    
   HAL_ETH_DMATxDescListInit(&EthHandle, DMATxDscrTab, &Tx_Buff[0][0], (4U));
      
-  HAL_Delay(10);
    
   HAL_ETH_DMARxDescListInit(&EthHandle, DMARxDscrTab, &Rx_Buff[0][0], (4U));
 
-  HAL_Delay(10);
    
   netif->hwaddr_len = 6;
   
@@ -30275,7 +30225,7 @@ static void low_level_init(struct netif *netif)
   netif->hwaddr[0] =  0x18 ;
   netif->hwaddr[1] =  0x30;
   netif->hwaddr[2] =  0x09 + (IP_ADDR_VAL_DATA>>24)&0xFF;
-  netif->hwaddr[3] =  0 + (IP_ADDR_VAL_DATA>>16)&0xFF;
+  netif->hwaddr[3] =  10 + (IP_ADDR_VAL_DATA>>16)&0xFF;
   netif->hwaddr[4] =  0x32 + (IP_ADDR_VAL_DATA>>8)&0xFF;
   netif->hwaddr[5] =  0x28 + (IP_ADDR_VAL_DATA>>0)&0xFF;
   
@@ -30289,22 +30239,18 @@ static void low_level_init(struct netif *netif)
    
   HAL_ETH_Start(&EthHandle);
   
-  HAL_Delay(10);
    
    
   HAL_ETH_ReadPHYRegister(&EthHandle, ((uint16_t)0x11), &regvalue);
   
-  HAL_Delay(10);
   regvalue |= (((uint16_t)0x0002) | ((uint16_t)0x0001));
 
    
   HAL_ETH_WritePHYRegister(&EthHandle, ((uint16_t)0x11), regvalue );
   
-  HAL_Delay(10);
    
   HAL_ETH_ReadPHYRegister(&EthHandle, ((uint16_t)0x12), &regvalue);
   
-  HAL_Delay(10);
   regvalue |= ((uint16_t)0x0020U);
     
    

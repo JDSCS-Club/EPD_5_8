@@ -267,7 +267,6 @@ int d_TestSp_SR_Flag = 0;
 int main(void)
 {
     
-    uint8_t     nRbuf[10]; 
 	
 	/* STM32F4xx HAL library initialization:
 	   - Configure the Flash prefetch, instruction and Data caches
@@ -276,102 +275,51 @@ int main(void)
 	   - Set NVIC Group Priority to 4
 	   - Global MSP (MCU Support Package) initialization
 	 */
-    
-
+  
 	HAL_Init();  
-    
-    //HAL_Delay(400);
 
 	/* Configure the system clock to 168 MHz */
 	SystemClock_Config();
 
-    
-    //HAL_Delay(600);
 	/* Configure the BSP */
 	BSP_Config();
 
-    
-    //HAL_Delay(600);
 	/* Initialize the LwIP stack */
 	lwip_init();
 
-    
-   // HAL_Delay(600);
 	/* Configure the Network interface */
 	Netif_Config();
 
 	/* tcp echo server Init */
 	//tcp_echoserver_init();
 
-   // HAL_Delay(600);
-    
 	/* Notify user about the network interface config */
 	User_notification(&gnetif);
 
-    
-    LED_GPIO_Init();
-    
 
 	Timer_init(); 
 
 	USRAT_init();
 
     
-	//MX_I2C1_Init();
-    //MX_I2C1_Init();
+	MX_I2C1_Init();
+   // MX_I2C1_Init();
     
 	//MX_I2C2_Init();
    // MX_I2C2_Init();
-
-    
-    
-    
-    I2C_HAL_ReadBytes(&hi2c1,0x48,0x00,(uint8_t *)nRbuf,2);
-    
-    
-//        if(I2C_HAL_WriteBytes(&hi2c1,0x48,0x00,(uint8_t *)nRbuf,2))
-//        {
-//            MyPrintf_USART1("++++++++++++ Write Calibration Register  ++++++++++++ \n\r" );
-//        }
-//        else
-//        {
-//            MyPrintf_USART1( "++Write Test NG \n\r" );
-//        }
-    
-    
-    
-//    if(HAL_I2C_Master_Transmit_IT(&hi2c1, (uint16_t)0x48<<1, nRbuf, 2)!= HAL_OK)
-//	{
-//		/* Error_Handler() function is called when Timout error occurs.
-//			When Acknowledge failure ocucurs (Slave don't acknowledge it's address)
-//			Master restarts communication */
-//		
-//		  MyPrintf_USART1("Audio i2c tx error = %d\r\n",nRbuf);
-//		
-//	}
-//	else{
-//		
-//          MyPrintf_USART1("Audio i2c OK = %02x-%02x\r\n",nRbuf[0],nRbuf[1]);
-//          
-//	}
 
 
 	//RTC_AlarmInit();
 	
 
-    MyPrintf_USART1("Power i2c OK = %02x-%02x\r\n",nRbuf[0],nRbuf[1]);
-    
-	Flash_Init();
-    
-    SPI_FLASH_Init();
-    
+	//Flash_Init();
 	HAL_Delay(10);
 
 
     //-------------------ADC MAC 설정 
     //MX_ADC_DMA_Init();
 	//MX_ADC1_Init();
-   // MX_ADC3_Init();
+    //MX_ADC3_Init();
     //----------------------------
     
 
@@ -379,7 +327,7 @@ int main(void)
 	//OLED_1in3_c_test();
     //OLED_Print(); // 약 350ms 필요.
 	//-----------------------
-
+	
 	
     MyPrintf_USART1("SystemClock  = %d/ AHB(HCLK) : %d / APB1(PCLK1) : %d / APBP2(PCLK2) : %d \n\r", HAL_RCC_GetSysClockFreq(), HAL_RCC_GetHCLKFreq(), HAL_RCC_GetPCLK1Freq(), HAL_RCC_GetPCLK2Freq());
     MyPrintf_USART1("---- AMP ID Switch  = [%d--%d] \n\r",IP_ADDR1_INPUT_DATA,IP_ADDR2_INPUT_DATA);
@@ -389,11 +337,11 @@ int main(void)
 	MyPrintf_USART1("-%s\r\n", completeVersionBuild);
     
     
-//	sprintf(&mLCDPrintBuf[1][0], "%s-%s", completeVersion, completeVersionBuild);
-//    
-//    sprintf(&mLCDPrintBuf_2[0][0], "ANSM_ON");
-//    
-//    sprintf(&mLCDPrintBuf_2[1][0], "AMP_VOL_DEFAULT");
+	sprintf(&mLCDPrintBuf[1][0], "%s-%s", completeVersion, completeVersionBuild);
+    
+    sprintf(&mLCDPrintBuf_2[0][0], "ANSM_ON");
+    
+    sprintf(&mLCDPrintBuf_2[1][0], "AMP_VOL_DEFAULT");
     
    
 
@@ -408,7 +356,6 @@ int main(void)
     static int sOLED_InitCnt = 0;
     
     
-    
     mLed_Process_Flag.sMy_IP_Info = IP_ADDR1_INPUT_DATA;
 	mLed_Process_Flag.sAnsm_Run_Flag = true;
     memset(mLed_Process_Flag.sSt_Buf_Val,0x00,sizeof(mLed_Process_Flag.sSt_Buf_Val)); // buffer Init
@@ -417,11 +364,10 @@ int main(void)
     sprintf(&mLCDPrintBuf[2][0], "--------------------");
     
     
-    //AUDIO_AMP_Boot_Set();
+     AUDIO_AMP_Boot_Set();
     
-    WWDG_Init(); //
+    //WWDG_Init(); //
     
-    ethernetif_set_link(&gnetif);
     
 	while (1)
 	{  
@@ -430,26 +376,17 @@ int main(void)
      
         ethernetif_input(&gnetif);
         
-        
-        //ethernetif_set_link(&gnetif);
-        
 		/* Handle timeouts */
 		sys_check_timeouts();
     
 		/* 내부 메모리 저장 및 읽기 */  
-		Flash_Main();
+		//Flash_Main();
 	  
-		SPI_FLASH_Main();
+		//SPI_FLASH_Main();
     
 		USARTRX_MainPro();
     
-	if(nLedPrintf_Flag)
-	{
-		nLedPrintf_Flag = 0;
-		LED_SCREEN_PRINT();
-	}
-
-        
+//        
 //        if(HAL_GetTick() >= 15000 ) // 15초 부팅 할때 초기 AMP  제어 OFF
 //        {
 //            s_MainTimeCng++;
@@ -517,12 +454,22 @@ int main(void)
 //                }
 //                
 //                 // 계속 전송하는 방식으로 변경. 
-//                  udp_SysLog_Connect("AMP_%01d%01d%01d%01d_A%03d",
+//                  udp_SysLog_Connect(0,"AMP_%01d%01d%01d%01d_A%03d",
 //                                       ((mLed_Process_Flag.sSt_Buf_Val[0] & 0x80) == 0x80 ? 1 : 0) ,
 //                                       ((mLed_Process_Flag.sSt_Buf_Val[1] & 0x80) == 0x80 ? 1 : 0) ,
 //                                       ((mLed_Process_Flag.sSt_Buf_Val[2] & 0x80) == 0x80 ? 1 : 0) ,
 //                                       ((mLed_Process_Flag.sSt_Buf_Val[3] & 0x08) == 0x08 ? 1 : 0) ,
 //                                        mLed_Process_Flag.sCurrentVal );
+//                
+//                
+//                udp_SysLog_Connect(1,"%c.%c.%c.%c%c%c%c",
+//                                    VERSION_MAJOR_INIT,
+//                                    VERSION_MINOR_INIT,
+//                                    VERSION__REVISION_INIT,
+//                                    BUILD_MONTH_CH0,
+//                                    BUILD_MONTH_CH1,
+//                                    BUILD_DAY_CH0,
+//                                    BUILD_DAY_CH1);
 //                
 //                
 //                
@@ -548,7 +495,7 @@ int main(void)
 //                mLed_Process_Flag.sEth_Rx_Request_Flag = 0;
 //                
 //                
-//                udp_SysLog_Connect("AMP_%01d%01d%01d%01d_A%03d",
+//                udp_SysLog_Connect(0,"AMP_%01d%01d%01d%01d_A%03d",
 //                                   ((mLed_Process_Flag.sSt_Buf_Val[0] & 0x80) == 0x80 ? 1 : 0) ,
 //                                   ((mLed_Process_Flag.sSt_Buf_Val[1] & 0x80) == 0x80 ? 1 : 0) ,
 //                                   ((mLed_Process_Flag.sSt_Buf_Val[2] & 0x80) == 0x80 ? 1 : 0) ,
@@ -559,8 +506,8 @@ int main(void)
 //            }
 //
 //        }
-//        
-//        
+        
+        
 //        if(mLed_Process_Flag.sSpk_check_Cnt == 1)
 //        {
 //            mLed_Process_Flag.sSpk_check_Cnt = 0;
@@ -570,44 +517,44 @@ int main(void)
 //            AMP_SPK_CHECK();
 //            
 //        }
-//    
-//            
-//        
-//       
-//
-//
-//        /*
-//        if (mLed_Process_Flag.sClock_Start_Flage) // RTC ??뮄而? ??끉?젟????꼶?뮉 ?겫???겫?
-//        {
-//            mLed_Process_Flag.sClock_Start_Flage = 0;
-//
-//            mLed_Process_Flag.sReClock_Start_Flage = 1;
-//
-//            mAlarmAEventCallback_Flag = 5;
-//
-//            RTC_SetTimeConfig();
-//
-//            memset(&mLed_Process_Flag.sRx_PII_Ascii_Buf[0],0x00,sizeof(mLed_Process_Flag.sRx_PII_Ascii_Buf));
-//
-//        }
-//        
-//		*/
-//        
-//        
+    
+            
+        
+       
+
+
+        /*
+        if (mLed_Process_Flag.sClock_Start_Flage) // RTC ??뮄而? ??끉?젟????꼶?뮉 ?겫???겫?
+        {
+            mLed_Process_Flag.sClock_Start_Flage = 0;
+
+            mLed_Process_Flag.sReClock_Start_Flage = 1;
+
+            mAlarmAEventCallback_Flag = 5;
+
+            RTC_SetTimeConfig();
+
+            memset(&mLed_Process_Flag.sRx_PII_Ascii_Buf[0],0x00,sizeof(mLed_Process_Flag.sRx_PII_Ascii_Buf));
+
+        }
+        
+		*/
+        
+        
 //		if (nTime_Flage)
 //		{
 //			nTime_Flage = 0;
 //          
 //            mLed_Process_Flag.sEth_Rx_Request_Flag = 0;
 //            
-//			udp_SysLog_Connect("FDI - sending udp client message %d",mEthernet_Tx_struct.sWatchdog_Cnt);
+//			udp_SysLog_Connect(0,"FDI - sending udp client message %d",mEthernet_Tx_struct.sWatchdog_Cnt);
 //			udp_echoclient_connect();
 //            
 //  
 //		}
-//          
-//    
-//		//네트워크 설정 다시 리셋 하는 부분.
+          
+    
+		//네트워크 설정 다시 리셋 하는 부분.
 //	  
 //		if (mLed_Process_Flag.sEth_Rx_RESET_Flag == 2 && mTimerFlag_10s)
 //		{
@@ -662,7 +609,21 @@ static void BSP_Config(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 
-	/* Enable PB14 to IT mode: Ethernet Link interrupt */ 
+//    //EPD
+//	/* Enable PB14 to IT mode: Ethernet Link interrupt */ 
+//	__HAL_RCC_GPIOE_CLK_ENABLE();
+//	GPIO_InitStructure.Pin = GPIO_PIN_8;
+//	GPIO_InitStructure.Mode = GPIO_MODE_IT_FALLING;
+//	GPIO_InitStructure.Pull = GPIO_NOPULL;
+//	HAL_GPIO_Init(GPIOE, &GPIO_InitStructure);
+//
+//	/* Enable EXTI Line interrupt */
+//	HAL_NVIC_SetPriority(EXTI9_5_IRQn, 0xF, 0);
+//	HAL_NVIC_EnableIRQ(EXTI9_5_IRQn); 
+
+    
+    //LEDC
+    	/* Enable PB14 to IT mode: Ethernet Link interrupt */ 
 	__HAL_RCC_GPIOC_CLK_ENABLE();
 	GPIO_InitStructure.Pin = GPIO_PIN_0;
 	GPIO_InitStructure.Mode = GPIO_MODE_IT_FALLING;
@@ -670,26 +631,10 @@ static void BSP_Config(void)
 	HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
 
 	/* Enable EXTI Line interrupt */
-//	HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0xF, 0);
-//	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn); 
+	HAL_NVIC_SetPriority(EXTI0_IRQn, 0xF, 0);
+	HAL_NVIC_EnableIRQ(EXTI0_IRQn); 
     
     
-	HAL_NVIC_SetPriority(EXTI0_IRQn, 0x0, 0);
-	HAL_NVIC_EnableIRQ(EXTI0_IRQn);
-    
-
-    
-    IP_ADDR_VAL_DATA = (0x01 % 11) * 100;
-	IP_ADDR_VAL_DATA = IP_ADDR_VAL_DATA + ((0x01 % 11) * 10);
-    
-    
-//	//
-	__GPIOD_CLK_ENABLE();
-
-	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
-	GPIO_InitStructure.Pull = GPIO_PULLDOWN;
-	GPIO_InitStructure.Pin = GPIO_PIN_6;
-	HAL_GPIO_Init(GPIOD, &GPIO_InitStructure);
     
 	/* Configure LED1, LED2 */
 	//BSP_LED_Init(LED1);
@@ -698,40 +643,13 @@ static void BSP_Config(void)
 	/* Set Systick Interrupt to the highest priority */
 	HAL_NVIC_SetPriority(SysTick_IRQn, 0x0, 0x0);
 
-
-
-// PICTO control GPIO
-	__GPIOD_CLK_ENABLE();
-	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
-	GPIO_InitStructure.Pull = GPIO_PULLUP;
-	GPIO_InitStructure.Pin =  PICTO_LED1 |PICTO_LED2 |PICTO_LED3;
-	GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-	HAL_GPIO_Init(PICTO_LED1_Port, &GPIO_InitStructure); 
-
-
-
-	__GPIOE_CLK_ENABLE();
-	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
-	GPIO_InitStructure.Pull = GPIO_PULLUP;
-	GPIO_InitStructure.Pin =  PICTO_LED4 |PICTO_LED5;
-	GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-	HAL_GPIO_Init(PICTO_LED4_Port, &GPIO_InitStructure); 
-	
-
-
-
-
 //	// RUN LED
 //	__GPIOI_CLK_ENABLE();
 //
-//   SPI CS 
-    __GPIOA_CLK_ENABLE();
-	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
-	GPIO_InitStructure.Pull = GPIO_PULLUP;
-	GPIO_InitStructure.Pin = GPIO_PIN_4;
-	HAL_GPIO_Init(GPIOA, &GPIO_InitStructure);
-    
-    
+//	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
+//	GPIO_InitStructure.Pull = GPIO_PULLUP;
+//	GPIO_InitStructure.Pin = GPIO_PIN_11;
+//	HAL_GPIO_Init(GPIOI, &GPIO_InitStructure);
 //
 //	/*Hex ??끉?맄燁??揶쏅?れ뱽 ??럩堉? ??뫀?뼄.*/
 //	//HSW 1,2 스위치를 이용해서, 장치 식별을 한다.
@@ -761,7 +679,8 @@ static void BSP_Config(void)
 //	IP_ADDR2_INPUT_DATA = ((~IP_ADDR2_INPUT_DATA) & 0x0F);
 //    
 //    
-//	
+//	IP_ADDR_VAL_DATA = (IP_ADDR1_INPUT_DATA % 11) * 100;
+//	IP_ADDR_VAL_DATA = IP_ADDR_VAL_DATA + ((IP_ADDR2_INPUT_DATA % 11) * 10);
 //
 //	/*RS 485 RTS PIN */
 //	__GPIOC_CLK_ENABLE();
@@ -886,12 +805,8 @@ static void Netif_Config(void)
 	/* Add the network interface */    
 	netif_add(&gnetif, &ipaddr, &netmask, &gw, NULL, &ethernetif_init, &ethernet_input);
 
-    HAL_Delay(10);
-    
 	/* Registers the default network interface */
 	netif_set_default(&gnetif);
-    
-    HAL_Delay(10);
 
 	if (netif_is_link_up(&gnetif))
 	{
@@ -926,6 +841,12 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	{
 		ethernetif_set_link(&gnetif);
 	}
+    
+    
+//    if (GPIO_Pin == GPIO_PIN_8)
+//	{
+//		ethernetif_set_link(&gnetif);
+//	}
 }
 
 /**
@@ -1106,10 +1027,6 @@ void Time_Main(void)
     uint8_t     nRbuf_2[2];
     
     static uint8_t d_10Sec_Cnt = 0;
-    
-    static uint8_t mResetCnt = 0;
-    
-    static uint8_t sTime_Cnt_1000ms = 0;
    
 	
 	m_Main_TIM_Cnt++;
@@ -1144,86 +1061,61 @@ void Time_Main(void)
 
     if (!(m_Main_TIM_Cnt % 1000)) // 1000ms 
 	{
+        
+        
+        //----------------------------------------
+            processCurrentVal();
+            //----------------------------------------
+            
         if(mLed_Process_Flag.sCurrentTestFlag == TRUE) // 
         {
-            //----------------------------------------
-          //  processCurrentVal();
-            //----------------------------------------
+            
         }
         else if(mLed_Process_Flag.sCurrentTestFlag == FALSE)
         {
             
         }
-        
-        sTime_Cnt_1000ms++;
-        
-        if(sTime_Cnt_1000ms & 0x01)
-        {
-            HAL_GPIO_TogglePin(PICTO_LED1_Port, PICTO_LED1);// RUN LED
-        }
-        else if(sTime_Cnt_1000ms & 0x02)
-        {
-            HAL_GPIO_TogglePin(PICTO_LED2_Port, PICTO_LED2); // RUN LED
-        }
-        else if(sTime_Cnt_1000ms & 0x04)
-        {
-            HAL_GPIO_TogglePin(PICTO_LED3_Port, PICTO_LED3); // RUN LED
-        }
-        else if(sTime_Cnt_1000ms & 0x08)
-        {
-            HAL_GPIO_TogglePin(PICTO_LED4_Port, PICTO_LED4); // RUN LED
-        }
-        else
-        {
-            HAL_GPIO_TogglePin(PICTO_LED5_Port, PICTO_LED5); // RUN LED
-        }
-
-
-		
-
-        
-        //ethernetif_set_link(&gnetif);
 
         
     }
     
         
             
-	if (!(m_Main_TIM_Cnt % 60000)) // 10sec
-	{
-
-        
-        d_10Sec_Cnt++;
-
-        
-        sprintf(&mLCDPrintBuf[0][0], "IP : %s", ip4addr_ntoa(&gnetif.ip_addr));
-        
-         if(mLed_Process_Flag.sAudio_Play_mode == true)
-         {
-             //sprintf(&mLCDPrintBuf[2][15], "Temp-%02d",mLed_Process_Flag.sCpu_Temp);
-         }
-         else
-         {
-             sprintf(&mLCDPrintBuf[2][0], "-----*****-----Temp-%02d",mLed_Process_Flag.sCpu_Temp);
-         }
-        
-         
-         udp_SysLog("(%dT,%d)[build : %s] -> SPK_%01d%01d%01d%01d--TEMP : %d -- ANSM : %d -- Current : %03d mA ",
-                    
-                            mLed_Process_Flag.sTrainID,
-                            mLed_Process_Flag.sDHCP_IP_Val,
-                            completeVersionBuild,
-                           ((mLed_Process_Flag.sSt_Buf_Val[0] & 0x80) == 0x80 ? 1 : 0) ,
-                           ((mLed_Process_Flag.sSt_Buf_Val[1] & 0x80) == 0x80 ? 1 : 0) ,
-                           ((mLed_Process_Flag.sSt_Buf_Val[2] & 0x80) == 0x80 ? 1 : 0) ,
-                           ((mLed_Process_Flag.sSt_Buf_Val[3] & 0x08) == 0x08 ? 1 : 0) ,
-                            mLed_Process_Flag.sCpu_Temp,
-                            mAnsSetFlag.tAnsCnt,
-                            mLed_Process_Flag.sCurrentVal );
-         
-         
-    
-    }
+//	if (!(m_Main_TIM_Cnt % 60000)) // 10sec
+//	{
+//
+//        
+//        d_10Sec_Cnt++;
+//
+//        
+//        sprintf(&mLCDPrintBuf[0][0], "IP : %s", ip4addr_ntoa(&gnetif.ip_addr));
+//        
+//         if(mLed_Process_Flag.sAudio_Play_mode == true)
+//         {
+//             //sprintf(&mLCDPrintBuf[2][15], "Temp-%02d",mLed_Process_Flag.sCpu_Temp);
+//         }
+//         else
+//         {
+//             sprintf(&mLCDPrintBuf[2][0], "-----*****-----Temp-%02d",mLed_Process_Flag.sCpu_Temp);
+//         }
+//        
+//         
+//         udp_SysLog("(%dT,%d)[build : %s] -> SPK_%01d%01d%01d%01d--TEMP : %d -- ANSM : %d -- Current : %03d mA ",
+//                    
+//                            mLed_Process_Flag.sTrainID,
+//                            mLed_Process_Flag.sDHCP_IP_Val,
+//                            completeVersionBuild,
+//                           ((mLed_Process_Flag.sSt_Buf_Val[0] & 0x80) == 0x80 ? 1 : 0) ,
+//                           ((mLed_Process_Flag.sSt_Buf_Val[1] & 0x80) == 0x80 ? 1 : 0) ,
+//                           ((mLed_Process_Flag.sSt_Buf_Val[2] & 0x80) == 0x80 ? 1 : 0) ,
+//                           ((mLed_Process_Flag.sSt_Buf_Val[3] & 0x08) == 0x08 ? 1 : 0) ,
+//                            mLed_Process_Flag.sCpu_Temp,
+//                            mAnsSetFlag.tAnsCnt,
+//                            mLed_Process_Flag.sCurrentVal );
+//         
+//         
+//    
+//    }
 
         
         
@@ -1240,14 +1132,6 @@ void Time_Main(void)
     if (!(m_Main_TIM_Cnt % 10000)) // 10sec
     {
         
-        sColorCode++;
-        
-        sColorCode = sColorCode < 250 ? sColorCode : 0;
-        
-//        HAL_GPIO_WritePin(GPIOD, GPIO_PIN_6, false); 
-//        HAL_GPIO_WritePin(GPIOD, GPIO_PIN_6, false); 
-//        HAL_GPIO_WritePin(GPIOD, GPIO_PIN_6, false); 
-//        HAL_GPIO_WritePin(GPIOD, GPIO_PIN_6, true); 
         //////--------------------------------------------------------------------//////
         MyPrintf_USART1("~~~~~~~~~~~~NewPulse 4_line PAMP~~~~~~~~~~~~\n\r");
 		MyPrintf_USART1("CPU RUN Time  = %d Second  \n\r", (m_Main_TIM_Cnt / 1000));
@@ -1259,58 +1143,6 @@ void Time_Main(void)
         
         
         mTimerFlag_10s = 1;
-        
-        
-        mResetCnt++;
-        
-        HAL_GPIO_WritePin(GPIOD, GPIO_PIN_6, false); 
-        HAL_GPIO_WritePin(GPIOD, GPIO_PIN_6, false); 
-        HAL_GPIO_WritePin(GPIOD, GPIO_PIN_6, true); 
-        HAL_GPIO_WritePin(GPIOD, GPIO_PIN_6, true); 
-
-
-        HAL_GPIO_WritePin(GPIOD, GPIO_PIN_6, false); 
-        HAL_GPIO_WritePin(GPIOD, GPIO_PIN_6, false); 
-
-        HAL_GPIO_WritePin(GPIOD, GPIO_PIN_6, true); 
-        HAL_GPIO_WritePin(GPIOD, GPIO_PIN_6, true); 
-        
-        //netif_set_down(&gnetif);
-        
-        //ethernetif_notify_conn_changed(&gnetif);
-        
-        //Netif_Config();
-       // ethernetif_set_link(&gnetif);
-            
-            
-//        
-//        if(mResetCnt & 0x01)
-//        {
-//        
-//            HAL_GPIO_WritePin(GPIOD, GPIO_PIN_6, false); 
-//            HAL_GPIO_WritePin(GPIOD, GPIO_PIN_6, false); 
-//             HAL_GPIO_WritePin(GPIOD, GPIO_PIN_6, true); 
-//            HAL_GPIO_WritePin(GPIOD, GPIO_PIN_6, true); 
-//            
-//            
-//            HAL_GPIO_WritePin(GPIOD, GPIO_PIN_6, false); 
-//            HAL_GPIO_WritePin(GPIOD, GPIO_PIN_6, false); 
-//            
-//            HAL_GPIO_WritePin(GPIOD, GPIO_PIN_6, true); 
-//            HAL_GPIO_WritePin(GPIOD, GPIO_PIN_6, true); 
-//            
-//           // Netif_Config();
-//            
-//        }
-//        else
-//        {
-//
-//            HAL_GPIO_WritePin(GPIOD, GPIO_PIN_6, true); 
-//            HAL_GPIO_WritePin(GPIOD, GPIO_PIN_6, true); 
-//            
-//           // Netif_Config();
-//        }
-//    
         
         
 		if (netif_is_link_up(&gnetif))  // 링크 UP인 경우에만 동작 한다.
@@ -1343,25 +1175,25 @@ void Time_Main(void)
 #endif
 
     
-//			mLed_Process_Flag.sEth_UpLInk_Cnt++;
-//        
-//			if (mLed_Process_Flag.sEth_Rx_RESET_Flag){mLed_Process_Flag.sEth_Rx_RESET_Flag--; }
-//            
-//            
-//            mLed_Process_Flag.sEth_Rx_Cnt++;
-//            
-//            if(mLed_Process_Flag.sEth_Rx_Cnt == 6)// 60 초 동안  데이타 수신이 없으면,
-//            {
-//                mLed_Process_Flag.sEth_Rx_RESET_Flag = 2; // 네트워크 리셋 동작 한다.
-//            }
-//            else if(mLed_Process_Flag.sEth_Rx_Cnt == 8) // 80 초 동안  데이타  수신이 없으면
-//            {
-//                 udp_SysLog_Connect(" @@@@  CPU Processing SystemReset ");
-//			     MyPrintf_USART1(" @@@@  CPU Processing SystemReset \n\r");
-//
-//			     HAL_NVIC_SystemReset(); // 장치 Reset 한다.
-//                
-//            }
+			mLed_Process_Flag.sEth_UpLInk_Cnt++;
+        
+			if (mLed_Process_Flag.sEth_Rx_RESET_Flag){mLed_Process_Flag.sEth_Rx_RESET_Flag--; }
+            
+            
+            mLed_Process_Flag.sEth_Rx_Cnt++;
+            
+            if(mLed_Process_Flag.sEth_Rx_Cnt == 6)// 60 초 동안  데이타 수신이 없으면,
+            {
+                mLed_Process_Flag.sEth_Rx_RESET_Flag = 2; // 네트워크 리셋 동작 한다.
+            }
+            else if(mLed_Process_Flag.sEth_Rx_Cnt == 8) // 80 초 동안  데이타  수신이 없으면
+            {
+                 udp_SysLog_Connect(0," @@@@  CPU Processing SystemReset ");
+			     MyPrintf_USART1(" @@@@  CPU Processing SystemReset \n\r");
+
+			     //HAL_NVIC_SystemReset(); // 장치 Reset 한다.
+                
+            }
 			
 		}
 		else
@@ -1370,11 +1202,11 @@ void Time_Main(void)
             
 			MyPrintf_USART1(" @@@@ netif_is_link_Down \n\r");
             
-			if ((m_Main_TIM_Cnt_Reset) >= 6) // 부팅하고 60초 동안 네트워크 연결이 없으면, 리셋 한다.
-			{
-                
-				HAL_NVIC_SystemReset();
-			}
+//			if ((m_Main_TIM_Cnt_Reset) >= 6) // 부팅하고 60초 동안 네트워크 연결이 없으면, 리셋 한다.
+//			{
+//                
+//				HAL_NVIC_SystemReset();
+//			}
 
             
 		}
@@ -1517,8 +1349,15 @@ static void RTC_TimeShow(uint8_t* showtime)
 
 	//MyPrintf_USART1("--------Timer Count : %02d:%02d:%02d \n\r", BCD_BIN(stimestructureget.Hours), BCD_BIN(stimestructureget.Minutes), BCD_BIN(stimestructureget.Seconds));
     
-	sprintf(&mLCDPrintBuf[3][0], "%02d:%02d:%02d", BCD_BIN(stimestructureget.Hours), BCD_BIN(stimestructureget.Minutes), BCD_BIN(stimestructureget.Seconds));
+    if(getSW_RS()|| getSW_AR() || getSW_SL() || getSW_SL()) // 접점 신호가 있으면 접점 신호를 출력한다.
+    {
+        sprintf(&mLCDPrintBuf[3][0], "%02d:%02d:%02d", BCD_BIN(stimestructureget.Hours), BCD_BIN(stimestructureget.Minutes), BCD_BIN(stimestructureget.Seconds));
+    }
+    else
+    {
+        sprintf(&mLCDPrintBuf[3][0], "%02d:%02d:%02d-(%02d/%02d)", BCD_BIN(stimestructureget.Hours), BCD_BIN(stimestructureget.Minutes), BCD_BIN(stimestructureget.Seconds),IP_ADDR1_INPUT_DATA,IP_ADDR2_INPUT_DATA);
 
+    }
 }
 
 
@@ -1778,15 +1617,15 @@ void AUDIO_AMP_Boot_Set(void)
     HAL_Delay(100);
     
     nRbuf_1[0] = 0xFF;
-    I2C_HAL_ReadBytes(&hi2c2, AMP_ID_1, 0x06, (uint8_t *)nRbuf_1, 1);
+    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x06, (uint8_t *)nRbuf_1, 1);
     MyPrintf_USART1("getAmp1 Mode read :%02X \r\n", nRbuf_1[0]); 
 
     nRbuf_1[0] = 0xFF;
-    I2C_HAL_ReadBytes(&hi2c2, AMP_ID_2, 0x06, (uint8_t *)nRbuf_1, 1);     
+    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x06, (uint8_t *)nRbuf_1, 1);     
     MyPrintf_USART1("getAmp2 Mode read :%02X \r\n", nRbuf_1[0]); 
 
     nRbuf_1[0] = 0xFF;
-    I2C_HAL_ReadBytes(&hi2c2, AMP_ID_3, 0x06, (uint8_t *)nRbuf_1, 1);
+    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x06, (uint8_t *)nRbuf_1, 1);
     MyPrintf_USART1("getAmp3 Mode read :%02X \r\n", nRbuf_1[0]); 
    
     //setAMP_Standby(false); // 모든 AMP IC

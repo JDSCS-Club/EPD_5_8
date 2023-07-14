@@ -426,7 +426,14 @@ udp_input(struct pbuf *p, struct netif *inp)
                 {
                     mLed_Process_Flag.tAmp_Vol_UpFlag = true;
                     
-                    sprintf(&mLCDPrintBuf_2[1][0], "AMP_VOL_UP");
+                    if(mLed_Process_Flag.sVolTestFlg == 1) // 양산
+                    {
+                        sprintf(&mLCDPrintBuf_2[1][0], "AMP_VOL_UP");
+                    }
+                    else
+                    {
+                        sprintf(&mLCDPrintBuf_2[1][0], "AMP_VOL_UP_Train");
+                    }
                     
                 }
                     
@@ -438,7 +445,14 @@ udp_input(struct pbuf *p, struct netif *inp)
                 {
                     mLed_Process_Flag.tAmp_Vol_UpFlag = false;
                     
-                    sprintf(&mLCDPrintBuf_2[1][0], "AMP_VOL_DEFAULT");
+                    if(mLed_Process_Flag.sVolTestFlg == 1) // 양산
+                    {
+                        sprintf(&mLCDPrintBuf_2[1][0], "AMP_VOL_DEFAULT");
+                    }
+                    else
+                    {
+                        sprintf(&mLCDPrintBuf_2[1][0], "AMP_VOL_DEFAULT_Train");
+                    }
                 }
                 
             }
@@ -469,7 +483,17 @@ udp_input(struct pbuf *p, struct netif *inp)
                 
                 //IP4_ADDR( &mLed_Process_Flag.sDestIPaddr, ip4_addr1(&iphdr->src), ip4_addr2(&iphdr->src), ip4_addr3(&iphdr->src), ip4_addr4(&iphdr->src) );
 
-                 
+            }
+            else if (strncmp((char*)(mLed_Process_Flag.sRx_Public_Buf), "TEST_VOL_ON", 11) == 0)
+            {
+                
+                mLed_Process_Flag.sVolTestFlg = 1; //양산
+                
+            }    
+            else if (strncmp((char*)(mLed_Process_Flag.sRx_Public_Buf), "TEST_VOL_OFF",12) == 0)
+            {
+                mLed_Process_Flag.sVolTestFlg = 0; //현차
+
             }
 			else if (strncmp((char*)(mLed_Process_Flag.sRx_Public_Buf), "Clock", 5) == 0)
 			{

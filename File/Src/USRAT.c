@@ -373,26 +373,26 @@ void USRAT_init(void)
       - BaudRate = 9600 baud
       - Hardware flow control disabled (RTS and CTS signals) */
       
-//    /*############################## USART1  디버깅 ####################################*/      
-//    UartHandle1.Instance          = USART1;
-//
-//    UartHandle1.Init.BaudRate     = 115200;
-//    UartHandle1.Init.WordLength   = UART_WORDLENGTH_8B;
-//    UartHandle1.Init.StopBits     = UART_STOPBITS_1;
-//    UartHandle1.Init.Parity       = UART_PARITY_NONE;
-//    UartHandle1.Init.HwFlowCtl    = UART_HWCONTROL_NONE;
-//    UartHandle1.Init.Mode         = UART_MODE_TX_RX;
-//    UartHandle1.Init.OverSampling = UART_OVERSAMPLING_16;
-//
-//
-//    HAL_UART_Init(&UartHandle1);
-//
-//    HAL_UART_Receive_IT(&UartHandle1, (uint8_t *)mUSART_RXBuf_1ch, 1);   // 인터럽트 발생.
+    /*############################## USART1  디버깅 ####################################*/      
+    UartHandle1.Instance          = USART1;
+
+    UartHandle1.Init.BaudRate     = 115200;
+    UartHandle1.Init.WordLength   = UART_WORDLENGTH_8B;
+    UartHandle1.Init.StopBits     = UART_STOPBITS_1;
+    UartHandle1.Init.Parity       = UART_PARITY_NONE;
+    UartHandle1.Init.HwFlowCtl    = UART_HWCONTROL_NONE;
+    UartHandle1.Init.Mode         = UART_MODE_TX_RX;
+    UartHandle1.Init.OverSampling = UART_OVERSAMPLING_16;
+
+
+    HAL_UART_Init(&UartHandle1);
+
+    HAL_UART_Receive_IT(&UartHandle1, (uint8_t *)mUSART_RXBuf_1ch, 1);   // 인터럽트 발생.
 
 
     
     
-    /*############################## USART3  Xbee #################################### */
+    //############################## USART3  Xbee ####################################
     UartHandle3.Instance          = USART3;
 
     UartHandle3.Init.BaudRate     = 115200;
@@ -408,29 +408,29 @@ void USRAT_init(void)
 
     HAL_UART_Receive_IT(&UartHandle3, (uint8_t *)mUSART_RXBuf_3ch, 1);
 
-    /*############################## UART4 ####################################*
-    UartHandle4.Instance          = UART4;
-
-    UartHandle4.Init.BaudRate     = 115200;
-    UartHandle4.Init.WordLength   = UART_WORDLENGTH_8B;
-    UartHandle4.Init.StopBits     = UART_STOPBITS_1;
-    UartHandle4.Init.Parity       = UART_PARITY_NONE;
-    UartHandle4.Init.HwFlowCtl    = UART_HWCONTROL_NONE;
-    UartHandle4.Init.Mode         = UART_MODE_TX_RX;
-    UartHandle4.Init.OverSampling = UART_OVERSAMPLING_16;
-
-
-    HAL_UART_Init(&UartHandle4);
-
-    //인터럽트 방식에서 사용 .
-    //HAL_UART_Receive_IT(&UartHandle4, (uint8_t *)mUSART_RXBuf_4ch, 1);
-
-
+//    /*############################## UART4 ####################################*
+//    UartHandle4.Instance          = UART4;
+//
+//    UartHandle4.Init.BaudRate     = 115200;
+//    UartHandle4.Init.WordLength   = UART_WORDLENGTH_8B;
+//    UartHandle4.Init.StopBits     = UART_STOPBITS_1;
+//    UartHandle4.Init.Parity       = UART_PARITY_NONE;
+//    UartHandle4.Init.HwFlowCtl    = UART_HWCONTROL_NONE;
+//    UartHandle4.Init.Mode         = UART_MODE_TX_RX;
+//    UartHandle4.Init.OverSampling = UART_OVERSAMPLING_16;
+//
+//
+//    HAL_UART_Init(&UartHandle4);
+//
+//    //인터럽트 방식에서 사용 .
+//    //HAL_UART_Receive_IT(&UartHandle4, (uint8_t *)mUSART_RXBuf_4ch, 1);
 
 
 
 
-    /*############################## USART1 ####################################*/
+
+
+//    //############################## USART1 ####################################
     USART_1Ch.nRxOK = HAL_BUSY;
     USART_1Ch.nRxOK_Cnt = 0;
     USART_1Ch.nRxLen = 40; // 초기 길이를 10으로 지정.
@@ -451,7 +451,7 @@ void USRAT_init(void)
     memset(USART_1Ch.nTxBuffer,0,sizeof(mUSART_TXBuf_1ch));
     memset(USART_1Ch.nRxBuf_BackUp,0,sizeof(mUSART_RXBufBackUp_1ch));
 
-    /*############################## USART3 ####################################*/
+    //############################## USART3 ####################################
     USART_3Ch.nRxOK = 0;
     USART_3Ch.nRxOK_Cnt = 0;
     USART_3Ch.nRxLen = 20; // 초기 길이를 10으로 지정.
@@ -641,9 +641,9 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 }
 
 /*****************************************************************************
-* @brief - abcdefg  
-* @param -11111
-* @retval-2222
+* @brief -
+* @param -
+* @retval-
 ******************************************************************************/
 
 void USARTRX_MainPro(void)
@@ -815,23 +815,22 @@ void MyPrintf_USART1(char *format, ... )
 	va_list args;
 	static char szBuf[1024];
     
-    mChen = 3;
+    mChen = 1;
 	
 	va_start(args, format);
 	vsprintf(szBuf, format, args);
+	
     
-	DP_RING_BUF_PUSH((uint8_t*)szBuf,strlen(szBuf),1);
+	//HAL_UART_Transmit_IT(&UartHandle1, (uint8_t*)szBuf,strlen(szBuf));
     
-	//HAL_UART_Transmit_IT(&UartHandle3, (uint8_t*)szBuf,strlen(szBuf));
-    
-//    if(mChen&0x01)
-//    {
-//        DP_RING_BUF_PUSH((uint8_t*)szBuf,strlen(szBuf),1);
-//    }
-//    else
-//    {
-//        DP_RING_BUF_PUSH((uint8_t*)szBuf,strlen(szBuf),3);
-//    }
+    if(mChen == 0x01)
+    {
+        DP_RING_BUF_PUSH((uint8_t*)szBuf,strlen(szBuf),1);
+    }
+    else
+    {
+        DP_RING_BUF_PUSH((uint8_t*)szBuf,strlen(szBuf),3);
+    }
     
 	////HAL_UART_Transmit_DMA(&UartHandle1, (uint8_t*)szBuf, strlen(szBuf));
 
@@ -969,27 +968,37 @@ void USART_RingBuf_Pro(void)
 
         if(WORD_L(sCh) == 1)
         {
-            if(UartHandle3.gState == HAL_UART_STATE_READY) // 통신 상태가 준비 일때 전송 한다.
+            if(UartHandle1.gState == HAL_UART_STATE_READY) // 통신 상태가 준비 일때 전송 한다.
             {
                 
                 DP_RING_BUF_POP(USART_1Ch.nTxBuffer,&USART_1Ch.nTxLen);
-                HAL_UART_Transmit_IT(&UartHandle3, (uint8_t*)USART_1Ch.nTxBuffer,USART_1Ch.nTxLen);
+                HAL_UART_Transmit_IT(&UartHandle1, (uint8_t*)USART_1Ch.nTxBuffer,USART_1Ch.nTxLen);
             }
 
         }
         
-//        else if(WORD_L(sCh) == 3)
+        else if(WORD_L(sCh) == 3)
+        {
+            if(UartHandle3.gState == HAL_UART_STATE_READY) // 통신 상태가 준비 일때 전송 한다.
+            {
+                
+                DP_RING_BUF_POP(USART_3Ch.nTxBuffer,&USART_3Ch.nTxLen);
+                HAL_UART_Transmit_IT(&UartHandle3, (uint8_t*)USART_3Ch.nTxBuffer,USART_3Ch.nTxLen);
+            }
+
+        }
+//        else if(WORD_L(sCh) == 4)
 //        {
 //            if(UartHandle4.gState == HAL_UART_STATE_READY) // 통신 상태가 준비 일때 전송 한다.
 //            {
 //                
 //                HAL_GPIO_WritePin(GPIOC,GPIO_PIN_12,GPIO_PIN_SET); // CLK High   -> RTS ON
 //                
-//                DP_RING_BUF_POP(USART_3Ch.nTxBuffer,&USART_3Ch.nTxLen);
-//                HAL_UART_Transmit_IT(&UartHandle3, (uint8_t*)USART_3Ch.nTxBuffer,USART_3Ch.nTxLen);
+//                DP_RING_BUF_POP(USART_4Ch.nTxBuffer,&USART_4Ch.nTxLen);
+//               // HAL_UART_Transmit_IT(&UartHandle4, (uint8_t*)USART_4Ch.nTxBuffer,USART_4Ch.nTxLen);
 //                
 //#ifdef JDS_DEBUG
-//               // HAL_UART_Transmit_DMA(&UartHandle, (uint8_t*)USART_4Ch.nTxBuffer,USART_4Ch.nTxLen);
+//                HAL_UART_Transmit_DMA(&UartHandle4, (uint8_t*)USART_4Ch.nTxBuffer,USART_4Ch.nTxLen);
 //#endif   
 //            
 //            }

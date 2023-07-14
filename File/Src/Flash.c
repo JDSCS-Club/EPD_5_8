@@ -80,32 +80,32 @@ void Flash_Init(void)
 
 void Flash_Main(void)
 {
-	if((mFLASH_TIM_Cnt == 7000))
-	{
-            //mFlashSaveCnt = 7000;
-        mFLASH_TIM_Cnt++;
-            
-        
-         BootFlashReadAddress = FLASH_USER_START_ADDR;
-        
-         FLASH_Read_Len(&BootFlashReadAddress,dFlashReadBuf,20);
-         
-         
-          if (strncmp ((char*)(dFlashReadBuf), "SW_UpData_BootLoad!!", 20))// 같지 않다면
-          {
-
-                
-                Flash_Write((uint8_t *)mFlashMemoySaveBuf,20);
-                //MyPrintf_USART1("**Flash Memory Write  \n\r");
-                
-          }
-          else
-          {
-
-                //MyPrintf_USART1("**Flash Memory OK \n\r");
-          }
-
-	}
+//	if((mFLASH_TIM_Cnt == 7000))
+//	{
+//            //mFlashSaveCnt = 7000;
+//        mFLASH_TIM_Cnt++;
+//            
+//        
+//         BootFlashReadAddress = FLASH_USER_START_ADDR;
+//        
+//         FLASH_Read_Len(&BootFlashReadAddress,dFlashReadBuf,20);
+//         
+//         
+//          if (strncmp ((char*)(dFlashReadBuf), "SW_UpData_BootLoad!!", 20))// 같지 않다면
+//          {
+//
+//                
+//                Flash_Write((uint8_t *)mFlashMemoySaveBuf,20);
+//                //MyPrintf_USART1("**Flash Memory Write  \n\r");
+//                
+//          }
+//          else
+//          {
+//
+//                //MyPrintf_USART1("**Flash Memory OK \n\r");
+//          }
+//
+//	}
 	
 }
 

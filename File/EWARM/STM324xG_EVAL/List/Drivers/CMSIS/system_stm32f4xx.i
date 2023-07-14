@@ -21713,7 +21713,7 @@ void SystemInit(void)
 
 
    
-  ((SCB_Type *) ((0xE000E000UL) + 0x0D00UL) )->VTOR = 0x08000000U | 0x00000;  
+  ((SCB_Type *) ((0xE000E000UL) + 0x0D00UL) )->VTOR = 0x08000000U | 0x10000;  
 }
 
 

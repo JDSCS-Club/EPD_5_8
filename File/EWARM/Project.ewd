@@ -44,7 +44,7 @@
                 </option>
                 <option>
                     <name>MemFile</name>
-                    <state>$TOOLKIT_DIR$\CONFIG\debugger\ST\STM32F407VG.ddf</state>
+                    <state>$TOOLKIT_DIR$\CONFIG\debugger\ST\STM32F407IG.ddf</state>
                 </option>
                 <option>
                     <name>RunToEnable</name>
@@ -573,7 +573,7 @@
                 </option>
                 <option>
                     <name>IjetProtocolRadio</name>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>IjetSwoPin</name>
@@ -698,7 +698,7 @@
                 </option>
                 <option>
                     <name>IjetPreferETB</name>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>IjetTraceSettingsList</name>
@@ -813,7 +813,7 @@
                 </option>
                 <option>
                     <name>CCDoJlinkMultiTarget</name>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>CCScanChainNonARMDevices</name>
@@ -886,7 +886,7 @@
                 </option>
                 <option>
                     <name>CCJLinkInterfaceRadio</name>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>CCJLinkResetList</name>

@@ -105,10 +105,6 @@
         <encoding>System</encoding>
     </override>
     <override>
-        <path>C:\D\SW2_Team\emu_208_ledc\File\Src\Timer.c</path>
-        <encoding>System</encoding>
-    </override>
-    <override>
         <path>C:\Users\JDS_WIN\Documents\GitHub\LEDC5.1_TRACE\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\Src\main.c</path>
         <encoding>System</encoding>
     </override>
@@ -362,10 +358,6 @@
     </override>
     <override>
         <path>X:\JDS_PRO\LEDC_5.1_TRACE_TEST\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\Src\main.c</path>
-        <encoding>System</encoding>
-    </override>
-    <override>
-        <path>c:\D\Git_Hub\_5-B1\File\Inc\LED.h</path>
         <encoding>System</encoding>
     </override>
 </userOverrides>

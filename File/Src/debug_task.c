@@ -421,6 +421,7 @@ void njw1192_vol_setting(uint8_t vol_addr,uint8_t On_Off)
 {
 	uint8_t temp;
 	uint32_t break_time = 0;
+    
 	
 	njw1192_tx_data[NJW1192_SEL_ADDR] = 0x00;
         
@@ -429,13 +430,13 @@ void njw1192_vol_setting(uint8_t vol_addr,uint8_t On_Off)
         if(On_Off == true)
         {
             //--현차 조건.                                           // 양산           // 시험실.
-           // njw1192_tx_data[NJW1192_SEL_DATA] = (TEST_ROOM == 0) ?  NJW_VOL_GAIN0 : NJW_VOL_GAIN5;
-              njw1192_tx_data[NJW1192_SEL_DATA] = (TEST_ROOM == 0) ?  NJW_VOL_INGAIN5 : NJW_VOL_GAIN5;
+           // njw1192_tx_data[NJW1192_SEL_DATA] = ( mLed_Process_Flag.sVolTestFlg == 0) ?  NJW_VOL_GAIN0 : NJW_VOL_GAIN5;
+              njw1192_tx_data[NJW1192_SEL_DATA] = ( mLed_Process_Flag.sVolTestFlg == 0) ?  NJW_VOL_INGAIN5 : NJW_VOL_GAIN5;
             
         }
         else{                                                      // 양산            // 시험실
-           // njw1192_tx_data[NJW1192_SEL_DATA] = (TEST_ROOM == 0) ? NJW_VOL_INGAIN5 : NJW_VOL_INGAIN20;
-              njw1192_tx_data[NJW1192_SEL_DATA] = (TEST_ROOM == 0) ? NJW_VOL_INGAIN10 : NJW_VOL_INGAIN20;
+           // njw1192_tx_data[NJW1192_SEL_DATA] = ( mLed_Process_Flag.sVolTestFlg == 0) ? NJW_VOL_INGAIN5 : NJW_VOL_INGAIN20;
+              njw1192_tx_data[NJW1192_SEL_DATA] = ( mLed_Process_Flag.sVolTestFlg == 0) ? NJW_VOL_INGAIN10 : NJW_VOL_INGAIN20;
             
         }
     }
@@ -448,14 +449,13 @@ void njw1192_vol_setting(uint8_t vol_addr,uint8_t On_Off)
               njw1192_tx_data[NJW1192_SEL_DATA] = NJW_VOL_INGAIN5;
         }
         else{                                                       //양산            //시험실
-            //njw1192_tx_data[NJW1192_SEL_DATA] = (TEST_ROOM == 0) ? NJW_VOL_INGAIN10 : NJW_VOL_INGAIN30;
-              njw1192_tx_data[NJW1192_SEL_DATA] = (TEST_ROOM == 0) ? NJW_VOL_INGAIN15 : NJW_VOL_INGAIN30;
+            //njw1192_tx_data[NJW1192_SEL_DATA] = ( mLed_Process_Flag.sVolTestFlg == 0) ? NJW_VOL_INGAIN10 : NJW_VOL_INGAIN30;
+              njw1192_tx_data[NJW1192_SEL_DATA] = ( mLed_Process_Flag.sVolTestFlg == 0) ? NJW_VOL_INGAIN15 : NJW_VOL_INGAIN30;
             
         }
         
     }
         
-            
 	njw1192_write(njw1192_tx_data);
         
 	while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY)
@@ -479,8 +479,8 @@ void njw1192_vol_setting_OutSpk(void)
 	uint32_t break_time = 0;
 	
 	njw1192_tx_data[NJW1192_SEL_ADDR] = 0x00;
-                                                           //양산                 //시험실
-    njw1192_tx_data[NJW1192_SEL_DATA] = (TEST_ROOM == 0) ? NJW_VOL_GAIN0 : NJW_VOL_INGAIN36;
+                                                                                //양산                 //시험실
+    njw1192_tx_data[NJW1192_SEL_DATA] = ( mLed_Process_Flag.sVolTestFlg == 0) ? NJW_VOL_GAIN0 : NJW_VOL_INGAIN25;
     
     njw1192_write(njw1192_tx_data);
         
@@ -559,7 +559,7 @@ void njw1192_default_value(void)
     njw1192_tx_data[0] = 0x00;
         
       
-    if(TEST_ROOM == 0)
+    if( mLed_Process_Flag.sVolTestFlg == 0)
     {
         
         njw1192_tx_data[1] = (NJW_GAIN_0dB | NJW_VOL_INGAIN10);
@@ -667,7 +667,7 @@ void njw1192_default_value(void)
     
     
     njw1192_tx_data[0] = 0x03;
-    njw1192_tx_data[1] = 0x08;
+    njw1192_tx_data[1] = 0x00;
 	njw1192_write(njw1192_tx_data);
 
 	break_time = 0;

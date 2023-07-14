@@ -39,7 +39,7 @@ void MX_I2C1_Init(void)
 {
 	GPIO_InitTypeDef   GPIO_InitStructure;
 
-	GPIO_InitStructure.Pin =  GPIO_PIN_6 | GPIO_PIN_7;
+	GPIO_InitStructure.Pin =  GPIO_PIN_8 | GPIO_PIN_9;
 	GPIO_InitStructure.Mode = GPIO_MODE_AF_OD;
 	GPIO_InitStructure.Pull = GPIO_PULLUP;
 	GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_MEDIUM;
@@ -49,8 +49,8 @@ void MX_I2C1_Init(void)
 	HAL_GPIO_Init(GPIOB, &GPIO_InitStructure); 
         
 
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_9, GPIO_PIN_SET);
         
         
 
@@ -147,7 +147,7 @@ void processCurrentVal(void)
         nRbuf[0] = 0x41;
         nRbuf[1] = 0x27;   
             
-        if(I2C_HAL_WriteBytes(&hi2c2,0x80,0x00,(uint8_t *)nRbuf,2))
+        if(I2C_HAL_WriteBytes(&hi2c1,0x80,0x00,(uint8_t *)nRbuf,2))
         {
             MyPrintf_USART1("++++++++++++ Write Calibration Register  ++++++++++++ \n\r" );
         }
@@ -159,7 +159,7 @@ void processCurrentVal(void)
 
         nRbuf[0] = 0xFF;
         nRbuf[1] = 0xFF;  
-         if(I2C_HAL_ReadBytes(&hi2c2,0x80,0x01,(uint8_t *)nRbuf,2))
+         if(I2C_HAL_ReadBytes(&hi2c1,0x80,0x01,(uint8_t *)nRbuf,2))
         {
             //printf("++ INA226 OK \n\r");
                 
@@ -172,7 +172,7 @@ void processCurrentVal(void)
 
 
             
-         if(I2C_HAL_ReadBytes(&hi2c2,0x80,0x02,(uint8_t *)nRbuf,2))
+         if(I2C_HAL_ReadBytes(&hi2c1,0x80,0x02,(uint8_t *)nRbuf,2))
         {
             //printf("++ INA226 OK \n\r");
              //소주점 2번째 가지까지 환산. (ex : 2427 -> 24.27v)
@@ -191,7 +191,7 @@ void processCurrentVal(void)
             nRbuf[0] = 0x0A;
             nRbuf[1] = 0x00;   
                 
-            if(I2C_HAL_WriteBytes(&hi2c2,0x80,0x05,(uint8_t *)nRbuf,2))
+            if(I2C_HAL_WriteBytes(&hi2c1,0x80,0x05,(uint8_t *)nRbuf,2))
             {
                 MyPrintf_USART1("++ Write V-C Change \r\n" );
             }
@@ -201,7 +201,7 @@ void processCurrentVal(void)
             }
       /////////////////////////////////////                  
                 
-         if(I2C_HAL_ReadBytes(&hi2c2,0x80,0x04,(uint8_t *)nRbuf,2))
+         if(I2C_HAL_ReadBytes(&hi2c1,0x80,0x04,(uint8_t *)nRbuf,2))
         {
            
              // mA로 표현 --> 초기 대구 
@@ -222,7 +222,7 @@ void processCurrentVal(void)
                 
                     
                 
-        if(I2C_HAL_ReadBytes(&hi2c2,0x80,0x03,(uint8_t *)nRbuf,2))
+        if(I2C_HAL_ReadBytes(&hi2c1,0x80,0x03,(uint8_t *)nRbuf,2))
         {
             //printf("++ INA226 OK \n\r");
                 
@@ -233,13 +233,9 @@ void processCurrentVal(void)
             MyPrintf_USART1( "++ INA226 NG \n\r" );
                 
         }
-            
-                
                     
     }
 
-        
-    
 }
 
 /*****************************************************************************
@@ -344,10 +340,15 @@ void MX_I2C_Process(void)
                         }
                         
                         
-                        if( TEST_ROOM == 1) //TEST 시험 할때는 항상 동작.
-                        {
-                            njw1192_vol_setting(0, false); // ANS ON_OFF 기능.
-                        }
+                       // if( TEST_ROOM == 1) //TEST 시험 할때는 항상 동작.
+                       // {
+                       //     njw1192_vol_setting(0, false); // ANS ON_OFF 기능.
+                       // }
+                       if(mLed_Process_Flag.sVolTestFlg)// COB 에서 볼륨 레벨을 선택 한다.
+                       {
+                           njw1192_vol_setting(0, false); // ANS ON_OFF 기능.
+                       }
+
                     }
                     
                 }
@@ -392,28 +393,31 @@ void MX_I2C_Process(void)
                 if ((getSW_SL() && (mLed_Process_Flag.sDHCP_IP_Val == 96)) // IP 96은 실외 스피커  왼쪽.
                   ||(getSW_SR() && (mLed_Process_Flag.sDHCP_IP_Val == 97)))// IP 97은 실외 스피커 오른쪽.
                 {
-                    setOSP_Led(true);
-
                     setBk_Out_6(true);
+                    mLed_Process_Flag.sOut_Spk_Flag = true;
                     
+                    setRSP_Led(true);
+                    setOSP_Led(true);
                 }
                 else
                 {
                     setBk_Out_6(false);
-                       
+                    mLed_Process_Flag.sOut_Spk_Flag = false;
+                    
+                    
+                    setRSP_Led(true);
+                    setOSP_Led(false);
                 }
                 
 
                 mLed_Process_Flag.sRom_Spk_Flag = true;
-                mLed_Process_Flag.sOut_Spk_Flag = false;
+                
                 mLed_Process_Flag.sSpk_check_Cnt = 10;
                 mLed_Process_Flag.sAudio_Play_mode = true;
                 
      
                 MyPrintf_USART1 ("+++++ AMP E-1 : %d \r\n",HAL_GetTick() );
 
-                setRSP_Led(true);
-                setOSP_Led(false);
                 
             
 		}
@@ -576,34 +580,38 @@ void AMP_Init(uint16_t Address)
      MyPrintf_USART1( "+++++ %s(%d)\r\n", __func__, __LINE__ );
      
      
-	nRbuf[0] = 0x3A; // Set channel Gain
-	I2C_HAL_WriteBytes(&hi2c2, AMP_ID_1, 0x08, (uint8_t *)nRbuf, 1);
-    I2C_HAL_WriteBytes(&hi2c2, AMP_ID_2, 0x08, (uint8_t *)nRbuf, 1);
-    I2C_HAL_WriteBytes(&hi2c2, AMP_ID_3, 0x08, (uint8_t *)nRbuf, 1);
+     if(mLed_Process_Flag.sVolTestFlg == 1) { nRbuf[0] = 0x14; } // Set channel Gain // 양산
+     else                                   { nRbuf[0] = 0x3A; }// 현차 
+     
+       //nRbuf[0] = 0x00; // Set channel Gain
+    I2C_HAL_WriteBytes(&hi2c1, AMP_ID_1, 0x08, (uint8_t *)nRbuf, 1);
+    I2C_HAL_WriteBytes(&hi2c1, AMP_ID_2, 0x08, (uint8_t *)nRbuf, 1);
+    I2C_HAL_WriteBytes(&hi2c1, AMP_ID_3, 0x08, (uint8_t *)nRbuf, 1);
+    
     
     
     nRbuf[0] = 0x0C; //
-	I2C_HAL_WriteBytes(&hi2c2, AMP_ID_1, 0x0A, (uint8_t *)nRbuf, 1);
-    I2C_HAL_WriteBytes(&hi2c2, AMP_ID_2, 0x0A, (uint8_t *)nRbuf, 1);
-    I2C_HAL_WriteBytes(&hi2c2, AMP_ID_3, 0x0A, (uint8_t *)nRbuf, 1);
+	I2C_HAL_WriteBytes(&hi2c1, AMP_ID_1, 0x0A, (uint8_t *)nRbuf, 1);
+    I2C_HAL_WriteBytes(&hi2c1, AMP_ID_2, 0x0A, (uint8_t *)nRbuf, 1);
+    I2C_HAL_WriteBytes(&hi2c1, AMP_ID_3, 0x0A, (uint8_t *)nRbuf, 1);
     
     
     
     nRbuf[0] = 0xD2; // 
-	I2C_HAL_WriteBytes(&hi2c2, AMP_ID_1, 0x0b, (uint8_t *)nRbuf, 1);
+	I2C_HAL_WriteBytes(&hi2c1, AMP_ID_1, 0x0b, (uint8_t *)nRbuf, 1);
     
     nRbuf[0] = 0x12;
-	I2C_HAL_WriteBytes(&hi2c2, AMP_ID_2, 0x0b, (uint8_t *)nRbuf, 1);
+	I2C_HAL_WriteBytes(&hi2c1, AMP_ID_2, 0x0b, (uint8_t *)nRbuf, 1);
     
     nRbuf[0] = 0x16;
-	I2C_HAL_WriteBytes(&hi2c2, AMP_ID_3, 0x0b, (uint8_t *)nRbuf, 1);
+	I2C_HAL_WriteBytes(&hi2c1, AMP_ID_3, 0x0b, (uint8_t *)nRbuf, 1);
     
 	HAL_Delay(5);  // 100ms 항상 유지 필요
       
 	nRbuf[0] = 0xFF;
-	I2C_HAL_ReadBytes(&hi2c2, AMP_ID_1, 0x00, (uint8_t *)nRbuf, 1);
-	I2C_HAL_ReadBytes(&hi2c2, AMP_ID_2, 0x00, (uint8_t *)nRbuf, 1);
-	I2C_HAL_ReadBytes(&hi2c2, AMP_ID_3, 0x00, (uint8_t *)nRbuf, 1);
+	I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x00, (uint8_t *)nRbuf, 1);
+	I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x00, (uint8_t *)nRbuf, 1);
+	I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x00, (uint8_t *)nRbuf, 1);
 
     
 
@@ -633,7 +641,7 @@ void AMP_Mute_OFF(
 	{
         
 		nTbuf[0] = 0x09;
-		I2C_HAL_WriteBytes(&hi2c2, AMP_ID_1, 0x0C, (uint8_t *)nTbuf, 1);
+		I2C_HAL_WriteBytes(&hi2c1, AMP_ID_1, 0x0C, (uint8_t *)nTbuf, 1);
        
 	}
     
@@ -641,7 +649,7 @@ void AMP_Mute_OFF(
 	{
         
 		nTbuf[0] = 0x09;
-		I2C_HAL_WriteBytes(&hi2c2, AMP_ID_2, 0x0C, (uint8_t *)nTbuf, 1);
+		I2C_HAL_WriteBytes(&hi2c1, AMP_ID_2, 0x0C, (uint8_t *)nTbuf, 1);
             
        
 	}
@@ -649,7 +657,7 @@ void AMP_Mute_OFF(
 	if (AMP_ID_3 == Address3)
 	{
 		nTbuf[0] = 0x09;
-		I2C_HAL_WriteBytes(&hi2c2, AMP_ID_3, 0x0C, (uint8_t *)nTbuf, 1);
+		I2C_HAL_WriteBytes(&hi2c1, AMP_ID_3, 0x0C, (uint8_t *)nTbuf, 1);
             
 	}
      
@@ -688,8 +696,8 @@ int AMP_PowOn_Check(void)
     MyPrintf_USART1( "+++++ %s(%d)\r\n", __func__, __LINE__ );
     
     
-    I2C_HAL_ReadBytes(&hi2c2, AMP_ID_1, 0x00, (uint8_t *)nRbuf, 1);
-    I2C_HAL_ReadBytes(&hi2c2, AMP_ID_1, 0x01, (uint8_t *)nRbuf1, 1);
+    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x00, (uint8_t *)nRbuf, 1);
+    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x01, (uint8_t *)nRbuf1, 1);
     
     
     if(nRbuf[0] == 0x00 && nRbuf1[0] == 0x00)
@@ -700,8 +708,8 @@ int AMP_PowOn_Check(void)
     MyPrintf_USART1( "+++++ AMP_ID_1 (%x - %x)\r\n",nRbuf[0],nRbuf1[0] );
     
     
-    I2C_HAL_ReadBytes(&hi2c2, AMP_ID_2, 0x00, (uint8_t *)nRbuf, 1);
-    I2C_HAL_ReadBytes(&hi2c2, AMP_ID_2, 0x01, (uint8_t *)nRbuf1, 1);
+    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x00, (uint8_t *)nRbuf, 1);
+    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x01, (uint8_t *)nRbuf1, 1);
     
      if(nRbuf[0] == 0x00 && nRbuf1[0] == 0x00)
     {
@@ -711,8 +719,8 @@ int AMP_PowOn_Check(void)
     MyPrintf_USART1( "+++++ AMP_ID_2 (%x - %x)\r\n",nRbuf[0],nRbuf1[0] );
     
     
-    I2C_HAL_ReadBytes(&hi2c2, AMP_ID_3, 0x00, (uint8_t *)nRbuf, 1);
-    I2C_HAL_ReadBytes(&hi2c2, AMP_ID_3, 0x01, (uint8_t *)nRbuf1, 1);
+    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x00, (uint8_t *)nRbuf, 1);
+    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x01, (uint8_t *)nRbuf1, 1);
     
      if(nRbuf[0] == 0x00 && nRbuf1[0] == 0x00)
     {
@@ -751,18 +759,18 @@ void AMP_Mute_ON(
 		if (ad_ch1 == AMP_CH_All)
 		{
 			nTbuf[0] = 0x1F;
-			I2C_HAL_WriteBytes(&hi2c2, AMP_ID_1, 0x0C, (uint8_t *)nTbuf, 1);
+			I2C_HAL_WriteBytes(&hi2c1, AMP_ID_1, 0x0C, (uint8_t *)nTbuf, 1);
 		}
 		else if (ad_ch1 == AMP_CH_1) // 1ch mute
 		{
 			nTbuf[0] = 0x1D;
-			I2C_HAL_WriteBytes(&hi2c2, AMP_ID_1, 0x0C, (uint8_t *)nTbuf, 1);
+			I2C_HAL_WriteBytes(&hi2c1, AMP_ID_1, 0x0C, (uint8_t *)nTbuf, 1);
             
 		}
 		else if(ad_ch1 == AMP_CH_2) // 2ch mute
 		{
 			nTbuf[0] = 0x1B;
-			I2C_HAL_WriteBytes(&hi2c2, AMP_ID_1, 0x0C, (uint8_t *)nTbuf, 1);
+			I2C_HAL_WriteBytes(&hi2c1, AMP_ID_1, 0x0C, (uint8_t *)nTbuf, 1);
 		}
         
        
@@ -774,18 +782,18 @@ void AMP_Mute_ON(
 		if (ad_ch2 == AMP_CH_All)
 		{
 			nTbuf[0] = 0x1F;
-			I2C_HAL_WriteBytes(&hi2c2, AMP_ID_2, 0x0C, (uint8_t *)nTbuf, 1);
+			I2C_HAL_WriteBytes(&hi2c1, AMP_ID_2, 0x0C, (uint8_t *)nTbuf, 1);
 		}
 		else if (ad_ch2 == AMP_CH_1) // 1ch mute
 		{
 			nTbuf[0] = 0x1D;
-			I2C_HAL_WriteBytes(&hi2c2, AMP_ID_2, 0x0C, (uint8_t *)nTbuf, 1);
+			I2C_HAL_WriteBytes(&hi2c1, AMP_ID_2, 0x0C, (uint8_t *)nTbuf, 1);
             
 		}
 		else if(ad_ch2 == AMP_CH_2) // 2ch mute
 		{
 			nTbuf[0] = 0x1B;
-			I2C_HAL_WriteBytes(&hi2c2, AMP_ID_2, 0x0C, (uint8_t *)nTbuf, 1);
+			I2C_HAL_WriteBytes(&hi2c1, AMP_ID_2, 0x0C, (uint8_t *)nTbuf, 1);
 		}
             
        
@@ -797,18 +805,18 @@ void AMP_Mute_ON(
 		if (ad_ch3 == AMP_CH_All)
 		{
 			nTbuf[0] = 0x1F;
-			I2C_HAL_WriteBytes(&hi2c2, AMP_ID_3, 0x0C, (uint8_t *)nTbuf, 1);
+			I2C_HAL_WriteBytes(&hi2c1, AMP_ID_3, 0x0C, (uint8_t *)nTbuf, 1);
 		}
 		else if (ad_ch3 == AMP_CH_1) // 1ch mute
 		{
 			nTbuf[0] = 0x1D;
-			I2C_HAL_WriteBytes(&hi2c2, AMP_ID_3, 0x0C, (uint8_t *)nTbuf, 1);
+			I2C_HAL_WriteBytes(&hi2c1, AMP_ID_3, 0x0C, (uint8_t *)nTbuf, 1);
             
 		}
 		else if(ad_ch3 == AMP_CH_2) // 2ch mute
 		{
 			nTbuf[0] = 0x1B;
-			I2C_HAL_WriteBytes(&hi2c2, AMP_ID_3, 0x0C, (uint8_t *)nTbuf, 1);
+			I2C_HAL_WriteBytes(&hi2c1, AMP_ID_3, 0x0C, (uint8_t *)nTbuf, 1);
 		}
         
             
@@ -839,8 +847,8 @@ void AMP_FAULT(void)
             
             nRbuf[0] = 0xFF; 
             nRbuf1[0] = 0xFF;    
-            I2C_HAL_ReadBytes(&hi2c2, AMP_ID_1, 0x00, (uint8_t *)nRbuf, 1);
-            I2C_HAL_ReadBytes(&hi2c2, AMP_ID_1, 0x01, (uint8_t *)nRbuf1, 1);
+            I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x00, (uint8_t *)nRbuf, 1);
+            I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x01, (uint8_t *)nRbuf1, 1);
                 
             MyPrintf_USART1("+++++ getAmp1_Pault - 1:%02x / 2:%02x \r\n", nRbuf[0],nRbuf1[0]);
                 
@@ -862,8 +870,8 @@ void AMP_FAULT(void)
         {
             nRbuf[0] = 0xFF;    
             nRbuf1[0] = 0xFF;
-            I2C_HAL_ReadBytes(&hi2c2, AMP_ID_2, 0x00, (uint8_t *)nRbuf, 1);
-            I2C_HAL_ReadBytes(&hi2c2, AMP_ID_2, 0x01, (uint8_t *)nRbuf1, 1);
+            I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x00, (uint8_t *)nRbuf, 1);
+            I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x01, (uint8_t *)nRbuf1, 1);
                 
                 
             MyPrintf_USART1("+++++ getAmp2_Pault - 1:%02x / 2:%02x \r\n", nRbuf[0],nRbuf1[0]);
@@ -885,8 +893,8 @@ void AMP_FAULT(void)
         {
             nRbuf[0] = 0xFF;    
             nRbuf1[0] = 0xFF;
-            I2C_HAL_ReadBytes(&hi2c2, AMP_ID_3, 0x00, (uint8_t *)nRbuf, 1);
-            I2C_HAL_ReadBytes(&hi2c2, AMP_ID_3, 0x01, (uint8_t *)nRbuf1, 1);
+            I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x00, (uint8_t *)nRbuf, 1);
+            I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x01, (uint8_t *)nRbuf1, 1);
                 
             
             MyPrintf_USART1("+++++ getAmp3_Pault - 1:%02x / 2:%02x \r\n", nRbuf[0],nRbuf1[0]);
@@ -924,9 +932,9 @@ void AMP_FAULT(void)
             nRbuf1[0] = 0xFF;
             nRbuf2[0] = 0xFF;
             
-            I2C_HAL_ReadBytes(&hi2c2, AMP_ID_1, 0x04, (uint8_t *)nRbuf, 1);
-            I2C_HAL_ReadBytes(&hi2c2, AMP_ID_2, 0x04, (uint8_t *)nRbuf1, 1);
-            I2C_HAL_ReadBytes(&hi2c2, AMP_ID_3, 0x04, (uint8_t *)nRbuf2, 1);
+            I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x04, (uint8_t *)nRbuf, 1);
+            I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x04, (uint8_t *)nRbuf1, 1);
+            I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x04, (uint8_t *)nRbuf2, 1);
             
             MyPrintf_USART1("+++++ getAmpPault - 1:%02x -- 2:%02x -- 3:%02x \r\n", nRbuf[0],nRbuf1[0],nRbuf2[0]);
             
@@ -1021,9 +1029,9 @@ void AMP_SPK_CHECK(void)
         nRbuf_1[0] = 0xFF;
         nRbuf_2[0] = 0xFF;
         
-        I2C_HAL_ReadBytes(&hi2c2, AMP_ID_1, 0x06, (uint8_t *)nRbuf_0, 1);
-        I2C_HAL_ReadBytes(&hi2c2, AMP_ID_2, 0x06, (uint8_t *)nRbuf_1, 1);
-        I2C_HAL_ReadBytes(&hi2c2, AMP_ID_3, 0x06, (uint8_t *)nRbuf_2, 1);
+        I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x06, (uint8_t *)nRbuf_0, 1);
+        I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x06, (uint8_t *)nRbuf_1, 1);
+        I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x06, (uint8_t *)nRbuf_2, 1);
         
         MyPrintf_USART1("+++++ In-Amp Mute/Play mode- 1:%02X / 2:%02X / 3:%02X \r\n",nRbuf_0[0],nRbuf_1[0],nRbuf_2[0] );
         
@@ -1058,8 +1066,8 @@ void AMP_SPK_CHECK(void)
 
                 // I2C_HAL_ReadBytes(&hi2c2, AMP_ID_1, 0x00, (uint8_t *)nRbuf_1, 1);
                     
-                I2C_HAL_ReadBytes(&hi2c2, AMP_ID_1, 0x02, (uint8_t *)nRbuf_1, 1);
-                I2C_HAL_ReadBytes(&hi2c2, AMP_ID_1, 0x03, (uint8_t *)nRbuf_2, 1);
+                I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x02, (uint8_t *)nRbuf_1, 1);
+                I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x03, (uint8_t *)nRbuf_2, 1);
                               
                 MyPrintf_USART1("+++++ getAmp1 Spk read :%02X \r\n", ((nRbuf_1[0]&0xF0) | (nRbuf_2[0]&0x0F)));
 
@@ -1071,8 +1079,8 @@ void AMP_SPK_CHECK(void)
                 
                 // I2C_HAL_ReadBytes(&hi2c2, AMP_ID_2, 0x00, (uint8_t *)nRbuf_1, 1);
 
-                I2C_HAL_ReadBytes(&hi2c2, AMP_ID_2, 0x02, (uint8_t *)nRbuf_1, 1);
-                I2C_HAL_ReadBytes(&hi2c2, AMP_ID_2, 0x03, (uint8_t *)nRbuf_2, 1);
+                I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x02, (uint8_t *)nRbuf_1, 1);
+                I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x03, (uint8_t *)nRbuf_2, 1);
                               
                 MyPrintf_USART1("+++++ getAmp2 Spk read :%02X \r\n", ((nRbuf_1[0]&0xF0) | (nRbuf_2[0]&0x0F)));
             
@@ -1083,13 +1091,13 @@ void AMP_SPK_CHECK(void)
                 nRbuf_1[0] = 0xFF;
                 nRbuf_2[0] = 0xFF;
                 
-                I2C_HAL_ReadBytes(&hi2c2, AMP_ID_3, 0x02, (uint8_t *)nRbuf_1, 1);
+                I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x02, (uint8_t *)nRbuf_1, 1);
                 
                 if(mLed_Process_Flag.sOut_Spk_Flag) // 추가로 실외 스피커 동작 하면 같이 체크한다. 
                 {
                     mLed_Process_Flag.sOut_Spk_Flag = false;
 
-                    I2C_HAL_ReadBytes(&hi2c2, AMP_ID_3, 0x03, (uint8_t *)nRbuf_2, 1);
+                    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x03, (uint8_t *)nRbuf_2, 1);
                 }
                 else 
                 {
@@ -1152,23 +1160,23 @@ void AMP_SPK_CHECK(void)
          mLed_Process_Flag.sOut_Spk_Flag = false;
          
          
-        // I2C_HAL_ReadBytes(&hi2c2, AMP_ID_3, 0x00, (uint8_t *)nRbuf_1, 1);
+        // I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x00, (uint8_t *)nRbuf_1, 1);
 
-        //I2C_HAL_ReadBytes(&hi2c2, AMP_ID_3, 0x02, (uint8_t *)nRbuf_1, 1);
+        //I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x02, (uint8_t *)nRbuf_1, 1);
          
          nRbuf_1[0] = 0x0F;
          nRbuf_2[0] = 0xFF;
          
-        I2C_HAL_ReadBytes(&hi2c2, AMP_ID_3, 0x03, (uint8_t *)nRbuf_2, 1);
+        I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x03, (uint8_t *)nRbuf_2, 1);
                       
         MyPrintf_USART1("+++++ getAmp3 Spk read :%02X \r\n", ((nRbuf_1[0]&0xF0) | (nRbuf_2[0]&0x0F)));
         
         mLed_Process_Flag.sSt_Buf_Val[3] = ((nRbuf_1[0]&0xF0) | (nRbuf_2[0]&0x0F));
         
         
-        I2C_HAL_ReadBytes(&hi2c2, AMP_ID_1, 0x06, (uint8_t *)nRbuf_0, 1);
-        I2C_HAL_ReadBytes(&hi2c2, AMP_ID_2, 0x06, (uint8_t *)nRbuf_1, 1);
-        I2C_HAL_ReadBytes(&hi2c2, AMP_ID_3, 0x06, (uint8_t *)nRbuf_2, 1);
+        I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x06, (uint8_t *)nRbuf_0, 1);
+        I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x06, (uint8_t *)nRbuf_1, 1);
+        I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x06, (uint8_t *)nRbuf_2, 1);
         
         MyPrintf_USART1("+++++ Out- Amp Mute/Play mode- 1:%02X / 2:%02X / 3:%02X \r\n",nRbuf_0[0],nRbuf_1[0],nRbuf_2[0] );
         

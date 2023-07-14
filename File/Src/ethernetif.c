@@ -69,42 +69,39 @@ ETH_HandleTypeDef EthHandle;
   */
 void HAL_ETH_MspInit(ETH_HandleTypeDef *heth)
 { 
-  GPIO_InitTypeDef GPIO_InitStructure;
-  
-  /* Enable GPIOs clocks */
-  __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOB_CLK_ENABLE();
-  __HAL_RCC_GPIOC_CLK_ENABLE();
-  __HAL_RCC_GPIOE_CLK_ENABLE();
-  
+//  GPIO_InitTypeDef GPIO_InitStructure;
 //  
+//  /* Enable GPIOs clocks */
+//  __HAL_RCC_GPIOA_CLK_ENABLE();
+//  __HAL_RCC_GPIOB_CLK_ENABLE();
+//  __HAL_RCC_GPIOC_CLK_ENABLE();
 //  __HAL_RCC_GPIOF_CLK_ENABLE();
 //  __HAL_RCC_GPIOG_CLK_ENABLE();
 //  __HAL_RCC_GPIOH_CLK_ENABLE();
 //  __HAL_RCC_GPIOI_CLK_ENABLE(); 
-
-/* Ethernet pins configuration ************************************************/
-   /*
-        ETH_MDIO -------------------------> PA2   -A2   - A2
-        ETH_MDC --------------------------> PC1   -C1   - C1
-        ETH_PPS_OUT ----------------------> PB5 X -     - 
-        ETH_MII_CRS ----------------------> PH2   -A0   - A0
-        ETH_MII_COL ----------------------> PH3   -A3   - A3
-        ETH_MII_RX_ERB --------------------> PI10 -B10  - B10
-        ETH_MII_RXD2 ---------------------> PH6   -B0   - B0
-        ETH_MII_RXD3 ---------------------> PH7   -B1   - B1
-        ETH_MII_TX_CLK -------------------> PC3   -C3   - C3
-        ETH_MII_TXD2 ---------------------> PC2   -C2   - C2
-        ETH_MII_TXD3 ---------------------> PB8   -E2   - E2 -
-        ETH_MII_RX_CLK/ETH_RMII_REF_CLK---> PA1   -A1   - A1
-        ETH_MII_RX_DV/ETH_RMII_CRS_DV ----> PA7   -A7   - A7
-        ETH_MII_RXD0/ETH_RMII_RXD0 -------> PC4   -C4   - C4
-        ETH_MII_RXD1/ETH_RMII_RXD1 -------> PC5   -C5   - C5
-        ETH_MII_TX_EN/ETH_RMII_TX_EN -----> PG11  -B11  - B11
-        ETH_MII_TXD0/ETH_RMII_TXD0 -------> PG13  -B12  - B12
-        ETH_MII_TXD1/ETH_RMII_TXD1 -------> PG14  -B13  - B13
-                                                  */
-
+//
+///* Ethernet pins configuration ************************************************/
+//   /*
+//        ETH_MDIO -------------------------> PA2
+//        ETH_MDC --------------------------> PC1
+//        ETH_PPS_OUT ----------------------> PB5
+//        ETH_MII_CRS ----------------------> PH2
+//        ETH_MII_COL ----------------------> PH3
+//        ETH_MII_RX_ER --------------------> PI10
+//        ETH_MII_RXD2 ---------------------> PH6
+//        ETH_MII_RXD3 ---------------------> PH7
+//        ETH_MII_TX_CLK -------------------> PC3
+//        ETH_MII_TXD2 ---------------------> PC2
+//        ETH_MII_TXD3 ---------------------> PB8
+//        ETH_MII_RX_CLK/ETH_RMII_REF_CLK---> PA1
+//        ETH_MII_RX_DV/ETH_RMII_CRS_DV ----> PA7
+//        ETH_MII_RXD0/ETH_RMII_RXD0 -------> PC4
+//        ETH_MII_RXD1/ETH_RMII_RXD1 -------> PC5
+//        ETH_MII_TX_EN/ETH_RMII_TX_EN -----> PG11
+//        ETH_MII_TXD0/ETH_RMII_TXD0 -------> PG13
+//        ETH_MII_TXD1/ETH_RMII_TXD1 -------> PG14
+//                                                  */
+//
 //  /* Configure PA1, PA2 , PA7 */
 //  GPIO_InitStructure.Pin = GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_7;
 //  GPIO_InitStructure.Speed = GPIO_SPEED_HIGH;
@@ -132,6 +129,23 @@ void HAL_ETH_MspInit(ETH_HandleTypeDef *heth)
 //  /* Configure PI10 */
 //  GPIO_InitStructure.Pin = GPIO_PIN_10;
 //  HAL_GPIO_Init(GPIOI, &GPIO_InitStructure);
+//  
+//  /* Enable ETHERNET clock  */
+//  __HAL_RCC_ETH_CLK_ENABLE();
+//  
+//  if (heth->Init.MediaInterface == ETH_MEDIA_INTERFACE_MII)
+//  {
+//    /* Output HSE clock (25MHz) on MCO pin (PA8) to clock the PHY */
+//    HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_HSE, RCC_MCODIV_1);
+//  }
+    
+     GPIO_InitTypeDef GPIO_InitStructure;
+  
+  /* Enable GPIOs clocks */
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOE_CLK_ENABLE();
   
   
     GPIO_InitStructure.Pin = GPIO_PIN_2;
@@ -169,12 +183,7 @@ void HAL_ETH_MspInit(ETH_HandleTypeDef *heth)
   
 //  /* Enable ETHERNET clock  */
     __HAL_RCC_ETH_CLK_ENABLE();
-//  
-//  if (heth->Init.MediaInterface == ETH_MEDIA_INTERFACE_MII)
-//  {
-//    /* Output HSE clock (25MHz) on MCO pin (PA8) to clock the PHY */
-//    //HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_HSE, RCC_MCODIV_1);
-//  }
+    
 }
 
 /*******************************************************************************
@@ -194,14 +203,6 @@ static void low_level_init(struct netif *netif)
   uint8_t sHSW_1 = 0;
   uint8_t sHSW_2 = 0;
   uint8_t sHSW_3 = 0;
-  
-  static int sAddr_Cnt = 0;
-  
-  sAddr_Cnt++;
-  
-  sAddr_Cnt = (sAddr_Cnt > 31 ) ? 0 : sAddr_Cnt;
-  
-  MyPrintf_USART1(">>>>>>>>>>>---------(%d)\r\n",sAddr_Cnt);
   
 
   
@@ -226,23 +227,13 @@ static void low_level_init(struct netif *netif)
   
   EthHandle.Instance = ETH;  
   EthHandle.Init.MACAddr = macaddress;
-  EthHandle.Init.AutoNegotiation = ETH_AUTONEGOTIATION_DISABLE;
+  EthHandle.Init.AutoNegotiation = ETH_AUTONEGOTIATION_ENABLE;
   EthHandle.Init.Speed = ETH_SPEED_100M;
   EthHandle.Init.DuplexMode = ETH_MODE_FULLDUPLEX;
   EthHandle.Init.MediaInterface = ETH_MEDIA_INTERFACE_MII;
   EthHandle.Init.RxMode = ETH_RXPOLLING_MODE;
   EthHandle.Init.ChecksumMode = ETH_CHECKSUM_BY_HARDWARE;
-  
-  
   EthHandle.Init.PhyAddress = DP83848_PHY_ADDRESS;
-  
-  //EthHandle.Init.PhyAddress = sAddr_Cnt;
-  
-  
-  
-  
-  
-  HAL_Delay(10);
   
   /* configure ethernet peripheral (GPIOs, clocks, MAC, DMA) */
   if (HAL_ETH_Init(&EthHandle) == HAL_OK)
@@ -254,11 +245,9 @@ static void low_level_init(struct netif *netif)
   /* Initialize Tx Descriptors list: Chain Mode */
   HAL_ETH_DMATxDescListInit(&EthHandle, DMATxDscrTab, &Tx_Buff[0][0], ETH_TXBUFNB);
      
-  HAL_Delay(10);
   /* Initialize Rx Descriptors list: Chain Mode  */
   HAL_ETH_DMARxDescListInit(&EthHandle, DMARxDscrTab, &Rx_Buff[0][0], ETH_RXBUFNB);
 
-  HAL_Delay(10);
   /* set MAC hardware address length */
   netif->hwaddr_len = ETH_HWADDR_LEN;
   
@@ -280,22 +269,18 @@ static void low_level_init(struct netif *netif)
   /* Enable MAC and DMA transmission and reception */
   HAL_ETH_Start(&EthHandle);
   
-  HAL_Delay(10);
   /**** Configure PHY to generate an interrupt when Eth Link state changes ****/
   /* Read Register Configuration */
   HAL_ETH_ReadPHYRegister(&EthHandle, PHY_MICR, &regvalue);
   
-  HAL_Delay(10);
   regvalue |= (PHY_MICR_INT_EN | PHY_MICR_INT_OE);
 
   /* Enable Interrupts */
   HAL_ETH_WritePHYRegister(&EthHandle, PHY_MICR, regvalue );
   
-  HAL_Delay(10);
   /* Read Register Configuration */
   HAL_ETH_ReadPHYRegister(&EthHandle, PHY_MISR, &regvalue);
   
-  HAL_Delay(10);
   regvalue |= PHY_MISR_LINK_INT_EN;
     
   /* Enable Interrupt on change of link status */
