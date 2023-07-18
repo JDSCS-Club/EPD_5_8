@@ -52,15 +52,15 @@ bool getSW_Broad(void)          { return (HAL_GPIO_ReadPin(SW_BROAD_Port, SW_BRO
 // LED GPIO OFF --> 점등 /  GPIO ON --> OFF
 void setRSP_Led(bool state)     
 { 
-    if(state == false){HAL_GPIO_WritePin(RSP_LED_Port, RSP_LED_Pin, true); }
-    else if(state == true){HAL_GPIO_WritePin(RSP_LED_Port, RSP_LED_Pin, false);}
+  // if(state == false){HAL_GPIO_WritePin(RSP_LED_Port, RSP_LED_Pin, true); }
+  //  else if(state == true){HAL_GPIO_WritePin(RSP_LED_Port, RSP_LED_Pin, false);}
 }
 
 
 void setOSP_Led(bool state)     
 { 
-    if(state == false){HAL_GPIO_WritePin(OSP_LED_Port, OSP_LED_Pin, true); }
-    else if(state == true){HAL_GPIO_WritePin(OSP_LED_Port, OSP_LED_Pin, false);}
+  //  if(state == false){HAL_GPIO_WritePin(OSP_LED_Port, OSP_LED_Pin, true); }
+  //  else if(state == true){HAL_GPIO_WritePin(OSP_LED_Port, OSP_LED_Pin, false);}
     
 } 
 
@@ -81,93 +81,93 @@ void setAMP_Standby(bool state)
 void setBk_Out_1(bool state)    
 { 
     
-    if(state == false) 
-    {
-	    HAL_GPIO_WritePin(BK_OUT1_Port, BK_OUT1_Pin, true); 
-	    HAL_GPIO_WritePin(BK_OUT1_Port, BK_OUT1_Pin, true); 
-    }
-    else if(state == true) 
-    {
-	    HAL_GPIO_WritePin(BK_OUT1_Port, BK_OUT1_Pin, false); 
-	    HAL_GPIO_WritePin(BK_OUT1_Port, BK_OUT1_Pin, false); 
-    }
+//    if(state == false) 
+//    {
+//	   // HAL_GPIO_WritePin(BK_OUT1_Port, BK_OUT1_Pin, true); 
+//	   // HAL_GPIO_WritePin(BK_OUT1_Port, BK_OUT1_Pin, true); 
+//    }
+//    else if(state == true) 
+//    {
+//	   // HAL_GPIO_WritePin(BK_OUT1_Port, BK_OUT1_Pin, false); 
+//	  // HAL_GPIO_WritePin(BK_OUT1_Port, BK_OUT1_Pin, false); 
+//    }
 }
 
 
 void setBk_Out_2(bool state)    
 { 
-    if(state == false) 
-    {
-	    HAL_GPIO_WritePin(BK_OUT2_Port, BK_OUT2_Pin, true); 
-	    HAL_GPIO_WritePin(BK_OUT2_Port, BK_OUT2_Pin, true); 
-    }
-    else if(state == true) 
-    {
-	    HAL_GPIO_WritePin(BK_OUT2_Port, BK_OUT2_Pin, false); 
-	    HAL_GPIO_WritePin(BK_OUT2_Port, BK_OUT2_Pin, false); 
-    }
+//    if(state == false) 
+//    {
+//	    HAL_GPIO_WritePin(BK_OUT2_Port, BK_OUT2_Pin, true); 
+//	    HAL_GPIO_WritePin(BK_OUT2_Port, BK_OUT2_Pin, true); 
+//    }
+//    else if(state == true) 
+//    {
+//	    HAL_GPIO_WritePin(BK_OUT2_Port, BK_OUT2_Pin, false); 
+//	    HAL_GPIO_WritePin(BK_OUT2_Port, BK_OUT2_Pin, false); 
+//    }
 }
 
 
 
 void setBk_Out_3(bool state)    
 { 
-    if(state == false) 
-    {
-	    HAL_GPIO_WritePin(BK_OUT3_Port, BK_OUT3_Pin, true); 
-	    HAL_GPIO_WritePin(BK_OUT3_Port, BK_OUT3_Pin, true); 
-    }
-    else if(state == true) 
-    {
-	    HAL_GPIO_WritePin(BK_OUT3_Port, BK_OUT3_Pin, false); 
-	    HAL_GPIO_WritePin(BK_OUT3_Port, BK_OUT3_Pin, false); 
-    }
+//    if(state == false) 
+//    {
+//	    HAL_GPIO_WritePin(BK_OUT3_Port, BK_OUT3_Pin, true); 
+//	    HAL_GPIO_WritePin(BK_OUT3_Port, BK_OUT3_Pin, true); 
+//    }
+//    else if(state == true) 
+//    {
+//	    HAL_GPIO_WritePin(BK_OUT3_Port, BK_OUT3_Pin, false); 
+//	    HAL_GPIO_WritePin(BK_OUT3_Port, BK_OUT3_Pin, false); 
+//    }
 }
 
 
 void setBk_Out_4(bool state)    
 { 
-    if(state == false) 
-    {
-	    HAL_GPIO_WritePin(BK_OUT4_Port, BK_OUT4_Pin, true); 
-	    HAL_GPIO_WritePin(BK_OUT4_Port, BK_OUT4_Pin, true); 
-    }
-    else if(state == true) 
-    {
-	    HAL_GPIO_WritePin(BK_OUT4_Port, BK_OUT4_Pin, false); 
-	    HAL_GPIO_WritePin(BK_OUT4_Port, BK_OUT4_Pin, false); 
-    }
+//    if(state == false) 
+//    {
+//	    HAL_GPIO_WritePin(BK_OUT4_Port, BK_OUT4_Pin, true); 
+//	    HAL_GPIO_WritePin(BK_OUT4_Port, BK_OUT4_Pin, true); 
+//    }
+//    else if(state == true) 
+//    {
+//	    HAL_GPIO_WritePin(BK_OUT4_Port, BK_OUT4_Pin, false); 
+//	    HAL_GPIO_WritePin(BK_OUT4_Port, BK_OUT4_Pin, false); 
+//    }
 }
 
 
 void setBk_Out_5(bool state)    
 { 
-    if(state == false) 
-    {
-	    HAL_GPIO_WritePin(BK_OUT5_Port, BK_OUT5_Pin, true); 
-	    HAL_GPIO_WritePin(BK_OUT5_Port, BK_OUT5_Pin, true); 
-    }
-    else if(state == true) 
-    {
-	    HAL_GPIO_WritePin(BK_OUT5_Port, BK_OUT5_Pin, false); 
-	    HAL_GPIO_WritePin(BK_OUT5_Port, BK_OUT5_Pin, false); 
-    }
+//    if(state == false) 
+//    {
+//	    HAL_GPIO_WritePin(BK_OUT5_Port, BK_OUT5_Pin, true); 
+//	    HAL_GPIO_WritePin(BK_OUT5_Port, BK_OUT5_Pin, true); 
+//    }
+//    else if(state == true) 
+//    {
+//	    HAL_GPIO_WritePin(BK_OUT5_Port, BK_OUT5_Pin, false); 
+//	    HAL_GPIO_WritePin(BK_OUT5_Port, BK_OUT5_Pin, false); 
+//    }
     
 }
 
 
 void setBk_Out_6(bool state)    
 { 
-    if(state == false) 
-    {
-	    HAL_GPIO_WritePin(BK_OUT6_Port, BK_OUT6_Pin, true); 
-	    HAL_GPIO_WritePin(BK_OUT6_Port, BK_OUT6_Pin, true); 
-    }
-    else if(state == true) 
-    {
-	    HAL_GPIO_WritePin(BK_OUT6_Port, BK_OUT6_Pin, false); 
-	    HAL_GPIO_WritePin(BK_OUT6_Port, BK_OUT6_Pin, false); 
-    }
+//    if(state == false) 
+//    {
+//	    HAL_GPIO_WritePin(BK_OUT6_Port, BK_OUT6_Pin, true); 
+//	    HAL_GPIO_WritePin(BK_OUT6_Port, BK_OUT6_Pin, true); 
+//    }
+//    else if(state == true) 
+//    {
+//	    HAL_GPIO_WritePin(BK_OUT6_Port, BK_OUT6_Pin, false); 
+//	    HAL_GPIO_WritePin(BK_OUT6_Port, BK_OUT6_Pin, false); 
+//    }
     
 }
 

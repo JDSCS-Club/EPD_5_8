@@ -367,6 +367,18 @@ int main(void)
      AUDIO_AMP_Boot_Set();
     
     //WWDG_Init(); //
+     
+ #if 1
+
+
+  	  MyPrintf_USART1("\n----TestEEPROM Test----\n\n");
+	  TestEEPROM(&hi2c1);	//i2c
+
+	  MyPrintf_USART1("\n----EEPLogInit Test----\n\n");
+	  EEPLogInit(&hi2c1); // FIXME: EEPROM�� I2C�ʱ�ȭ ���Ŀ� ����. ( MX_I2C1_Init() ȣ�� ���� �ٷ� ������ EEProm Error�߻�. )
+//    TestEEPLog();
+
+#endif
     
     
 	while (1)
@@ -609,30 +621,30 @@ static void BSP_Config(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 
-//    //EPD
-//	/* Enable PB14 to IT mode: Ethernet Link interrupt */ 
-//	__HAL_RCC_GPIOE_CLK_ENABLE();
-//	GPIO_InitStructure.Pin = GPIO_PIN_8;
-//	GPIO_InitStructure.Mode = GPIO_MODE_IT_FALLING;
-//	GPIO_InitStructure.Pull = GPIO_NOPULL;
-//	HAL_GPIO_Init(GPIOE, &GPIO_InitStructure);
-//
-//	/* Enable EXTI Line interrupt */
-//	HAL_NVIC_SetPriority(EXTI9_5_IRQn, 0xF, 0);
-//	HAL_NVIC_EnableIRQ(EXTI9_5_IRQn); 
-
-    
-    //LEDC
-    	/* Enable PB14 to IT mode: Ethernet Link interrupt */ 
-	__HAL_RCC_GPIOC_CLK_ENABLE();
-	GPIO_InitStructure.Pin = GPIO_PIN_0;
+    //EPD
+	/* Enable PB14 to IT mode: Ethernet Link interrupt */ 
+	__HAL_RCC_GPIOE_CLK_ENABLE();
+	GPIO_InitStructure.Pin = GPIO_PIN_8;
 	GPIO_InitStructure.Mode = GPIO_MODE_IT_FALLING;
 	GPIO_InitStructure.Pull = GPIO_NOPULL;
-	HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
+	HAL_GPIO_Init(GPIOE, &GPIO_InitStructure);
 
 	/* Enable EXTI Line interrupt */
-	HAL_NVIC_SetPriority(EXTI0_IRQn, 0xF, 0);
-	HAL_NVIC_EnableIRQ(EXTI0_IRQn); 
+	HAL_NVIC_SetPriority(EXTI9_5_IRQn, 0xF, 0);
+	HAL_NVIC_EnableIRQ(EXTI9_5_IRQn); 
+
+    
+//    //LEDC
+//    	/* Enable PB14 to IT mode: Ethernet Link interrupt */ 
+//	__HAL_RCC_GPIOC_CLK_ENABLE();
+//	GPIO_InitStructure.Pin = GPIO_PIN_0;
+//	GPIO_InitStructure.Mode = GPIO_MODE_IT_FALLING;
+//	GPIO_InitStructure.Pull = GPIO_NOPULL;
+//	HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
+//
+//	/* Enable EXTI Line interrupt */
+//	HAL_NVIC_SetPriority(EXTI0_IRQn, 0xF, 0);
+//	HAL_NVIC_EnableIRQ(EXTI0_IRQn); 
     
     
     
@@ -691,16 +703,16 @@ static void BSP_Config(void)
 //	HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
 //  
 //    
-//	//AMP SD
-//	__GPIOD_CLK_ENABLE();
-//
-//	GPIO_InitStructure.Pin = AMP_STANDBY_Pin;
-//	GPIO_InitStructure.Pull = GPIO_NOPULL;
-//	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
-//    GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-//	HAL_GPIO_Init(GPIOD, &GPIO_InitStructure);
-//    
-//	HAL_GPIO_WritePin(AMP_STANDBY_Port, AMP_STANDBY_Pin, GPIO_PIN_SET);
+	//AMP SD
+	__GPIOD_CLK_ENABLE();
+
+	GPIO_InitStructure.Pin = AMP_STANDBY_Pin;
+	GPIO_InitStructure.Pull = GPIO_NOPULL;
+	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+	HAL_GPIO_Init(GPIOD, &GPIO_InitStructure);
+    
+	HAL_GPIO_WritePin(AMP_STANDBY_Port, AMP_STANDBY_Pin, GPIO_PIN_SET);
 //    
 //
 //	//BK_OUT
@@ -837,16 +849,18 @@ static void Netif_Config(void)
 ******************************************************************************/
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-	if (GPIO_Pin == GPIO_PIN_0)
-	{
-		ethernetif_set_link(&gnetif);
-	}
     
-    
-//    if (GPIO_Pin == GPIO_PIN_8)
+    // EMU
+//	if (GPIO_Pin == GPIO_PIN_0)
 //	{
 //		ethernetif_set_link(&gnetif);
 //	}
+    
+    
+    if (GPIO_Pin == GPIO_PIN_8)
+	{
+		ethernetif_set_link(&gnetif);
+	}
 }
 
 /**
@@ -1059,7 +1073,7 @@ void Time_Main(void)
 	}
     
 
-    if (!(m_Main_TIM_Cnt % 1000)) // 1000ms 
+    if (!(m_Main_TIM_Cnt % 5000)) // 1000ms 
 	{
         
         
@@ -1601,7 +1615,7 @@ void AUDIO_AMP_Boot_Set(void)
     HAL_Delay(10);
     setAMP_Standby(true); // 모든 AMP IC
     
-    njw1192_default_value();
+    //njw1192_default_value();
     HAL_Delay(10);
     
     
@@ -1611,39 +1625,38 @@ void AUDIO_AMP_Boot_Set(void)
     
     HAL_Delay(100);
 	//AMP MUTE
+//
+//    AMP_Mute_ON(AMP_ID_1, AMP_CH_All, AMP_ID_2, AMP_CH_All, AMP_ID_3, AMP_CH_All); // amp ic all mute
 
-    AMP_Mute_ON(AMP_ID_1, AMP_CH_All, AMP_ID_2, AMP_CH_All, AMP_ID_3, AMP_CH_All); // amp ic all mute
-	
-    HAL_Delay(100);
     
     nRbuf_1[0] = 0xFF;
     I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x06, (uint8_t *)nRbuf_1, 1);
     MyPrintf_USART1("getAmp1 Mode read :%02X \r\n", nRbuf_1[0]); 
 
-    nRbuf_1[0] = 0xFF;
-    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x06, (uint8_t *)nRbuf_1, 1);     
-    MyPrintf_USART1("getAmp2 Mode read :%02X \r\n", nRbuf_1[0]); 
-
-    nRbuf_1[0] = 0xFF;
-    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x06, (uint8_t *)nRbuf_1, 1);
-    MyPrintf_USART1("getAmp3 Mode read :%02X \r\n", nRbuf_1[0]); 
-   
-    //setAMP_Standby(false); // 모든 AMP IC
-	
-    
-    setBk_Out_1(false);
-    setBk_Out_3(false);
-    setBk_Out_5(false);
-
-    setBk_Out_6(false);
-        
-
-    
-	// AUDIO IC MUTE 기능 OFF 초기화
-	setAmp_Mute_1(true);
-	setAmp_Mute_2(true);
-    
-    njw1192_mute(true); // Audio Mute 
+//    nRbuf_1[0] = 0xFF;
+//    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x06, (uint8_t *)nRbuf_1, 1);     
+//    MyPrintf_USART1("getAmp2 Mode read :%02X \r\n", nRbuf_1[0]); 
+//
+//    nRbuf_1[0] = 0xFF;
+//    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x06, (uint8_t *)nRbuf_1, 1);
+//    MyPrintf_USART1("getAmp3 Mode read :%02X \r\n", nRbuf_1[0]); 
+//   
+//    //setAMP_Standby(false); // 모든 AMP IC
+//	
+//    
+//    setBk_Out_1(false);
+//    setBk_Out_3(false);
+//    setBk_Out_5(false);
+//
+//    setBk_Out_6(false);
+//        
+//
+//    
+//	// AUDIO IC MUTE 기능 OFF 초기화
+//	setAmp_Mute_1(true);
+//	setAmp_Mute_2(true);
+//    
+//    njw1192_mute(true); // Audio Mute 
     //-----------------------------------
 }
 /*****************************************************************************

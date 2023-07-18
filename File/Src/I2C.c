@@ -25,9 +25,11 @@
 #include "AmpGpio.h"
 #include "stdbool.h"
 
+#include "QBuf.h"
+
+
 I2C_HandleTypeDef hi2c1;
 I2C_HandleTypeDef hi2c2;
-
 
 
 /*****************************************************************************
@@ -583,35 +585,69 @@ void AMP_Init(uint16_t Address)
      if(mLed_Process_Flag.sVolTestFlg == 1) { nRbuf[0] = 0x14; } // Set channel Gain // 양산
      else                                   { nRbuf[0] = 0x3A; }// 현차 
      
-       //nRbuf[0] = 0x00; // Set channel Gain
-    I2C_HAL_WriteBytes(&hi2c1, AMP_ID_1, 0x08, (uint8_t *)nRbuf, 1);
-    I2C_HAL_WriteBytes(&hi2c1, AMP_ID_2, 0x08, (uint8_t *)nRbuf, 1);
-    I2C_HAL_WriteBytes(&hi2c1, AMP_ID_3, 0x08, (uint8_t *)nRbuf, 1);
+       nRbuf[0] = 0xAA; // Set channel Gain
+   
+     if(I2C_HAL_WriteBytes(&hi2c1, AMP_ID_1, 0x08, (uint8_t *)nRbuf, 1))
+    {
+        MyPrintf_USART1("-Gain Select (0xD8-0x%02X) OK \r\n",nRbuf[0] );
+    }
+    else
+    {
+        MyPrintf_USART1( "-Gain Select (0xD8-0x08) NG \r\n" );
+    }
+//    I2C_HAL_WriteBytes(&hi2c1, AMP_ID_2, 0x08, (uint8_t *)nRbuf, 1);
+//    I2C_HAL_WriteBytes(&hi2c1, AMP_ID_3, 0x08, (uint8_t *)nRbuf, 1);
     
     
     
     nRbuf[0] = 0x0C; //
-	I2C_HAL_WriteBytes(&hi2c1, AMP_ID_1, 0x0A, (uint8_t *)nRbuf, 1);
-    I2C_HAL_WriteBytes(&hi2c1, AMP_ID_2, 0x0A, (uint8_t *)nRbuf, 1);
-    I2C_HAL_WriteBytes(&hi2c1, AMP_ID_3, 0x0A, (uint8_t *)nRbuf, 1);
+	
+    if(I2C_HAL_WriteBytes(&hi2c1, AMP_ID_1, 0x0A, (uint8_t *)nRbuf, 1))
+    {
+        MyPrintf_USART1("- Clip_OTW Configuration (0xD8-0x%02X) OK \r\n",nRbuf[0] );
+    }
+    else
+    {
+        MyPrintf_USART1( "- Clip_OTW Configuration (0xD8-0x0A) NG \r\n" );
+    }
+//    I2C_HAL_WriteBytes(&hi2c1, AMP_ID_2, 0x0A, (uint8_t *)nRbuf, 1);
+//    I2C_HAL_WriteBytes(&hi2c1, AMP_ID_3, 0x0A, (uint8_t *)nRbuf, 1);
     
     
     
-    nRbuf[0] = 0xD2; // 
-	I2C_HAL_WriteBytes(&hi2c1, AMP_ID_1, 0x0b, (uint8_t *)nRbuf, 1);
+    nRbuf[0] = 0xD6; // 
     
-    nRbuf[0] = 0x12;
-	I2C_HAL_WriteBytes(&hi2c1, AMP_ID_2, 0x0b, (uint8_t *)nRbuf, 1);
+	if(I2C_HAL_WriteBytes(&hi2c1, AMP_ID_1, 0x0b, (uint8_t *)nRbuf, 1))
+    {
+        MyPrintf_USART1("-Load Diagnostics (0xD8-0x%02X) OK \r\n",nRbuf[0] );
+    }
+    else
+    {
+        MyPrintf_USART1( "-Load Diagnostics (0xD8-0x0B) NG \r\n" );
+    }
     
-    nRbuf[0] = 0x16;
-	I2C_HAL_WriteBytes(&hi2c1, AMP_ID_3, 0x0b, (uint8_t *)nRbuf, 1);
+    nRbuf[0] = 0x00; // 
+    if(I2C_HAL_WriteBytes(&hi2c1, AMP_ID_1, 0x0C, (uint8_t *)nRbuf, 1))
+    {
+        MyPrintf_USART1("-play mode (0xD8-0xC%02X) OK \r\n",nRbuf[0] );
+    }
+    else
+    {
+        MyPrintf_USART1( "-play mode (0xD8-0x0C) NG \r\n" );
+    }
+
+//    nRbuf[0] = 0x12;
+//	I2C_HAL_WriteBytes(&hi2c1, AMP_ID_2, 0x0b, (uint8_t *)nRbuf, 1);
+//    
+//    nRbuf[0] = 0x16;
+//	I2C_HAL_WriteBytes(&hi2c1, AMP_ID_3, 0x0b, (uint8_t *)nRbuf, 1);
     
 	HAL_Delay(5);  // 100ms 항상 유지 필요
       
 	nRbuf[0] = 0xFF;
 	I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x00, (uint8_t *)nRbuf, 1);
-	I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x00, (uint8_t *)nRbuf, 1);
-	I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x00, (uint8_t *)nRbuf, 1);
+//	I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x00, (uint8_t *)nRbuf, 1);
+//	I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x00, (uint8_t *)nRbuf, 1);
 
     
 
@@ -1185,6 +1221,646 @@ void AMP_SPK_CHECK(void)
 
     
 }
+
+
+/*****************************************************************************
+* @brief - 
+* @param -
+* @retval-
+******************************************************************************/
+//========================================================================
+int at24_HAL_WriteBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t TxBufferSize)
+//========================================================================
+{
+	/*
+	 * program just get the DevAddress of the Slave (not master) and for the next step
+	 * You know that the most of the EEprom address start with 0xA0
+	 * give MemAddress for the location you want to write to
+	 * give Data buffer so it can write Data on this location
+	 */
+	//Note that this function works properly to 31 bytes
+
+	static HAL_StatusTypeDef ret;
+	
+#if 0
+    
+
+         
+    
+	ret = HAL_I2C_Mem_Write(hi2c, (uint16_t)DevAddress, (uint16_t)MemAddress, I2C_MEMADD_SIZE_16BIT, pData, TxBufferSize, 2);
+    
+	if (ret == HAL_OK)
+	{
+		//	Write Cycle Time 5 msec
+				HAL_Delay(5);
+		//HAL_Delay(7); //6);
+	}
+	else
+	{
+		MyPrintf_USART1("%s(%d) - failed\r\n", __func__, __LINE__);
+		return 0;
+	}
+
+#else
+
+	uint16_t nSize;
+
+	MyPrintf_USART1("eepwr [0x%04X] size(%d)\r\n", MemAddress, TxBufferSize);
+
+	while ( TxBufferSize > 0 )
+	{
+		//	한번에 쓸수있는 크기 16 Byte
+		if ( ( MemAddress % 16 ) != 0 )
+		{
+			//	16 Byte Align Write
+			//	MemAddress 16 Byte 단위에 맞추기.
+			int nMargin = ( 16 - (MemAddress % 16) );
+			if (TxBufferSize < nMargin)
+				nSize = TxBufferSize;
+			else nSize = nMargin;
+		}
+		else if ( TxBufferSize < 16 )	nSize = TxBufferSize;
+		else							nSize = 16;
+		
+		//	1 Byte씩 끊어서 저장.
+		ret = HAL_I2C_Mem_Write(hi2c, (uint16_t)DevAddress, (uint16_t)MemAddress, I2C_MEMADD_SIZE_16BIT, pData, nSize, 2);
+        
+		if (ret == HAL_OK)
+		{
+			//	Write Cycle Time 5 msec
+			HAL_Delay(5);
+			//HAL_Delay(7);	//6);
+		}
+		else
+		{
+			MyPrintf_USART1("%s(%d) - failed\r\n", __func__, __LINE__);
+			return 0;
+		}
+
+		pData += nSize;
+		MemAddress += nSize;
+		TxBufferSize -= nSize;
+	}
+
+#endif
+
+	return 1;
+}
+
+
+
+/*****************************************************************************
+* @brief - 
+* @param -
+* @retval-
+******************************************************************************/
+
+
+//========================================================================
+int at24_HAL_ReadBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t RxBufferSize)
+//========================================================================
+{
+	/*
+	 * program just get the DevAddress of the Slave (not master) and for the next step
+	 * You know that the most of the EEprom address start with 0xA0
+	 * get the MemAddress for the location you want to write data on it
+	 * get the Data buffer so it can write Data on this location
+	 */
+	//Note that this function works properly to 31bytes
+
+	static HAL_StatusTypeDef ret;
+
+#if 0
+
+	ret = HAL_I2C_Mem_Read(hi2c, (uint16_t)DevAddress, (uint16_t)MemAddress, I2C_MEMADD_SIZE_16BIT, pData, (uint16_t)RxBufferSize, 2);
+
+	if (ret == HAL_OK)
+	{
+		//		HAL_Delay(5);
+		HAL_Delay(6);
+	}
+	else
+	{
+		MyPrintf_USART1("%s(%d) - failed\r\n", __func__, __LINE__);
+		return 0;
+	}
+
+#else
+
+	uint16_t nSize;
+
+//	printf("eeprd [0x%04X] size(%d)\n", MemAddress, RxBufferSize);
+
+	while (RxBufferSize > 0)
+	{
+		//	한번에 읽을수있는 크기 16 Byte
+		if ((MemAddress % 16) != 0)
+		{
+			//	16 Byte Align Read
+			//	MemAddress 16 Byte 단위에 맞추기.
+			int nMargin = (16 - (MemAddress % 16));
+			if (RxBufferSize < nMargin)
+				nSize = RxBufferSize;
+			else
+				nSize = nMargin;
+		}
+		else if (RxBufferSize < 16)
+			nSize = RxBufferSize;
+		else
+			nSize = 16;
+
+		//	16 Byte씩 끊어서 Read.
+        
+            //HAL_I2C_Mem_Read(hi2c, (uint16_t)DevAddress, (uint16_t)MemAddress, I2C_MEMADD_SIZE_8BIT, pData, (uint16_t)RxBufferSize, 2) != HAL_OK && TimeOut < 2)
+		ret = HAL_I2C_Mem_Read(hi2c, (uint16_t)DevAddress, (uint16_t)MemAddress, I2C_MEMADD_SIZE_16BIT, pData, (uint16_t)nSize, 2);
+
+		if (ret == HAL_OK)
+		{
+			//		HAL_Delay(5);
+			//HAL_Delay(6);
+		}
+		else
+		{
+			MyPrintf_USART1("%s(%d) - failed\r\n", __func__, __LINE__);
+			return 0;
+		}
+
+		pData += nSize;
+		MemAddress += nSize;
+		RxBufferSize -= nSize;
+	}
+
+#endif
+
+	return 1;
+}
+
+
+/*****************************************************************************
+* @brief - 
+* @param -
+* @retval-
+******************************************************************************/
+//========================================================================
+void TestEEPROM( I2C_HandleTypeDef *hi2c )
+//========================================================================
+{
+	char d[3]={0xAA,0xBB,0xCC};
+	char c[3]={20,20,20};
+	
+	MyPrintf_USART1("%s - 0x%02X, 0x%02X, 0x%02X\r\n", __func__, c[0],c[1],c[2]);
+	at24_HAL_ReadBytes(hi2c, 0xA0, 0, c, 3);
+	MyPrintf_USART1("%s - 0x%02X, 0x%02X, 0x%02X\r\n", __func__, c[0],c[1],c[2]);
+	
+	at24_HAL_WriteBytes(hi2c, 0xA0, 0, d, 3);
+
+	at24_HAL_ReadBytes(hi2c, 0xA0, 0, c, 3);
+	MyPrintf_USART1("%s - 0x%02X, 0x%02X, 0x%02X\r\n", __func__, c[0],c[1],c[2]);
+
+	/*
+	int i;
+	char txBuf[16];
+	char rxBuf[16];
+
+	for ( i = 0; i < 0x100; i++ )
+	{
+		txBuf[0] = i;
+		at24_HAL_WriteBytes(hi2c, 0xA0, i, txBuf, 1);
+
+		at24_HAL_ReadBytes(hi2c, 0xA0, i, rxBuf, 1);
+		printf("0x%02X ", rxBuf[0]);
+	}
+	printf("\n");
+
+	for ( i = 0; i < 0x100; i+=2 )
+	{
+		txBuf[0] = i+1;
+		txBuf[1] = i;
+
+		at24_HAL_WriteBytes(hi2c, 0xA0, i, txBuf, 2);
+
+		at24_HAL_ReadBytes(hi2c, 0xA0, i, rxBuf, 2);
+		printf("0x%02X 0x%02X ", rxBuf[0], rxBuf[1] );
+	}
+	printf("\n");
+
+	//	*/
+
+	/*
+	//========================================================================
+	//	String Test
+//	char *sText = 	"0123456789abcdefghijklmnopqrstuv
+//					 wxyz";
+//	i2c Buf Size
+	char *sText = "0123456789abcdefghijklmnopqrstuvwxyz";
+//	char *sText = "0123456789abcdefg";
+	char *sNull = "\0";
+	char sBuf[128];
+	int nLen;
+	nLen = strlen(sText);
+
+	for ( i = 0; i < 64; i++ )
+	{
+		memset(sBuf, 0, sizeof(sBuf));
+		printf("[%d]\n", i);
+		at24_HAL_WriteBytes(hi2c, 0xA0, EPPAddrQBufLog + i + 0x100, sText, nLen);
+		at24_HAL_WriteBytes(hi2c, 0xA0, EPPAddrQBufLog + i + 0x100 + nLen, sNull, 1);
+
+		at24_HAL_ReadBytes(hi2c, 0xA0, EPPAddrQBufLog + i + 0x100, sBuf, nLen);
+		sBuf[nLen] = '\0';
+
+		printf(sBuf);
+		printf("\n");
+	}
+	//========================================================================
+	//	*/
+}
+
+
+/*****************************************************************************
+* @brief - 
+* @param -
+* @retval-
+******************************************************************************/
+
+QBuf_t 	g_qLog;
+I2C_HandleTypeDef *g_hi2c = NULL;
+
+union
+{
+	char cBuf[2];
+	uint16_t nVal;
+} s_n16Val;
+
+
+const int s_cLogBufSize = 256;
+char s_sLogBuf[257];
+
+//========================================================================
+void TestEEPLog( void )
+//========================================================================
+{
+	printf("%s(%d)\n", __func__, __LINE__);
+
+	EEPLogWrite( "TEST Log Write\n");		//	16
+	EEPLogWrite( "TEST Log2\n");
+	EEPLogWrite( "TEST Log3\n");
+
+	EEPLogPrint();
+}
+/*****************************************************************************
+* @brief - 
+* @param -
+* @retval-
+******************************************************************************/
+//========================================================================
+uint16_t EEPWrite16(uint16_t nAddr, uint16_t _nVal)
+//========================================================================
+{
+	if ( g_hi2c == NULL )	return 0;
+
+	s_n16Val.nVal = _nVal;
+
+	at24_HAL_WriteBytes(g_hi2c, 0xA0, nAddr, s_n16Val.cBuf, 2);
+
+	return s_n16Val.nVal;
+}
+/*****************************************************************************
+* @brief - 
+* @param -
+* @retval-
+******************************************************************************/
+//========================================================================
+uint16_t EEPRead16(uint16_t nAddr)
+//========================================================================
+{
+	if ( g_hi2c == NULL )	return 0;
+
+	at24_HAL_ReadBytes(g_hi2c, 0xA0, nAddr, s_n16Val.cBuf, 2);
+
+	return s_n16Val.nVal;
+}
+/*****************************************************************************
+* @brief - 
+* @param -
+* @retval-
+******************************************************************************/
+//========================================================================
+int EEPLogInit( I2C_HandleTypeDef *hi2c )
+//========================================================================
+{
+	MyPrintf_USART1( "%s(%d)\n\r", __func__, __LINE__ );
+
+	g_hi2c = hi2c;
+
+	at24_HAL_ReadBytes(g_hi2c, 0xA0, EPPAddrMagicNumH, s_n16Val.cBuf, 2);
+
+	if (!(s_n16Val.cBuf[0] == EEPMagicNumH && s_n16Val.cBuf[1] == EEPMagicNumL))
+	{
+		EEPLogReset();
+	}
+
+	g_qLog.size 	= 	EEPRead16( EPPAddrMaxLogSizeH );
+	g_qLog.front 	= 	EEPRead16( EPPAddrQBufStartH );
+	g_qLog.rear 	= 	EEPRead16( EPPAddrQBufEndH );
+
+	MyPrintf_USART1("%s(%d) - size : 0x%04X / front : 0x%04X / rear : 0x%04X\n\r", __func__, __LINE__,
+		   g_qLog.size, g_qLog.front, g_qLog.rear );
+
+	return TRUE;
+}
+/*****************************************************************************
+* @brief - 
+* @param -
+* @retval-
+******************************************************************************/
+//========================================================================
+int EEPLogReset(void)
+//========================================================================
+{
+	if (g_hi2c == NULL)
+		return 0;
+
+	MyPrintf_USART1("%s(%d)EEPLogInit", __func__, __LINE__);
+
+	s_n16Val.cBuf[0] = EEPMagicNumH;
+	s_n16Val.cBuf[1] = EEPMagicNumL;
+	EEPWrite16(EPPAddrMagicNumH, s_n16Val.nVal);	//	Little Endian
+
+	EEPWrite16(EPPAddrMaxLogSizeH, EEPLogMaxSize);
+
+	EEPWrite16(EPPAddrQBufStartH, 0);
+	EEPWrite16(EPPAddrQBufEndH, 0);
+
+	g_qLog.size = EEPLogMaxSize;
+	g_qLog.front = 0;
+	g_qLog.rear = 0;
+
+	return TRUE;
+}
+/*****************************************************************************
+* @brief - 
+* @param -
+* @retval-
+******************************************************************************/
+//========================================================================
+int EEPLogGetMaxSize(void)
+//========================================================================
+{
+	if (g_hi2c == NULL)
+		return 0;
+
+	MyPrintf_USART1("%s(%d)\n", __func__, __LINE__);
+
+	return EEPRead16(EPPAddrMaxLogSizeH);
+}
+/*****************************************************************************
+* @brief - 
+* @param -
+* @retval-
+******************************************************************************/
+//========================================================================
+int EEPLogGetSize(void)
+//========================================================================
+{
+	return qBufCnt(&g_qLog);
+}
+/*****************************************************************************
+* @brief - 
+* @param -
+* @retval-
+******************************************************************************/
+//========================================================================
+int EEPLogWrite(char *sBuf)
+//========================================================================
+{
+	//	원형큐 로그 저장.
+	int nLen;
+	nLen = strlen(sBuf);
+
+	printf("%s(%d) - rear(%d) / len(%d) / %s\n", __func__, __LINE__, g_qLog.rear, nLen, sBuf);
+
+#ifndef _WIN32
+
+	if ( g_qLog.rear + nLen > g_qLog.size )
+	{
+		//	[[  A  ]   Buf   [  B  ]]
+		//                   ^-rear
+		char *pBuf = sBuf;
+		int nIdx;
+		int nSize;
+		char *sNull = "\0";
+
+		nIdx = g_qLog.rear;
+
+		nSize = g_qLog.size - g_qLog.rear;
+
+		//	[  B  ]
+		at24_HAL_WriteBytes(g_hi2c, 0xA0, EPPAddrQBufLog + g_qLog.rear, pBuf, nSize);
+		at24_HAL_WriteBytes(g_hi2c, 0xA0, EPPAddrQBufLog + g_qLog.size, sNull, 1);		//	마지막문자 '\0'
+
+		//	[  A  ]
+		pBuf += nSize;
+		nSize = nLen - nSize;
+		at24_HAL_WriteBytes(g_hi2c, 0xA0, EPPAddrQBufLog + 0, pBuf, nSize + 1);
+
+		g_qLog.rear = nSize;
+		EEPWrite16(EPPAddrQBufEndH, g_qLog.rear);
+
+		g_qLog.front = ( g_qLog.rear + 2 ) % g_qLog.size;
+		EEPWrite16(EPPAddrQBufStartH, g_qLog.front);
+	}
+	else
+	{
+		at24_HAL_WriteBytes(g_hi2c, 0xA0, EPPAddrQBufLog + g_qLog.rear, sBuf, nLen + 1);
+
+		if ((g_qLog.rear + 2) % g_qLog.size == g_qLog.front)
+		{
+			//	Buffer Full
+			g_qLog.rear = (g_qLog.rear + nLen) % g_qLog.size;
+			EEPWrite16(EPPAddrQBufEndH, g_qLog.rear);
+
+			g_qLog.front = (g_qLog.rear + 2) % g_qLog.size;
+			EEPWrite16(EPPAddrQBufStartH, g_qLog.front);
+		}
+		else
+		{
+			g_qLog.rear = (g_qLog.rear + nLen) % g_qLog.size;
+			EEPWrite16(EPPAddrQBufEndH, g_qLog.rear);
+		}
+	}
+
+#endif
+
+//	printf("%s(%d) - front(%d) / rear(%d)\n", __func__, __LINE__, g_qLog.front, g_qLog.rear);
+
+	/*
+
+	at24_HAL_ReadBytes(g_hi2c, 0xA0, EPPAddrQBufLog + g_qLog.rear, s_sLogBuf, nLen + 1);
+//	HAL_Delay(10);
+	//	s_sLogBuf[nLen] = '\0';
+	printf(s_sLogBuf);
+
+	//	*/
+
+}
+/*****************************************************************************
+* @brief - 
+* @param -
+* @retval-
+******************************************************************************/
+//========================================================================
+int EEPLogPrint(void)
+//========================================================================
+{
+	//	원형큐 로그 출력.
+	printf("%s(%d)\n", __func__, __LINE__);
+
+	int nIdx;
+	int nSize;
+	int nRxSize;
+
+	nIdx = g_qLog.front;
+	nSize = qBufCnt(&g_qLog);
+
+	printf("%s(%d) - logsize(%d) / front(%d)/rear(%d)\n", __func__, __LINE__,
+		   nSize, g_qLog.front, g_qLog.rear );
+
+	if ( g_qLog.front == g_qLog.rear )
+	{
+		//	Skip - No Log
+		printf("%s(%d) - No Log Skip ( front(0x%02X) / rear(0x%02X) )\n",
+			__func__, __LINE__, g_qLog.front, g_qLog.rear );
+	}
+	else if ( g_qLog.front < g_qLog.rear )
+	{
+		//	[[     Log     ]    Buf     ]
+		//   ^-front       ^-rear
+
+		//	순서대로 출력.
+		while ( nIdx < g_qLog.rear )
+		{
+			nRxSize = g_qLog.rear - nIdx;
+
+			// printf("%s(%d) - nIdx(%d) / nRxSize(%d)\n",
+			// 	   __func__, __LINE__, nIdx, nRxSize);
+
+			if ( nRxSize < s_cLogBufSize )
+			{
+				// 마지막 로그 출력.
+				at24_HAL_ReadBytes(g_hi2c, 0xA0, EPPAddrQBufLog + nIdx, s_sLogBuf, nRxSize);
+				s_sLogBuf[nRxSize] = '\0';
+				printf(s_sLogBuf);
+				nIdx += nRxSize;
+				break;
+			}
+			else
+			{
+				at24_HAL_ReadBytes(g_hi2c, 0xA0, EPPAddrQBufLog + nIdx, s_sLogBuf, s_cLogBufSize);
+				s_sLogBuf[s_cLogBufSize] = '\0';
+				printf(s_sLogBuf);
+				nIdx += s_cLogBufSize;
+			}
+
+			// printf("\n");
+		}
+	}
+	else
+	{
+		//	[[  A  ]   Buf   [  B  ]]
+		//         ^-rear    ^-front
+
+		//	[  B  ] 출력
+		while ( nIdx < g_qLog.size )
+		{
+			nRxSize = g_qLog.size - nIdx;
+
+			// printf("%s(%d) - nIdx(%d) / nRxSize(%d)\n",
+			// 	   __func__, __LINE__, nIdx, nRxSize);
+
+			if (nRxSize < s_cLogBufSize)
+			{
+				// 마지막 로그 출력.
+				at24_HAL_ReadBytes(g_hi2c, 0xA0, EPPAddrQBufLog + nIdx, s_sLogBuf, nRxSize);
+				s_sLogBuf[nRxSize] = '\0';
+				printf(s_sLogBuf);
+				nIdx += nRxSize;
+				break;
+			}
+			else
+			{
+				at24_HAL_ReadBytes(g_hi2c, 0xA0, EPPAddrQBufLog + nIdx, s_sLogBuf, s_cLogBufSize);
+				s_sLogBuf[s_cLogBufSize] = '\0';
+				printf(s_sLogBuf);
+				nIdx += s_cLogBufSize;
+			}
+		}
+
+		//	[  A  ] 출력
+		nIdx = 0;
+		while (nIdx < g_qLog.rear)
+		{
+			nRxSize = g_qLog.rear - nIdx;
+
+			if (nRxSize < s_cLogBufSize)
+			{
+				// 마지막 로그 출력.
+				at24_HAL_ReadBytes(g_hi2c, 0xA0, EPPAddrQBufLog + nIdx, s_sLogBuf, nRxSize);
+				s_sLogBuf[nRxSize] = '\0';
+				printf(s_sLogBuf);
+				nIdx += nRxSize;
+				break;
+			}
+			else
+			{
+				at24_HAL_ReadBytes(g_hi2c, 0xA0, EPPAddrQBufLog + nIdx, s_sLogBuf, s_cLogBufSize);
+				s_sLogBuf[s_cLogBufSize] = '\0';
+				printf(s_sLogBuf);
+				nIdx += s_cLogBufSize;
+			}
+		}
+	}
+}
+
+//========================================================================
+/*****************************************************************************
+* @brief - 
+* @param -
+* @retval-
+******************************************************************************/
+//========================================================================
+int cmd_logPrint(int argc, char *argv[])
+//========================================================================
+{
+	printf("%s(%d)\n", __func__, __LINE__);
+	EEPLogPrint();
+}
+/*****************************************************************************
+* @brief - 
+* @param -
+* @retval-
+******************************************************************************/
+//========================================================================
+int cmd_logTest(int argc, char *argv[])
+//========================================================================
+{
+	printf("%s(%d)\n", __func__, __LINE__);
+	TestEEPLog();
+}
+/*****************************************************************************
+* @brief - 
+* @param -
+* @retval-
+******************************************************************************/
+//========================================================================
+int cmd_logReset(int argc, char *argv[])
+//========================================================================
+{
+	printf("%s(%d)\n", __func__, __LINE__);
+	EEPLogReset();
+}
+
+//========================================================================
 
 
 

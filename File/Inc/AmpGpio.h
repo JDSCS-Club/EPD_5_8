@@ -79,11 +79,11 @@
 
 
 
-#define OSP_LED_Pin                GPIO_PIN_1
+#define OSP_LED_Pin                GPIO_PIN_
 #define OSP_LED_Port               GPIOD
 
 
-#define AMP_STANDBY_Pin           GPIO_PIN_7
+#define AMP_STANDBY_Pin           GPIO_PIN_1
 #define AMP_STANDBY_Port          GPIOD
 
 
