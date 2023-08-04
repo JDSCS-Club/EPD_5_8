@@ -25,7 +25,7 @@
 #include "spi_flash.h"
 #include "CharLCD.h"
 
-#include "test.h"
+//#include "test.h"
 
 
  TIM_HandleTypeDef TimHandle3,TimHandle4,TimHandle5,TimHandle8;
@@ -89,7 +89,7 @@ void Timer_init(void)
     HAL_TIM_Base_Start_IT(&TimHandle4);
 	
     
-    HAL_Delay( 500 );
+ //   HAL_Delay( 500 );
 	
 /*****************************TIM5******************************************************************/
 	 //TIM5는 최대 84MHZ 이므로 속도 값이 크다.()
@@ -196,7 +196,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
         USART_TIM();
         
 	    //LED_Timer_1ms(); // LED 1ms  타이커,
-        //SPI_FLASH_Timer_1ms();
+        SPI_FLASH_Timer_1ms();
         //lcd_Timer();
         
        

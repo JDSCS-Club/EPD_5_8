@@ -134,27 +134,13 @@ void RTC_Alarm_IRQHandler(void)
   * @param  None
   * @retval None
   */
-//void EXTI15_10_IRQHandler(void) 
-//{
-//  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_8);
-//}
-
-
 
 //EPD
 void EXTI9_5_IRQHandler(void)
 {
-    HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_8);
+    HAL_GPIO_EXTI_IRQHandler(PHY_PWR_INT);
     
 }
-
-
-////LEDC
-//void EXTI0_IRQHandler(void)
-//{
-//     HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
-//    
-//}
 
 
 
@@ -171,11 +157,6 @@ void I2C1_EV_IRQHandler(void)
   HAL_I2C_EV_IRQHandler(& hi2c1);
 }
 
-
-void I2C2_EV_IRQHandler(void)
-{
-  HAL_I2C_EV_IRQHandler(& hi2c2);
-}
 /**
   * @brief  This function handles I2C error interrupt request.
   * @param  None
@@ -185,12 +166,6 @@ void I2C2_EV_IRQHandler(void)
 void I2C1_ER_IRQHandler(void)
 {
   HAL_I2C_ER_IRQHandler(& hi2c1);
-}
-
-
-void I2C2_ER_IRQHandler(void)
-{
-  HAL_I2C_ER_IRQHandler(& hi2c2);
 }
 
 
@@ -204,7 +179,7 @@ void DMA2_Stream0_IRQHandler(void)
 	
 	//HAL_DMA_IRQHandler(&hdma_adc1);
    
-    HAL_DMA_IRQHandler(AdcHandle3.DMA_Handle);
+   // HAL_DMA_IRQHandler(AdcHandle3.DMA_Handle);
 }
 
 /**
@@ -216,10 +191,19 @@ void DMA2_Stream4_IRQHandler(void)
 {
 	
 	//HAL_DMA_IRQHandler(&hdma_adc1);
-    HAL_DMA_IRQHandler(AdcHandle1.DMA_Handle);
+   // HAL_DMA_IRQHandler(AdcHandle1.DMA_Handle);
    
 }
 
+
+void ADC_IRQHandler(void)
+{
+    
+  HAL_ADC_IRQHandler(&AdcHandle1);
+  HAL_ADC_IRQHandler(&AdcHandle3);
+    
+    
+}
 
 /******************************************************************************/
 /*                 STM32F4xx Peripherals Interrupt Handlers                   */

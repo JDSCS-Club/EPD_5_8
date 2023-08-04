@@ -43,8 +43,88 @@
 #include "stdbool.h"
      
 
+/* Private defines --------------------- in       ----------------------          out ----------------                    AD ----*/
+
+#define DEV_ID3_Pin                     GPIO_PIN_4
+#define DEV_ID3_GPIO_Port               GPIOA
+#define AUDIO_ON_Pin                    GPIO_PIN_8
+#define AUDIO_ON_GPIO_Port              GPIOA     
+#define OVERRIDE_Pin                                                            GPIO_PIN_11
+#define OVERRIDE_GPIO_Port                                                      GPIOA
+#define NTC_Pin 			                                                                                            GPIO_PIN_12
+#define NTC_GPIO_Port 			                                                                                        GPIOA
+     
+     
+#define SCL1_Pin                        GPIO_PIN_8
+#define I2C1_GPIO_Port                  GPIOB
+#define SDA1_Pin                        GPIO_PIN_9
+#define I2C1_GPIO_Port                  GPIOB  
+     
+  
+#define BAT_VCC_Pin 			                                                                                        GPIO_PIN_0
+#define BAT_VCC_GPIO_Port                                                                                               GPIOC     
+#define ST_BY_Pin                       GPIO_PIN_8
+#define ST_BY_GPIO_Port                 GPIOC
+#define POP_UP_Pin                      GPIO_PIN_9
+#define POP_UP_GPIO_Port                GPIOC
+     
+#define DEV_ID2_Pin                     GPIO_PIN_10
+#define DEV_ID2_GPIO_Port               GPIOC
+#define DEV_ID1_Pin                     GPIO_PIN_11
+#define DEV_ID1_GPIO_Port               GPIOC
+#define DEV_ID0_Pin                     GPIO_PIN_12
+#define DEV_ID0_GPIO_Port               GPIOC
+     
+#define VCC_AUDIO_IN                    GPIO_PIN_13
+#define VCC_AUDIO_IN_Port               GPIOC
+#define VCC_LED_IN                      GPIO_PIN_14
+#define VCC_LED_IN_Port                 GPIOC
+#define CHARGER_DET_Pin 		        GPIO_PIN_15
+#define CHARGER_DET_GPIO_Port 	        GPIOC
+
+     
+     
+#define VCC_RF_IN                       GPIO_PIN_0
+#define VCC_RF_IN_Port                  GPIOD
+#define AMP_STANDBY                                                             GPIO_PIN_1
+#define AMP_STANDBY_Port                                                        GPIOD
+#define AMP_FAULT_Pin                   GPIO_PIN_2
+#define AMP_FAULT_Port                  GPIOD
+#define LED_75_Pin                                                              GPIO_PIN_10
+#define LED_75_GPIO_Port                                                        GPIOD
+#define RF_LED_Pin                                                              GPIO_PIN_11
+#define RF_LED_GPIO_Port                                                        GPIOD
+#define LED_100_RED_Pin                                                         GPIO_PIN_12
+#define LED_100_RED_GPIO_Port                                                   GPIOD
+#define LED_100_GREEN_Pin                                                       GPIO_PIN_13
+#define LED_100_GREEN_GPIO_Port                                                 GPIOD
+#define LIGHT_ON_Pin                    GPIO_PIN_15
+#define LIGHT_ON_GPIO_Port              GPIOD
+     
+     
+     
+ 
+#define VCC_IN_Pin 			            GPIO_PIN_1
+#define VCC_IN_GPIO_Port 		        GPIOE
+#define SD_Pin                                                                  GPIO_PIN_3
+#define SD_GPIO_Port                                                            GPIOE
+#define LED_CTL_Pin                                                             GPIO_PIN_4
+#define LED_CTL_GPIO_Port                                                       GPIOE   
+#define MASTER_IN_Pin 			        GPIO_PIN_5
+#define MASTER_IN_GPIO_Port 	        GPIOE
+#define DI_CTL_Pin                                                              GPIO_PIN_6
+#define DI_CTL_GPIO_Port                                                        GPIOE
+#define PHY_RST                                                                 GPIO_PIN_7
+#define PHY_RST_Port                                                            GPIOE
+#define PHY_PWR_INT                     GPIO_PIN_8
+#define PHY_PWR_INT_Port                GPIOE
+     
 
 
+     
+/* Private defines -----------------------------------------------------------*/
+     
+     
 enum AMP_MUTE
 {
     AMP_ID_0        =   0x00,
@@ -126,10 +206,10 @@ extern __IO uint16_t ADCValue[6];
 //#define DEST_IP_ADDR3   100
 
 
-#define DEST_IP_ADDR0   255
-#define DEST_IP_ADDR1   255
-#define DEST_IP_ADDR2   255
-#define DEST_IP_ADDR3   255
+#define DEST_IP_ADDR0   10
+#define DEST_IP_ADDR1   128
+#define DEST_IP_ADDR2   100
+#define DEST_IP_ADDR3   100
  
 
 
@@ -170,12 +250,12 @@ extern __IO uint16_t ADCValue[6];
 #define GW_ADDR3   (uint8_t) 1 //1
 
 
-#define MAC_ADDR0   0x18
+#define MAC_ADDR0   0x17
 #define MAC_ADDR1   0x30
-#define MAC_ADDR2   0x09 + (IP_ADDR_VAL_DATA>>24)&0xFF
-#define MAC_ADDR3   10    + (IP_ADDR_VAL_DATA>>16)&0xFF
-#define MAC_ADDR4   0x32 + (IP_ADDR_VAL_DATA>>8)&0xFF
-#define MAC_ADDR5   0x28 + (IP_ADDR_VAL_DATA>>0)&0xFF
+#define MAC_ADDR2   0x99 //+ (IP_ADDR_VAL_DATA>>24)&0xFF
+#define MAC_ADDR3   10   // + (IP_ADDR_VAL_DATA>>16)&0xFF
+#define MAC_ADDR4   0x32 //+ (IP_ADDR_VAL_DATA>>8)&0xFF
+#define MAC_ADDR5   0x28 //+ (IP_ADDR_VAL_DATA>>0)&0xFF
 
 
 ///*****************************************************************************
@@ -219,8 +299,8 @@ extern __IO uint16_t ADCValue[6];
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /* Uncomment to enable the adaquate RTC Clock Source */
-#define RTC_CLOCK_SOURCE_LSE
-/* #define RTC_CLOCK_SOURCE_LSI */
+//#define RTC_CLOCK_SOURCE_LSE
+#define RTC_CLOCK_SOURCE_LSI */
 
 #ifdef RTC_CLOCK_SOURCE_LSI
 #define RTC_ASYNCH_PREDIV  0x7F

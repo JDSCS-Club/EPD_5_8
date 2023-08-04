@@ -794,6 +794,7 @@ HAL_StatusTypeDef HAL_ETH_GetReceivedFrame(ETH_HandleTypeDef *heth)
   /* Check if segment is not owned by DMA */
   /* (((heth->RxDesc->Status & ETH_DMARXDESC_OWN) == (uint32_t)RESET) && ((heth->RxDesc->Status & ETH_DMARXDESC_LS) != (uint32_t)RESET)) */
   if(((heth->RxDesc->Status & ETH_DMARXDESC_OWN) == (uint32_t)RESET))
+  //if(((heth->RxDesc->Status & 0x01) == (uint32_t)RESET))   
   {
     /* Check if last segment */
     if(((heth->RxDesc->Status & ETH_DMARXDESC_LS) != (uint32_t)RESET)) 
@@ -872,7 +873,7 @@ HAL_StatusTypeDef HAL_ETH_GetReceivedFrame_IT(ETH_HandleTypeDef *heth)
   heth->State = HAL_ETH_STATE_BUSY;
   
   /* Scan descriptors owned by CPU */
-  while (((heth->RxDesc->Status & ETH_DMARXDESC_OWN) == (uint32_t)RESET) && (descriptorscancounter < ETH_RXBUFNB))
+  while (((heth->RxDesc->Status & ETH_DMARXDESC_OWN) == (uint32_t)RESET) && (descriptorscancounter < ETH_RXBUFNB))    
   {
     /* Just for security */
     descriptorscancounter++;

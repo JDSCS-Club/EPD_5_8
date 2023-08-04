@@ -1976,29 +1976,29 @@ tcp_debug_state_str(enum tcp_state s)
 void
 tcp_debug_print(struct tcp_hdr *tcphdr)
 {
-	//MyPrintf_USART1("TCP header:\n");
-	//MyPrintf_USART1("##################################################\n");
-	//MyPrintf_USART1("|    %5"U16_F"      |    %5"U16_F"      | (src port, dest port)\n",lwip_ntohs(tcphdr->src), lwip_ntohs(tcphdr->dest));
-	//MyPrintf_USART1("+1------------------------------+\n");
-	//MyPrintf_USART1("|           %010"U32_F"          | (seq no)\n",
-         // lwip_ntohl(tcphdr->seqno));
-	//MyPrintf_USART1("+2-------------------------------+\n");
-	//MyPrintf_USART1("|           %010"U32_F"          | (ack no)\n",lwip_ntohl(tcphdr->ackno));
-	//MyPrintf_USART1("+3-------------------------------+\n");
-	//MyPrintf_USART1("| %2"U16_F" |   |%"U16_F"%"U16_F"%"U16_F"%"U16_F"%"U16_F"%"U16_F"|     %5"U16_F"     | (hdrlen, flags (",TCPH_HDRLEN(tcphdr),
-         //(u16_t)(TCPH_FLAGS(tcphdr) >> 5 & 1),
-         //(u16_t)(TCPH_FLAGS(tcphdr) >> 4 & 1),
-        // (u16_t)(TCPH_FLAGS(tcphdr) >> 3 & 1),
-        // (u16_t)(TCPH_FLAGS(tcphdr) >> 2 & 1),
-        // (u16_t)(TCPH_FLAGS(tcphdr) >> 1 & 1),
-        // (u16_t)(TCPH_FLAGS(tcphdr)      & 1),
-        // lwip_ntohs(tcphdr->wnd));
- // tcp_debug_print_flags(TCPH_FLAGS(tcphdr));
-	//MyPrintf_USART1("), win)\n");
-	//MyPrintf_USART1("+4-------------------------------+\n");
-	//MyPrintf_USART1("|    0x%04"X16_F"     |     %5"U16_F"     | (chksum, urgp)\n",
-         //lwip_ntohs(tcphdr->chksum), lwip_ntohs(tcphdr->urgp));
-	//MyPrintf_USART1("+5-------------------------------+\n");
+	MyPrintf_USART1("TCP header:\n");
+	MyPrintf_USART1("##################################################\n");
+	MyPrintf_USART1("|    %5"U16_F"      |    %5"U16_F"      | (src port, dest port)\n",lwip_ntohs(tcphdr->src), lwip_ntohs(tcphdr->dest));
+	MyPrintf_USART1("+1------------------------------+\n");
+	MyPrintf_USART1("|           %010"U32_F"          | (seq no)\n",
+          lwip_ntohl(tcphdr->seqno));
+	MyPrintf_USART1("+2-------------------------------+\n");
+	MyPrintf_USART1("|           %010"U32_F"          | (ack no)\n",lwip_ntohl(tcphdr->ackno));
+	MyPrintf_USART1("+3-------------------------------+\n");
+	MyPrintf_USART1("| %2"U16_F" |   |%"U16_F"%"U16_F"%"U16_F"%"U16_F"%"U16_F"%"U16_F"|     %5"U16_F"     | (hdrlen, flags (",TCPH_HDRLEN(tcphdr),
+         (u16_t)(TCPH_FLAGS(tcphdr) >> 5 & 1),
+         (u16_t)(TCPH_FLAGS(tcphdr) >> 4 & 1),
+         (u16_t)(TCPH_FLAGS(tcphdr) >> 3 & 1),
+         (u16_t)(TCPH_FLAGS(tcphdr) >> 2 & 1),
+         (u16_t)(TCPH_FLAGS(tcphdr) >> 1 & 1),
+         (u16_t)(TCPH_FLAGS(tcphdr)      & 1),
+         lwip_ntohs(tcphdr->wnd));
+  tcp_debug_print_flags(TCPH_FLAGS(tcphdr));
+	MyPrintf_USART1("), win)\n");
+	MyPrintf_USART1("+4-------------------------------+\n");
+	MyPrintf_USART1("|    0x%04"X16_F"     |     %5"U16_F"     | (chksum, urgp)\n",
+         lwip_ntohs(tcphdr->chksum), lwip_ntohs(tcphdr->urgp));
+	MyPrintf_USART1("+5-------------------------------+\n");
 }
 
 /**

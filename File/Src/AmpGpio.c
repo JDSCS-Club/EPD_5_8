@@ -31,15 +31,7 @@
 * @retval-
 ******************************************************************************/
 
-bool getAmp1_Pault(void)        { return HAL_GPIO_ReadPin(AMP1_PAULT_Port, AMP1_PAULT_Pin); }
-bool getAmp2_Pault(void)        { return HAL_GPIO_ReadPin(AMP2_PAULT_Port, AMP2_PAULT_Pin); }
-bool getAmp3_Pault(void)        { return HAL_GPIO_ReadPin(AMP3_PAULT_Port, AMP3_PAULT_Pin); }
 
-bool getSW_RS(void)             { return (HAL_GPIO_ReadPin(SW_RS_Port, SW_RS_Pin) == true ? false : true); }
-bool getSW_SL(void)             { return (HAL_GPIO_ReadPin(SW_SL_Port, SW_SL_Pin) == true ? false : true); }
-bool getSW_SR(void)             { return (HAL_GPIO_ReadPin(SW_SR_Port, SW_SR_Pin) == true ? false : true); }
-bool getSW_AR(void)             { return (HAL_GPIO_ReadPin(SW_AR_Port, SW_AR_Pin) == true ? false : true); }
-bool getSW_Broad(void)          { return (HAL_GPIO_ReadPin(SW_BROAD_Port, SW_BROAD_Pin) == true ? false : true); }
 
 
 
@@ -68,8 +60,8 @@ void setOSP_Led(bool state)
 
 void setAMP_Standby(bool state)
 { 
-	HAL_GPIO_WritePin(AMP_STANDBY_Port, AMP_STANDBY_Pin, state); 
-	HAL_GPIO_WritePin(AMP_STANDBY_Port, AMP_STANDBY_Pin, state); 
+	HAL_GPIO_WritePin(AMP_STANDBY_Port, AMP_STANDBY, state); 
+	HAL_GPIO_WritePin(AMP_STANDBY_Port, AMP_STANDBY, state); 
 
 }
 
@@ -173,17 +165,6 @@ void setBk_Out_6(bool state)
 
 
 
-void setAmp_Mute_1(bool state)  
-{ 
-    HAL_GPIO_WritePin(AMP_Mute1_Port, AMP_Mute1_Pin, state); 
-    HAL_GPIO_WritePin(AMP_Mute1_Port, AMP_Mute1_Pin, state); 
-}
-
-void setAmp_Mute_2(bool state)  
-{ 
-    HAL_GPIO_WritePin(AMP_Mute2_Port, AMP_Mute2_Pin, state); 
-    HAL_GPIO_WritePin(AMP_Mute2_Port, AMP_Mute2_Pin, state); 
-}
 
 
 

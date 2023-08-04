@@ -55,7 +55,11 @@
 
 #include "Flash.h"
 
-#include "test.h"
+#include "adc.h"
+
+#include "naranja_boron.h"
+
+//#include "test.h"
 
 
 //#include "CharLCD.h"
@@ -266,36 +270,17 @@ int d_TestSp_SR_Flag = 0;
     
 int main(void)
 {
-    
-	
-	/* STM32F4xx HAL library initialization:
-	   - Configure the Flash prefetch, instruction and Data caches
-	   - Configure the Systick to generate an interrupt each 1 msec
-
-	   - Set NVIC Group Priority to 4
-	   - Global MSP (MCU Support Package) initialization
-	 */
+  
   
 	HAL_Init();  
 
 	/* Configure the system clock to 168 MHz */
 	SystemClock_Config();
 
+    
+    
 	/* Configure the BSP */
 	BSP_Config();
-
-	/* Initialize the LwIP stack */
-	lwip_init();
-
-	/* Configure the Network interface */
-	Netif_Config();
-
-	/* tcp echo server Init */
-	//tcp_echoserver_init();
-
-	/* Notify user about the network interface config */
-	User_notification(&gnetif);
-
 
 	Timer_init(); 
 
@@ -305,30 +290,17 @@ int main(void)
 	MX_I2C1_Init();
    // MX_I2C1_Init();
     
-	//MX_I2C2_Init();
-   // MX_I2C2_Init();
-
-
-	//RTC_AlarmInit();
+	RTC_AlarmInit();
 	
 
 	//Flash_Init();
-	HAL_Delay(10);
-
 
     //-------------------ADC MAC 설정 
     //MX_ADC_DMA_Init();
-	//MX_ADC1_Init();
-    //MX_ADC3_Init();
+	MX_ADC1_Init();
+    MX_ADC3_Init();
     //----------------------------
     
-
-	//--------------LCD 초기 설정 부분.
-	//OLED_1in3_c_test();
-    //OLED_Print(); // 약 350ms 필요.
-	//-----------------------
-	
-	
     MyPrintf_USART1("SystemClock  = %d/ AHB(HCLK) : %d / APB1(PCLK1) : %d / APBP2(PCLK2) : %d \n\r", HAL_RCC_GetSysClockFreq(), HAL_RCC_GetHCLKFreq(), HAL_RCC_GetPCLK1Freq(), HAL_RCC_GetPCLK2Freq());
     MyPrintf_USART1("---- AMP ID Switch  = [%d--%d] \n\r",IP_ADDR1_INPUT_DATA,IP_ADDR2_INPUT_DATA);
     
@@ -337,14 +309,6 @@ int main(void)
 	MyPrintf_USART1("-%s\r\n", completeVersionBuild);
     
     
-	sprintf(&mLCDPrintBuf[1][0], "%s-%s", completeVersion, completeVersionBuild);
-    
-    sprintf(&mLCDPrintBuf_2[0][0], "ANSM_ON");
-    
-    sprintf(&mLCDPrintBuf_2[1][0], "AMP_VOL_DEFAULT");
-    
-   
-
 	static int s_100msCng = 0;   
     
 	static int s_200msCng = 0;   
@@ -355,21 +319,13 @@ int main(void)
     
     static int sOLED_InitCnt = 0;
     
-    
-    mLed_Process_Flag.sMy_IP_Info = IP_ADDR1_INPUT_DATA;
-	mLed_Process_Flag.sAnsm_Run_Flag = true;
-    memset(mLed_Process_Flag.sSt_Buf_Val,0x00,sizeof(mLed_Process_Flag.sSt_Buf_Val)); // buffer Init
-    
-    
-    sprintf(&mLCDPrintBuf[2][0], "--------------------");
-    
-    
-     AUDIO_AMP_Boot_Set();
-    
+
+
     //WWDG_Init(); //
      
  #if 1
 
+      AUDIO_AMP_Boot_Set();
 
   	  MyPrintf_USART1("\n----TestEEPROM Test----\n\n");
 	  TestEEPROM(&hi2c1);	//i2c
@@ -380,6 +336,17 @@ int main(void)
 
 #endif
     
+      
+	/* Initialize the LwIP stack */
+	lwip_init();
+
+	/* Configure the Network interface */
+	Netif_Config();
+
+	/* Notify user about the network interface config */
+	User_notification(&gnetif);
+      
+      
     
 	while (1)
 	{  
@@ -398,9 +365,18 @@ int main(void)
     
 		USARTRX_MainPro();
     
-//        
-//        if(HAL_GetTick() >= 15000 ) // 15초 부팅 할때 초기 AMP  제어 OFF
+        
+//        if(HAL_GetTick() == 30000 ) // 15초 부팅 할때 초기 AMP  제어 OFF
 //        {
+//            HAL_GPIO_WritePin(GPIOE, GPIO_PIN_7, GPIO_PIN_SET);
+//            HAL_GPIO_WritePin(GPIOE, GPIO_PIN_7, GPIO_PIN_RESET);
+//            HAL_GPIO_WritePin(GPIOE, GPIO_PIN_7, GPIO_PIN_SET);
+//            
+//        }
+        
+        
+        
+    
 //            s_MainTimeCng++;
 //                
 //
@@ -620,176 +596,111 @@ int main(void)
 static void BSP_Config(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
+    
+    
+     __GPIOA_CLK_ENABLE();
+     __GPIOC_CLK_ENABLE();
+     __GPIOD_CLK_ENABLE();
+     __GPIOE_CLK_ENABLE();
 
     //EPD
 	/* Enable PB14 to IT mode: Ethernet Link interrupt */ 
-	__HAL_RCC_GPIOE_CLK_ENABLE();
-	GPIO_InitStructure.Pin = GPIO_PIN_8;
+
+	GPIO_InitStructure.Pin = PHY_PWR_INT;
 	GPIO_InitStructure.Mode = GPIO_MODE_IT_FALLING;
 	GPIO_InitStructure.Pull = GPIO_NOPULL;
-	HAL_GPIO_Init(GPIOE, &GPIO_InitStructure);
+	HAL_GPIO_Init(PHY_PWR_INT_Port, &GPIO_InitStructure);
 
 	/* Enable EXTI Line interrupt */
 	HAL_NVIC_SetPriority(EXTI9_5_IRQn, 0xF, 0);
 	HAL_NVIC_EnableIRQ(EXTI9_5_IRQn); 
 
-    
-//    //LEDC
-//    	/* Enable PB14 to IT mode: Ethernet Link interrupt */ 
-//	__HAL_RCC_GPIOC_CLK_ENABLE();
-//	GPIO_InitStructure.Pin = GPIO_PIN_0;
-//	GPIO_InitStructure.Mode = GPIO_MODE_IT_FALLING;
-//	GPIO_InitStructure.Pull = GPIO_NOPULL;
-//	HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
-//
-//	/* Enable EXTI Line interrupt */
-//	HAL_NVIC_SetPriority(EXTI0_IRQn, 0xF, 0);
-//	HAL_NVIC_EnableIRQ(EXTI0_IRQn); 
-    
-    
-    
 	/* Configure LED1, LED2 */
 	//BSP_LED_Init(LED1);
 	//BSP_LED_Init(LED2);
 
 	/* Set Systick Interrupt to the highest priority */
 	HAL_NVIC_SetPriority(SysTick_IRQn, 0x0, 0x0);
-
-//	// RUN LED
-//	__GPIOI_CLK_ENABLE();
-//
-//	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
-//	GPIO_InitStructure.Pull = GPIO_PULLUP;
-//	GPIO_InitStructure.Pin = GPIO_PIN_11;
-//	HAL_GPIO_Init(GPIOI, &GPIO_InitStructure);
-//
-//	/*Hex ??끉?맄燁??揶쏅?れ뱽 ??럩堉? ??뫀?뼄.*/
-//	//HSW 1,2 스위치를 이용해서, 장치 식별을 한다.
-//	__GPIOH_CLK_ENABLE();
-//	GPIO_InitStructure.Mode = GPIO_MODE_INPUT;
-//	GPIO_InitStructure.Pull = GPIO_PULLUP;
-//	GPIO_InitStructure.Pin = GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15;
-//	GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-//	HAL_GPIO_Init(GPIOH, &GPIO_InitStructure);
-//
-//    
-//    // 차량 번호를 설정 하는 
-//	IP_ADDR1_INPUT_DATA =  HAL_GPIO_ReadPin(GPIOH, GPIO_PIN_8);  
-//	IP_ADDR1_INPUT_DATA |= HAL_GPIO_ReadPin(GPIOH, GPIO_PIN_9)  << 1;
-//	IP_ADDR1_INPUT_DATA |= HAL_GPIO_ReadPin(GPIOH, GPIO_PIN_10) << 2;
-//	IP_ADDR1_INPUT_DATA |= HAL_GPIO_ReadPin(GPIOH, GPIO_PIN_11) << 3;
-//    
-//	IP_ADDR1_INPUT_DATA = ((~IP_ADDR1_INPUT_DATA) & 0x0F);
-//    
-//    //l/R 를 설정 하는 부분.
-//	IP_ADDR2_INPUT_DATA = HAL_GPIO_ReadPin(GPIOH, GPIO_PIN_12);
-//	IP_ADDR2_INPUT_DATA |= HAL_GPIO_ReadPin(GPIOH, GPIO_PIN_13) << 1;
-//	IP_ADDR2_INPUT_DATA |= HAL_GPIO_ReadPin(GPIOH, GPIO_PIN_14) << 2;
-//	IP_ADDR2_INPUT_DATA |= HAL_GPIO_ReadPin(GPIOH, GPIO_PIN_15) << 3;
-//
-//    
-//	IP_ADDR2_INPUT_DATA = ((~IP_ADDR2_INPUT_DATA) & 0x0F);
-//    
-//    
-//	IP_ADDR_VAL_DATA = (IP_ADDR1_INPUT_DATA % 11) * 100;
-//	IP_ADDR_VAL_DATA = IP_ADDR_VAL_DATA + ((IP_ADDR2_INPUT_DATA % 11) * 10);
-//
-//	/*RS 485 RTS PIN */
-//	__GPIOC_CLK_ENABLE();
-//	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
-//	GPIO_InitStructure.Pull = GPIO_PULLUP;
-//	GPIO_InitStructure.Pin =  GPIO_PIN_12;
-//	GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-//	HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
-//  
-//    
-	//AMP SD
-	__GPIOD_CLK_ENABLE();
-
-	GPIO_InitStructure.Pin = AMP_STANDBY_Pin;
+   
+    
+    //---------------------------------------------------------------------------------//
+    // A_GPIO_IN 
+    GPIO_InitStructure.Pin = DEV_ID3_Pin|AUDIO_ON_Pin;
+	GPIO_InitStructure.Pull = GPIO_NOPULL;
+	GPIO_InitStructure.Mode = GPIO_MODE_INPUT;
+    GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+	HAL_GPIO_Init(GPIOA, &GPIO_InitStructure);
+    
+    
+     // A_GPIO_OUT 
+    GPIO_InitStructure.Pin = OVERRIDE_Pin;
+	GPIO_InitStructure.Pull = GPIO_NOPULL;
+	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+	HAL_GPIO_Init(GPIOA, &GPIO_InitStructure);
+    
+    HAL_GPIO_WritePin(GPIOA, OVERRIDE_Pin, GPIO_PIN_RESET);
+    
+    
+    
+     //---------------------------------------------------------------------------------//
+     // C_GPIO_IN 
+    GPIO_InitStructure.Pin = ST_BY_Pin|POP_UP_Pin | DEV_ID2_Pin | DEV_ID1_Pin | DEV_ID0_Pin | VCC_AUDIO_IN | VCC_LED_IN | CHARGER_DET_Pin;
+	GPIO_InitStructure.Pull = GPIO_NOPULL;
+	GPIO_InitStructure.Mode = GPIO_MODE_INPUT;
+    GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+	HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
+    
+    
+    
+    
+     //---------------------------------------------------------------------------------//
+     // D_GPIO_IN 
+    GPIO_InitStructure.Pin = VCC_RF_IN | AMP_FAULT_Pin | LIGHT_ON_Pin;
+	GPIO_InitStructure.Pull = GPIO_NOPULL;
+	GPIO_InitStructure.Mode = GPIO_MODE_INPUT;
+    GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+	HAL_GPIO_Init(GPIOD, &GPIO_InitStructure);
+    
+    
+      // D_GPIO_OUT
+    GPIO_InitStructure.Pin = AMP_STANDBY | LED_75_Pin | RF_LED_Pin | LED_100_RED_Pin | LED_100_GREEN_Pin;
 	GPIO_InitStructure.Pull = GPIO_NOPULL;
 	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
     GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
 	HAL_GPIO_Init(GPIOD, &GPIO_InitStructure);
+    //AMP_STANDBY
+    HAL_GPIO_WritePin(GPIOD, AMP_STANDBY, GPIO_PIN_SET);
     
-	HAL_GPIO_WritePin(AMP_STANDBY_Port, AMP_STANDBY_Pin, GPIO_PIN_SET);
-//    
-//
-//	//BK_OUT
-//	__GPIOD_CLK_ENABLE();
-//
-//	GPIO_InitStructure.Pin = BK_OUT1_Pin | BK_OUT2_Pin | BK_OUT3_Pin | BK_OUT4_Pin | BK_OUT5_Pin | BK_OUT6_Pin;
-//	GPIO_InitStructure.Pull = GPIO_NOPULL;
-//	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
-//	GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-//	HAL_GPIO_Init(GPIOD, &GPIO_InitStructure);
-//    
-//	HAL_GPIO_WritePin(BK_OUT1_Port, BK_OUT1_Pin, GPIO_PIN_SET);
-//	HAL_GPIO_WritePin(BK_OUT2_Port, BK_OUT2_Pin, GPIO_PIN_SET);
-//	HAL_GPIO_WritePin(BK_OUT3_Port, BK_OUT3_Pin, GPIO_PIN_SET);
-//    
-//	HAL_GPIO_WritePin(BK_OUT4_Port, BK_OUT4_Pin, GPIO_PIN_SET);
-//	HAL_GPIO_WritePin(BK_OUT5_Port, BK_OUT5_Pin, GPIO_PIN_SET);
-//	HAL_GPIO_WritePin(BK_OUT6_Port, BK_OUT6_Pin, GPIO_PIN_SET);
-//    
-//
-//	//Mute
-//	__GPIOD_CLK_ENABLE();
-//
-//	GPIO_InitStructure.Pin = AMP_Mute1_Pin | AMP_Mute2_Pin;
-//	GPIO_InitStructure.Pull = GPIO_NOPULL;
-//	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
-//	HAL_GPIO_Init(GPIOD, &GPIO_InitStructure);
-//    
-//	HAL_GPIO_WritePin(AMP_Mute1_Port, AMP_Mute1_Pin, GPIO_PIN_RESET);
-//	HAL_GPIO_WritePin(AMP_Mute2_Port, AMP_Mute2_Pin, GPIO_PIN_RESET);
-//    
-//   
-//    
-//	//LED
-//	__GPIOD_CLK_ENABLE();
-//
-//	GPIO_InitStructure.Pin = RSP_LED_Pin | OSP_LED_Pin;
-//	GPIO_InitStructure.Pull = GPIO_NOPULL;
-//	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
-//	HAL_GPIO_Init(GPIOD, &GPIO_InitStructure);
-//    
-//	HAL_GPIO_WritePin(RSP_LED_Port, RSP_LED_Pin, GPIO_PIN_SET);
-//	HAL_GPIO_WritePin(OSP_LED_Port, OSP_LED_Pin, GPIO_PIN_SET);
-//    
-//    
-//    
-//	// INT PUT
-//
-//	__GPIOD_CLK_ENABLE();
-//	GPIO_InitStructure.Pin = AMP1_PAULT_Pin | AMP2_PAULT_Pin | AMP3_PAULT_Pin;
-//	GPIO_InitStructure.Pull = GPIO_PULLUP;
-//	GPIO_InitStructure.Mode = GPIO_MODE_INPUT;  
-//	GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-//	HAL_GPIO_Init(GPIOD, &GPIO_InitStructure);
-//    
-//    
-//	// BK
-//	__GPIOE_CLK_ENABLE();
-//	GPIO_InitStructure.Pin = SW_RS_Pin | SW_SL_Pin | SW_SR_Pin | SW_AR_Pin | SW_BROAD_Pin;
-//	GPIO_InitStructure.Pull = GPIO_PULLUP;
-//	GPIO_InitStructure.Mode = GPIO_MODE_INPUT;  
-//	GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-//	HAL_GPIO_Init(GPIOE, &GPIO_InitStructure);
-//    
-//    
-//	// AMP 
-//	__GPIOA_CLK_ENABLE();
-//	GPIO_InitStructure.Pin = ANS_OUT_Pin;
-//	GPIO_InitStructure.Pull = GPIO_NOPULL;
-//	GPIO_InitStructure.Mode = GPIO_MODE_ANALOG;  
-//	//GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-//	HAL_GPIO_Init(ANS_OUT_Port, &GPIO_InitStructure);
-//    
- 
+    HAL_GPIO_WritePin(GPIOD, RF_LED_Pin, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(GPIOD, LED_75_Pin, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOD, LED_100_RED_Pin|LED_100_GREEN_Pin, GPIO_PIN_RESET);
+    
 
+
+     //---------------------------------------------------------------------------------//
+     // E_GPIO_IN 
+    GPIO_InitStructure.Pin = VCC_IN_Pin | MASTER_IN_Pin;
+	GPIO_InitStructure.Pull = GPIO_NOPULL;
+	GPIO_InitStructure.Mode = GPIO_MODE_INPUT;
+    GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+	HAL_GPIO_Init(GPIOE, &GPIO_InitStructure);
+    
+     // E_GPIO_OUT
+    GPIO_InitStructure.Pin = SD_Pin | LED_CTL_Pin | DI_CTL_Pin | PHY_RST;
+	GPIO_InitStructure.Pull = GPIO_NOPULL;
+	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+	HAL_GPIO_Init(GPIOE, &GPIO_InitStructure);
+    
+    //PHY_RST
+    HAL_GPIO_WritePin(PHY_RST_Port, PHY_RST, GPIO_PIN_SET);
+       
+    HAL_GPIO_WritePin(GPIOE, SD_Pin|LED_CTL_Pin, GPIO_PIN_RESET);
    
-        
+    HAL_GPIO_WritePin(GPIOE, DI_CTL_Pin, GPIO_PIN_SET);   
+    
+    
 }
 
 
@@ -849,13 +760,6 @@ static void Netif_Config(void)
 ******************************************************************************/
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-    
-    // EMU
-//	if (GPIO_Pin == GPIO_PIN_0)
-//	{
-//		ethernetif_set_link(&gnetif);
-//	}
-    
     
     if (GPIO_Pin == GPIO_PIN_8)
 	{
@@ -969,23 +873,23 @@ static void RTC_AlarmInit(void)
 
 }
 
-/*****************************************************************************
-* @brief - 
-* @param -
-* @retval-
-******************************************************************************/
-void ONTD(uint8_t IN,uint8_t *OUT,uint8_t MS,int *CLK )
-{
-	uint8_t CE;
-	
-	if(!IN){*CLK = 0; *OUT = 0;}		
-	CE = NOT(*OUT) && IN;	
-	if(CE)
-	{
-		if(MS == *CLK) {*OUT = 1;}
-		else *CLK = *CLK+1;
-	}
-}
+///*****************************************************************************
+//* @brief - 
+//* @param -
+//* @retval-
+//******************************************************************************/
+//void ONTD(uint8_t IN,uint8_t *OUT,uint8_t MS,int *CLK )
+//{
+//	uint8_t CE;
+//	
+//	if(!IN){*CLK = 0; *OUT = 0;}		
+//	CE = NOT(*OUT) && IN;	
+//	if(CE)
+//	{
+//		if(MS == *CLK) {*OUT = 1;}
+//		else *CLK = *CLK+1;
+//	}
+//}
     
 
 /*****************************************************************************
@@ -1035,6 +939,9 @@ uint8_t d_RS_Flag;
 int d_RS_Cnt;
 
 
+uint16_t batVol;
+uint16_t batVol1;
+
 void Time_Main(void)
 {
     uint8_t     nRbuf_1[2];
@@ -1046,10 +953,10 @@ void Time_Main(void)
 	m_Main_TIM_Cnt++;
     
     
-    ONTD(getSW_SR(),&d_SR_Flag,5,&d_SR_Cnt);
-    ONTD(getSW_SL(),&d_SL_Flag,5,&d_SL_Cnt);
-    ONTD(getSW_AR(),&d_AR_Flag,5,&d_AR_Cnt);
-    ONTD(getSW_RS(),&d_RS_Flag,5,&d_RS_Cnt);
+//    ONTD(getSW_SR(),&d_SR_Flag,5,&d_SR_Cnt);
+//    ONTD(getSW_SL(),&d_SL_Flag,5,&d_SL_Cnt);
+//    ONTD(getSW_AR(),&d_AR_Flag,5,&d_AR_Cnt);
+//    ONTD(getSW_RS(),&d_RS_Flag,5,&d_RS_Cnt);
         
             
     mDI_CheckFlag = ((d_SR_Flag << 3) | (d_SL_Flag << 2) | ( d_AR_Flag<< 1) | (d_RS_Flag & 0x01));  
@@ -1059,9 +966,9 @@ void Time_Main(void)
 	if (!(m_Main_TIM_Cnt % 100)) // 100ms 
 	{
 
-		HAL_GPIO_TogglePin(GPIOI, GPIO_PIN_11); // RUN LED
-        
-        if(mLed_Process_Flag.sSpk_check_Cnt) mLed_Process_Flag.sSpk_check_Cnt--;
+//		HAL_GPIO_TogglePin(GPIOI, GPIO_PIN_11); // RUN LED
+//        
+//        if(mLed_Process_Flag.sSpk_check_Cnt) mLed_Process_Flag.sSpk_check_Cnt--;
         
 
 	}
@@ -1076,7 +983,7 @@ void Time_Main(void)
     if (!(m_Main_TIM_Cnt % 5000)) // 1000ms 
 	{
         
-        
+       
         //----------------------------------------
             processCurrentVal();
             //----------------------------------------
@@ -1146,14 +1053,25 @@ void Time_Main(void)
     if (!(m_Main_TIM_Cnt % 10000)) // 10sec
     {
         
+        HAL_GPIO_TogglePin(GPIOE, SD_Pin);
+        HAL_GPIO_TogglePin(GPIOE, LED_CTL_Pin);
+        
+        
+        batVol = getAdc1Vol();
+        batVol1 = getAdc2Vol();
+        
         //////--------------------------------------------------------------------//////
         MyPrintf_USART1("~~~~~~~~~~~~NewPulse 4_line PAMP~~~~~~~~~~~~\n\r");
 		MyPrintf_USART1("CPU RUN Time  = %d Second  \n\r", (m_Main_TIM_Cnt / 1000));
         MyPrintf_USART1("IP  : %s\n\r", ip4addr_ntoa(&gnetif.ip_addr));
 		MyPrintf_USART1("MAC : %x-%x-%x-%x-%x-%x \n\r", gnetif.hwaddr[0], gnetif.hwaddr[1], gnetif.hwaddr[2], gnetif.hwaddr[3], gnetif.hwaddr[4], gnetif.hwaddr[5]);
-        MyPrintf_USART1("ANSM : %02d\r\n",mAnsSetFlag.tAnsCnt);
-        MyPrintf_USART1("Temp : %02d\r\n",mLed_Process_Flag.sCpu_Temp);
+        MyPrintf_USART1("BAT : %02d\r\n",batVol1);
+        MyPrintf_USART1("Temp : %02d\r\n",batVol);
         //////--------------------------------------------------------------------//////
+        
+        
+        processTestDebug();
+        
         
         
         mTimerFlag_10s = 1;
@@ -1361,17 +1279,17 @@ static void RTC_TimeShow(uint8_t* showtime)
 
 	HAL_RTC_SetAlarm_IT(&RtcHandle, &salarmstructure, RTC_FORMAT_BCD);
 
-	//MyPrintf_USART1("--------Timer Count : %02d:%02d:%02d \n\r", BCD_BIN(stimestructureget.Hours), BCD_BIN(stimestructureget.Minutes), BCD_BIN(stimestructureget.Seconds));
+	MyPrintf_USART1("--------Timer Count : %02d:%02d:%02d \n\r", BCD_BIN(stimestructureget.Hours), BCD_BIN(stimestructureget.Minutes), BCD_BIN(stimestructureget.Seconds));
     
-    if(getSW_RS()|| getSW_AR() || getSW_SL() || getSW_SL()) // 접점 신호가 있으면 접점 신호를 출력한다.
-    {
-        sprintf(&mLCDPrintBuf[3][0], "%02d:%02d:%02d", BCD_BIN(stimestructureget.Hours), BCD_BIN(stimestructureget.Minutes), BCD_BIN(stimestructureget.Seconds));
-    }
-    else
-    {
-        sprintf(&mLCDPrintBuf[3][0], "%02d:%02d:%02d-(%02d/%02d)", BCD_BIN(stimestructureget.Hours), BCD_BIN(stimestructureget.Minutes), BCD_BIN(stimestructureget.Seconds),IP_ADDR1_INPUT_DATA,IP_ADDR2_INPUT_DATA);
-
-    }
+//    if(getSW_RS()|| getSW_AR() || getSW_SL() || getSW_SL()) // 접점 신호가 있으면 접점 신호를 출력한다.
+//    {
+//        sprintf(&mLCDPrintBuf[3][0], "%02d:%02d:%02d", BCD_BIN(stimestructureget.Hours), BCD_BIN(stimestructureget.Minutes), BCD_BIN(stimestructureget.Seconds));
+//    }
+//    else
+//    {
+//        sprintf(&mLCDPrintBuf[3][0], "%02d:%02d:%02d-(%02d/%02d)", BCD_BIN(stimestructureget.Hours), BCD_BIN(stimestructureget.Minutes), BCD_BIN(stimestructureget.Seconds),IP_ADDR1_INPUT_DATA,IP_ADDR2_INPUT_DATA);
+//
+//    }
 }
 
 
@@ -1413,22 +1331,22 @@ void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *RtcHandle)
 * @param -
 * @retval-
 ******************************************************************************/
-void MX_ADC_DMA_Init(void)
-{
-	/* DMA controller clock enable */
-	__HAL_RCC_DMA2_CLK_ENABLE();
-
-	/* DMA interrupt init */
-	/* DMA2_Stream0_IRQn interrupt configuration */
-	HAL_NVIC_SetPriority(DMA2_Stream0_IRQn, 5, 0);
-	HAL_NVIC_EnableIRQ(DMA2_Stream0_IRQn);
-    
-    
-    HAL_NVIC_SetPriority(DMA2_Stream4_IRQn, 6, 0);
-	HAL_NVIC_EnableIRQ(DMA2_Stream4_IRQn);
-}
+//void MX_ADC_DMA_Init(void)
+//{
+//	/* DMA controller clock enable */
+//	__HAL_RCC_DMA2_CLK_ENABLE();
+//
+//	/* DMA interrupt init */
+//	/* DMA2_Stream0_IRQn interrupt configuration */
+//	HAL_NVIC_SetPriority(DMA2_Stream0_IRQn, 5, 0);
+//	HAL_NVIC_EnableIRQ(DMA2_Stream0_IRQn);
+//    
+//    
+//    HAL_NVIC_SetPriority(DMA2_Stream4_IRQn, 6, 0);
+//	HAL_NVIC_EnableIRQ(DMA2_Stream4_IRQn);
+//}
 /*****************************************************************************
-* @brief -MX_ADC1_Init
+* @brief -MX_ADC1_Init (CPU 온도룰 측정)
 * @param -
 * @retval-
 ******************************************************************************/
@@ -1452,7 +1370,7 @@ void MX_ADC1_Init(void)
 	AdcHandle1.Init.ExternalTrigConv = ADC_EXTERNALTRIGCONV_T1_CC1;
 	AdcHandle1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
 	AdcHandle1.Init.NbrOfConversion = 1;
-	AdcHandle1.Init.DMAContinuousRequests = ENABLE;
+	AdcHandle1.Init.DMAContinuousRequests = DISABLE;
 	AdcHandle1.Init.EOCSelection = DISABLE;
       
 	if (HAL_ADC_Init(&AdcHandle1) != HAL_OK)
@@ -1469,7 +1387,7 @@ void MX_ADC1_Init(void)
     
 	sConfig.Channel = ADC_CHANNEL_TEMPSENSOR; 
 	sConfig.Rank = 1;
-	sConfig.SamplingTime = ADC_SAMPLETIME_480CYCLES;
+	sConfig.SamplingTime = ADC_SAMPLETIME_84CYCLES;
 	sConfig.Offset = 0;
     
     if (HAL_ADC_ConfigChannel(&AdcHandle1, &sConfig) != HAL_OK)
@@ -1494,7 +1412,7 @@ void MX_ADC1_Init(void)
 
 }
 /*****************************************************************************
-* @brief -MX_ADC1_Init
+* @brief -MX_ADC3_Init  ( 외부 배터리 전압을 측정한다)
 * @param -
 * @retval-
 ******************************************************************************/
@@ -1516,7 +1434,7 @@ void MX_ADC3_Init(void)
 	AdcHandle3.Init.ExternalTrigConv = ADC_EXTERNALTRIGCONV_T1_CC1;
 	AdcHandle3.Init.DataAlign = ADC_DATAALIGN_RIGHT;
 	AdcHandle3.Init.NbrOfConversion = 1;
-	AdcHandle3.Init.DMAContinuousRequests = ENABLE;
+	AdcHandle3.Init.DMAContinuousRequests = DISABLE;
 	AdcHandle3.Init.EOCSelection = DISABLE;
       
 	if (HAL_ADC_Init(&AdcHandle3) != HAL_OK)
@@ -1531,7 +1449,7 @@ void MX_ADC3_Init(void)
 	/*       of transfer), select sampling time and ADC clock with sufficient   */
 	/*       duration to not create an overhead situation in IRQHandler.        */
     
-	sConfig.Channel = ADC_CHANNEL_0; 
+	sConfig.Channel = ADC_CHANNEL_10; 
 	sConfig.Rank = 1;
 	sConfig.SamplingTime = ADC_SAMPLETIME_480CYCLES;
 	sConfig.Offset = 0;
@@ -1552,51 +1470,57 @@ void MX_ADC3_Init(void)
 uint32_t rawValue;
 __IO uint16_t ANS_AdcCPU_Data;
 
-void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
-{
-    
-	float temp;
-    float volt;
-    float v25 = 1.43;
-    float avg_slope = 4.3;
-    
-	uhADCxConvertedValue_Cnt++;
-    
-	//rawValue = HAL_ADC_GetValue(&hadc1);
-    
-	temp = (float)ADCValue3[0] * 3.3 / (float)4096;
-	ANS_AdcCH1_Data = (uint16_t)(temp * 10);
-	
-	//sprintf(&mLCDPrintBuf[3][0],"%04d",ADCValue[0]);
-    
-	//temp = (float)ADCValue[0]*3.3/(float)4095;
-	//volt = (uint16_t)(((float)ADCValue1[0] * 8) / 10000);
-    
-   // volt = (float)ADCValue[0]*(3.3/(float)4095);
-   // temp = (((v25-volt)*1000)/avg_slope)+25;//+25.0;
- //	ANS_AdcCPU_Data = (uint16_t)temp;
-    
-    volt = (float)ADCValue1[0] * 3.3 / 0xfff;
-    ANS_AdcCPU_Data = (volt-0.76)/0.0025 + 25.0;
- 
-    mLed_Process_Flag.sCpu_Temp = ANS_AdcCPU_Data;
-    
-     
-	if (ADCValue3[0] > 2200)
-	{
-		if (mAnsSetFlag.tAnsCnt < 30) mAnsSetFlag.tAnsCnt++;
-	}
-	else
-	{
-		if (mAnsSetFlag.tAnsCnt) mAnsSetFlag.tAnsCnt--;
-        
-	}
-
-    
-    HAL_ADC_Stop_DMA(&AdcHandle1);
-    HAL_ADC_Stop_DMA(&AdcHandle3);
-	
-}
+//void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
+//{
+//    
+//	float temp;
+//    float volt;
+//    float v25 = 1.43;
+//    float avg_slope = 4.3;
+//    
+//	uhADCxConvertedValue_Cnt++;
+//    
+//	//rawValue = HAL_ADC_GetValue(&hadc1);
+//    
+//
+//	//sprintf(&mLCDPrintBuf[3][0],"%04d",ADCValue[0]);
+//    
+//	//temp = (float)ADCValue[0]*3.3/(float)4095;
+//	//volt = (uint16_t)(((float)ADCValue1[0] * 8) / 10000);
+//    
+//   // volt = (float)ADCValue[0]*(3.3/(float)4095);
+//   // temp = (((v25-volt)*1000)/avg_slope)+25;//+25.0;
+// //	ANS_AdcCPU_Data = (uint16_t)temp;
+//    
+//    //-----------------------------------
+//    volt = (float)ADCValue1[0] * 3.3 / 0xfff;
+//    ANS_AdcCPU_Data = (volt-0.76)/0.0025 + 25.0;
+// 
+//    mLed_Process_Flag.sCpu_Temp = ANS_AdcCPU_Data;
+//    
+//    
+//    
+//     //-----------------------------------
+//    temp = (float)ADCValue3[0] * 3.3 / (float)4096;
+//	ANS_AdcCH1_Data = (uint16_t)(temp * 10);
+//    
+//    
+//     
+//	if (ADCValue3[0] > 2200)
+//	{
+//		if (mAnsSetFlag.tAnsCnt < 30) mAnsSetFlag.tAnsCnt++;
+//	}
+//	else
+//	{
+//		if (mAnsSetFlag.tAnsCnt) mAnsSetFlag.tAnsCnt--;
+//        
+//	}
+//
+//    
+//    HAL_ADC_Stop_DMA(&AdcHandle1);
+//    HAL_ADC_Stop_DMA(&AdcHandle3);
+//	
+//}
 
 
 /*****************************************************************************

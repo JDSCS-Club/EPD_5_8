@@ -69,75 +69,7 @@ ETH_HandleTypeDef EthHandle;
   */
 void HAL_ETH_MspInit(ETH_HandleTypeDef *heth)
 { 
-//  GPIO_InitTypeDef GPIO_InitStructure;
-//  
-//  /* Enable GPIOs clocks */
-//  __HAL_RCC_GPIOA_CLK_ENABLE();
-//  __HAL_RCC_GPIOB_CLK_ENABLE();
-//  __HAL_RCC_GPIOC_CLK_ENABLE();
-//  __HAL_RCC_GPIOF_CLK_ENABLE();
-//  __HAL_RCC_GPIOG_CLK_ENABLE();
-//  __HAL_RCC_GPIOH_CLK_ENABLE();
-//  __HAL_RCC_GPIOI_CLK_ENABLE(); 
-//
-///* Ethernet pins configuration ************************************************/
-//   /*
-//        ETH_MDIO -------------------------> PA2
-//        ETH_MDC --------------------------> PC1
-//        ETH_PPS_OUT ----------------------> PB5
-//        ETH_MII_CRS ----------------------> PH2
-//        ETH_MII_COL ----------------------> PH3
-//        ETH_MII_RX_ER --------------------> PI10
-//        ETH_MII_RXD2 ---------------------> PH6
-//        ETH_MII_RXD3 ---------------------> PH7
-//        ETH_MII_TX_CLK -------------------> PC3
-//        ETH_MII_TXD2 ---------------------> PC2
-//        ETH_MII_TXD3 ---------------------> PB8
-//        ETH_MII_RX_CLK/ETH_RMII_REF_CLK---> PA1
-//        ETH_MII_RX_DV/ETH_RMII_CRS_DV ----> PA7
-//        ETH_MII_RXD0/ETH_RMII_RXD0 -------> PC4
-//        ETH_MII_RXD1/ETH_RMII_RXD1 -------> PC5
-//        ETH_MII_TX_EN/ETH_RMII_TX_EN -----> PG11
-//        ETH_MII_TXD0/ETH_RMII_TXD0 -------> PG13
-//        ETH_MII_TXD1/ETH_RMII_TXD1 -------> PG14
-//                                                  */
-//
-//  /* Configure PA1, PA2 , PA7 */
-//  GPIO_InitStructure.Pin = GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_7;
-//  GPIO_InitStructure.Speed = GPIO_SPEED_HIGH;
-//  GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
-//  GPIO_InitStructure.Pull = GPIO_NOPULL; 
-//  GPIO_InitStructure.Alternate = GPIO_AF11_ETH;
-//  HAL_GPIO_Init(GPIOA, &GPIO_InitStructure);
-//
-//  /* Configure PB5 and PB8 */
-//  GPIO_InitStructure.Pin = GPIO_PIN_5 | GPIO_PIN_8;
-//  HAL_GPIO_Init(GPIOB, &GPIO_InitStructure);
-//
-//  /* Configure PC1, PC2, PC3, PC4 and PC5 */
-//  GPIO_InitStructure.Pin = GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5;
-//  HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
-//                             
-//  /* Configure PG11, PG14 and PG13 */
-//  GPIO_InitStructure.Pin =  GPIO_PIN_11 | GPIO_PIN_13 | GPIO_PIN_14;
-//  HAL_GPIO_Init(GPIOG, &GPIO_InitStructure);
-//
-//  /* Configure PH2, PH3, PH6, PH7 */
-//  GPIO_InitStructure.Pin = GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_6 | GPIO_PIN_7;
-//  HAL_GPIO_Init(GPIOH, &GPIO_InitStructure);
-//
-//  /* Configure PI10 */
-//  GPIO_InitStructure.Pin = GPIO_PIN_10;
-//  HAL_GPIO_Init(GPIOI, &GPIO_InitStructure);
-//  
-//  /* Enable ETHERNET clock  */
-//  __HAL_RCC_ETH_CLK_ENABLE();
-//  
-//  if (heth->Init.MediaInterface == ETH_MEDIA_INTERFACE_MII)
-//  {
-//    /* Output HSE clock (25MHz) on MCO pin (PA8) to clock the PHY */
-//    HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_HSE, RCC_MCODIV_1);
-//  }
+
     
      GPIO_InitTypeDef GPIO_InitStructure;
   
@@ -147,7 +79,28 @@ void HAL_ETH_MspInit(ETH_HandleTypeDef *heth)
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOE_CLK_ENABLE();
   
-  
+
+    GPIO_InitStructure.Pin = GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3 |GPIO_PIN_7;
+    GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStructure.Pull = GPIO_NOPULL;
+    GPIO_InitStructure.Speed = GPIO_SPEED_HIGH;
+    GPIO_InitStructure.Alternate = GPIO_AF11_ETH;
+    HAL_GPIO_Init(GPIOA, &GPIO_InitStructure);
+
+    GPIO_InitStructure.Pin = GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_10|GPIO_PIN_11 |GPIO_PIN_12|GPIO_PIN_13;
+    GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStructure.Pull = GPIO_NOPULL;
+    GPIO_InitStructure.Speed = GPIO_SPEED_HIGH;
+    GPIO_InitStructure.Alternate = GPIO_AF11_ETH;
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStructure);
+    
+    GPIO_InitStructure.Pin = GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3|GPIO_PIN_4 |GPIO_PIN_5;
+    GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStructure.Pull = GPIO_NOPULL;
+    GPIO_InitStructure.Speed = GPIO_SPEED_HIGH;
+    GPIO_InitStructure.Alternate = GPIO_AF11_ETH;
+    HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
+    
     GPIO_InitStructure.Pin = GPIO_PIN_2;
     GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStructure.Pull = GPIO_NOPULL;
@@ -155,29 +108,6 @@ void HAL_ETH_MspInit(ETH_HandleTypeDef *heth)
     GPIO_InitStructure.Alternate = GPIO_AF11_ETH;
     HAL_GPIO_Init(GPIOE, &GPIO_InitStructure);
 
-    GPIO_InitStructure.Pin = GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3|GPIO_PIN_4
-                          |GPIO_PIN_5;
-    GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStructure.Pull = GPIO_NOPULL;
-    GPIO_InitStructure.Speed = GPIO_SPEED_HIGH;
-    GPIO_InitStructure.Alternate = GPIO_AF11_ETH;
-    HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
-
-    GPIO_InitStructure.Pin = GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3
-                          |GPIO_PIN_7;
-    GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStructure.Pull = GPIO_NOPULL;
-    GPIO_InitStructure.Speed = GPIO_SPEED_HIGH;
-    GPIO_InitStructure.Alternate = GPIO_AF11_ETH;
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStructure);
-
-    GPIO_InitStructure.Pin = GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_10|GPIO_PIN_11
-                          |GPIO_PIN_12|GPIO_PIN_13;
-    GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStructure.Pull = GPIO_NOPULL;
-    GPIO_InitStructure.Speed = GPIO_SPEED_HIGH;
-    GPIO_InitStructure.Alternate = GPIO_AF11_ETH;
-    HAL_GPIO_Init(GPIOB, &GPIO_InitStructure);
   
 
   
@@ -199,7 +129,7 @@ void HAL_ETH_MspInit(ETH_HandleTypeDef *heth)
 static void low_level_init(struct netif *netif)
 { 
   uint32_t regvalue = 0;
-  uint64_t sMacAdd = 0x183009003610; //SEPTA ML MAC 시작 주소.
+  uint64_t sMacAdd = 0x183009113610; //SEPTA ML MAC 시작 주소.
   uint8_t sHSW_1 = 0;
   uint8_t sHSW_2 = 0;
   uint8_t sHSW_3 = 0;
@@ -208,22 +138,6 @@ static void low_level_init(struct netif *netif)
   
   uint8_t macaddress[6]= { MAC_ADDR0, MAC_ADDR1, MAC_ADDR2, MAC_ADDR3, MAC_ADDR4, MAC_ADDR5 };
   
-  
-//  sHSW_1 = IP_ADDR1_INPUT_DATA; 
-//  sHSW_2 = IP_ADDR2_INPUT_DATA;
-//  sHSW_3 = IP_ADDR3_INPUT_DATA;
-//  
-//  //sHSW_L = ((sHSW_L > 20) ? 20 : sHSW_L);
-//    
-//  sMacAdd = sMacAdd + (sHSW_3*30) + (sHSW_2*20) + (sHSW_1*1) + mID_TAG_INPUT_DATA; //sMacAddBuf[sHSW_L];
-//  
-//  macaddress[0] = (sMacAdd>>40)&0xFF;
-//  macaddress[1] = (sMacAdd>>32)&0xFF;
-//  macaddress[2] = (sMacAdd>>24)&0xFF;
-//  macaddress[3] = (sMacAdd>>16)&0xFF;
-//  macaddress[4] = (sMacAdd>>8)&0xFF;
-//  macaddress[5] = (sMacAdd>>0)&0xFF;
-
   
   EthHandle.Instance = ETH;  
   EthHandle.Init.MACAddr = macaddress;
@@ -260,11 +174,11 @@ static void low_level_init(struct netif *netif)
   netif->hwaddr[5] =  MAC_ADDR5;//IP_ADDR4_INPUT_DATA;
   
   /* maximum transfer unit */
-  netif->mtu = 1500;
+  netif->mtu = 1000;
   
   /* device capabilities */
   /* don't set NETIF_FLAG_ETHARP if this device is not an ethernet one */
-  netif->flags |= NETIF_FLAG_BROADCAST | NETIF_FLAG_ETHARP | NETIF_FLAG_IGMP;
+  netif->flags |= NETIF_FLAG_BROADCAST | NETIF_FLAG_ETHARP;//| NETIF_FLAG_IGMP;
   
   /* Enable MAC and DMA transmission and reception */
   HAL_ETH_Start(&EthHandle);

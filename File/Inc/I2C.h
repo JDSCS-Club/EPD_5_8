@@ -33,7 +33,7 @@
         void MX_I2C_Process(void);
          
         void MX_I2C1_Init(void);
-        void MX_I2C2_Init(void);
+
 
         void AMP_Init(uint16_t Address); // Amp_Up 초기화
 

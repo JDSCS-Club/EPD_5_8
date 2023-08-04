@@ -304,36 +304,7 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
 
   /* USER CODE END I2C2_MspInit 1 */
   }
-  else if(hi2c->Instance==I2C2)
-  {
-  /* USER CODE BEGIN I2C2_MspInit 0 */
-
-  /* USER CODE END I2C2_MspInit 0 */
-
-    __HAL_RCC_GPIOB_CLK_ENABLE();
-    /**I2C2 GPIO Configuration
-    PB10     ------> I2C2_SCL
-    PB11     ------> I2C2_SDA
-    */
-    GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_11;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
-    GPIO_InitStruct.Pull = GPIO_PULLUP;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF4_I2C2;
-    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-    /* Peripheral clock enable */
-    __HAL_RCC_I2C2_CLK_ENABLE();
-  /* USER CODE BEGIN I2C2_MspInit 1 */
-
-    HAL_NVIC_SetPriority(I2C2_ER_IRQn, 1, 0);
-  HAL_NVIC_EnableIRQ(I2C2_ER_IRQn);
-  HAL_NVIC_SetPriority(I2C2_EV_IRQn, 2, 0);
-  HAL_NVIC_EnableIRQ(I2C2_EV_IRQn);
-    
-
-  /* USER CODE END I2C2_MspInit 1 */
-  }
+  
 
 }
 
@@ -371,30 +342,7 @@ void HAL_I2C_MspDeInit(I2C_HandleTypeDef* hi2c)
 
   /* USER CODE END I2C1_MspDeInit 1 */
   }
-  else if(hi2c->Instance==I2C2)
-  {
-  /* USER CODE BEGIN I2C3_MspDeInit 0 */
 
-  /* USER CODE END I2C3_MspDeInit 0 */
-    /* Peripheral clock disable */
-    __HAL_RCC_I2C2_CLK_DISABLE();
-
-    /**I2C3 GPIO Configuration
-    PC9     ------> I2C3_SDA
-    PA8     ------> I2C3_SCL
-    */
-    HAL_GPIO_DeInit(GPIOB, GPIO_PIN_10);
-
-    HAL_GPIO_DeInit(GPIOB, GPIO_PIN_11);
-    
-    
-    HAL_NVIC_DisableIRQ(I2C2_ER_IRQn);
-    HAL_NVIC_DisableIRQ(I2C2_EV_IRQn);
-
-  /* USER CODE BEGIN I2C3_MspDeInit 1 */
-
-  /* USER CODE END I2C3_MspDeInit 1 */
-  }
 
 }
 
@@ -434,25 +382,28 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
       
       /*##-3- Configure the DMA streams ##########################################*/
       /* Set the parameters to be configured */
-	  hdma_adc1.Instance = DMA2_Stream4;
-	  hdma_adc1.Init.Channel  = DMA_CHANNEL_0;
-	  hdma_adc1.Init.Direction = DMA_PERIPH_TO_MEMORY;
-	  hdma_adc1.Init.PeriphInc = DMA_PINC_DISABLE;
-	  hdma_adc1.Init.MemInc = DMA_MINC_ENABLE;
-	  hdma_adc1.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
-	  hdma_adc1.Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
-	  hdma_adc1.Init.Mode = DMA_CIRCULAR;
-	  hdma_adc1.Init.Priority = DMA_PRIORITY_LOW;
-	  hdma_adc1.Init.FIFOMode = DMA_FIFOMODE_DISABLE;         
+//	  hdma_adc1.Instance = DMA2_Stream4;
+//	  hdma_adc1.Init.Channel  = DMA_CHANNEL_0;
+//	  hdma_adc1.Init.Direction = DMA_PERIPH_TO_MEMORY;
+//	  hdma_adc1.Init.PeriphInc = DMA_PINC_DISABLE;
+//	  hdma_adc1.Init.MemInc = DMA_MINC_ENABLE;
+//	  hdma_adc1.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
+//	  hdma_adc1.Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
+//	  hdma_adc1.Init.Mode = DMA_CIRCULAR;
+//	  hdma_adc1.Init.Priority = DMA_PRIORITY_LOW;
+//	  hdma_adc1.Init.FIFOMode = DMA_FIFOMODE_DISABLE;         
           
 	  //hdma_adc1.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_HALFFULL;
 	  //hdma_adc1.Init.MemBurst = DMA_MBURST_SINGLE;
 	  //hdma_adc1.Init.PeriphBurst = DMA_PBURST_SINGLE; 
 
-	  HAL_DMA_Init(&hdma_adc1);
+//	  HAL_DMA_Init(&hdma_adc1);
         
+      HAL_NVIC_SetPriority(ADC_IRQn,0,0);
+      HAL_NVIC_EnableIRQ(ADC_IRQn);
+      
       /* Associate the initialized DMA handle to the the ADC handle */
-	  __HAL_LINKDMA(hadc, DMA_Handle, hdma_adc1);
+//	  __HAL_LINKDMA(hadc, DMA_Handle, hdma_adc1);
 
       /*##-4- Configure the NVIC for DMA #########################################*/
       /* NVIC configuration for DMA transfer complete interrupt */
@@ -466,7 +417,7 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
       
       /*##-1- Enable peripherals and GPIO Clocks #################################*/
       /* Enable GPIO clock */
-      __HAL_RCC_GPIOA_CLK_ENABLE();
+      __HAL_RCC_GPIOC_CLK_ENABLE();
 
       /* ADC3 Periph clock enable */
       __HAL_RCC_ADC3_CLK_ENABLE();
@@ -475,32 +426,36 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
       
       /*##-2- Configure peripheral GPIO ##########################################*/ 
       /* ADC3 Channel8 GPIO pin configuration */
-      GPIO_InitStruct.Pin = ANS_OUT_Pin;
+      GPIO_InitStruct.Pin = BAT_VCC_Pin;
       GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
       GPIO_InitStruct.Pull = GPIO_NOPULL;
-      HAL_GPIO_Init(ANS_OUT_Port, &GPIO_InitStruct);
+      HAL_GPIO_Init(BAT_VCC_GPIO_Port, &GPIO_InitStruct);
       
       /*##-3- Configure the DMA streams ##########################################*/
       /* Set the parameters to be configured */
-	  hdma_adc3.Instance = DMA2_Stream0;
-	  hdma_adc3.Init.Channel  = DMA_CHANNEL_2;
-	  hdma_adc3.Init.Direction = DMA_PERIPH_TO_MEMORY;
-	  hdma_adc3.Init.PeriphInc = DMA_PINC_DISABLE;
-	  hdma_adc3.Init.MemInc = DMA_MINC_ENABLE;
-	  hdma_adc3.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
-	  hdma_adc3.Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
-	  hdma_adc3.Init.Mode = DMA_CIRCULAR;
-	  hdma_adc3.Init.Priority = DMA_PRIORITY_LOW;
-	  hdma_adc3.Init.FIFOMode = DMA_FIFOMODE_DISABLE;         
+//	  hdma_adc3.Instance = DMA2_Stream0;
+//	  hdma_adc3.Init.Channel  = DMA_CHANNEL_2;
+//	  hdma_adc3.Init.Direction = DMA_PERIPH_TO_MEMORY;
+//	  hdma_adc3.Init.PeriphInc = DMA_PINC_DISABLE;
+//	  hdma_adc3.Init.MemInc = DMA_MINC_ENABLE;
+//	  hdma_adc3.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
+//	  hdma_adc3.Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
+//	  hdma_adc3.Init.Mode = DMA_CIRCULAR;
+//	  hdma_adc3.Init.Priority = DMA_PRIORITY_LOW;
+//	  hdma_adc3.Init.FIFOMode = DMA_FIFOMODE_DISABLE;         
           
 	  //hdma_adc1.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_HALFFULL;
 	  //hdma_adc1.Init.MemBurst = DMA_MBURST_SINGLE;
 	  //hdma_adc1.Init.PeriphBurst = DMA_PBURST_SINGLE; 
 
-	  HAL_DMA_Init(&hdma_adc3);
+//	  HAL_DMA_Init(&hdma_adc3);
+      
+      
+      HAL_NVIC_SetPriority(ADC_IRQn,0,0);
+      HAL_NVIC_EnableIRQ(ADC_IRQn);
         
       /* Associate the initialized DMA handle to the the ADC handle */
-	  __HAL_LINKDMA(hadc, DMA_Handle, hdma_adc3);
+//	  __HAL_LINKDMA(hadc, DMA_Handle, hdma_adc3);
 
       /*##-4- Configure the NVIC for DMA #########################################*/
       /* NVIC configuration for DMA transfer complete interrupt */
@@ -533,7 +488,7 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
       /*##-3- Disable the DMA Streams ############################################*/
       /* De-Initialize the DMA Stream associate to transmission process */
 
-	  HAL_DMA_DeInit(&hdma_adc1); 
+//	  HAL_DMA_DeInit(&hdma_adc1); 
       /*##-4- Disable the NVIC for DMA ###########################################*/
       //HAL_NVIC_DisableIRQ(DMA2_Stream0_IRQn);
 	  
@@ -553,12 +508,12 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
 	  //__HAL_RCC_DMA2_CLK_DISABLE();
       /*##-2- Disable peripherals and GPIO Clocks ################################*/
       /* De-initialize the ADC3 Channel8 GPIO pin */
-      HAL_GPIO_DeInit(ANS_OUT_Port, ANS_OUT_Pin);
+      HAL_GPIO_DeInit(BAT_VCC_GPIO_Port, BAT_VCC_Pin);
       
       /*##-3- Disable the DMA Streams ############################################*/
       /* De-Initialize the DMA Stream associate to transmission process */
 
-	  HAL_DMA_DeInit(&hdma_adc3); 
+//	  HAL_DMA_DeInit(&hdma_adc3); 
       /*##-4- Disable the NVIC for DMA ###########################################*/
       //HAL_NVIC_DisableIRQ(DMA2_Stream0_IRQn);
       

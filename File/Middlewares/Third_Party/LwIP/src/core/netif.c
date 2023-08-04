@@ -256,6 +256,8 @@ netif_add(struct netif *netif,
   ip_addr_set_zero_ip4(&netif->netmask);
   ip_addr_set_zero_ip4(&netif->gw);
 #endif /* LWIP_IPV4 */
+  
+  
 #if LWIP_IPV6
   for (i = 0; i < LWIP_IPV6_NUM_ADDRESSES; i++) {
     ip_addr_set_zero_ip6(&netif->ip6_addr[i]);

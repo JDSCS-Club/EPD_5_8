@@ -83,18 +83,6 @@ void ethernetif_notify_conn_changed(struct netif *netif)
       //MyPrintf_USART1( "%s(%d)\r\n", __func__, __LINE__ );
       
     MyPrintf_USART1 ("########### The network cable is now connected  \n\r");
-
-//    IP_ADDR4(&ipaddr, IP_ADDR0, IP_ADDR1, IP_ADDR2, IP_ADDR3);
-//    IP_ADDR4(&netmask, NETMASK_ADDR0, NETMASK_ADDR1 , NETMASK_ADDR2, NETMASK_ADDR3);
-//    IP_ADDR4(&gw, GW_ADDR0, GW_ADDR1, GW_ADDR2, GW_ADDR3);  
-//    
-//    netif_set_addr(netif, &ipaddr , &netmask, &gw);  
-//    
-//      
-//
-//    sprintf((char *)iptxt, "%s", ip4addr_ntoa((const ip4_addr_t *)&netif->ip_addr));
-//    MyPrintf_USART1 ("########### Static IP address: %s \n\r", iptxt);
-   
     
     DHCP_state = DHCP_START;
     
@@ -232,13 +220,8 @@ void DHCP_Process(struct netif *netif)
         }
         else
         {
-           
-    
             /* When the netif is fully configured this function must be called.*/
             netif_set_up(netif);    
-            
-            
-      
             
         }
         
