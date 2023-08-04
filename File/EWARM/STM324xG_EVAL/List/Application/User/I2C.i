@@ -27974,48 +27974,101 @@ void MyPrintf_USART1(char * format, ... );
 
 
 
-    extern I2C_HandleTypeDef hi2c1;
-    extern I2C_HandleTypeDef hi2c2;
-     
-     
-	 void MX_I2C_Process(void);
-		 
-     void MX_I2C1_Init(void);
-     void MX_I2C2_Init(void);
-    
-     void AMP_Init(uint16_t Address); 
-    
-    
-     
-    
-    
-      void AMP_Mute_OFF(
+        extern I2C_HandleTypeDef hi2c1;
+        extern I2C_HandleTypeDef hi2c2;
+
+
+        void MX_I2C_Process(void);
+         
+        void MX_I2C1_Init(void);
+
+
+        void AMP_Init(uint16_t Address); 
+
+
+        
+        
+
+        void AMP_Mute_OFF(
                    uint16_t Address1, 
                    uint16_t Address2, 
                    uint16_t Address3);
-     
-      void AMP_Mute_ON(
+
+        void AMP_Mute_ON(
                    uint16_t Address1,uint8_t ad_ch1,
                    uint16_t Address2,uint8_t ad_ch2,
                    uint16_t Address3,uint8_t ad_ch3);
           
           
-    
-     int I2C_HAL_WriteBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t TxBufferSize);
-     
+
+        int I2C_HAL_WriteBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t TxBufferSize);
+
          
          
-     int I2C_HAL_ReadBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t RxBufferSize);
+        int I2C_HAL_ReadBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t RxBufferSize);
+
+
+        void AMP_FAULT(void);
+
+        void AMP_SPK_CHECK(void);
+
+        int AMP_PowOn_Check(void);
+
+        void processCurrentVal(void);
+
+        int at24_HAL_WriteBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t TxBufferSize);
+        int at24_HAL_ReadBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t RxBufferSize);
      
-     
-     void AMP_FAULT(void);
-     
-     void AMP_SPK_CHECK(void);
-     
-     int AMP_PowOn_Check(void);
-     
-     void processCurrentVal(void);
-     
+        
+       
+
+
+        
+void TestEEPROM( I2C_HandleTypeDef *hi2c );
+
+         
+enum eEEPAddr
+{
+	EPPAddrQBufLog = 0x100,
+
+	EPPAddrMagicNumH = (EPPAddrQBufLog - 8),
+	EPPAddrMagicNumL,
+	EPPAddrMaxLogSizeH,
+	EPPAddrMaxLogSizeL,
+	EPPAddrQBufStartH,
+	EPPAddrQBufStartL,
+	EPPAddrQBufEndH,
+	EPPAddrQBufEndL,
+};
+
+enum eEEPVal
+{
+	EEPMagicNumH = 0xAA,
+	EEPMagicNumL = 0x55,
+
+	EEPLogMaxSize = 0x800, 
+
+};
+
+void TestEEPLog(void);
+
+int EEPLogInit(I2C_HandleTypeDef *hi2c);
+int EEPLogReset		( void );
+
+int EEPLogGetMaxSize( void );
+int EEPLogGetSize	( void );
+
+int EEPLogWrite		( char sBuf[] );
+
+
+int EEPLogPrint		( void );
+
+int cmd_logPrint(int argc, char *argv[]);
+
+int cmd_logTest(int argc, char *argv[]);
+
+int cmd_logReset(int argc, char *argv[]);
+
      
 
      
@@ -28115,8 +28168,28 @@ void njw1192_mute(uint8_t On_Off);
  
      
 
+ 
+
+     
+     
+     
+  
+     
+     
+
+     
+     
+     
+     
+     
+ 
+     
 
 
+     
+ 
+     
+     
 enum AMP_MUTE
 {
     AMP_ID_0        =   0x00,
@@ -28239,7 +28312,7 @@ extern volatile uint16_t ADCValue[6];
  
  
  
- 
+
 
 
 
@@ -29806,6 +29879,107 @@ void OLED_Print(void);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
      
 
 
@@ -29858,29 +30032,59 @@ void OLED_Print(void);
 
 
 
-_Bool getAmp1_Pault(void);        
-_Bool getAmp2_Pault(void);        
-_Bool getAmp3_Pault(void);        
-_Bool getSW_RS(void);             
-_Bool getSW_SL(void);            
-_Bool getSW_SR(void);             
-_Bool getSW_AR(void);            
-_Bool getSW_Broad(void);         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
-
-
-
-void setRSP_Led(_Bool state);     
-void setOSP_Led(_Bool state) ;   
-void setAMP_Standby(_Bool state);
-void setBk_Out_1(_Bool state);   
-void setBk_Out_2(_Bool state);    
-void setBk_Out_3(_Bool state);   
-void setBk_Out_4(_Bool state);    
-void setBk_Out_5(_Bool state);   
-void setBk_Out_6(_Bool state);    
-void setAmp_Mute_1(_Bool state);
-void setAmp_Mute_2(_Bool state); 
 
 
 
@@ -29892,8 +30096,55 @@ void setAmp_Mute_2(_Bool state);
      
      
 
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+typedef struct _QBuf_t
+{
+
+
+	uint8_t	*qBuf;
+	int	size;
+
+	int front, rear;
+
+} QBuf_t;
+
+
+void	qBufInit	( QBuf_t *q, uint8_t *_qBuf, int _size );
+void	qBufClear	( QBuf_t *q );
+int		qBufCnt		( QBuf_t *q );
+int		qBufPut		( QBuf_t *q, uint8_t *pBuf, int size );
+int		qBufGet		( QBuf_t *q, uint8_t *pBuf, int size );
+
+
+
+void	QBufTest	( QBuf_t *q, int blkSize );
+
+
+
+
+
+
+
+
+
 I2C_HandleTypeDef hi2c1;
-I2C_HandleTypeDef hi2c2;
 
 
 
@@ -29906,13 +30157,15 @@ void MX_I2C1_Init(void)
 {
 	GPIO_InitTypeDef   GPIO_InitStructure;
 
+    do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (1U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (1U)))); ((void)(tmpreg)); } while(0U);
+    
 	GPIO_InitStructure.Pin =  ((uint16_t)0x0100) | ((uint16_t)0x0200);
 	GPIO_InitStructure.Mode = 0x00000012U;
 	GPIO_InitStructure.Pull = 0x00000001U;
 	GPIO_InitStructure.Speed = 0x00000001U;
 	GPIO_InitStructure.Alternate = ((uint8_t)0x04);
         
-	do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (1U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (1U)))); ((void)(tmpreg)); } while(0U);
+	
 	HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0400U)), &GPIO_InitStructure); 
         
 
@@ -29929,7 +30182,7 @@ void MX_I2C1_Init(void)
 
 	 
 	hi2c1.Instance = ((I2C_TypeDef *) (0x40000000U + 0x5400U));
-	hi2c1.Init.ClockSpeed = 400000;
+	hi2c1.Init.ClockSpeed = 100000;
 	hi2c1.Init.DutyCycle = 0x00000000U;
 	hi2c1.Init.OwnAddress1 = 0;
 	hi2c1.Init.AddressingMode = 0x00004000U;
@@ -29942,58 +30195,7 @@ void MX_I2C1_Init(void)
 	{
 		Error_Handler();
 	}
-
-
 }
-
-
-
-
-
-
- 
-void MX_I2C2_Init(void)
-{
-  
-	GPIO_InitTypeDef   GPIO_InitStructure;
-
-	GPIO_InitStructure.Pin =  ((uint16_t)0x0400) | ((uint16_t)0x0800);
-	GPIO_InitStructure.Mode = 0x00000012U;
-	GPIO_InitStructure.Pull = 0x00000001U;
-	GPIO_InitStructure.Speed = 0x00000001U;
-	GPIO_InitStructure.Alternate = ((uint8_t)0x04);
-        
-	do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (1U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (1U)))); ((void)(tmpreg)); } while(0U);
-	HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0400U)), &GPIO_InitStructure); 
-        
-
-	HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0400U)), ((uint16_t)0x0400), GPIO_PIN_SET);
-	HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0400U)), ((uint16_t)0x0800), GPIO_PIN_SET);
-
-	 
-
-	 
-
-	 
-
-	 
-	hi2c2.Instance = ((I2C_TypeDef *) (0x40000000U + 0x5800U));
-	hi2c2.Init.ClockSpeed = 400000;
-	hi2c2.Init.DutyCycle = 0x00000000U;
-	hi2c2.Init.OwnAddress1 = 0;
-	hi2c2.Init.AddressingMode = 0x00004000U;
-	hi2c2.Init.DualAddressMode = 0x00000000U;
-	hi2c2.Init.OwnAddress2 = 0;
-	hi2c2.Init.GeneralCallMode = 0x00000000U;
-	hi2c2.Init.NoStretchMode = 0x00000000U;
-      
-	if (HAL_I2C_Init(&hi2c2) != HAL_OK)
-	{
-		Error_Handler();
-	}
-
-}
-
 
 
 
@@ -30444,41 +30646,75 @@ void AMP_Init(uint16_t Address)
 	uint8_t     nRbuf[10];
       
 
-     MyPrintf_USART1( "+++++ %s(%d)\r\n", __func__, 580 );
+     MyPrintf_USART1( "+++++ %s(%d)\r\n", __func__, 533 );
      
      
      if(mLed_Process_Flag.sVolTestFlg == 1) { nRbuf[0] = 0x14; } 
      else                                   { nRbuf[0] = 0x3A; }
      
-       
-    I2C_HAL_WriteBytes(&hi2c1, AMP_ID_1, 0x08, (uint8_t *)nRbuf, 1);
-    I2C_HAL_WriteBytes(&hi2c1, AMP_ID_2, 0x08, (uint8_t *)nRbuf, 1);
-    I2C_HAL_WriteBytes(&hi2c1, AMP_ID_3, 0x08, (uint8_t *)nRbuf, 1);
+       nRbuf[0] = 0xAA; 
+   
+     if(I2C_HAL_WriteBytes(&hi2c1, AMP_ID_1, 0x08, (uint8_t *)nRbuf, 1))
+    {
+        MyPrintf_USART1("-Gain Select (0xD8-0x%02X) OK \r\n",nRbuf[0] );
+    }
+    else
+    {
+        MyPrintf_USART1( "-Gain Select (0xD8-0x08) NG \r\n" );
+    }
+
+
     
     
     
     nRbuf[0] = 0x0C; 
-	I2C_HAL_WriteBytes(&hi2c1, AMP_ID_1, 0x0A, (uint8_t *)nRbuf, 1);
-    I2C_HAL_WriteBytes(&hi2c1, AMP_ID_2, 0x0A, (uint8_t *)nRbuf, 1);
-    I2C_HAL_WriteBytes(&hi2c1, AMP_ID_3, 0x0A, (uint8_t *)nRbuf, 1);
+	
+    if(I2C_HAL_WriteBytes(&hi2c1, AMP_ID_1, 0x0A, (uint8_t *)nRbuf, 1))
+    {
+        MyPrintf_USART1("- Clip_OTW Configuration (0xD8-0x%02X) OK \r\n",nRbuf[0] );
+    }
+    else
+    {
+        MyPrintf_USART1( "- Clip_OTW Configuration (0xD8-0x0A) NG \r\n" );
+    }
+
+
     
     
     
-    nRbuf[0] = 0xD2; 
-	I2C_HAL_WriteBytes(&hi2c1, AMP_ID_1, 0x0b, (uint8_t *)nRbuf, 1);
+    nRbuf[0] = 0xD6; 
     
-    nRbuf[0] = 0x12;
-	I2C_HAL_WriteBytes(&hi2c1, AMP_ID_2, 0x0b, (uint8_t *)nRbuf, 1);
+	if(I2C_HAL_WriteBytes(&hi2c1, AMP_ID_1, 0x0b, (uint8_t *)nRbuf, 1))
+    {
+        MyPrintf_USART1("-Load Diagnostics (0xD8-0x%02X) OK \r\n",nRbuf[0] );
+    }
+    else
+    {
+        MyPrintf_USART1( "-Load Diagnostics (0xD8-0x0B) NG \r\n" );
+    }
     
-    nRbuf[0] = 0x16;
-	I2C_HAL_WriteBytes(&hi2c1, AMP_ID_3, 0x0b, (uint8_t *)nRbuf, 1);
+    nRbuf[0] = 0x00; 
+    if(I2C_HAL_WriteBytes(&hi2c1, AMP_ID_1, 0x0C, (uint8_t *)nRbuf, 1))
+    {
+        MyPrintf_USART1("-play mode (0xD8-0xC%02X) OK \r\n",nRbuf[0] );
+    }
+    else
+    {
+        MyPrintf_USART1( "-play mode (0xD8-0x0C) NG \r\n" );
+    }
+
+
+
+
+
+
     
 	HAL_Delay(5);  
       
 	nRbuf[0] = 0xFF;
 	I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x00, (uint8_t *)nRbuf, 1);
-	I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x00, (uint8_t *)nRbuf, 1);
-	I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x00, (uint8_t *)nRbuf, 1);
+
+
 
     
 
@@ -30560,7 +30796,7 @@ int AMP_PowOn_Check(void)
     sPowerStandBy = 0;
     
     
-    MyPrintf_USART1( "+++++ %s(%d)\r\n", __func__, 696 );
+    MyPrintf_USART1( "+++++ %s(%d)\r\n", __func__, 683 );
     
     
     I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x00, (uint8_t *)nRbuf, 1);
@@ -31052,6 +31288,606 @@ void AMP_SPK_CHECK(void)
 
     
 }
+
+
+
+
+
+
+ 
+
+int at24_HAL_WriteBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t TxBufferSize)
+
+{
+	
+
+
+
+
+ 
+	
+
+	static HAL_StatusTypeDef ret;
+	
+
+	uint16_t nSize;
+
+	MyPrintf_USART1("eepwr [0x%04X] size(%d)\r\n", MemAddress, TxBufferSize);
+
+	while ( TxBufferSize > 0 )
+	{
+		
+		if ( ( MemAddress % 16 ) != 0 )
+		{
+			
+			
+			int nMargin = ( 16 - (MemAddress % 16) );
+			if (TxBufferSize < nMargin)
+				nSize = TxBufferSize;
+			else nSize = nMargin;
+		}
+		else if ( TxBufferSize < 16 )	nSize = TxBufferSize;
+		else							nSize = 16;
+		
+		
+		ret = HAL_I2C_Mem_Write(hi2c, (uint16_t)DevAddress, (uint16_t)MemAddress, 0x00000010U, pData, nSize, 2);
+        
+		if (ret == HAL_OK)
+		{
+			
+			HAL_Delay(5);
+			
+		}
+		else
+		{
+			MyPrintf_USART1("%s(%d) - failed\r\n", __func__, 1247);
+			return 0;
+		}
+
+		pData += nSize;
+		MemAddress += nSize;
+		TxBufferSize -= nSize;
+	}
+
+
+	return 1;
+}
+
+
+
+
+
+
+
+ 
+
+
+
+int at24_HAL_ReadBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t RxBufferSize)
+
+{
+	
+
+
+
+
+ 
+	
+
+	static HAL_StatusTypeDef ret;
+
+
+	uint16_t nSize;
+
+
+
+	while (RxBufferSize > 0)
+	{
+		
+		if ((MemAddress % 16) != 0)
+		{
+			
+			
+			int nMargin = (16 - (MemAddress % 16));
+			if (RxBufferSize < nMargin)
+				nSize = RxBufferSize;
+			else
+				nSize = nMargin;
+		}
+		else if (RxBufferSize < 16)
+			nSize = RxBufferSize;
+		else
+			nSize = 16;
+
+		
+        
+            
+		ret = HAL_I2C_Mem_Read(hi2c, (uint16_t)DevAddress, (uint16_t)MemAddress, 0x00000010U, pData, (uint16_t)nSize, 2);
+
+		if (ret == HAL_OK)
+		{
+			
+			
+		}
+		else
+		{
+			MyPrintf_USART1("%s(%d) - failed\r\n", __func__, 1335);
+			return 0;
+		}
+
+		pData += nSize;
+		MemAddress += nSize;
+		RxBufferSize -= nSize;
+	}
+
+
+	return 1;
+}
+
+
+
+
+
+
+ 
+
+void TestEEPROM( I2C_HandleTypeDef *hi2c )
+
+{
+	char d[3]={0xAA,0xBB,0xCC};
+	char c[3]={20,20,20};
+	
+	MyPrintf_USART1("%s - 0x%02X, 0x%02X, 0x%02X\r\n", __func__, c[0],c[1],c[2]);
+	at24_HAL_ReadBytes(hi2c, 0xA0, 0, c, 3);
+	MyPrintf_USART1("%s - 0x%02X, 0x%02X, 0x%02X\r\n", __func__, c[0],c[1],c[2]);
+	
+	at24_HAL_WriteBytes(hi2c, 0xA0, 0, d, 3);
+
+	at24_HAL_ReadBytes(hi2c, 0xA0, 0, c, 3);
+	MyPrintf_USART1("%s - 0x%02X, 0x%02X, 0x%02X\r\n", __func__, c[0],c[1],c[2]);
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+}
+
+
+
+
+
+
+ 
+
+QBuf_t 	g_qLog;
+I2C_HandleTypeDef *g_hi2c = 0;
+
+union
+{
+	char cBuf[2];
+	uint16_t nVal;
+} s_n16Val;
+
+
+const int s_cLogBufSize = 256;
+char s_sLogBuf[257];
+
+
+void TestEEPLog( void )
+
+{
+	printf("%s(%d)\n", __func__, 1454);
+
+	EEPLogWrite( "TEST Log Write\n");		
+	EEPLogWrite( "TEST Log2\n");
+	EEPLogWrite( "TEST Log3\n");
+
+	EEPLogPrint();
+}
+
+
+
+
+ 
+
+uint16_t EEPWrite16(uint16_t nAddr, uint16_t _nVal)
+
+{
+	if ( g_hi2c == 0 )	return 0;
+
+	s_n16Val.nVal = _nVal;
+
+	at24_HAL_WriteBytes(g_hi2c, 0xA0, nAddr, s_n16Val.cBuf, 2);
+
+	return s_n16Val.nVal;
+}
+
+
+
+
+ 
+
+uint16_t EEPRead16(uint16_t nAddr)
+
+{
+	if ( g_hi2c == 0 )	return 0;
+
+	at24_HAL_ReadBytes(g_hi2c, 0xA0, nAddr, s_n16Val.cBuf, 2);
+
+	return s_n16Val.nVal;
+}
+
+
+
+
+ 
+
+int EEPLogInit( I2C_HandleTypeDef *hi2c )
+
+{
+	MyPrintf_USART1( "%s(%d)\n\r", __func__, 1503 );
+
+	g_hi2c = hi2c;
+
+	at24_HAL_ReadBytes(g_hi2c, 0xA0, EPPAddrMagicNumH, s_n16Val.cBuf, 2);
+
+	if (!(s_n16Val.cBuf[0] == EEPMagicNumH && s_n16Val.cBuf[1] == EEPMagicNumL))
+	{
+		EEPLogReset();
+	}
+
+	g_qLog.size 	= 	EEPRead16( EPPAddrMaxLogSizeH );
+	g_qLog.front 	= 	EEPRead16( EPPAddrQBufStartH );
+	g_qLog.rear 	= 	EEPRead16( EPPAddrQBufEndH );
+
+	MyPrintf_USART1("%s(%d) - size : 0x%04X / front : 0x%04X / rear : 0x%04X\n\r", __func__, 1518,
+		   g_qLog.size, g_qLog.front, g_qLog.rear );
+
+	return 1;
+}
+
+
+
+
+ 
+
+int EEPLogReset(void)
+
+{
+	if (g_hi2c == 0)
+		return 0;
+
+	MyPrintf_USART1("%s(%d)EEPLogInit", __func__, 1535);
+
+	s_n16Val.cBuf[0] = EEPMagicNumH;
+	s_n16Val.cBuf[1] = EEPMagicNumL;
+	EEPWrite16(EPPAddrMagicNumH, s_n16Val.nVal);	
+
+	EEPWrite16(EPPAddrMaxLogSizeH, EEPLogMaxSize);
+
+	EEPWrite16(EPPAddrQBufStartH, 0);
+	EEPWrite16(EPPAddrQBufEndH, 0);
+
+	g_qLog.size = EEPLogMaxSize;
+	g_qLog.front = 0;
+	g_qLog.rear = 0;
+
+	return 1;
+}
+
+
+
+
+ 
+
+int EEPLogGetMaxSize(void)
+
+{
+	if (g_hi2c == 0)
+		return 0;
+
+	MyPrintf_USART1("%s(%d)\n", __func__, 1564);
+
+	return EEPRead16(EPPAddrMaxLogSizeH);
+}
+
+
+
+
+ 
+
+int EEPLogGetSize(void)
+
+{
+	return qBufCnt(&g_qLog);
+}
+
+
+
+
+ 
+
+int EEPLogWrite(char *sBuf)
+
+{
+	
+	int nLen;
+	nLen = strlen(sBuf);
+
+	printf("%s(%d) - rear(%d) / len(%d) / %s\n", __func__, 1592, g_qLog.rear, nLen, sBuf);
+
+
+	if ( g_qLog.rear + nLen > g_qLog.size )
+	{
+		
+		
+		char *pBuf = sBuf;
+		int nIdx;
+		int nSize;
+		char *sNull = "\0";
+
+		nIdx = g_qLog.rear;
+
+		nSize = g_qLog.size - g_qLog.rear;
+
+		
+		at24_HAL_WriteBytes(g_hi2c, 0xA0, EPPAddrQBufLog + g_qLog.rear, pBuf, nSize);
+		at24_HAL_WriteBytes(g_hi2c, 0xA0, EPPAddrQBufLog + g_qLog.size, sNull, 1);		
+
+		
+		pBuf += nSize;
+		nSize = nLen - nSize;
+		at24_HAL_WriteBytes(g_hi2c, 0xA0, EPPAddrQBufLog + 0, pBuf, nSize + 1);
+
+		g_qLog.rear = nSize;
+		EEPWrite16(EPPAddrQBufEndH, g_qLog.rear);
+
+		g_qLog.front = ( g_qLog.rear + 2 ) % g_qLog.size;
+		EEPWrite16(EPPAddrQBufStartH, g_qLog.front);
+	}
+	else
+	{
+		at24_HAL_WriteBytes(g_hi2c, 0xA0, EPPAddrQBufLog + g_qLog.rear, sBuf, nLen + 1);
+
+		if ((g_qLog.rear + 2) % g_qLog.size == g_qLog.front)
+		{
+			
+			g_qLog.rear = (g_qLog.rear + nLen) % g_qLog.size;
+			EEPWrite16(EPPAddrQBufEndH, g_qLog.rear);
+
+			g_qLog.front = (g_qLog.rear + 2) % g_qLog.size;
+			EEPWrite16(EPPAddrQBufStartH, g_qLog.front);
+		}
+		else
+		{
+			g_qLog.rear = (g_qLog.rear + nLen) % g_qLog.size;
+			EEPWrite16(EPPAddrQBufEndH, g_qLog.rear);
+		}
+	}
+
+
+
+
+	
+
+
+
+
+
+
+ 
+
+}
+
+
+
+
+ 
+
+int EEPLogPrint(void)
+
+{
+	
+	printf("%s(%d)\n", __func__, 1668);
+
+	int nIdx;
+	int nSize;
+	int nRxSize;
+
+	nIdx = g_qLog.front;
+	nSize = qBufCnt(&g_qLog);
+
+	printf("%s(%d) - logsize(%d) / front(%d)/rear(%d)\n", __func__, 1677,
+		   nSize, g_qLog.front, g_qLog.rear );
+
+	if ( g_qLog.front == g_qLog.rear )
+	{
+		
+		printf("%s(%d) - No Log Skip ( front(0x%02X) / rear(0x%02X) )\n",
+			__func__, 1684, g_qLog.front, g_qLog.rear );
+	}
+	else if ( g_qLog.front < g_qLog.rear )
+	{
+		
+		
+
+		
+		while ( nIdx < g_qLog.rear )
+		{
+			nRxSize = g_qLog.rear - nIdx;
+
+			
+			
+
+			if ( nRxSize < s_cLogBufSize )
+			{
+				
+				at24_HAL_ReadBytes(g_hi2c, 0xA0, EPPAddrQBufLog + nIdx, s_sLogBuf, nRxSize);
+				s_sLogBuf[nRxSize] = '\0';
+				printf(s_sLogBuf);
+				nIdx += nRxSize;
+				break;
+			}
+			else
+			{
+				at24_HAL_ReadBytes(g_hi2c, 0xA0, EPPAddrQBufLog + nIdx, s_sLogBuf, s_cLogBufSize);
+				s_sLogBuf[s_cLogBufSize] = '\0';
+				printf(s_sLogBuf);
+				nIdx += s_cLogBufSize;
+			}
+
+			
+		}
+	}
+	else
+	{
+		
+		
+
+		
+		while ( nIdx < g_qLog.size )
+		{
+			nRxSize = g_qLog.size - nIdx;
+
+			
+			
+
+			if (nRxSize < s_cLogBufSize)
+			{
+				
+				at24_HAL_ReadBytes(g_hi2c, 0xA0, EPPAddrQBufLog + nIdx, s_sLogBuf, nRxSize);
+				s_sLogBuf[nRxSize] = '\0';
+				printf(s_sLogBuf);
+				nIdx += nRxSize;
+				break;
+			}
+			else
+			{
+				at24_HAL_ReadBytes(g_hi2c, 0xA0, EPPAddrQBufLog + nIdx, s_sLogBuf, s_cLogBufSize);
+				s_sLogBuf[s_cLogBufSize] = '\0';
+				printf(s_sLogBuf);
+				nIdx += s_cLogBufSize;
+			}
+		}
+
+		
+		nIdx = 0;
+		while (nIdx < g_qLog.rear)
+		{
+			nRxSize = g_qLog.rear - nIdx;
+
+			if (nRxSize < s_cLogBufSize)
+			{
+				
+				at24_HAL_ReadBytes(g_hi2c, 0xA0, EPPAddrQBufLog + nIdx, s_sLogBuf, nRxSize);
+				s_sLogBuf[nRxSize] = '\0';
+				printf(s_sLogBuf);
+				nIdx += nRxSize;
+				break;
+			}
+			else
+			{
+				at24_HAL_ReadBytes(g_hi2c, 0xA0, EPPAddrQBufLog + nIdx, s_sLogBuf, s_cLogBufSize);
+				s_sLogBuf[s_cLogBufSize] = '\0';
+				printf(s_sLogBuf);
+				nIdx += s_cLogBufSize;
+			}
+		}
+	}
+}
+
+
+
+
+
+
+ 
+
+int cmd_logPrint(int argc, char *argv[])
+
+{
+	printf("%s(%d)\n", __func__, 1786);
+	EEPLogPrint();
+}
+
+
+
+
+ 
+
+int cmd_logTest(int argc, char *argv[])
+
+{
+	printf("%s(%d)\n", __func__, 1798);
+	TestEEPLog();
+}
+
+
+
+
+ 
+
+int cmd_logReset(int argc, char *argv[])
+
+{
+	printf("%s(%d)\n", __func__, 1810);
+	EEPLogReset();
+}
+
+
 
 
 

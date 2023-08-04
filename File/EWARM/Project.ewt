@@ -1434,6 +1434,9 @@
         <group>
             <name>User</name>
             <file>
+                <name>$PROJ_DIR$\..\Src\adc.c</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\Src\AmpGpio.c</name>
             </file>
             <file>
@@ -1456,6 +1459,15 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\main.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Src\naranja_boron.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Src\QBuf.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Src\spi_flash.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\stm32f4xx_hal_msp.c</name>
@@ -1588,6 +1600,9 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_adc.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_adc_ex.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.c</name>

@@ -27934,48 +27934,101 @@ void MyPrintf_USART1(char * format, ... );
 
 
 
-    extern I2C_HandleTypeDef hi2c1;
-    extern I2C_HandleTypeDef hi2c2;
-     
-     
-	 void MX_I2C_Process(void);
-		 
-     void MX_I2C1_Init(void);
-     void MX_I2C2_Init(void);
-    
-     void AMP_Init(uint16_t Address); 
-    
-    
-     
-    
-    
-      void AMP_Mute_OFF(
+        extern I2C_HandleTypeDef hi2c1;
+        extern I2C_HandleTypeDef hi2c2;
+
+
+        void MX_I2C_Process(void);
+         
+        void MX_I2C1_Init(void);
+
+
+        void AMP_Init(uint16_t Address); 
+
+
+        
+        
+
+        void AMP_Mute_OFF(
                    uint16_t Address1, 
                    uint16_t Address2, 
                    uint16_t Address3);
-     
-      void AMP_Mute_ON(
+
+        void AMP_Mute_ON(
                    uint16_t Address1,uint8_t ad_ch1,
                    uint16_t Address2,uint8_t ad_ch2,
                    uint16_t Address3,uint8_t ad_ch3);
           
           
-    
-     int I2C_HAL_WriteBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t TxBufferSize);
-     
+
+        int I2C_HAL_WriteBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t TxBufferSize);
+
          
          
-     int I2C_HAL_ReadBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t RxBufferSize);
+        int I2C_HAL_ReadBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t RxBufferSize);
+
+
+        void AMP_FAULT(void);
+
+        void AMP_SPK_CHECK(void);
+
+        int AMP_PowOn_Check(void);
+
+        void processCurrentVal(void);
+
+        int at24_HAL_WriteBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t TxBufferSize);
+        int at24_HAL_ReadBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t RxBufferSize);
      
-     
-     void AMP_FAULT(void);
-     
-     void AMP_SPK_CHECK(void);
-     
-     int AMP_PowOn_Check(void);
-     
-     void processCurrentVal(void);
-     
+        
+       
+
+
+        
+void TestEEPROM( I2C_HandleTypeDef *hi2c );
+
+         
+enum eEEPAddr
+{
+	EPPAddrQBufLog = 0x100,
+
+	EPPAddrMagicNumH = (EPPAddrQBufLog - 8),
+	EPPAddrMagicNumL,
+	EPPAddrMaxLogSizeH,
+	EPPAddrMaxLogSizeL,
+	EPPAddrQBufStartH,
+	EPPAddrQBufStartL,
+	EPPAddrQBufEndH,
+	EPPAddrQBufEndL,
+};
+
+enum eEEPVal
+{
+	EEPMagicNumH = 0xAA,
+	EEPMagicNumL = 0x55,
+
+	EEPLogMaxSize = 0x800, 
+
+};
+
+void TestEEPLog(void);
+
+int EEPLogInit(I2C_HandleTypeDef *hi2c);
+int EEPLogReset		( void );
+
+int EEPLogGetMaxSize( void );
+int EEPLogGetSize	( void );
+
+int EEPLogWrite		( char sBuf[] );
+
+
+int EEPLogPrint		( void );
+
+int cmd_logPrint(int argc, char *argv[]);
+
+int cmd_logTest(int argc, char *argv[]);
+
+int cmd_logReset(int argc, char *argv[]);
+
      
 
      
@@ -28075,8 +28128,28 @@ void njw1192_mute(uint8_t On_Off);
  
      
 
+ 
+
+     
+     
+     
+  
+     
+     
+
+     
+     
+     
+     
+     
+ 
+     
 
 
+     
+ 
+     
+     
 enum AMP_MUTE
 {
     AMP_ID_0        =   0x00,
@@ -28199,7 +28272,7 @@ extern volatile uint16_t ADCValue[6];
  
  
  
- 
+
 
 
 
@@ -28831,6 +28904,107 @@ extern mLED_PROCESS_Flag mLed_Process_Flag;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
      
 
 
@@ -28883,29 +29057,59 @@ extern mLED_PROCESS_Flag mLed_Process_Flag;
 
 
 
-_Bool getAmp1_Pault(void);        
-_Bool getAmp2_Pault(void);        
-_Bool getAmp3_Pault(void);        
-_Bool getSW_RS(void);             
-_Bool getSW_SL(void);            
-_Bool getSW_SR(void);             
-_Bool getSW_AR(void);            
-_Bool getSW_Broad(void);         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
-
-
-
-void setRSP_Led(_Bool state);     
-void setOSP_Led(_Bool state) ;   
-void setAMP_Standby(_Bool state);
-void setBk_Out_1(_Bool state);   
-void setBk_Out_2(_Bool state);    
-void setBk_Out_3(_Bool state);   
-void setBk_Out_4(_Bool state);    
-void setBk_Out_5(_Bool state);   
-void setBk_Out_6(_Bool state);    
-void setAmp_Mute_1(_Bool state);
-void setAmp_Mute_2(_Bool state); 
 
 
 
@@ -29099,18 +29303,18 @@ void HAL_RTC_MspInit(RTC_HandleTypeDef *hrtc)
 	 
 	RCC_OscInitStruct.OscillatorType = 0x00000008U | 0x00000004U;
 	RCC_OscInitStruct.PLL.PLLState = ((uint8_t)0x00);
-	RCC_OscInitStruct.LSEState = (0x1U << (0U));
-	RCC_OscInitStruct.LSIState = ((uint8_t)0x00);
+	RCC_OscInitStruct.LSIState = ((uint8_t)0x01);
+	RCC_OscInitStruct.LSEState = 0x00000000U;
 	if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
 	{
-		
+		Error_Handler();
 	}
 
 	PeriphClkInitStruct.PeriphClockSelection = 0x00000002U;
-	PeriphClkInitStruct.RTCClockSelection = 0x00000100U;
+	PeriphClkInitStruct.RTCClockSelection = 0x00000200U;
 	if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
 	{
-		
+		Error_Handler();
 	}
 
    
@@ -29158,7 +29362,7 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
 
 
  
-    GPIO_InitStruct.Pin = ((uint16_t)0x0040)|((uint16_t)0x0080);
+    GPIO_InitStruct.Pin = ((uint16_t)0x0100)|((uint16_t)0x0200);
     GPIO_InitStruct.Mode = 0x00000012U;
     GPIO_InitStruct.Pull = 0x00000001U;
     GPIO_InitStruct.Speed = 0x00000002U;
@@ -29181,36 +29385,7 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
 
    
   }
-  else if(hi2c->Instance==((I2C_TypeDef *) (0x40000000U + 0x5800U)))
-  {
-   
-
-   
-
-    do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (1U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (1U)))); ((void)(tmpreg)); } while(0U);
-    
-
-
- 
-    GPIO_InitStruct.Pin = ((uint16_t)0x0400)|((uint16_t)0x0800);
-    GPIO_InitStruct.Mode = 0x00000012U;
-    GPIO_InitStruct.Pull = 0x00000001U;
-    GPIO_InitStruct.Speed = 0x00000002U;
-    GPIO_InitStruct.Alternate = ((uint8_t)0x04);
-    HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0400U)), &GPIO_InitStruct);
-
-     
-    do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->APB1ENR) |= ((0x1U << (22U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->APB1ENR) & ((0x1U << (22U)))); ((void)(tmpreg)); } while(0U);
-   
-
-    HAL_NVIC_SetPriority(I2C2_ER_IRQn, 1, 0);
-  HAL_NVIC_EnableIRQ(I2C2_ER_IRQn);
-  HAL_NVIC_SetPriority(I2C2_EV_IRQn, 2, 0);
-  HAL_NVIC_EnableIRQ(I2C2_EV_IRQn);
-    
-
-   
-  }
+  
 
 }
 
@@ -29235,9 +29410,9 @@ void HAL_I2C_MspDeInit(I2C_HandleTypeDef* hi2c)
 
 
  
-    HAL_GPIO_DeInit(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0400U)), ((uint16_t)0x0040));
+    HAL_GPIO_DeInit(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0400U)), ((uint16_t)0x0100));
 
-    HAL_GPIO_DeInit(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0400U)), ((uint16_t)0x0080));
+    HAL_GPIO_DeInit(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0400U)), ((uint16_t)0x0200));
 
     
     HAL_NVIC_DisableIRQ(I2C1_ER_IRQn);
@@ -29248,30 +29423,7 @@ void HAL_I2C_MspDeInit(I2C_HandleTypeDef* hi2c)
 
    
   }
-  else if(hi2c->Instance==((I2C_TypeDef *) (0x40000000U + 0x5800U)))
-  {
-   
 
-   
-     
-    (((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->APB1ENR &= ~((0x1U << (22U))));
-
-    
-
-
- 
-    HAL_GPIO_DeInit(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0400U)), ((uint16_t)0x0400));
-
-    HAL_GPIO_DeInit(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0400U)), ((uint16_t)0x0800));
-    
-    
-    HAL_NVIC_DisableIRQ(I2C2_ER_IRQn);
-    HAL_NVIC_DisableIRQ(I2C2_EV_IRQn);
-
-   
-
-   
-  }
 
 }
 
@@ -29311,25 +29463,28 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
       
        
        
-	  hdma_adc1.Instance = ((DMA_Stream_TypeDef *) (((0x40000000U + 0x00020000U) + 0x6400U) + 0x070U));
-	  hdma_adc1.Init.Channel  = 0x00000000U;
-	  hdma_adc1.Init.Direction = 0x00000000U;
-	  hdma_adc1.Init.PeriphInc = 0x00000000U;
-	  hdma_adc1.Init.MemInc = ((uint32_t)(0x1U << (10U)));
-	  hdma_adc1.Init.PeriphDataAlignment = ((uint32_t)(0x2U << (11U)));
-	  hdma_adc1.Init.MemDataAlignment = ((uint32_t)(0x2U << (13U)));
-	  hdma_adc1.Init.Mode = ((uint32_t)(0x1U << (8U)));
-	  hdma_adc1.Init.Priority = 0x00000000U;
-	  hdma_adc1.Init.FIFOMode = 0x00000000U;         
+
+
+
+
+
+
+
+
+
+
           
 	  
 	  
 	  
 
-	  HAL_DMA_Init(&hdma_adc1);
+
         
+      HAL_NVIC_SetPriority(ADC_IRQn,0,0);
+      HAL_NVIC_EnableIRQ(ADC_IRQn);
+      
        
-	  do{ (hadc)->DMA_Handle = &(hdma_adc1); (hdma_adc1). Parent = (hadc); } while(0);
+
 
        
        
@@ -29343,7 +29498,7 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
       
        
        
-      do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (0U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (0U)))); ((void)(tmpreg)); } while(0U);
+      do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (2U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (2U)))); ((void)(tmpreg)); } while(0U);
 
        
       do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->APB2ENR) |= ((0x1U << (10U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->APB2ENR) & ((0x1U << (10U)))); ((void)(tmpreg)); } while(0U);
@@ -29355,29 +29510,33 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
       GPIO_InitStruct.Pin = ((uint16_t)0x0001);
       GPIO_InitStruct.Mode = 0x00000003U;
       GPIO_InitStruct.Pull = 0x00000000U;
-      HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0000U)), &GPIO_InitStruct);
+      HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0800U)), &GPIO_InitStruct);
       
        
        
-	  hdma_adc3.Instance = ((DMA_Stream_TypeDef *) (((0x40000000U + 0x00020000U) + 0x6400U) + 0x010U));
-	  hdma_adc3.Init.Channel  = 0x04000000U;
-	  hdma_adc3.Init.Direction = 0x00000000U;
-	  hdma_adc3.Init.PeriphInc = 0x00000000U;
-	  hdma_adc3.Init.MemInc = ((uint32_t)(0x1U << (10U)));
-	  hdma_adc3.Init.PeriphDataAlignment = ((uint32_t)(0x2U << (11U)));
-	  hdma_adc3.Init.MemDataAlignment = ((uint32_t)(0x2U << (13U)));
-	  hdma_adc3.Init.Mode = ((uint32_t)(0x1U << (8U)));
-	  hdma_adc3.Init.Priority = 0x00000000U;
-	  hdma_adc3.Init.FIFOMode = 0x00000000U;         
+
+
+
+
+
+
+
+
+
+
           
 	  
 	  
 	  
 
-	  HAL_DMA_Init(&hdma_adc3);
+
+      
+      
+      HAL_NVIC_SetPriority(ADC_IRQn,0,0);
+      HAL_NVIC_EnableIRQ(ADC_IRQn);
         
        
-	  do{ (hadc)->DMA_Handle = &(hdma_adc3); (hdma_adc3). Parent = (hadc); } while(0);
+
 
        
        
@@ -29410,7 +29569,7 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
        
        
 
-	  HAL_DMA_DeInit(&hdma_adc1); 
+
        
       
 	  
@@ -29430,12 +29589,12 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
 	  
        
        
-      HAL_GPIO_DeInit(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0000U)), ((uint16_t)0x0001));
+      HAL_GPIO_DeInit(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0800U)), ((uint16_t)0x0001));
       
        
        
 
-	  HAL_DMA_DeInit(&hdma_adc3); 
+
        
       
       

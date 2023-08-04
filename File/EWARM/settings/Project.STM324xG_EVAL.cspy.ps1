@@ -23,9 +23,9 @@
 
 if ($debugfile -eq "")
 {
-& "C:\Program Files\IAR Systems\Embedded Workbench 9.1\common\bin\cspybat" -f "C:\D\JDS_DATA\LEDC_EMU_TEST\File\EWARM\settings\Project.STM324xG_EVAL.general.xcl" --backend -f "C:\D\JDS_DATA\LEDC_EMU_TEST\File\EWARM\settings\Project.STM324xG_EVAL.driver.xcl" 
+& "C:\Program Files\IAR Systems\Embedded Workbench 9.1\common\bin\cspybat" -f "C:\D\SW2_Team\EPD_5_8\File\EWARM\settings\Project.STM324xG_EVAL.general.xcl" --backend -f "C:\D\SW2_Team\EPD_5_8\File\EWARM\settings\Project.STM324xG_EVAL.driver.xcl" 
 }
 else
 {
-& "C:\Program Files\IAR Systems\Embedded Workbench 9.1\common\bin\cspybat" -f "C:\D\JDS_DATA\LEDC_EMU_TEST\File\EWARM\settings\Project.STM324xG_EVAL.general.xcl" --debug_file=$debugfile --backend -f "C:\D\JDS_DATA\LEDC_EMU_TEST\File\EWARM\settings\Project.STM324xG_EVAL.driver.xcl" 
+& "C:\Program Files\IAR Systems\Embedded Workbench 9.1\common\bin\cspybat" -f "C:\D\SW2_Team\EPD_5_8\File\EWARM\settings\Project.STM324xG_EVAL.general.xcl" --debug_file=$debugfile --backend -f "C:\D\SW2_Team\EPD_5_8\File\EWARM\settings\Project.STM324xG_EVAL.driver.xcl" 
 }

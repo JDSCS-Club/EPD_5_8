@@ -29082,48 +29082,101 @@ void MyPrintf_USART1(char * format, ... );
 
 
 
-    extern I2C_HandleTypeDef hi2c1;
-    extern I2C_HandleTypeDef hi2c2;
-     
-     
-	 void MX_I2C_Process(void);
-		 
-     void MX_I2C1_Init(void);
-     void MX_I2C2_Init(void);
-    
-     void AMP_Init(uint16_t Address); 
-    
-    
-     
-    
-    
-      void AMP_Mute_OFF(
+        extern I2C_HandleTypeDef hi2c1;
+        extern I2C_HandleTypeDef hi2c2;
+
+
+        void MX_I2C_Process(void);
+         
+        void MX_I2C1_Init(void);
+
+
+        void AMP_Init(uint16_t Address); 
+
+
+        
+        
+
+        void AMP_Mute_OFF(
                    uint16_t Address1, 
                    uint16_t Address2, 
                    uint16_t Address3);
-     
-      void AMP_Mute_ON(
+
+        void AMP_Mute_ON(
                    uint16_t Address1,uint8_t ad_ch1,
                    uint16_t Address2,uint8_t ad_ch2,
                    uint16_t Address3,uint8_t ad_ch3);
           
           
-    
-     int I2C_HAL_WriteBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t TxBufferSize);
-     
+
+        int I2C_HAL_WriteBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t TxBufferSize);
+
          
          
-     int I2C_HAL_ReadBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t RxBufferSize);
+        int I2C_HAL_ReadBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t RxBufferSize);
+
+
+        void AMP_FAULT(void);
+
+        void AMP_SPK_CHECK(void);
+
+        int AMP_PowOn_Check(void);
+
+        void processCurrentVal(void);
+
+        int at24_HAL_WriteBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t TxBufferSize);
+        int at24_HAL_ReadBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t RxBufferSize);
      
-     
-     void AMP_FAULT(void);
-     
-     void AMP_SPK_CHECK(void);
-     
-     int AMP_PowOn_Check(void);
-     
-     void processCurrentVal(void);
-     
+        
+       
+
+
+        
+void TestEEPROM( I2C_HandleTypeDef *hi2c );
+
+         
+enum eEEPAddr
+{
+	EPPAddrQBufLog = 0x100,
+
+	EPPAddrMagicNumH = (EPPAddrQBufLog - 8),
+	EPPAddrMagicNumL,
+	EPPAddrMaxLogSizeH,
+	EPPAddrMaxLogSizeL,
+	EPPAddrQBufStartH,
+	EPPAddrQBufStartL,
+	EPPAddrQBufEndH,
+	EPPAddrQBufEndL,
+};
+
+enum eEEPVal
+{
+	EEPMagicNumH = 0xAA,
+	EEPMagicNumL = 0x55,
+
+	EEPLogMaxSize = 0x800, 
+
+};
+
+void TestEEPLog(void);
+
+int EEPLogInit(I2C_HandleTypeDef *hi2c);
+int EEPLogReset		( void );
+
+int EEPLogGetMaxSize( void );
+int EEPLogGetSize	( void );
+
+int EEPLogWrite		( char sBuf[] );
+
+
+int EEPLogPrint		( void );
+
+int cmd_logPrint(int argc, char *argv[]);
+
+int cmd_logTest(int argc, char *argv[]);
+
+int cmd_logReset(int argc, char *argv[]);
+
      
 
      
@@ -29223,8 +29276,28 @@ void njw1192_mute(uint8_t On_Off);
  
      
 
+ 
+
+     
+     
+     
+  
+     
+     
+
+     
+     
+     
+     
+     
+ 
+     
 
 
+     
+ 
+     
+     
 enum AMP_MUTE
 {
     AMP_ID_0        =   0x00,
@@ -29347,7 +29420,7 @@ extern volatile uint16_t ADCValue[6];
  
  
  
- 
+
 
 
 
@@ -31583,29 +31656,29 @@ tcp_debug_state_str(enum tcp_state s)
 void
 tcp_debug_print(struct tcp_hdr *tcphdr)
 {
-	
-	
-	
-	
-	
-         
-	
-	
-	
-	
-         
-         
-        
-        
-        
-        
-        
- 
-	
-	
-	
-         
-	
+	MyPrintf_USART1("TCP header:\n");
+	MyPrintf_USART1("##################################################\n");
+	MyPrintf_USART1("|    %5" "h" "u" "      |    %5" "h" "u" "      | (src port, dest port)\n",lwip_htons(tcphdr->src), lwip_htons(tcphdr->dest));
+	MyPrintf_USART1("+1------------------------------+\n");
+	MyPrintf_USART1("|           %010" "" "u" "          | (seq no)\n",
+          lwip_htonl(tcphdr->seqno));
+	MyPrintf_USART1("+2-------------------------------+\n");
+	MyPrintf_USART1("|           %010" "" "u" "          | (ack no)\n",lwip_htonl(tcphdr->ackno));
+	MyPrintf_USART1("+3-------------------------------+\n");
+	MyPrintf_USART1("| %2" "h" "u" " |   |%" "h" "u" "%" "h" "u" "%" "h" "u" "%" "h" "u" "%" "h" "u" "%" "h" "u" "|     %5" "h" "u" "     | (hdrlen, flags (",((u16_t)(lwip_htons((tcphdr)->_hdrlen_rsvd_flags) >> 12)),
+         (u16_t)(((u16_t)(lwip_htons((tcphdr)->_hdrlen_rsvd_flags) & 0x3fU)) >> 5 & 1),
+         (u16_t)(((u16_t)(lwip_htons((tcphdr)->_hdrlen_rsvd_flags) & 0x3fU)) >> 4 & 1),
+         (u16_t)(((u16_t)(lwip_htons((tcphdr)->_hdrlen_rsvd_flags) & 0x3fU)) >> 3 & 1),
+         (u16_t)(((u16_t)(lwip_htons((tcphdr)->_hdrlen_rsvd_flags) & 0x3fU)) >> 2 & 1),
+         (u16_t)(((u16_t)(lwip_htons((tcphdr)->_hdrlen_rsvd_flags) & 0x3fU)) >> 1 & 1),
+         (u16_t)(((u16_t)(lwip_htons((tcphdr)->_hdrlen_rsvd_flags) & 0x3fU))      & 1),
+         lwip_htons(tcphdr->wnd));
+  tcp_debug_print_flags(((u16_t)(lwip_htons((tcphdr)->_hdrlen_rsvd_flags) & 0x3fU)));
+	MyPrintf_USART1("), win)\n");
+	MyPrintf_USART1("+4-------------------------------+\n");
+	MyPrintf_USART1("|    0x%04" "h" "x" "     |     %5" "h" "u" "     | (chksum, urgp)\n",
+         lwip_htons(tcphdr->chksum), lwip_htons(tcphdr->urgp));
+	MyPrintf_USART1("+5-------------------------------+\n");
 }
 
 

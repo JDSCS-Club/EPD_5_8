@@ -1,4 +1,4 @@
---cpu=Cortex-M4.fp
+--cpu=Cortex-M4.fp.sp
 ".\stm324xg_eval\system_stm32f4xx.o"
 ".\stm324xg_eval\autoip.o"
 ".\stm324xg_eval\dhcp.o"
@@ -51,7 +51,6 @@
 ".\stm324xg_eval\stm32f4xx_it.o"
 ".\stm324xg_eval\tcp_echoserver.o"
 ".\stm324xg_eval\ethernetif.o"
-".\stm324xg_eval\led.o"
 ".\stm324xg_eval\timer.o"
 ".\stm324xg_eval\stm32f4xx_hal_msp.o"
 ".\stm324xg_eval\flash.o"
@@ -59,7 +58,6 @@
 ".\stm324xg_eval\wwdg.o"
 ".\stm324xg_eval\usrat.o"
 ".\stm324xg_eval\crc8.o"
-".\stm324xg_eval\charlcd.o"
 ".\stm324xg_eval\ethernet.o"
 ".\stm324xg_eval\def.o"
 ".\stm324xg_eval\dns.o"

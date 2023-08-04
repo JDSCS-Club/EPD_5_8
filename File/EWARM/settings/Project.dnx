@@ -16,7 +16,7 @@
         <LeaveTargetRunning>_ 0</LeaveTargetRunning>
     </StLinkDriver>
     <DebugChecksum>
-        <Checksum>3564806715</Checksum>
+        <Checksum>1947744610</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -44,46 +44,46 @@
         <CStepIntDis>_ 0</CStepIntDis>
     </JLinkDriver>
     <InterruptStripe>
-        <Title0>DMA2_Stream4</Title0>
-        <Setup0>3 1 3 0 1 0 0 1057041535 140726831215411</Setup0>
-        <Title1>DMA2_Stream0</Title1>
-        <Setup1>3 1 3 0 1 0 0 -369021288 140731638084403</Setup1>
-        <Title2>RTC_Alarm</Title2>
-        <Setup2>3 1 3 0 1 0 0 553719085 140731638084403</Setup2>
-        <Title3>WWDG</Title3>
-        <Setup3>3 1 3 0 1 0 0 2152264084534041800 1512970760543729272</Setup3>
-        <Title4>USART1</Title4>
-        <Setup4>3 1 3 0 1 0 0 2423088813752031912 1621186069336222648</Setup4>
-        <Title5>I2C1_EV</Title5>
-        <Setup5>3 1 3 0 1 0 0 33631524 140731638084403</Setup5>
-        <Title6>TIM5</Title6>
-        <Setup6>3 1 3 0 1 0 0 126373538979911820 8486614989552387580</Setup6>
-        <Title7>TIM4</Title7>
-        <Setup7>3 1 3 0 1 0 0 126373538979911820 8486614989552387580</Setup7>
-        <Title8>SysTick</Title8>
-        <Setup8>3 1 3 0 1 0 0 126373538979911820 8486614989552387580</Setup8>
-        <Title9>I2C1_ER</Title9>
+        <Title0>USART1</Title0>
+        <Setup0>3 1 3 0 1 0 0 2423088813752031912 1621186069336222648</Setup0>
+        <Title1>TIM5</Title1>
+        <Setup1>3 1 3 0 1 0 0 126373538979911820 8486614989552387580</Setup1>
+        <Title2>TIM4</Title2>
+        <Setup2>3 1 3 0 1 0 0 126373538979911820 8486614989552387580</Setup2>
+        <Title3>SysTick</Title3>
+        <Setup3>3 1 3 0 1 0 0 126373538979911820 8486614989552387580</Setup3>
+        <Title4>EXTI9_5</Title4>
+        <Setup4>3 1 3 0 1 0 0 2231755382800 104</Setup4>
+        <Title5>DMA2_Stream4</Title5>
+        <Setup5>3 1 3 0 1 0 0 1057041535 140726831215411</Setup5>
+        <Title6>DMA2_Stream0</Title6>
+        <Setup6>3 1 3 0 1 0 0 -369021288 140731638084403</Setup6>
+        <Title7>RTC_Alarm</Title7>
+        <Setup7>3 1 3 0 1 0 0 553719085 140731638084403</Setup7>
+        <Title8>WWDG</Title8>
+        <Setup8>3 1 3 0 1 0 0 2152264084534041800 1512970760543729272</Setup8>
+        <Title9>I2C1_EV</Title9>
         <Setup9>3 1 3 0 1 0 0 33631524 140731638084403</Setup9>
-        <Title10 />
-        <Setup10>3 1 3 0 1 0 0 3102676747412143656 2322058761341562336</Setup10>
-        <Title11>Reset</Title11>
-        <Setup11>3 1 3 0 1 0 0 126373538979911820 8486614989552387580</Setup11>
-        <Title12>I2C3_ER</Title12>
-        <Setup12>3 1 3 0 1 0 0 -369021288 140731638084403</Setup12>
-        <Title13>DMA1_Stream5</Title13>
+        <Title10>I2C1_ER</Title10>
+        <Setup10>3 1 3 0 1 0 0 33631524 140731638084403</Setup10>
+        <Title11 />
+        <Setup11>3 1 3 0 1 0 0 3102676747412143656 2322058761341562336</Setup11>
+        <Title12>Reset</Title12>
+        <Setup12>3 1 3 0 1 0 0 126373538979911820 8486614989552387580</Setup12>
+        <Title13>I2C3_ER</Title13>
         <Setup13>3 1 3 0 1 0 0 -369021288 140731638084403</Setup13>
-        <Title14>DMA1_Stream3</Title14>
-        <Setup14>3 1 3 0 1 0 0 8486652875458935414 7379845003989521637</Setup14>
-        <Title15>DMA1_Stream1</Title15>
-        <Setup15>3 1 3 0 1 0 0 -3270509800803124712 8449294504942565028</Setup15>
-        <Title16>TIM8_CC</Title16>
-        <Setup16>3 1 3 0 1 0 0 1125759100637680278 7379843473500798976</Setup16>
-        <Title17>OTG_HS_WKUP</Title17>
+        <Title14>DMA1_Stream5</Title14>
+        <Setup14>3 1 3 0 1 0 0 -369021288 140731638084403</Setup14>
+        <Title15>DMA1_Stream3</Title15>
+        <Setup15>3 1 3 0 1 0 0 8486652875458935414 7379845003989521637</Setup15>
+        <Title16>DMA1_Stream1</Title16>
+        <Setup16>3 1 3 0 1 0 0 -3270509800803124712 8449294504942565028</Setup16>
+        <Title17>TIM8_CC</Title17>
         <Setup17>3 1 3 0 1 0 0 1125759100637680278 7379843473500798976</Setup17>
-        <Title18>DMA1_Stream4</Title18>
-        <Setup18>3 1 3 0 1 0 0 8955335793794938348 -1080519587324029016</Setup18>
-        <Title19>UART4</Title19>
-        <Setup19>3 1 3 0 1 0 0 1526415331474396488 7537851240131058632</Setup19>
+        <Title18>OTG_HS_WKUP</Title18>
+        <Setup18>3 1 3 0 1 0 0 1125759100637680278 7379843473500798976</Setup18>
+        <Title19>DMA1_Stream4</Title19>
+        <Setup19>3 1 3 0 1 0 0 8955335793794938348 -1080519587324029016</Setup19>
         <Sort>0</Sort>
     </InterruptStripe>
     <DataStripe>
@@ -131,7 +131,7 @@
     <Jet>
         <JetConnSerialNo>1158</JetConnSerialNo>
         <JetConnFoundProbes />
-        <PrevWtdReset>Connect during reset</PrevWtdReset>
+        <PrevWtdReset>Software</PrevWtdReset>
         <OnlineReset>Software</OnlineReset>
         <DisableInterrupts>0</DisableInterrupts>
         <LeaveRunning>1</LeaveRunning>
@@ -144,8 +144,8 @@
     <SWOManager>
         <SamplingDivider>8192</SamplingDivider>
         <OverrideClock>0</OverrideClock>
-        <CpuClock>168000000</CpuClock>
-        <SwoClock>0</SwoClock>
+        <CpuClock>1953721961</CpuClock>
+        <SwoClock>1376416626</SwoClock>
         <DataLogMode>0</DataLogMode>
         <ItmPortsEnabled>63</ItmPortsEnabled>
         <ItmTermIOPorts>1</ItmTermIOPorts>
@@ -190,9 +190,9 @@
         <NoPCCapture>1</NoPCCapture>
     </ETMTraceWindow>
     <SWOTraceWindow>
-        <PcSampling>0</PcSampling>
-        <InterruptLogs>0</InterruptLogs>
-        <ForcedTimeStamps>0</ForcedTimeStamps>
+        <ForcedPcSampling>1</ForcedPcSampling>
+        <ForcedInterruptLogs>1</ForcedInterruptLogs>
+        <ForcedItmLogs>1</ForcedItmLogs>
         <EventCPI>1</EventCPI>
         <EventEXC>1</EventEXC>
         <EventFOLD>1</EventFOLD>
@@ -223,14 +223,6 @@
         <SumEnabled>0</SumEnabled>
         <ShowTimeSum>1</ShowTimeSum>
     </DataLog>
-    <InterruptLog>
-        <GraphEnabled>1</GraphEnabled>
-        <LogEnabled>1</LogEnabled>
-        <ShowTimeLog>1</ShowTimeLog>
-        <SumEnabled>1</SumEnabled>
-        <ShowTimeSum>1</ShowTimeSum>
-        <SumSortOrder>0</SumSortOrder>
-    </InterruptLog>
     <EventLog>
         <GraphEnabled>1</GraphEnabled>
         <LogEnabled>1</LogEnabled>
@@ -247,6 +239,14 @@
         <ShowTimeSum>1</ShowTimeSum>
         <SumSortOrder>0</SumSortOrder>
     </EventLog>
+    <InterruptLog>
+        <GraphEnabled>1</GraphEnabled>
+        <LogEnabled>1</LogEnabled>
+        <ShowTimeLog>1</ShowTimeLog>
+        <SumEnabled>1</SumEnabled>
+        <ShowTimeSum>1</ShowTimeSum>
+        <SumSortOrder>0</SumSortOrder>
+    </InterruptLog>
     <PowerProbe>
         <Frequency>10000</Frequency>
         <Probe0>I0</Probe0>
@@ -302,7 +302,7 @@
     </watch_formats>
     <Trace2>
         <Enabled>1</Enabled>
-        <ShowSource>0</ShowSource>
+        <ShowSource>1</ShowSource>
     </Trace2>
     <TermIOLog>
         <LoggingEnabled>_ 0</LoggingEnabled>
@@ -332,7 +332,10 @@
         <Bp0>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Middlewares\Third_Party\LwIP\src\core\ipv4\igmp.c}.505.3" 0 0 1 "" 0 "" 0</Bp0>
         <Bp1>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Middlewares\Third_Party\LwIP\src\core\ipv4\igmp.c}.498.3" 0 0 1 "" 0 "" 0</Bp1>
         <Bp2>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Middlewares\Third_Party\LwIP\src\core\ipv4\igmp.c}.503.3" 0 0 1 "" 0 "" 0</Bp2>
-        <Count>3</Count>
+        <Bp3>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Middlewares\Third_Party\LwIP\src\core\init.c}.354.3" 0 0 1 "" 0 "" 0</Bp3>
+        <Bp4>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Src\spi_flash.c}.86.9" 0 0 1 "" 0 "" 0</Bp4>
+        <Bp5>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Src\stm32f4xx_it.c}.202.3" 0 0 1 "" 0 "" 0</Bp5>
+        <Count>6</Count>
     </Breakpoints2>
     <Aliases>
         <A0>_ "C:\Users\jang duksu\Documents\Github\SEPTA_ML\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\EWARM\startup_stm32f407xx.s" ""</A0>

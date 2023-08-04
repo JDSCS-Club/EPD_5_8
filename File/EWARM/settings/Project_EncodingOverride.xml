@@ -105,6 +105,18 @@
         <encoding>System</encoding>
     </override>
     <override>
+        <path>C:\D\SW2_Team\5_8_EPD\File\Middlewares\Third_Party\LwIP\src\core\udp.c</path>
+        <encoding>System</encoding>
+    </override>
+    <override>
+        <path>C:\D\SW2_Team\5_8_EPD\File\Src\Timer.c</path>
+        <encoding>System</encoding>
+    </override>
+    <override>
+        <path>C:\D\SW2_Team\5_8_EPD\File\Src\WWDG.c</path>
+        <encoding>System</encoding>
+    </override>
+    <override>
         <path>C:\Users\JDS_WIN\Documents\GitHub\LEDC5.1_TRACE\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\Src\main.c</path>
         <encoding>System</encoding>
     </override>

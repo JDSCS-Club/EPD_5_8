@@ -22284,6 +22284,7 @@ HAL_StatusTypeDef HAL_ETH_GetReceivedFrame(ETH_HandleTypeDef *heth)
    
    
   if(((heth->RxDesc->Status & 0x80000000U) == (uint32_t)RESET))
+  
   {
      
     if(((heth->RxDesc->Status & 0x00000100U) != (uint32_t)RESET)) 
@@ -22362,7 +22363,7 @@ HAL_StatusTypeDef HAL_ETH_GetReceivedFrame_IT(ETH_HandleTypeDef *heth)
   heth->State = HAL_ETH_STATE_BUSY;
   
    
-  while (((heth->RxDesc->Status & 0x80000000U) == (uint32_t)RESET) && (descriptorscancounter < (4U)))
+  while (((heth->RxDesc->Status & 0x80000000U) == (uint32_t)RESET) && (descriptorscancounter < (4U)))    
   {
      
     descriptorscancounter++;

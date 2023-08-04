@@ -27936,48 +27936,101 @@ void MyPrintf_USART1(char * format, ... );
 
 
 
-    extern I2C_HandleTypeDef hi2c1;
-    extern I2C_HandleTypeDef hi2c2;
-     
-     
-	 void MX_I2C_Process(void);
-		 
-     void MX_I2C1_Init(void);
-     void MX_I2C2_Init(void);
-    
-     void AMP_Init(uint16_t Address); 
-    
-    
-     
-    
-    
-      void AMP_Mute_OFF(
+        extern I2C_HandleTypeDef hi2c1;
+        extern I2C_HandleTypeDef hi2c2;
+
+
+        void MX_I2C_Process(void);
+         
+        void MX_I2C1_Init(void);
+
+
+        void AMP_Init(uint16_t Address); 
+
+
+        
+        
+
+        void AMP_Mute_OFF(
                    uint16_t Address1, 
                    uint16_t Address2, 
                    uint16_t Address3);
-     
-      void AMP_Mute_ON(
+
+        void AMP_Mute_ON(
                    uint16_t Address1,uint8_t ad_ch1,
                    uint16_t Address2,uint8_t ad_ch2,
                    uint16_t Address3,uint8_t ad_ch3);
           
           
-    
-     int I2C_HAL_WriteBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t TxBufferSize);
-     
+
+        int I2C_HAL_WriteBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t TxBufferSize);
+
          
          
-     int I2C_HAL_ReadBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t RxBufferSize);
+        int I2C_HAL_ReadBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t RxBufferSize);
+
+
+        void AMP_FAULT(void);
+
+        void AMP_SPK_CHECK(void);
+
+        int AMP_PowOn_Check(void);
+
+        void processCurrentVal(void);
+
+        int at24_HAL_WriteBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t TxBufferSize);
+        int at24_HAL_ReadBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t RxBufferSize);
      
-     
-     void AMP_FAULT(void);
-     
-     void AMP_SPK_CHECK(void);
-     
-     int AMP_PowOn_Check(void);
-     
-     void processCurrentVal(void);
-     
+        
+       
+
+
+        
+void TestEEPROM( I2C_HandleTypeDef *hi2c );
+
+         
+enum eEEPAddr
+{
+	EPPAddrQBufLog = 0x100,
+
+	EPPAddrMagicNumH = (EPPAddrQBufLog - 8),
+	EPPAddrMagicNumL,
+	EPPAddrMaxLogSizeH,
+	EPPAddrMaxLogSizeL,
+	EPPAddrQBufStartH,
+	EPPAddrQBufStartL,
+	EPPAddrQBufEndH,
+	EPPAddrQBufEndL,
+};
+
+enum eEEPVal
+{
+	EEPMagicNumH = 0xAA,
+	EEPMagicNumL = 0x55,
+
+	EEPLogMaxSize = 0x800, 
+
+};
+
+void TestEEPLog(void);
+
+int EEPLogInit(I2C_HandleTypeDef *hi2c);
+int EEPLogReset		( void );
+
+int EEPLogGetMaxSize( void );
+int EEPLogGetSize	( void );
+
+int EEPLogWrite		( char sBuf[] );
+
+
+int EEPLogPrint		( void );
+
+int cmd_logPrint(int argc, char *argv[]);
+
+int cmd_logTest(int argc, char *argv[]);
+
+int cmd_logReset(int argc, char *argv[]);
+
      
 
      
@@ -28077,8 +28130,28 @@ void njw1192_mute(uint8_t On_Off);
  
      
 
+ 
+
+     
+     
+     
+  
+     
+     
+
+     
+     
+     
+     
+     
+ 
+     
 
 
+     
+ 
+     
+     
 enum AMP_MUTE
 {
     AMP_ID_0        =   0x00,
@@ -28201,7 +28274,7 @@ extern volatile uint16_t ADCValue[6];
  
  
  
- 
+
 
 
 
@@ -29975,6 +30048,107 @@ void tcp_echoclient_connect(void);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
      
 
 
@@ -30027,29 +30201,59 @@ void tcp_echoclient_connect(void);
 
 
 
-_Bool getAmp1_Pault(void);        
-_Bool getAmp2_Pault(void);        
-_Bool getAmp3_Pault(void);        
-_Bool getSW_RS(void);             
-_Bool getSW_SL(void);            
-_Bool getSW_SR(void);             
-_Bool getSW_AR(void);            
-_Bool getSW_Broad(void);         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
-
-
-
-void setRSP_Led(_Bool state);     
-void setOSP_Led(_Bool state) ;   
-void setAMP_Standby(_Bool state);
-void setBk_Out_1(_Bool state);   
-void setBk_Out_2(_Bool state);    
-void setBk_Out_3(_Bool state);   
-void setBk_Out_4(_Bool state);    
-void setBk_Out_5(_Bool state);   
-void setBk_Out_6(_Bool state);    
-void setAmp_Mute_1(_Bool state);
-void setAmp_Mute_2(_Bool state); 
 
 
 
@@ -30549,6 +30753,7 @@ extern volatile uint32_t BootFlashReadAddress;
 
 
 
+ 
 
 
 
@@ -30559,10 +30764,10 @@ extern volatile uint32_t BootFlashReadAddress;
 
 
 
-
-
-
-
+extern uint32_t Get_Adc1_Value(void);
+extern uint16_t getAdc1Vol(void);
+extern uint32_t Get_Adc2_Value(void);
+extern uint16_t getAdc2Vol(void);
 
 
 
@@ -30581,941 +30786,51 @@ extern volatile uint32_t BootFlashReadAddress;
 
 
 
- 
 
 
 
 
- 
 
 
+extern uint16_t u16LedChangeTick;
+extern uint16_t u16Led75UnderFlickerTick;
+extern uint16_t u16Led100UnderFlickerTick;
+extern uint16_t u16AmpSettingTick;
 
+extern uint8_t uDI_getMasterIn;
+extern uint8_t uSpk_Stat;
+extern uint8_t uRssi_NgFlag;
 
+extern _Bool bAmpSettingDetected;
+extern uint8_t uAudioPlayFlag;
 
 
 
+extern void processOverrideOn(void);
+extern void processRfLed(void);
+extern void processChargeLed(void);
+extern void processLightLed(void);
+extern void processAudioAmpProcess(void);
+extern void processGetBatVol(void);
+extern void processTestDebug(void);
 
 
 
+extern _Bool getVccRfIn(void);
+extern _Bool getAmpFault(void);
+extern _Bool getVccLedIn(void);
+extern _Bool getVccAudioIn(void);
 
+extern void ONTD(uint8_t IN,uint8_t *OUT,uint8_t MS,int *CLK );
 
+extern void ONTD_Function(void);
 
- 
 
-uint8_t 	System_Init(void);
-void    System_Exit(void);
 
-uint8_t 	SPI4W_Write_Byte(uint8_t value);
-void 	I2C_Write_Byte(uint8_t value, uint8_t Cmd);
 
-void Driver_Delay_ms(uint32_t xms);
-void Driver_Delay_us(uint32_t xus);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
- 
-typedef struct {
-    uint8_t *Image;
-    uint16_t Width;
-    uint16_t Height;
-    uint16_t WidthMemory;
-    uint16_t HeightMemory;
-    uint16_t Color;
-    uint16_t Rotate;
-    uint16_t Mirror;
-    uint16_t WidthByte;
-    uint16_t HeightByte;
-    uint16_t Scale;
-} PAINT;
-extern PAINT Paint;
-
-
-
- 
-
-
-
- 
-typedef enum {
-    MIRROR_NONE  = 0x00,
-    MIRROR_HORIZONTAL = 0x01,
-    MIRROR_VERTICAL = 0x02,
-    MIRROR_ORIGIN = 0x03,
-} MIRROR_IMAGE;
-
-
-
- 
-
-
- 
-
-
-
-
-
- 
-typedef enum {
-    DOT_PIXEL_1X1  = 1,	
-    DOT_PIXEL_2X2  , 		
-    DOT_PIXEL_3X3  ,		
-    DOT_PIXEL_4X4  ,		
-    DOT_PIXEL_5X5  , 		
-    DOT_PIXEL_6X6  , 		
-    DOT_PIXEL_7X7  , 		
-    DOT_PIXEL_8X8  , 		
-} DOT_PIXEL;
-
-
-
- 
-typedef enum {
-    DOT_FILL_AROUND  = 1,		
-    DOT_FILL_RIGHTUP  , 		
-} DOT_STYLE;
-
-
-
- 
-typedef enum {
-    LINE_STYLE_SOLID = 0,
-    LINE_STYLE_DOTTED,
-} LINE_STYLE;
-
-
-
- 
-typedef enum {
-    DRAW_FILL_EMPTY = 0,
-    DRAW_FILL_FULL,
-} DRAW_FILL;
-
-
-
- 
-typedef struct {
-    uint16_t	Year;  
-    uint8_t Month; 
-    uint8_t Day;   
-    uint8_t Hour;  
-    uint8_t Min;   
-    uint8_t Sec;   
-} PAINT_TIME;
-extern PAINT_TIME sPaint_time;
-
-
-void Paint_NewImage(uint8_t *image, uint16_t Width, uint16_t Height, uint16_t Rotate, uint16_t Color);
-void Paint_SelectImage(uint8_t *image);
-void Paint_SetRotate(uint16_t Rotate);
-void Paint_SetMirroring(uint8_t mirror);
-void Paint_SetPixel(uint16_t Xpoint, uint16_t Ypoint, uint16_t Color);
-void Paint_SetScale(uint8_t scale);
-
-void Paint_Clear(uint16_t Color);
-void Paint_ClearWindows(uint16_t Xstart, uint16_t Ystart, uint16_t Xend, uint16_t Yend, uint16_t Color);
-
-
-void Paint_DrawPoint(uint16_t Xpoint, uint16_t Ypoint, uint16_t Color, DOT_PIXEL Dot_Pixel, DOT_STYLE Dot_FillWay);
-void Paint_DrawLine(uint16_t Xstart, uint16_t Ystart, uint16_t Xend, uint16_t Yend, uint16_t Color, DOT_PIXEL Line_width, LINE_STYLE Line_Style);
-void Paint_DrawRectangle(uint16_t Xstart, uint16_t Ystart, uint16_t Xend, uint16_t Yend, uint16_t Color, DOT_PIXEL Line_width, DRAW_FILL Draw_Fill);
-void Paint_DrawCircle(uint16_t X_Center, uint16_t Y_Center, uint16_t Radius, uint16_t Color, DOT_PIXEL Line_width, DRAW_FILL Draw_Fill);
-
-
-void Paint_DrawChar(uint16_t Xstart, uint16_t Ystart, const char Acsii_Char, sFONT* Font, uint16_t Color_Foreground, uint16_t Color_Background);
-void Paint_DrawString_EN(uint16_t Xstart, uint16_t Ystart, const char * pString, sFONT* Font, uint16_t Color_Foreground, uint16_t Color_Background);
-
-
-void Paint_DrawString_CN(uint16_t Xstart, uint16_t Ystart, const char * pString, cFONT* font, uint16_t Color_Foreground, uint16_t Color_Background);
-
-void Paint_DrawNum(uint16_t Xpoint, uint16_t Ypoint, double Nummber, sFONT* Font, uint16_t Digit,uint16_t Color_Foreground, uint16_t Color_Background);
-void Paint_DrawTime(uint16_t Xstart, uint16_t Ystart, PAINT_TIME *pTime, sFONT* Font, uint16_t Color_Foreground, uint16_t Color_Background);
-
-
-void Paint_DrawBitMap(const unsigned char* image_buffer);
-
-
-
-void Paint_DrawBitMap_Block(const unsigned char* image_buffer, uint8_t Region);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-extern const unsigned char gImage_0in91[];	
-extern const unsigned char gImage_0in95_rgb[];	
-extern const unsigned char gImage_0in96[];	
-extern const unsigned char gImage_1in3[];	
-extern const unsigned char gImage_1in3_c[];	
-extern const unsigned char gImage_1in5[];	
-extern const unsigned char gImage_1in5_rgb[];
-
- 
-
-
-
- 
- 
-
-  #pragma system_include
-
- 
- 
-
- 
-
-  #pragma system_include
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
- 
-
-  #pragma system_include
-
-
-
-
- 
-
- 
- 
-
-
-
-
- 
-
- 
- 
-
-
-
-
- 
-
- 
- 
-
-
- 
-
-
-
- 
-typedef unsigned int __iar_FlagUType;
-typedef signed int  __iar_FlagSType;
-
-typedef signed int  __iar_ExpType;
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
- 
-
-
-
-#pragma diag_suppress = Pe549 
-
-
-
-
-
-
-
-
-
- 
-#pragma no_arith_checks
-_Pragma("inline=forced") __intrinsic unsigned int __iar_isfinite32(float _X)
-{
-    signed int _Ix = __iar_fp2bits32(_X);
-    return ((_Ix << 1) >> (23 + 1)) + 1;
-}
-
-#pragma no_arith_checks
-_Pragma("inline=forced") __intrinsic unsigned int __iar_isfinite64(double _X)
-{
-    signed int _Ix = __iar_fpgethi64(_X);
-    return ((_Ix << 1) >> (52 - 31)) + 1;
-}
-
-
- 
-#pragma no_arith_checks
-_Pragma("inline=forced") __intrinsic unsigned int __iar_isnan32(float _X)
-{
-    signed int _Ix = __iar_fp2bits32(_X) << 1;
-    return (_Ix >> (23 + 1)) + 1 ? 0 : (_Ix << (31 - 23));
-}
-
-#pragma no_arith_checks
-_Pragma("inline=forced") __intrinsic unsigned int __iar_isnan64(double _X)
-{
-    signed int _Ix = __iar_fpgethi64(_X);
-    return ((_Ix << 1) >> (52 - 31)) + 1 ? 0 : _Ix << (64 - 52);
-}
-
-
-
-
- 
-#pragma no_arith_checks
-_Pragma("inline=forced") __intrinsic unsigned int __iar_iszero32(float _X)
-{
-    unsigned int _Ix = __iar_fp2bits32(_X);
-    return (_Ix << 1) == 0;
-}
-
-#pragma no_arith_checks
-_Pragma("inline=forced") __intrinsic unsigned int __iar_iszero64(double _X)
-{
-    unsigned long long int _Ix = __iar_fp2bits64(_X);
-    return (_Ix & ~(1ULL << 63)) == 0;
-}
-
-
-
-
-
- 
-#pragma no_arith_checks
-_Pragma("inline=forced") __intrinsic unsigned int __iar_isinf32(float _X)
-{
-    signed int _Ix = __iar_fp2bits32(_X);
-    return ((_Ix << 1) >> (23 + 1)) + 1
-           ? 0
-           : ((_Ix << (32 - 23)) == 0);
-}
-
-#pragma no_arith_checks
-_Pragma("inline=forced") __intrinsic unsigned int __iar_isinf64(double _X)
-{
-    signed int _Ix = __iar_fpgethi64(_X);
-    return ((_Ix << 1) >> (52 - 31)) + 1 
-             ? 0 
-             : ((_Ix << (64 - 52)) == 0);
-}
-
-
-
-
-
- 
-#pragma no_arith_checks
-_Pragma("inline=forced") __intrinsic unsigned int __iar_issubnormal32(float _X)
-{
-    unsigned int _Ix = __iar_fp2bits32(_X) & ~(1 << 31);
-    return (_Ix != 0) && (_Ix < (1 << 23));
-}
-
-#pragma no_arith_checks
-_Pragma("inline=forced") __intrinsic unsigned int __iar_issubnormal64(double _X)
-{
-    unsigned long long int _Ix = __iar_fp2bits64(_X) & ~(1ULL << 63);
-    return (_Ix != 0) && (_Ix < (1ULL << 52));
-}
-
-
-
-
- 
-#pragma no_arith_checks
-_Pragma("inline=forced") __intrinsic unsigned int __iar_isnormal32(float _X)
-{
-  signed int _Exp = ((signed int)
-                          (__iar_fp2bits32(_X) << 1) >> (23 + 1));
-  return ((_Exp + 1) >> 1);
-}
-
-#pragma no_arith_checks
-_Pragma("inline=forced") __intrinsic unsigned int __iar_isnormal64(double _X)
-{
-    signed int _Exp = 
-      ((signed int)(__iar_fpgethi64(_X) << 1) >> (52 - 31));
-    return ((_Exp + 1) >> 1);
-}
-
-
-
-
- 
-#pragma no_arith_checks
-_Pragma("inline=forced") __intrinsic unsigned int __iar_signbit32(float _X)
-{
-  unsigned int _Ix = __iar_fp2bits32(_X);
-  return (_Ix >> 31);
-}
-
-#pragma no_arith_checks
-_Pragma("inline=forced") __intrinsic unsigned int __iar_signbit64(double _X)
-{
-  unsigned long long int _Ix = __iar_fp2bits64(_X);
-  return (_Ix >> 63);
-}
-
-
-
-
-
-  typedef float float_t;
-  typedef double double_t;
-
-
-
-   
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       acos(double);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       asin(double);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       atan(double);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       atan2(double, double);
-  _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind      double       ceil(double);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       cos(double);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       cosh(double);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       exp(double);
-  _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind      double       fabs(double);
-  _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind      double       floor(double);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       fmod(double, double);
-  _Pragma("function_effects = no_state, no_read(2), always_returns") __intrinsic __nounwind   double       frexp(double, int *);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       ldexp(double, int);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       log(double);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       log10(double);
-  _Pragma("function_effects = no_state, no_read(2), always_returns") __intrinsic __nounwind   double       modf(double, double *);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       pow(double, double);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       sin(double);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       sinh(double);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       sqrt(double);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       tan(double);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       tanh(double);
-
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    double       acosh(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    double       asinh(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    double       atanh(double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    double       cbrt(double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    double       copysign(double, double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  double       erf(double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  double       erfc(double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  double       expm1(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    double       exp2(double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    double       fdim(double, double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  double       fma(double, double, double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    double       fmax(double, double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    double       fmin(double, double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    double       hypot(double, double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    int          ilogb(double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  double       lgamma(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long long    llrint(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long long    llround(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns")  __intrinsic __nounwind   double       log1p(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns")  __intrinsic __nounwind   double       log2(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns")  __intrinsic __nounwind   double       logb(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns")  __intrinsic __nounwind   long         lrint(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns")  __intrinsic __nounwind   long         lround(double);
-    _Pragma("function_effects = no_state, always_returns")  __intrinsic __nounwind   double       nan(const char *);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    double       nearbyint(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    double       nextafter(double, double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    double       nexttoward(double, long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    double       remainder(double, double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    double       remquo(double, double, int *);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    double       rint(double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    double       round(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    double       scalbn(double, int);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    double       scalbln(double, long);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  double       tgamma(double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    double       trunc(double);
-
-     
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        acosf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        acoshf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        asinf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        asinhf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        atanf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        atanhf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        atan2f(float, float);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    float        ceilf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        coshf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        cosf(float);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    float        cbrtf(float);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    float        copysignf(float, float);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  float        erff(float);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  float        erfcf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        expf(float);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  float        expm1f(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        exp2f(float);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    float        fabsf(float);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    float        fdimf(float, float);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    float        floorf(float);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  float        fmaf(float, float, float);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    float        fmaxf(float, float);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    float        fminf(float, float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        fmodf(float, float);
-    _Pragma("function_effects = no_state, no_read(2), always_returns") __intrinsic __nounwind float        frexpf(float, int *);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        hypotf(float, float);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    int          ilogbf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        ldexpf(float, int);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  float        lgammaf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long long    llrintf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long long    llroundf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        logbf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        logf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        log1pf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        log2f(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        log10f(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long         lrintf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long         lroundf(float);
-    _Pragma("function_effects = no_state, no_read(2), always_returns") __intrinsic __nounwind float        modff(float, float *);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    float        nanf(const char *);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        nearbyintf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        nextafterf(float, float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        nexttowardf(float, long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        powf(float, float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        remainderf(float, float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        remquof(float, float, int *);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        rintf(float);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    float        roundf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        scalbnf(float, int);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        scalblnf(float, long);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        sinf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        sinhf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        sqrtf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        tanf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        tanhf(float);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  float        tgammaf(float);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    float        truncf(float);
-
-     
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  acoshl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  acosl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  asinhl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  asinl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  atanl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  atanhl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  atan2l(long double, long double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    long double  ceill(long double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    long double  cbrtl(long double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    long double  copysignl(long double, long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  coshl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  cosl(long double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  long double  erfl(long double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  long double  erfcl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  expl(long double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  long double  expm1l(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  exp2l(long double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    long double  fabsl(long double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    long double  fdiml(long double, long double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    long double  floorl(long double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  long double  fmal(long double, long double,
-                                               long double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    long double  fmaxl(long double, long double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    long double  fminl(long double, long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  fmodl(long double, long double);
-    _Pragma("function_effects = no_state, no_read(2), always_returns") __intrinsic __nounwind long double  frexpl(long double, int *);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  hypotl(long double, long double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    int          ilogbl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  ldexpl(long double, int);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  long double  lgammal(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long long    llrintl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long long    llroundl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  logbl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  logl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  log1pl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  log10l(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  log2l(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long         lrintl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long         lroundl(long double);
-    _Pragma("function_effects = no_state, no_read(2), always_returns") __intrinsic __nounwind long double  modfl(long double, long double *);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    long double  nanl(const char *);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  nearbyintl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  nextafterl(long double, long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  nexttowardl(long double, long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  powl(long double, long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  remainderl(long double, long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  remquol(long double, long double,
-                                                  int *);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  rintl(long double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    long double  roundl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  scalbnl(long double, int);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  scalblnl(long double, long);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  sinhl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  sinl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  sqrtl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  tanl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  tanhl(long double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  long double  tgammal(long double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    long double  truncl(long double);
-
-   
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   double        __iar_cos_medium(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   double        __iar_exp_medium(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   double        __iar_log_medium(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   double        __iar_log10_medium(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   double        __iar_log2_medium(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   double        __iar_pow_medium(double, double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   double        __iar_sin_medium(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   double        __iar_tan_medium(double);
-
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   float         __iar_cos_mediumf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   float         __iar_exp_mediumf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   float         __iar_log_mediumf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   float         __iar_log10_mediumf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   float         __iar_log2_mediumf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   float         __iar_pow_mediumf(float, float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   float         __iar_sin_mediumf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   float         __iar_tan_mediumf(float);
-
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   long double   __iar_cos_mediuml(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   long double   __iar_exp_mediuml(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   long double   __iar_log_mediuml(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   long double   __iar_log10_mediuml(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   long double   __iar_log2_mediuml(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   long double   __iar_pow_mediuml(long double,
-                                                           long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   long double   __iar_sin_mediuml(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   long double   __iar_tan_mediuml(long double);
-
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind double        __iar_cos_accurate(double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind double        __iar_pow_accurate(double, double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind double        __iar_sin_accurate(double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind double        __iar_tan_accurate(double);
-
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind float         __iar_cos_accuratef(float);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind float         __iar_pow_accuratef(float, float);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind float         __iar_sin_accuratef(float);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind float         __iar_tan_accuratef(float);
-
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind long double   __iar_cos_accuratel(long double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind long double   __iar_pow_accuratel(long double,
-                                                              long double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind long double   __iar_sin_accuratel(long double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind long double   __iar_tan_accuratel(long double);
-
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind double        __iar_cos_small(double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind double        __iar_exp_small(double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind double        __iar_log_small(double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind double        __iar_log10_small(double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind double        __iar_log2_small(double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind double        __iar_pow_small(double, double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind double        __iar_sin_small(double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind double        __iar_tan_small(double);
-
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind float         __iar_cos_smallf(float);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind float         __iar_exp_smallf(float);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind float         __iar_log_smallf(float);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind float         __iar_log10_smallf(float);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind float         __iar_log2_smallf(float);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind float         __iar_pow_smallf(float, float);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind float         __iar_sin_smallf(float);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind float         __iar_tan_smallf(float);
-
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind long double   __iar_cos_smalll(long double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind long double   __iar_exp_smalll(long double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind long double   __iar_log_smalll(long double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind long double   __iar_log10_smalll(long double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind long double   __iar_log2_smalll(long double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind long double   __iar_pow_smalll(long double,
-                                                         long double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind long double   __iar_sin_smalll(long double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind long double   __iar_tan_smalll(long double);
-
-
-
-
-   
-  enum __FPclass { __kInfinity, __kNan, __kFinite, __kDenorm, __kZero };
-
-  #pragma inline=forced
-  __intrinsic int __iar_FPclassify32(float x)
-  {
-    if (!__iar_isfinite32(x))
-    {
-      if (__iar_isnan32(x))
-      {
-        return __kNan;
-      }
-      return __kInfinity;
-    }
-    if (__iar_iszero32(x))
-    {
-      return __kZero;
-    }
-    if (__iar_issubnormal32(x))
-    {
-      return __kDenorm;
-    }
-    return __kFinite;
-  }
-
-    #pragma inline=forced
-    __intrinsic int __iar_FPclassify64(double x)
-    {
-      if (!__iar_isfinite64(x))
-      {
-        if (__iar_isnan64(x))
-        {
-          return __kNan;
-        }
-        return __kInfinity;
-      }
-      if (__iar_iszero64(x))
-      {
-        return __kZero;
-      }
-      if (__iar_issubnormal64(x))
-      {
-        return __kDenorm;
-      }
-      return __kFinite;
-    }
-
-   
-
-
-
-
-
-   
-
-
-
-
-    #pragma inline
-    __iar_FlagSType __isnormalf(float _Left)
-    {       
-      return !__iar_isnan32(_Left) && __iar_isnormal32(_Left);
-    }
-    #pragma inline
-    __iar_FlagSType __isnormal(double _Left)
-    {       
-      return !__iar_isnan64(_Left) && __iar_isnormal64(_Left);
-    }
-    #pragma inline
-    __iar_FlagSType __isnormall(long double _Left)
-    {       
-      return !__iar_isnan64(_Left) && __iar_isnormal64(_Left);
-    }
-    #pragma inline
-     __iar_FlagSType __isinff(float _Left)
-    {       
-      return !__iar_isnan32(_Left) && __iar_isinf32(_Left);
-    }
-    #pragma inline
-     __iar_FlagSType __isinf(double _Left)
-    {       
-      return !__iar_isnan64(_Left) && __iar_isinf64(_Left);
-    }
-    #pragma inline
-     __iar_FlagSType __isinfl(long double _Left)
-    {       
-      return !__iar_isnan64(_Left) && __iar_isinf64(_Left);
-    }
-
-
-
-
-    #pragma inline
-    __iar_FlagSType __isunorderedf(float _x, float _y)
-    {
-      return __iar_isnan32(_x) || __iar_isnan32(_y);
-    }
-    #pragma inline
-    __iar_FlagSType __isunordered(double _x, double _y)
-    {
-      return __iar_isnan64(_x) || __iar_isnan64(_y);
-    }
-    #pragma inline
-    __iar_FlagSType __isunorderedl(long double _x, long double _y)
-    {
-      return __iar_isnan64(_x) || __iar_isnan64(_y);
-    }
-    #pragma inline
-    __iar_FlagSType __islessgreaterf(float _x, float _y)
-    {
-      if (__isunorderedf(_x, _y))
-        return 0;
-      return _x < _y || _x > _y;
-    }
-    #pragma inline
-    __iar_FlagSType __islessgreater(double _x, double _y)
-    {
-      if (__isunordered(_x, _y))
-        return 0;
-      return _x < _y || _x > _y;
-    }
-    #pragma inline
-    __iar_FlagSType __islessgreaterl(long double _x, long double _y)
-    {
-      if (__isunorderedl(_x, _y))
-        return 0;
-      return _x < _y || _x > _y;
-    }
-
-
-
-
-
-
-
- 
-
-
-extern uint8_t *BlackImage;
-
-
-int OLED_0in91_test(void);
-int OLED_0in95_rgb_test(void);
-int OLED_0in96_test(void);
-int OLED_1in3_test(void);
-int OLED_1in3_c_test(void);
-int OLED_1in5_test(void);
-int OLED_1in5_rgb_test(void);
-
-
-void OLED_Print(void);
-    
 
 
 
@@ -31679,14 +30994,14 @@ const unsigned char completeVersion[] =
 const unsigned char completeVersionBuild[] = 
 {
 	'B',
-	("Jul 14 2023"[ 9]),
-	("Jul 14 2023"[10]),
+	("Aug  2 2023"[ 9]),
+	("Aug  2 2023"[10]),
    
-	((("Jul 14 2023"[0] == 'O') || ("Jul 14 2023"[0] == 'N') || ("Jul 14 2023"[0] == 'D')) ? '1' : '0'),
-	( (("Jul 14 2023"[0] == 'J' && "Jul 14 2023"[1] == 'a' && "Jul 14 2023"[2] == 'n')) ? '1' : (("Jul 14 2023"[0] == 'F')) ? '2' : (("Jul 14 2023"[0] == 'M' && "Jul 14 2023"[1] == 'a' && "Jul 14 2023"[2] == 'r')) ? '3' : (("Jul 14 2023"[0] == 'A' && "Jul 14 2023"[1] == 'p')) ? '4' : (("Jul 14 2023"[0] == 'M' && "Jul 14 2023"[1] == 'a' && "Jul 14 2023"[2] == 'y')) ? '5' : (("Jul 14 2023"[0] == 'J' && "Jul 14 2023"[1] == 'u' && "Jul 14 2023"[2] == 'n')) ? '6' : (("Jul 14 2023"[0] == 'J' && "Jul 14 2023"[1] == 'u' && "Jul 14 2023"[2] == 'l')) ? '7' : (("Jul 14 2023"[0] == 'A' && "Jul 14 2023"[1] == 'u')) ? '8' : (("Jul 14 2023"[0] == 'S')) ? '9' : (("Jul 14 2023"[0] == 'O')) ? '0' : (("Jul 14 2023"[0] == 'N')) ? '1' : (("Jul 14 2023"[0] == 'D')) ? '2' : '?' ),
+	((("Aug  2 2023"[0] == 'O') || ("Aug  2 2023"[0] == 'N') || ("Aug  2 2023"[0] == 'D')) ? '1' : '0'),
+	( (("Aug  2 2023"[0] == 'J' && "Aug  2 2023"[1] == 'a' && "Aug  2 2023"[2] == 'n')) ? '1' : (("Aug  2 2023"[0] == 'F')) ? '2' : (("Aug  2 2023"[0] == 'M' && "Aug  2 2023"[1] == 'a' && "Aug  2 2023"[2] == 'r')) ? '3' : (("Aug  2 2023"[0] == 'A' && "Aug  2 2023"[1] == 'p')) ? '4' : (("Aug  2 2023"[0] == 'M' && "Aug  2 2023"[1] == 'a' && "Aug  2 2023"[2] == 'y')) ? '5' : (("Aug  2 2023"[0] == 'J' && "Aug  2 2023"[1] == 'u' && "Aug  2 2023"[2] == 'n')) ? '6' : (("Aug  2 2023"[0] == 'J' && "Aug  2 2023"[1] == 'u' && "Aug  2 2023"[2] == 'l')) ? '7' : (("Aug  2 2023"[0] == 'A' && "Aug  2 2023"[1] == 'u')) ? '8' : (("Aug  2 2023"[0] == 'S')) ? '9' : (("Aug  2 2023"[0] == 'O')) ? '0' : (("Aug  2 2023"[0] == 'N')) ? '1' : (("Aug  2 2023"[0] == 'D')) ? '2' : '?' ),
    
-	(("Jul 14 2023"[4] >= '0') ? ("Jul 14 2023"[4]) : '0'),
-	("Jul 14 2023"[ 5]),
+	(("Aug  2 2023"[4] >= '0') ? ("Aug  2 2023"[4]) : '0'),
+	("Aug  2 2023"[ 5]),
 	
 	
     
@@ -31725,36 +31040,17 @@ int d_TestSp_SR_Flag = 0;
     
 int main(void)
 {
-    
-	
-	
-
-
-
-
-
- 
+  
   
 	HAL_Init();  
 
 	 
 	SystemClock_Config();
 
+    
+    
 	 
 	BSP_Config();
-
-	 
-	lwip_init();
-
-	 
-	Netif_Config();
-
-	 
-	
-
-	 
-	User_notification(&gnetif);
-
 
 	Timer_init(); 
 
@@ -31764,30 +31060,17 @@ int main(void)
 	MX_I2C1_Init();
    
     
-	
-   
-
-
-	
+	RTC_AlarmInit();
 	
 
 	
-	HAL_Delay(10);
-
 
     
     
-	
+	MX_ADC1_Init();
+    MX_ADC3_Init();
     
     
-    
-
-	
-	
-    
-	
-	
-	
     MyPrintf_USART1("SystemClock  = %d/ AHB(HCLK) : %d / APB1(PCLK1) : %d / APBP2(PCLK2) : %d \n\r", HAL_RCC_GetSysClockFreq(), HAL_RCC_GetHCLKFreq(), HAL_RCC_GetPCLK1Freq(), HAL_RCC_GetPCLK2Freq());
     MyPrintf_USART1("---- AMP ID Switch  = [%d--%d] \n\r",IP_ADDR1_INPUT_DATA,IP_ADDR2_INPUT_DATA);
     
@@ -31796,14 +31079,6 @@ int main(void)
 	MyPrintf_USART1("-%s\r\n", completeVersionBuild);
     
     
-	sprintf(&mLCDPrintBuf[1][0], "%s-%s", completeVersion, completeVersionBuild);
-    
-    sprintf(&mLCDPrintBuf_2[0][0], "ANSM_ON");
-    
-    sprintf(&mLCDPrintBuf_2[1][0], "AMP_VOL_DEFAULT");
-    
-   
-
 	static int s_100msCng = 0;   
     
 	static int s_200msCng = 0;   
@@ -31814,19 +31089,32 @@ int main(void)
     
     static int sOLED_InitCnt = 0;
     
+
+
     
-    mLed_Process_Flag.sMy_IP_Info = IP_ADDR1_INPUT_DATA;
-	mLed_Process_Flag.sAnsm_Run_Flag = 1;
-    memset(mLed_Process_Flag.sSt_Buf_Val,0x00,sizeof(mLed_Process_Flag.sSt_Buf_Val)); 
+     
+
+      AUDIO_AMP_Boot_Set();
+
+  	  MyPrintf_USART1("\n----TestEEPROM Test----\n\n");
+	  TestEEPROM(&hi2c1);	
+
+	  MyPrintf_USART1("\n----EEPLogInit Test----\n\n");
+	  EEPLogInit(&hi2c1); 
+
+
     
-    
-    sprintf(&mLCDPrintBuf[2][0], "--------------------");
-    
-    
-     AUDIO_AMP_Boot_Set();
-    
-    
-    
+      
+	 
+	lwip_init();
+
+	 
+	Netif_Config();
+
+	 
+	User_notification(&gnetif);
+      
+      
     
 	while (1)
 	{  
@@ -31845,9 +31133,18 @@ int main(void)
     
 		USARTRX_MainPro();
     
+        
 
 
 
+
+
+
+
+        
+        
+        
+    
 
 
 
@@ -32065,176 +31362,111 @@ int main(void)
 static void BSP_Config(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
-
-
-
-
-
-
-
-
-
-
-
-
-
     
     
-    	  
-	do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (2U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (2U)))); ((void)(tmpreg)); } while(0U);
-	GPIO_InitStructure.Pin = ((uint16_t)0x0001);
+     do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (0U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (0U)))); ((void)(tmpreg)); } while(0U);
+     do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (2U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (2U)))); ((void)(tmpreg)); } while(0U);
+     do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (3U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (3U)))); ((void)(tmpreg)); } while(0U);
+     do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (4U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (4U)))); ((void)(tmpreg)); } while(0U);
+
+    
+	  
+
+	GPIO_InitStructure.Pin = ((uint16_t)0x0100);
 	GPIO_InitStructure.Mode = 0x10210000U;
 	GPIO_InitStructure.Pull = 0x00000000U;
-	HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0800U)), &GPIO_InitStructure);
+	HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x1000U)), &GPIO_InitStructure);
 
 	 
-	HAL_NVIC_SetPriority(EXTI0_IRQn, 0xF, 0);
-	HAL_NVIC_EnableIRQ(EXTI0_IRQn); 
-    
-    
-    
+	HAL_NVIC_SetPriority(EXTI9_5_IRQn, 0xF, 0);
+	HAL_NVIC_EnableIRQ(EXTI9_5_IRQn); 
+
 	 
 	
 	
 
 	 
 	HAL_NVIC_SetPriority(SysTick_IRQn, 0x0, 0x0);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
    
-        
+    
+    
+    
+    GPIO_InitStructure.Pin = ((uint16_t)0x0010)|((uint16_t)0x0100);
+	GPIO_InitStructure.Pull = 0x00000000U;
+	GPIO_InitStructure.Mode = 0x00000000U;
+    GPIO_InitStructure.Speed = 0x00000003U;
+	HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0000U)), &GPIO_InitStructure);
+    
+    
+     
+    GPIO_InitStructure.Pin = ((uint16_t)0x0800);
+	GPIO_InitStructure.Pull = 0x00000000U;
+	GPIO_InitStructure.Mode = 0x00000001U;
+    GPIO_InitStructure.Speed = 0x00000003U;
+	HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0000U)), &GPIO_InitStructure);
+    
+    HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0000U)), ((uint16_t)0x0800), GPIO_PIN_RESET);
+    
+    
+    
+     
+     
+    GPIO_InitStructure.Pin = ((uint16_t)0x0100)|((uint16_t)0x0200) | ((uint16_t)0x0400) | ((uint16_t)0x0800) | ((uint16_t)0x1000) | ((uint16_t)0x2000) | ((uint16_t)0x4000) | ((uint16_t)0x8000);
+	GPIO_InitStructure.Pull = 0x00000000U;
+	GPIO_InitStructure.Mode = 0x00000000U;
+    GPIO_InitStructure.Speed = 0x00000003U;
+	HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0800U)), &GPIO_InitStructure);
+    
+    
+    
+    
+     
+     
+    GPIO_InitStructure.Pin = ((uint16_t)0x0001) | ((uint16_t)0x0004) | ((uint16_t)0x8000);
+	GPIO_InitStructure.Pull = 0x00000000U;
+	GPIO_InitStructure.Mode = 0x00000000U;
+    GPIO_InitStructure.Speed = 0x00000003U;
+	HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), &GPIO_InitStructure);
+    
+    
+      
+    GPIO_InitStructure.Pin = ((uint16_t)0x0002) | ((uint16_t)0x0400) | ((uint16_t)0x0800) | ((uint16_t)0x1000) | ((uint16_t)0x2000);
+	GPIO_InitStructure.Pull = 0x00000000U;
+	GPIO_InitStructure.Mode = 0x00000001U;
+    GPIO_InitStructure.Speed = 0x00000003U;
+	HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), &GPIO_InitStructure);
+    
+    HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0002), GPIO_PIN_SET);
+    
+    HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0800), GPIO_PIN_SET);
+    HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0400), GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x1000)|((uint16_t)0x2000), GPIO_PIN_RESET);
+    
+
+
+     
+     
+    GPIO_InitStructure.Pin = ((uint16_t)0x0002) | ((uint16_t)0x0020);
+	GPIO_InitStructure.Pull = 0x00000000U;
+	GPIO_InitStructure.Mode = 0x00000000U;
+    GPIO_InitStructure.Speed = 0x00000003U;
+	HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x1000U)), &GPIO_InitStructure);
+    
+     
+    GPIO_InitStructure.Pin = ((uint16_t)0x0008) | ((uint16_t)0x0010) | ((uint16_t)0x0040) | ((uint16_t)0x0080);
+	GPIO_InitStructure.Pull = 0x00000000U;
+	GPIO_InitStructure.Mode = 0x00000001U;
+    GPIO_InitStructure.Speed = 0x00000003U;
+	HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x1000U)), &GPIO_InitStructure);
+    
+    
+    HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x1000U)), ((uint16_t)0x0080), GPIO_PIN_SET);
+       
+    HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x1000U)), ((uint16_t)0x0008)|((uint16_t)0x0010), GPIO_PIN_RESET);
+   
+    HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x1000U)), ((uint16_t)0x0040), GPIO_PIN_SET);   
+    
+    
 }
 
 
@@ -32288,16 +31520,11 @@ static void Netif_Config(void)
  
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-	if (GPIO_Pin == ((uint16_t)0x0001))
+    
+    if (GPIO_Pin == ((uint16_t)0x0100))
 	{
 		ethernetif_set_link(&gnetif);
 	}
-    
-    
-
-
-
-
 }
 
 
@@ -32389,7 +31616,7 @@ static void RTC_AlarmInit(void)
  
 	RtcHandle.Init.HourFormat = 0x00000000U;
 	RtcHandle.Init.AsynchPrediv = 0x7F;
-	RtcHandle.Init.SynchPrediv = 0x00FF;
+	RtcHandle.Init.SynchPrediv = 0x0130;
 	RtcHandle.Init.OutPut = 0x00000000U;
 	RtcHandle.Init.OutPutPolarity = 0x00000000U;
 	RtcHandle.Init.OutPutType = 0x00000000U;
@@ -32410,19 +31637,19 @@ static void RTC_AlarmInit(void)
 
 
 
- 
-void ONTD(uint8_t IN,uint8_t *OUT,uint8_t MS,int *CLK )
-{
-	uint8_t CE;
-	
-	if(!IN){*CLK = 0; *OUT = 0;}		
-	CE = (~*OUT & 0x0001) && IN;	
-	if(CE)
-	{
-		if(MS == *CLK) {*OUT = 1;}
-		else *CLK = *CLK+1;
-	}
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
     
 
 
@@ -32472,6 +31699,9 @@ uint8_t d_RS_Flag;
 int d_RS_Cnt;
 
 
+uint16_t batVol;
+uint16_t batVol1;
+
 void Time_Main(void)
 {
     uint8_t     nRbuf_1[2];
@@ -32483,10 +31713,10 @@ void Time_Main(void)
 	m_Main_TIM_Cnt++;
     
     
-    ONTD(getSW_SR(),&d_SR_Flag,5,&d_SR_Cnt);
-    ONTD(getSW_SL(),&d_SL_Flag,5,&d_SL_Cnt);
-    ONTD(getSW_AR(),&d_AR_Flag,5,&d_AR_Cnt);
-    ONTD(getSW_RS(),&d_RS_Flag,5,&d_RS_Cnt);
+
+
+
+
         
             
     mDI_CheckFlag = ((d_SR_Flag << 3) | (d_SL_Flag << 2) | ( d_AR_Flag<< 1) | (d_RS_Flag & 0x01));  
@@ -32496,9 +31726,9 @@ void Time_Main(void)
 	if (!(m_Main_TIM_Cnt % 100)) 
 	{
 
-		HAL_GPIO_TogglePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x2000U)), ((uint16_t)0x0800)); 
-        
-        if(mLed_Process_Flag.sSpk_check_Cnt) mLed_Process_Flag.sSpk_check_Cnt--;
+
+
+
         
 
 	}
@@ -32510,10 +31740,10 @@ void Time_Main(void)
 	}
     
 
-    if (!(m_Main_TIM_Cnt % 1000)) 
+    if (!(m_Main_TIM_Cnt % 5000)) 
 	{
         
-        
+       
         
             processCurrentVal();
             
@@ -32583,13 +31813,24 @@ void Time_Main(void)
     if (!(m_Main_TIM_Cnt % 10000)) 
     {
         
+        HAL_GPIO_TogglePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x1000U)), ((uint16_t)0x0008));
+        HAL_GPIO_TogglePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x1000U)), ((uint16_t)0x0010));
+        
+        
+        batVol = getAdc1Vol();
+        batVol1 = getAdc2Vol();
+        
         
         MyPrintf_USART1("~~~~~~~~~~~~NewPulse 4_line PAMP~~~~~~~~~~~~\n\r");
 		MyPrintf_USART1("CPU RUN Time  = %d Second  \n\r", (m_Main_TIM_Cnt / 1000));
         MyPrintf_USART1("IP  : %s\n\r", ip4addr_ntoa(&gnetif.ip_addr));
 		MyPrintf_USART1("MAC : %x-%x-%x-%x-%x-%x \n\r", gnetif.hwaddr[0], gnetif.hwaddr[1], gnetif.hwaddr[2], gnetif.hwaddr[3], gnetif.hwaddr[4], gnetif.hwaddr[5]);
-        MyPrintf_USART1("ANSM : %02d\r\n",mAnsSetFlag.tAnsCnt);
-        MyPrintf_USART1("Temp : %02d\r\n",mLed_Process_Flag.sCpu_Temp);
+        MyPrintf_USART1("BAT : %02d\r\n",batVol1);
+        MyPrintf_USART1("Temp : %02d\r\n",batVol);
+        
+        
+        
+        processTestDebug();
         
         
         
@@ -32780,17 +32021,17 @@ static void RTC_TimeShow(uint8_t* showtime)
 
 	HAL_RTC_SetAlarm_IT(&RtcHandle, &salarmstructure, 0x00000001U);
 
-	
+	MyPrintf_USART1("--------Timer Count : %02d:%02d:%02d \n\r", BCD_BIN(stimestructureget.Hours), BCD_BIN(stimestructureget.Minutes), BCD_BIN(stimestructureget.Seconds));
     
-    if(getSW_RS()|| getSW_AR() || getSW_SL() || getSW_SL()) 
-    {
-        sprintf(&mLCDPrintBuf[3][0], "%02d:%02d:%02d", BCD_BIN(stimestructureget.Hours), BCD_BIN(stimestructureget.Minutes), BCD_BIN(stimestructureget.Seconds));
-    }
-    else
-    {
-        sprintf(&mLCDPrintBuf[3][0], "%02d:%02d:%02d-(%02d/%02d)", BCD_BIN(stimestructureget.Hours), BCD_BIN(stimestructureget.Minutes), BCD_BIN(stimestructureget.Seconds),IP_ADDR1_INPUT_DATA,IP_ADDR2_INPUT_DATA);
 
-    }
+
+
+
+
+
+
+
+
 }
 
 
@@ -32832,20 +32073,20 @@ void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *RtcHandle)
 
 
  
-void MX_ADC_DMA_Init(void)
-{
-	 
-	do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (22U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (22U)))); ((void)(tmpreg)); } while(0U);
 
-	 
-	 
-	HAL_NVIC_SetPriority(DMA2_Stream0_IRQn, 5, 0);
-	HAL_NVIC_EnableIRQ(DMA2_Stream0_IRQn);
-    
-    
-    HAL_NVIC_SetPriority(DMA2_Stream4_IRQn, 6, 0);
-	HAL_NVIC_EnableIRQ(DMA2_Stream4_IRQn);
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -32871,7 +32112,7 @@ void MX_ADC1_Init(void)
 	AdcHandle1.Init.ExternalTrigConv = 0x00000000U;
 	AdcHandle1.Init.DataAlign = 0x00000000U;
 	AdcHandle1.Init.NbrOfConversion = 1;
-	AdcHandle1.Init.DMAContinuousRequests = ENABLE;
+	AdcHandle1.Init.DMAContinuousRequests = DISABLE;
 	AdcHandle1.Init.EOCSelection = DISABLE;
       
 	if (HAL_ADC_Init(&AdcHandle1) != HAL_OK)
@@ -32888,7 +32129,7 @@ void MX_ADC1_Init(void)
     
 	sConfig.Channel = ((uint32_t)((uint32_t)(0x10U << (0U)))); 
 	sConfig.Rank = 1;
-	sConfig.SamplingTime = ((uint32_t)(0x7U << (0U)));
+	sConfig.SamplingTime = ((uint32_t)(0x4U << (0U)));
 	sConfig.Offset = 0;
     
     if (HAL_ADC_ConfigChannel(&AdcHandle1, &sConfig) != HAL_OK)
@@ -32935,7 +32176,7 @@ void MX_ADC3_Init(void)
 	AdcHandle3.Init.ExternalTrigConv = 0x00000000U;
 	AdcHandle3.Init.DataAlign = 0x00000000U;
 	AdcHandle3.Init.NbrOfConversion = 1;
-	AdcHandle3.Init.DMAContinuousRequests = ENABLE;
+	AdcHandle3.Init.DMAContinuousRequests = DISABLE;
 	AdcHandle3.Init.EOCSelection = DISABLE;
       
 	if (HAL_ADC_Init(&AdcHandle3) != HAL_OK)
@@ -32950,7 +32191,7 @@ void MX_ADC3_Init(void)
 	 
 	 
     
-	sConfig.Channel = 0x00000000U; 
+	sConfig.Channel = ((uint32_t)((0x08U << (0U)) | (0x02U << (0U)))); 
 	sConfig.Rank = 1;
 	sConfig.SamplingTime = ((uint32_t)(0x7U << (0U)));
 	sConfig.Offset = 0;
@@ -32971,51 +32212,57 @@ void MX_ADC3_Init(void)
 uint32_t rawValue;
 volatile uint16_t ANS_AdcCPU_Data;
 
-void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
-{
-    
-	float temp;
-    float volt;
-    float v25 = 1.43;
-    float avg_slope = 4.3;
-    
-	uhADCxConvertedValue_Cnt++;
-    
-	
-    
-	temp = (float)ADCValue3[0] * 3.3 / (float)4096;
-	ANS_AdcCH1_Data = (uint16_t)(temp * 10);
-	
-	
-    
-	
-	
-    
-   
-   
- 
-    
-    volt = (float)ADCValue1[0] * 3.3 / 0xfff;
-    ANS_AdcCPU_Data = (volt-0.76)/0.0025 + 25.0;
- 
-    mLed_Process_Flag.sCpu_Temp = ANS_AdcCPU_Data;
-    
-     
-	if (ADCValue3[0] > 2200)
-	{
-		if (mAnsSetFlag.tAnsCnt < 30) mAnsSetFlag.tAnsCnt++;
-	}
-	else
-	{
-		if (mAnsSetFlag.tAnsCnt) mAnsSetFlag.tAnsCnt--;
-        
-	}
 
-    
-    HAL_ADC_Stop_DMA(&AdcHandle1);
-    HAL_ADC_Stop_DMA(&AdcHandle3);
-	
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -33034,7 +32281,7 @@ void AUDIO_AMP_Boot_Set(void)
     HAL_Delay(10);
     setAMP_Standby(1); 
     
-    njw1192_default_value();
+    
     HAL_Delay(10);
     
     
@@ -33045,38 +32292,37 @@ void AUDIO_AMP_Boot_Set(void)
     HAL_Delay(100);
 	
 
-    AMP_Mute_ON(AMP_ID_1, AMP_CH_All, AMP_ID_2, AMP_CH_All, AMP_ID_3, AMP_CH_All); 
-	
-    HAL_Delay(100);
+
+
     
     nRbuf_1[0] = 0xFF;
     I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x06, (uint8_t *)nRbuf_1, 1);
     MyPrintf_USART1("getAmp1 Mode read :%02X \r\n", nRbuf_1[0]); 
 
-    nRbuf_1[0] = 0xFF;
-    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x06, (uint8_t *)nRbuf_1, 1);     
-    MyPrintf_USART1("getAmp2 Mode read :%02X \r\n", nRbuf_1[0]); 
 
-    nRbuf_1[0] = 0xFF;
-    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x06, (uint8_t *)nRbuf_1, 1);
-    MyPrintf_USART1("getAmp3 Mode read :%02X \r\n", nRbuf_1[0]); 
-   
-    
-	
-    
-    setBk_Out_1(0);
-    setBk_Out_3(0);
-    setBk_Out_5(0);
 
-    setBk_Out_6(0);
-        
 
-    
-	
-	setAmp_Mute_1(1);
-	setAmp_Mute_2(1);
-    
-    njw1192_mute(1); 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
 }
 

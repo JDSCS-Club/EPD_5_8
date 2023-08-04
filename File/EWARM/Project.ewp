@@ -146,7 +146,7 @@
                 </option>
                 <option>
                     <name>OgLibHeap</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>OGLibAdditionalLocale</name>
@@ -665,7 +665,7 @@
                 </option>
                 <option>
                     <name>OOCOutputFile</name>
-                    <state>4_AMP_$DATE$.bin</state>
+                    <state>5_8EPD_$DATE$.bin</state>
                 </option>
                 <option>
                     <name>OOCCommandLineProducer</name>
@@ -776,7 +776,7 @@
                 </option>
                 <option>
                     <name>IlinkIcfFile</name>
-                    <state>C:\D\JDS_DATA\LEDC_EMU_TEST\File\EWARM\stm32f407xx_flash.icf</state>
+                    <state>C:\D\SW2_Team\EPD_5_8\File\EWARM\stm32f407xx_flash.icf</state>
                 </option>
                 <option>
                     <name>IlinkIcfFileSlave</name>
@@ -1090,6 +1090,11 @@
                 </option>
             </data>
         </settings>
+        <settings>
+            <name>Coder</name>
+            <archiveVersion>0</archiveVersion>
+            <data />
+        </settings>
     </configuration>
     <group>
         <name>Application</name>
@@ -1101,6 +1106,9 @@
         </group>
         <group>
             <name>User</name>
+            <file>
+                <name>$PROJ_DIR$\..\Src\adc.c</name>
+            </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\AmpGpio.c</name>
             </file>
@@ -1124,6 +1132,15 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\main.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Src\naranja_boron.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Src\QBuf.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Src\spi_flash.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\stm32f4xx_hal_msp.c</name>
@@ -1256,6 +1273,9 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_adc.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_adc_ex.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.c</name>

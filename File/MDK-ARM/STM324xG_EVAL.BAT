@@ -1,8 +1,8 @@
-SET PATH=C:\Keil_v5\ARM\ARMCC\Bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS\;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS\;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Embarcadero\Studio\19.0\bin;C:\Users\Public\Documents\Embarcadero\Studio\19.0\Bpl;C:\Program Files (x86)\Embarcadero\Studio\19.0\bin64;C:\Users\Public\Documents\Embarcadero\Studio\19.0\Bpl\Win64;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files (x86)\Altium Designer S09 Viewer\System;C:\Program Files\PuTTY\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git LFS;C:\Program Files\Git\cmd;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Cadence\SPB_16.6\openaccess\bin\win32\opt;C:\Cadence\SPB_16.6\tools\capture;C:\Cadence\SPB_16.6\tools\pspice;C:\Cadence\SPB_16.6\tools\specctra\bin;C:\Cadence\SPB_16.6\tools\fet\bin;C:\Cadence\SPB_16.6\tools\libutil\bin;C:\Cadence\SPB_16.6\tools\bin;C:\Cadence\SPB_16.6\tools\pcb\bin;C:\Users\JDS_DELL\AppData\Local\Microsoft\WindowsApps
-SET CPU_TYPE=STM32F407IGTx
+SET PATH=C:\Keil_v5\ARM\ARMCC\Bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Bandizip\;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\Git\cmd;C:\Program Files\dotnet\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\TortoiseGit\bin;C:\Users\wkd10/.local/bin;C:\Cadence\SPB_16.6\openaccess\bin\win32\opt;C:\Cadence\SPB_16.6\tools\capture;C:\Cadence\SPB_16.6\tools\pspice;C:\Cadence\SPB_16.6\tools\specctra\bin;C:\Cadence\SPB_16.6\tools\fet\bin;C:\Cadence\SPB_16.6\tools\libutil\bin;C:\Cadence\SPB_16.6\tools\bin;C:\Cadence\SPB_16.6\tools\pcb\bin;C:\Users\wkd10\AppData\Local\Microsoft\WindowsApps;;C:\Users\wkd10\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\wkd10\.dotnet\tools
+SET CPU_TYPE=STM32F407VGTx
 SET CPU_VENDOR=STMicroelectronics
 SET UV2_TARGET=STM324xG_EVAL
-SET CPU_CLOCK=0x017D7840
+SET CPU_CLOCK=0x00B71B00
 "C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\stm324xg_eval\system_stm32f4xx.__i"
 "C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\stm324xg_eval\autoip.__i"
 "C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\stm324xg_eval\dhcp.__i"
@@ -55,7 +55,6 @@ SET CPU_CLOCK=0x017D7840
 "C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\stm324xg_eval\stm32f4xx_it.__i"
 "C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\stm324xg_eval\tcp_echoserver.__i"
 "C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\stm324xg_eval\ethernetif.__i"
-"C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\stm324xg_eval\led.__i"
 "C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\stm324xg_eval\timer.__i"
 "C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\stm324xg_eval\stm32f4xx_hal_msp.__i"
 "C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\stm324xg_eval\flash.__i"
@@ -63,7 +62,6 @@ SET CPU_CLOCK=0x017D7840
 "C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\stm324xg_eval\wwdg.__i"
 "C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\stm324xg_eval\usrat.__i"
 "C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\stm324xg_eval\crc8.__i"
-"C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\stm324xg_eval\charlcd.__i"
 "C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\stm324xg_eval\ethernet.__i"
 "C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\stm324xg_eval\def.__i"
 "C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\stm324xg_eval\dns.__i"
@@ -84,4 +82,3 @@ SET CPU_CLOCK=0x017D7840
 "C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\stm324xg_eval\udp.__i"
 "C:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\stm324xg_eval\eventrecorder.__i"
 "C:\Keil_v5\ARM\ARMCC\Bin\ArmLink" --Via ".\STM324xG_EVAL\STM324xG_EVAL.lnp"
-"C:\Keil_v5\ARM\ARMCC\Bin\fromelf.exe" ".\STM324xG_EVAL\STM324xG_EVAL.axf" --i32combined --output ".\STM324xG_EVAL\STM324xG_EVAL.hex"

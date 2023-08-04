@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<EmbeddedProfile xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<EmbeddedProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ToolchainID>com.visualgdb.arm-eabi</ToolchainID>
   <ToolchainVersion>
     <GCC>10.3.1</GCC>
@@ -52,7 +52,7 @@
     <AllDependencies>
       <ProjectDependency>
         <RelativePath>Project.ewp</RelativePath>
-        <Timestamp>132968471304923119</Timestamp>
+        <Timestamp>133349837782246277</Timestamp>
       </ProjectDependency>
     </AllDependencies>
     <RootDirectory>
@@ -92,6 +92,9 @@
                 </VirtualFileSnapshot>
                 <VirtualFileSnapshot>
                   <RelativePath>..\Src\main.c</RelativePath>
+                </VirtualFileSnapshot>
+                <VirtualFileSnapshot>
+                  <RelativePath>..\Src\QBuf.c</RelativePath>
                 </VirtualFileSnapshot>
                 <VirtualFileSnapshot>
                   <RelativePath>..\Src\stm32f4xx_hal_msp.c</RelativePath>
@@ -229,25 +232,7 @@
                       <RelativePath>..\Drivers\display\Example\ImageData.c</RelativePath>
                     </VirtualFileSnapshot>
                     <VirtualFileSnapshot>
-                      <RelativePath>..\Drivers\display\Example\OLED_0in91_test.c</RelativePath>
-                    </VirtualFileSnapshot>
-                    <VirtualFileSnapshot>
-                      <RelativePath>..\Drivers\display\Example\OLED_0in95_rgb_test.c</RelativePath>
-                    </VirtualFileSnapshot>
-                    <VirtualFileSnapshot>
-                      <RelativePath>..\Drivers\display\Example\OLED_0in96_test.c</RelativePath>
-                    </VirtualFileSnapshot>
-                    <VirtualFileSnapshot>
                       <RelativePath>..\Drivers\display\Example\OLED_1in3_c_test.c</RelativePath>
-                    </VirtualFileSnapshot>
-                    <VirtualFileSnapshot>
-                      <RelativePath>..\Drivers\display\Example\OLED_1in3_test.c</RelativePath>
-                    </VirtualFileSnapshot>
-                    <VirtualFileSnapshot>
-                      <RelativePath>..\Drivers\display\Example\OLED_1in5_rgb_test.c</RelativePath>
-                    </VirtualFileSnapshot>
-                    <VirtualFileSnapshot>
-                      <RelativePath>..\Drivers\display\Example\OLED_1in5_test.c</RelativePath>
                     </VirtualFileSnapshot>
                     <VirtualFileSnapshot>
                       <RelativePath>..\Drivers\display\Example\test.h</RelativePath>
@@ -268,25 +253,7 @@
                   <Subdirectories />
                   <Files>
                     <VirtualFileSnapshot>
-                      <RelativePath>..\Drivers\display\OLED\OLED_0in91.c</RelativePath>
-                    </VirtualFileSnapshot>
-                    <VirtualFileSnapshot>
-                      <RelativePath>..\Drivers\display\OLED\OLED_0in95_rgb.c</RelativePath>
-                    </VirtualFileSnapshot>
-                    <VirtualFileSnapshot>
-                      <RelativePath>..\Drivers\display\OLED\OLED_0in96.c</RelativePath>
-                    </VirtualFileSnapshot>
-                    <VirtualFileSnapshot>
-                      <RelativePath>..\Drivers\display\OLED\OLED_1in3.c</RelativePath>
-                    </VirtualFileSnapshot>
-                    <VirtualFileSnapshot>
                       <RelativePath>..\Drivers\display\OLED\OLED_1in3_c.c</RelativePath>
-                    </VirtualFileSnapshot>
-                    <VirtualFileSnapshot>
-                      <RelativePath>..\Drivers\display\OLED\OLED_1in5.c</RelativePath>
-                    </VirtualFileSnapshot>
-                    <VirtualFileSnapshot>
-                      <RelativePath>..\Drivers\display\OLED\OLED_1in5_rgb.c</RelativePath>
                     </VirtualFileSnapshot>
                   </Files>
                 </VirtualDirectorySnapshot>
@@ -497,6 +464,9 @@
                       <RelativePath>..\Middlewares\Third_Party\LwIP\src\core\tcp_out.c</RelativePath>
                     </VirtualFileSnapshot>
                     <VirtualFileSnapshot>
+                      <RelativePath>..\Middlewares\Third_Party\LwIP\src\apps\tftp\tftp_server.c</RelativePath>
+                    </VirtualFileSnapshot>
+                    <VirtualFileSnapshot>
                       <RelativePath>..\Middlewares\Third_Party\LwIP\src\core\timeouts.c</RelativePath>
                     </VirtualFileSnapshot>
                     <VirtualFileSnapshot>
@@ -552,7 +522,7 @@
             <string>STM32F407xx</string>
             <string>USE_STM324xG_EVAL</string>
           </PreprocessorMacros>
-          <GeneratePreprocessorOutput>false</GeneratePreprocessorOutput>
+          <GeneratePreprocessorOutput>true</GeneratePreprocessorOutput>
           <IsDebugConfiguration>false</IsDebugConfiguration>
         </Settings>
       </ImportedConfiguration>

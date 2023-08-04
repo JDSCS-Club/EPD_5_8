@@ -3,29 +3,29 @@
 <pre>
 <h1>킮ision Build Log</h1>
 <h2>Tool Versions:</h2>
-IDE-Version: μVision V5.25.2.0
-Copyright (C) 2018 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: JANG DUKSU, CS_CLUB, LIC=TA3TG-VLBK9-CZ9WV-PPHHD-0CQLH-IDJ8Y
+IDE-Version: μVision V5.34.0.0
+Copyright (C) 2021 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: ds j, cs_club, LIC=W96CK-ZG0QK-E0PN4-FS7F4-NT059-8Z3G3
  
 Tool Versions:
-Toolchain:       MDK-ARM Professional  Version: 5.25.2.0
+Toolchain:       MDK-ARM Professional  Version: 5.34.0.0
 Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
-C Compiler:      Armcc.exe V5.06 update 6 (build 750)
-Assembler:       Armasm.exe V5.06 update 6 (build 750)
-Linker/Locator:  ArmLink.exe V5.06 update 6 (build 750)
-Library Manager: ArmAr.exe V5.06 update 6 (build 750)
-Hex Converter:   FromElf.exe V5.06 update 6 (build 750)
-CPU DLL:         SARMCM3.DLL V5.25.2.0
-Dialog DLL:      DCM.DLL V1.17.1.0
-Target DLL:      ULP2CM3.DLL V2.209.20.0
-Dialog DLL:      TCM.DLL V1.35.1.0
+C Compiler:      Armcc.exe V5.06 update 7 (build 960)
+Assembler:       Armasm.exe V5.06 update 7 (build 960)
+Linker/Locator:  ArmLink.exe V5.06 update 7 (build 960)
+Library Manager: ArmAr.exe V5.06 update 7 (build 960)
+Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
+CPU DLL:         SARMCM3.DLL V5.34.0.0
+Dialog DLL:      DCM.DLL V1.17.3.0
+Target DLL:      UL2CM3.DLL V1.163.9.0
+Dialog DLL:      TCM.DLL V1.48.0.0
  
 <h2>Project:</h2>
-D:\GitHub_Pro\LEDC5.1_TRACE_TEST\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\MDK-ARM\Project.uvprojx
-Project File Date:  10/19/2018
+C:\D\SW2_Team\5_8_EPD\File\MDK-ARM\Project.uvprojx
+Project File Date:  07/28/2023
 
 <h2>Output:</h2>
-*** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Rebuild target 'STM324xG_EVAL'
 compiling system_stm32f4xx.c...
 compiling autoip.c...
@@ -34,11 +34,17 @@ compiling etharp.c...
 compiling icmp.c...
 compiling igmp.c...
 compiling ip4.c...
+..\Inc\I2C.h(131): warning:  #1-D: last line of file ends without a newline
+  #endif /* __MAIN_H */
+..\Middlewares\Third_Party\LwIP\src\core\ipv4\ip4.c: 1 warning, 0 errors
 compiling ip4_addr.c...
 compiling ip4_frag.c...
 compiling stm324xg_eval.c...
 compiling stm324xg_eval_io.c...
 compiling stm324xg_eval_lcd.c...
+..\Drivers\BSP\STM324xG_EVAL\stm324xg_eval_lcd.c(348): warning:  #223-D: function "LINE" declared implicitly
+    BSP_LCD_DisplayStringAt(0, LINE(Line), ptr, LEFT_MODE);
+..\Drivers\BSP\STM324xG_EVAL\stm324xg_eval_lcd.c: 1 warning, 0 errors
 compiling stm324xg_eval_sram.c...
 compiling api_lib.c...
 compiling api_msg.c...
@@ -75,156 +81,238 @@ compiling ili9325.c...
 compiling stmpe811.c...
 compiling lcd_log.c...
 compiling main.c...
-..\Inc\Timer.h(109): warning:  #1-D: last line of file ends without a newline
+..\Inc\I2C.h(131): warning:  #1-D: last line of file ends without a newline
+  #endif /* __MAIN_H */
+..\Inc\AmpGpio.h(169): warning:  #1-D: last line of file ends without a newline
+       
+..\Inc\Timer.h(129): warning:  #1-D: last line of file ends without a newline
   */
-..\Inc\Flash.h(51): warning:  #1-D: last line of file ends without a newline
+..\Inc\WWDG.h(38): warning:  #1-D: last line of file ends without a newline
   #endif
-..\Inc\WWDG.h(16): warning:  #1-D: last line of file ends without a newline
+..\Inc\Flash.h(83): warning:  #1-D: last line of file ends without a newline
   #endif
-../Src/main.c: 3 warnings, 0 errors
+../Src/main.c(353): warning:  #177-D: variable "s_100msCng"  was declared but never referenced
+        static int s_100msCng = 0;   
+../Src/main.c(355): warning:  #177-D: variable "s_200msCng"  was declared but never referenced
+        static int s_200msCng = 0;   
+../Src/main.c(356): warning:  #177-D: variable "s_1000msCng"  was declared but never referenced
+        static int s_1000msCng = 0;  
+../Src/main.c(359): warning:  #177-D: variable "s_MainTimeCng"  was declared but never referenced
+      static int s_MainTimeCng = 0;  
+../Src/main.c(361): warning:  #177-D: variable "sOLED_InitCnt"  was declared but never referenced
+      static int sOLED_InitCnt = 0;
+../Src/main.c(1067): warning:  #177-D: variable "nRbuf_1"  was declared but never referenced
+      uint8_t     nRbuf_1[2];
+../Src/main.c(1068): warning:  #177-D: variable "nRbuf_2"  was declared but never referenced
+      uint8_t     nRbuf_2[2];
+../Src/main.c(1070): warning:  #177-D: variable "d_10Sec_Cnt"  was declared but never referenced
+      static uint8_t d_10Sec_Cnt = 0;
+../Src/main.c(1594): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+        temp = (float)ADCValue3[0] * 3.3 / (float)4096;
+../Src/main.c(1606): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+      volt = (float)ADCValue1[0] * 3.3 / 0xfff;
+../Src/main.c(1607): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+      ANS_AdcCPU_Data = (volt-0.76)/0.0025 + 25.0;
+../Src/main.c(1587): warning:  #177-D: variable "v25"  was declared but never referenced
+      float v25 = 1.43;
+../Src/main.c(1588): warning:  #177-D: variable "avg_slope"  was declared but never referenced
+      float avg_slope = 4.3;
+../Src/main.c(967): warning:  #177-D: function "RTC_AlarmInit"  was declared but never referenced
+  static void RTC_AlarmInit(void)
+../Src/main.c(1328): warning:  #177-D: function "RTC_SetTimeConfig"  was declared but never referenced
+  static void  RTC_SetTimeConfig(void)
+../Src/main.c: 20 warnings, 0 errors
 compiling app_ethernet.c...
+..\Inc\I2C.h(131): warning:  #1-D: last line of file ends without a newline
+  #endif /* __MAIN_H */
+../Src/app_ethernet.c(73): warning:  #177-D: variable "ipaddr"  was declared but never referenced
+    ip_addr_t ipaddr;
+../Src/app_ethernet.c(74): warning:  #177-D: variable "netmask"  was declared but never referenced
+    ip_addr_t netmask;
+../Src/app_ethernet.c(75): warning:  #177-D: variable "gw"  was declared but never referenced
+    ip_addr_t gw;
+../Src/app_ethernet.c(77): warning:  #177-D: variable "iptxt"  was declared but never referenced
+    uint8_t iptxt[20];
+../Src/app_ethernet.c: 5 warnings, 0 errors
 compiling stm32f4xx_it.c...
+../Src/stm32f4xx_it.c(2): warning:  #9-D: nested comment is not allowed
+  /*
+..\Inc\I2C.h(131): warning:  #1-D: last line of file ends without a newline
+  #endif /* __MAIN_H */
+..\Inc\stm32f4xx_it.h(2): warning:  #9-D: nested comment is not allowed
+  /*
+../Src/stm32f4xx_it.c: 3 warnings, 0 errors
 compiling tcp_echoserver.c...
-../Src/tcp_echoserver.c(150): warning:  #223-D: function "MyPrintf_USART1" declared implicitly
-      MyPrintf_USART1 (" tcp_echoserver_accept  \n\r");
-../Src/tcp_echoserver.c(451): warning:  #223-D: function "MyPrintf_USART1" declared implicitly
-    MyPrintf_USART1 (" tcp_echoserver_connection_close  \n\r");
-../Src/tcp_echoserver.c: 2 warnings, 0 errors
+../Src/tcp_echoserver.c(2): warning:  #9-D: nested comment is not allowed
+  /*
+..\Inc\I2C.h(131): warning:  #1-D: last line of file ends without a newline
+  #endif /* __MAIN_H */
+../Src/tcp_echoserver.c(61): warning:  #177-D: function "tcp_echoclient_recv"  was declared but never referenced
+  static err_t tcp_echoclient_recv(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t err);
+../Src/tcp_echoserver.c(69): warning:  #177-D: function "tcp_echoclient_connected"  was declared but never referenced
+  static err_t tcp_echoclient_connected(void *arg, struct tcp_pcb *tpcb, err_t err);
+../Src/tcp_echoserver.c: 4 warnings, 0 errors
 compiling ethernetif.c...
-compiling LED.c...
-..\Src\LED.c(361): warning:  #177-D: variable "i"  was declared but never referenced
-      int i,j;
-..\Src\LED.c(362): warning:  #177-D: variable "sLedDATa"  was declared but never referenced
-        int sLedDATa = 0x4444;
-..\Src\LED.c(364): warning:  #177-D: variable "sUpLineCnt"  was declared but never referenced
-        int sUpLineCnt = 0;
-..\Src\LED.c(365): warning:  #177-D: variable "sDoLineCnt"  was declared but never referenced
-        int sDoLineCnt = 0;
-..\Src\LED.c(371): warning:  #550-D: variable "sssLine"  was set but never used
-        uint16_t sssLine = 0;
-..\Src\LED.c(373): warning:  #177-D: variable "sLedColor"  was declared but never referenced
-        uint16_t sLedColor = 0;
-..\Src\LED.c(519): warning:  #223-D: function "memset" declared implicitly
-        memset(pVd,0x00,6144);
-..\Src\LED.c(549): warning:  #177-D: variable "Font_16"  was declared but never referenced
-        uint32_t Font_16=0;
-..\Src\LED.c(582): warning:  #177-D: variable "Font_16"  was declared but never referenced
-        uint32_t Font_16=0;
-..\Src\LED.c(661): warning:  #177-D: variable "i"  was declared but never referenced
-        int i,j,sLINE,s12_Block,sDot;
-..\Src\LED.c(661): warning:  #177-D: variable "j"  was declared but never referenced
-        int i,j,sLINE,s12_Block,sDot;
-..\Src\LED.c(661): warning:  #177-D: variable "sLINE"  was declared but never referenced
-        int i,j,sLINE,s12_Block,sDot;
-..\Src\LED.c(663): warning:  #177-D: variable "sDotPrintCnt_Led"  was declared but never referenced
-        uint32_t sDotPrintCnt_Led = 0;
-..\Src\LED.c(664): warning:  #177-D: variable "Font_16"  was declared but never referenced
-        uint32_t Font_16=0;
-..\Src\LED.c(665): warning:  #177-D: variable "Lint_sort"  was declared but never referenced
-        uint32_t Lint_sort=0;
-..\Src\LED.c(668): warning:  #177-D: variable "sDotLineCnt"  was declared but never referenced
-        uint32_t sDotLineCnt = 0;
-..\Src\LED.c(727): warning:  #223-D: function "memset" declared implicitly
-      memset(pVd,0x00,6144);
-..\Src\LED.c: 17 warnings, 0 errors
+..\Inc\I2C.h(131): warning:  #1-D: last line of file ends without a newline
+  #endif /* __MAIN_H */
+..\Inc\Flash.h(83): warning:  #1-D: last line of file ends without a newline
+  #endif
+../Src/ethernetif.c(132): warning:  #177-D: variable "sMacAdd"  was declared but never referenced
+    uint64_t sMacAdd = 0x183009113610; //SEPTA ML MAC ?떆?옉 二쇱냼.
+../Src/ethernetif.c(133): warning:  #177-D: variable "sHSW_1"  was declared but never referenced
+    uint8_t sHSW_1 = 0;
+../Src/ethernetif.c(134): warning:  #177-D: variable "sHSW_2"  was declared but never referenced
+    uint8_t sHSW_2 = 0;
+../Src/ethernetif.c(135): warning:  #177-D: variable "sHSW_3"  was declared but never referenced
+    uint8_t sHSW_3 = 0;
+../Src/ethernetif.c(320): warning:  #177-D: variable "pCrc"  was declared but never referenced
+      uint8_t *pCrc;
+../Src/ethernetif.c(322): warning:  #177-D: variable "sCrC"  was declared but never referenced
+      uint8_t sCrC = 0;
+../Src/ethernetif.c(416): warning:  #177-D: variable "ethhdr"  was declared but never referenced
+    struct eth_hdr* ethhdr;
+../Src/ethernetif.c: 9 warnings, 0 errors
 compiling Timer.c...
-..\Inc\Timer.h(109): warning:  #1-D: last line of file ends without a newline
+..\Inc\Timer.h(129): warning:  #1-D: last line of file ends without a newline
   */
-..\Inc\Flash.h(51): warning:  #1-D: last line of file ends without a newline
+..\Inc\Flash.h(83): warning:  #1-D: last line of file ends without a newline
   #endif
-..\Src\Timer.c(509): warning:  #177-D: function "Timer_Error_Handler"  was declared but never referenced
+..\Inc\I2C.h(131): warning:  #1-D: last line of file ends without a newline
+  #endif /* __MAIN_H */
+..\Src\Timer.c(249): warning:  #177-D: function "Timer_Error_Handler"  was declared but never referenced
   static void Timer_Error_Handler(void)
-..\Src\Timer.c: 3 warnings, 0 errors
+..\Src\Timer.c: 4 warnings, 0 errors
 compiling stm32f4xx_hal_msp.c...
+..\Src\stm32f4xx_hal_msp.c(2): warning:  #9-D: nested comment is not allowed
+  /*
+..\Inc\I2C.h(131): warning:  #1-D: last line of file ends without a newline
+  #endif /* __MAIN_H */
+..\Inc\AmpGpio.h(169): warning:  #1-D: last line of file ends without a newline
+       
+..\Src\stm32f4xx_hal_msp.c: 3 warnings, 0 errors
 compiling Flash.c...
-..\Inc\Flash.h(51): warning:  #1-D: last line of file ends without a newline
+..\Inc\Flash.h(83): warning:  #1-D: last line of file ends without a newline
   #endif
-..\Src\Flash.c: 1 warning, 0 errors
+..\Src\Flash.c(230): warning:  #177-D: variable "i"  was declared but never referenced
+        int i;
+..\Src\Flash.c: 2 warnings, 0 errors
 compiling spi_flash.c...
-..\Src\spi_flash.c(575): warning:  #940-D: missing return statement at end of non-void function "SPI_FLASH_ReadByte" 
+..\Src\spi_flash.c(614): warning:  #940-D: missing return statement at end of non-void function "SPI_FLASH_SendHalfWord" 
   }
-..\Src\spi_flash.c(597): warning:  #940-D: missing return statement at end of non-void function "SPI_FLASH_SendByte" 
-  }
-..\Src\spi_flash.c(617): warning:  #940-D: missing return statement at end of non-void function "SPI_FLASH_SendHalfWord" 
-  }
-..\Src\spi_flash.c: 3 warnings, 0 errors
+..\Src\spi_flash.c: 1 warning, 0 errors
 compiling WWDG.c...
-..\Inc\WWDG.h(16): warning:  #1-D: last line of file ends without a newline
+..\Inc\WWDG.h(38): warning:  #1-D: last line of file ends without a newline
   #endif
-..\Src\WWDG.c(52): warning:  #223-D: function "MyPrintf_USART1" declared implicitly
-                MyPrintf_USART1("**WWDG RESET** \n\r");
-..\Src\WWDG.c(75): warning:  #223-D: function "MyPrintf_USART1" declared implicitly
-                MyPrintf_USART1("**WWDG Error** \n\r");
-..\Src\WWDG.c: 3 warnings, 0 errors
+..\Inc\I2C.h(131): warning:  #1-D: last line of file ends without a newline
+  #endif /* __MAIN_H */
+..\Src\WWDG.c: 2 warnings, 0 errors
 compiling USRAT.c...
-..\Src\USRAT.c(535): warning:  #177-D: variable "sRXBuf"  was declared but never referenced
+..\Inc\I2C.h(131): warning:  #1-D: last line of file ends without a newline
+  #endif /* __MAIN_H */
+..\Src\USRAT.c(651): warning:  #177-D: variable "sRXBuf"  was declared but never referenced
       uint8_t sRXBuf[5];
-..\Src\USRAT.c(536): warning:  #177-D: variable "sKeypadFalg"  was declared but never referenced
+..\Src\USRAT.c(652): warning:  #177-D: variable "sKeypadFalg"  was declared but never referenced
       uint8_t sKeypadFalg = 0;
-..\Src\USRAT.c(800): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Src\USRAT.c(927): warning:  #186-D: pointless comparison of unsigned integer with zero
         if(btCh >= 0 && btCh <= 9) chBuf = btCh+'0';
-..\Src\USRAT.c: 3 warnings, 0 errors
+..\Src\USRAT.c: 4 warnings, 0 errors
 compiling CRC8.c...
-compiling CharLCD.c...
 compiling ethernet.c...
 compiling def.c...
 compiling dns.c...
 compiling inet_chksum.c...
 compiling init.c...
+..\Inc\I2C.h(131): warning:  #1-D: last line of file ends without a newline
+  #endif /* __MAIN_H */
+..\Middlewares\Third_Party\LwIP\src\core\init.c: 1 warning, 0 errors
 compiling ip.c...
 compiling mem.c...
 compiling memp.c...
+..\Inc\I2C.h(131): warning:  #1-D: last line of file ends without a newline
+  #endif /* __MAIN_H */
+..\Middlewares\Third_Party\LwIP\src\core\memp.c: 1 warning, 0 errors
 compiling netif.c...
+..\Inc\I2C.h(131): warning:  #1-D: last line of file ends without a newline
+  #endif /* __MAIN_H */
+..\Middlewares\Third_Party\LwIP\src\core\netif.c: 1 warning, 0 errors
 compiling pbuf.c...
 compiling raw.c...
 compiling stats.c...
 compiling sys.c...
 compiling tcp.c...
+..\Inc\I2C.h(131): warning:  #1-D: last line of file ends without a newline
+  #endif /* __MAIN_H */
+..\Middlewares\Third_Party\LwIP\src\core\tcp.c(2099): warning:  #940-D: missing return statement at end of non-void function "tcp_pcbs_sane" 
+  }
+..\Middlewares\Third_Party\LwIP\src\core\tcp.c: 2 warnings, 0 errors
 compiling tcp_in.c...
 compiling tcp_out.c...
 compiling timeouts.c...
+..\Inc\I2C.h(131): warning:  #1-D: last line of file ends without a newline
+  #endif /* __MAIN_H */
+..\Middlewares\Third_Party\LwIP\src\core\timeouts.c: 1 warning, 0 errors
 compiling udp.c...
+..\Inc\I2C.h(131): warning:  #1-D: last line of file ends without a newline
+  #endif /* __MAIN_H */
+..\Inc\Flash.h(83): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\Middlewares\Third_Party\LwIP\src\core\udp.c(234): warning:  #177-D: variable "sIpAdd"  was declared but never referenced
+    uint8_t *sIpAdd;  // 
+..\Middlewares\Third_Party\LwIP\src\core\udp.c(236): warning:  #177-D: variable "DestIPaddr"  was declared but never referenced
+    ip4_addr_t DestIPaddr;
+..\Middlewares\Third_Party\LwIP\src\core\udp.c(239): warning:  #550-D: variable "sUDP_Rx_PointBuf"  was set but never used
+    uint8_t *sUDP_Rx_PointBuf ;
+..\Middlewares\Third_Party\LwIP\src\core\udp.c(240): warning:  #177-D: variable "sUDP_Rx_DataBuf"  was declared but never referenced
+    uint8_t *sUDP_Rx_DataBuf ;
+..\Middlewares\Third_Party\LwIP\src\core\udp.c(241): warning:  #177-D: variable "sForCnt"  was declared but never referenced
+    uint8_t sForCnt = 0;
+..\Middlewares\Third_Party\LwIP\src\core\udp.c(243): warning:  #177-D: variable "sRxBitCompare"  was declared but never referenced
+    uint64_t sRxBitCompare = 0; // 고장 블럭을 비교 하기 위해 가지고 있는 변수.
+..\Middlewares\Third_Party\LwIP\src\core\udp.c: 8 warnings, 0 errors
 compiling EventRecorder.c...
 linking...
-Program Size: Code=51336 RO-data=1296 RW-data=4916 ZI-data=47284  
-FromELF: creating hex file...
-".\STM324xG_EVAL\STM324xG_EVAL.axf" - 0 Error(s), 35 Warning(s).
+.\STM324xG_EVAL\STM324xG_EVAL.axf: Error: L6200E: Symbol Error_Handler multiply defined (by spi_flash.o and main.o).
+Not enough information to list image symbols.
+Not enough information to list load addresses in the image map.
+Finished: 2 information, 0 warning and 1 error messages.
+".\STM324xG_EVAL\STM324xG_EVAL.axf" - 1 Error(s), 73 Warning(s).
 
 <h2>Software Packages used:</h2>
 
 Package Vendor: ARM
-                http://www.keil.com/pack/ARM.CMSIS.5.4.0.pack
-                ARM.CMSIS.5.4.0
+                http://www.keil.com/pack/ARM.CMSIS.5.7.0.pack
+                ARM.CMSIS.5.7.0
                 CMSIS (Cortex Microcontroller Software Interface Standard)
-   * Component: CORE Version: 5.1.2
+   * Component: CORE Version: 5.4.0
 
 Package Vendor: Keil
-                http://www.keil.com/pack/Keil.ARM_Compiler.1.5.0.pack
-                Keil.ARM_Compiler.1.5.0
+                http://www.keil.com/pack/Keil.ARM_Compiler.1.6.3.pack
+                Keil.ARM_Compiler.1.6.3
                 Keil ARM Compiler extensions for ARM Compiler 5 and ARM Compiler 6
-   * Component: Event Recorder Variant: DAP Version: 1.3.0
+   * Component: Event Recorder Variant: DAP Version: 1.4.0
 
 Package Vendor: Keil
-                http://www.keil.com/pack/Keil.STM32F4xx_DFP.2.13.0.pack
-                Keil.STM32F4xx_DFP.2.13.0
+                http://www.keil.com/pack/Keil.STM32F4xx_DFP.2.16.0.pack
+                Keil.STM32F4xx_DFP.2.16.0
                 STMicroelectronics STM32F4 Series Device Support, Drivers and Examples
 
 <h2>Collection of Component include folders:</h2>
   .\RTE\Compiler
   .\RTE\_STM324xG_EVAL
-  C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include
-  C:\Keil_v5\ARM\PACK\Keil\ARM_Compiler\1.5.0\Include
-  C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+  C:\Users\wkd10\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include
+  C:\Users\wkd10\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.3\Include
+  C:\Users\wkd10\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
 
 <h2>Collection of Component Files used:</h2>
 
-   * Component: ARM::CMSIS:CORE:5.1.2
+   * Component: ARM::CMSIS:CORE:5.4.0
 
-   * Component: Keil.ARM Compiler::Compiler:Event Recorder:DAP:1.3.0
-      Include file:  Config\EventRecorderConf.h
-      Include file:  Include\EventRecorder.h
+   * Component: Keil.ARM Compiler::Compiler:Event Recorder:DAP:1.4.0
       Source file:   Source\EventRecorder.c
-Build Time Elapsed:  00:01:21
+      Include file:  Include\EventRecorder.h
+      Include file:  Config\EventRecorderConf.h
+Target not created.
+Build Time Elapsed:  00:01:17
 </pre>
 </body>
 </html>

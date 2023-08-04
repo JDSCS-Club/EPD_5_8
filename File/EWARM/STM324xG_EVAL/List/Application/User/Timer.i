@@ -28230,48 +28230,101 @@ void MyPrintf_USART1(char * format, ... );
 
 
 
-    extern I2C_HandleTypeDef hi2c1;
-    extern I2C_HandleTypeDef hi2c2;
-     
-     
-	 void MX_I2C_Process(void);
-		 
-     void MX_I2C1_Init(void);
-     void MX_I2C2_Init(void);
-    
-     void AMP_Init(uint16_t Address); 
-    
-    
-     
-    
-    
-      void AMP_Mute_OFF(
+        extern I2C_HandleTypeDef hi2c1;
+        extern I2C_HandleTypeDef hi2c2;
+
+
+        void MX_I2C_Process(void);
+         
+        void MX_I2C1_Init(void);
+
+
+        void AMP_Init(uint16_t Address); 
+
+
+        
+        
+
+        void AMP_Mute_OFF(
                    uint16_t Address1, 
                    uint16_t Address2, 
                    uint16_t Address3);
-     
-      void AMP_Mute_ON(
+
+        void AMP_Mute_ON(
                    uint16_t Address1,uint8_t ad_ch1,
                    uint16_t Address2,uint8_t ad_ch2,
                    uint16_t Address3,uint8_t ad_ch3);
           
           
-    
-     int I2C_HAL_WriteBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t TxBufferSize);
-     
+
+        int I2C_HAL_WriteBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t TxBufferSize);
+
          
          
-     int I2C_HAL_ReadBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t RxBufferSize);
+        int I2C_HAL_ReadBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t RxBufferSize);
+
+
+        void AMP_FAULT(void);
+
+        void AMP_SPK_CHECK(void);
+
+        int AMP_PowOn_Check(void);
+
+        void processCurrentVal(void);
+
+        int at24_HAL_WriteBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t TxBufferSize);
+        int at24_HAL_ReadBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t RxBufferSize);
      
-     
-     void AMP_FAULT(void);
-     
-     void AMP_SPK_CHECK(void);
-     
-     int AMP_PowOn_Check(void);
-     
-     void processCurrentVal(void);
-     
+        
+       
+
+
+        
+void TestEEPROM( I2C_HandleTypeDef *hi2c );
+
+         
+enum eEEPAddr
+{
+	EPPAddrQBufLog = 0x100,
+
+	EPPAddrMagicNumH = (EPPAddrQBufLog - 8),
+	EPPAddrMagicNumL,
+	EPPAddrMaxLogSizeH,
+	EPPAddrMaxLogSizeL,
+	EPPAddrQBufStartH,
+	EPPAddrQBufStartL,
+	EPPAddrQBufEndH,
+	EPPAddrQBufEndL,
+};
+
+enum eEEPVal
+{
+	EEPMagicNumH = 0xAA,
+	EEPMagicNumL = 0x55,
+
+	EEPLogMaxSize = 0x800, 
+
+};
+
+void TestEEPLog(void);
+
+int EEPLogInit(I2C_HandleTypeDef *hi2c);
+int EEPLogReset		( void );
+
+int EEPLogGetMaxSize( void );
+int EEPLogGetSize	( void );
+
+int EEPLogWrite		( char sBuf[] );
+
+
+int EEPLogPrint		( void );
+
+int cmd_logPrint(int argc, char *argv[]);
+
+int cmd_logTest(int argc, char *argv[]);
+
+int cmd_logReset(int argc, char *argv[]);
+
      
 
      
@@ -28371,8 +28424,28 @@ void njw1192_mute(uint8_t On_Off);
  
      
 
+ 
+
+     
+     
+     
+  
+     
+     
+
+     
+     
+     
+     
+     
+ 
+     
 
 
+     
+ 
+     
+     
 enum AMP_MUTE
 {
     AMP_ID_0        =   0x00,
@@ -28495,7 +28568,7 @@ extern volatile uint16_t ADCValue[6];
  
  
  
- 
+
 
 
 
@@ -29192,979 +29265,6 @@ void lcd_Timer(void);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
- 
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-uint8_t 	System_Init(void);
-void    System_Exit(void);
-
-uint8_t 	SPI4W_Write_Byte(uint8_t value);
-void 	I2C_Write_Byte(uint8_t value, uint8_t Cmd);
-
-void Driver_Delay_ms(uint32_t xms);
-void Driver_Delay_us(uint32_t xus);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
- 
-typedef struct {
-    uint8_t *Image;
-    uint16_t Width;
-    uint16_t Height;
-    uint16_t WidthMemory;
-    uint16_t HeightMemory;
-    uint16_t Color;
-    uint16_t Rotate;
-    uint16_t Mirror;
-    uint16_t WidthByte;
-    uint16_t HeightByte;
-    uint16_t Scale;
-} PAINT;
-extern PAINT Paint;
-
-
-
- 
-
-
-
- 
-typedef enum {
-    MIRROR_NONE  = 0x00,
-    MIRROR_HORIZONTAL = 0x01,
-    MIRROR_VERTICAL = 0x02,
-    MIRROR_ORIGIN = 0x03,
-} MIRROR_IMAGE;
-
-
-
- 
-
-
- 
-
-
-
-
-
- 
-typedef enum {
-    DOT_PIXEL_1X1  = 1,	
-    DOT_PIXEL_2X2  , 		
-    DOT_PIXEL_3X3  ,		
-    DOT_PIXEL_4X4  ,		
-    DOT_PIXEL_5X5  , 		
-    DOT_PIXEL_6X6  , 		
-    DOT_PIXEL_7X7  , 		
-    DOT_PIXEL_8X8  , 		
-} DOT_PIXEL;
-
-
-
- 
-typedef enum {
-    DOT_FILL_AROUND  = 1,		
-    DOT_FILL_RIGHTUP  , 		
-} DOT_STYLE;
-
-
-
- 
-typedef enum {
-    LINE_STYLE_SOLID = 0,
-    LINE_STYLE_DOTTED,
-} LINE_STYLE;
-
-
-
- 
-typedef enum {
-    DRAW_FILL_EMPTY = 0,
-    DRAW_FILL_FULL,
-} DRAW_FILL;
-
-
-
- 
-typedef struct {
-    uint16_t	Year;  
-    uint8_t Month; 
-    uint8_t Day;   
-    uint8_t Hour;  
-    uint8_t Min;   
-    uint8_t Sec;   
-} PAINT_TIME;
-extern PAINT_TIME sPaint_time;
-
-
-void Paint_NewImage(uint8_t *image, uint16_t Width, uint16_t Height, uint16_t Rotate, uint16_t Color);
-void Paint_SelectImage(uint8_t *image);
-void Paint_SetRotate(uint16_t Rotate);
-void Paint_SetMirroring(uint8_t mirror);
-void Paint_SetPixel(uint16_t Xpoint, uint16_t Ypoint, uint16_t Color);
-void Paint_SetScale(uint8_t scale);
-
-void Paint_Clear(uint16_t Color);
-void Paint_ClearWindows(uint16_t Xstart, uint16_t Ystart, uint16_t Xend, uint16_t Yend, uint16_t Color);
-
-
-void Paint_DrawPoint(uint16_t Xpoint, uint16_t Ypoint, uint16_t Color, DOT_PIXEL Dot_Pixel, DOT_STYLE Dot_FillWay);
-void Paint_DrawLine(uint16_t Xstart, uint16_t Ystart, uint16_t Xend, uint16_t Yend, uint16_t Color, DOT_PIXEL Line_width, LINE_STYLE Line_Style);
-void Paint_DrawRectangle(uint16_t Xstart, uint16_t Ystart, uint16_t Xend, uint16_t Yend, uint16_t Color, DOT_PIXEL Line_width, DRAW_FILL Draw_Fill);
-void Paint_DrawCircle(uint16_t X_Center, uint16_t Y_Center, uint16_t Radius, uint16_t Color, DOT_PIXEL Line_width, DRAW_FILL Draw_Fill);
-
-
-void Paint_DrawChar(uint16_t Xstart, uint16_t Ystart, const char Acsii_Char, sFONT* Font, uint16_t Color_Foreground, uint16_t Color_Background);
-void Paint_DrawString_EN(uint16_t Xstart, uint16_t Ystart, const char * pString, sFONT* Font, uint16_t Color_Foreground, uint16_t Color_Background);
-
-
-void Paint_DrawString_CN(uint16_t Xstart, uint16_t Ystart, const char * pString, cFONT* font, uint16_t Color_Foreground, uint16_t Color_Background);
-
-void Paint_DrawNum(uint16_t Xpoint, uint16_t Ypoint, double Nummber, sFONT* Font, uint16_t Digit,uint16_t Color_Foreground, uint16_t Color_Background);
-void Paint_DrawTime(uint16_t Xstart, uint16_t Ystart, PAINT_TIME *pTime, sFONT* Font, uint16_t Color_Foreground, uint16_t Color_Background);
-
-
-void Paint_DrawBitMap(const unsigned char* image_buffer);
-
-
-
-void Paint_DrawBitMap_Block(const unsigned char* image_buffer, uint8_t Region);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-extern const unsigned char gImage_0in91[];	
-extern const unsigned char gImage_0in95_rgb[];	
-extern const unsigned char gImage_0in96[];	
-extern const unsigned char gImage_1in3[];	
-extern const unsigned char gImage_1in3_c[];	
-extern const unsigned char gImage_1in5[];	
-extern const unsigned char gImage_1in5_rgb[];
-
- 
-
-
-
- 
- 
-
-  #pragma system_include
-
- 
- 
-
- 
-
-  #pragma system_include
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
- 
-
-  #pragma system_include
-
-
-
-
- 
-
- 
- 
-
-
-
-
- 
-
- 
- 
-
-
-
-
- 
-
- 
- 
-
-
- 
-
-
-
- 
-typedef unsigned int __iar_FlagUType;
-typedef signed int  __iar_FlagSType;
-
-typedef signed int  __iar_ExpType;
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
- 
-
-
-
-#pragma diag_suppress = Pe549 
-
-
-
-
-
-
-
-
-
- 
-#pragma no_arith_checks
-_Pragma("inline=forced") __intrinsic unsigned int __iar_isfinite32(float _X)
-{
-    signed int _Ix = __iar_fp2bits32(_X);
-    return ((_Ix << 1) >> (23 + 1)) + 1;
-}
-
-#pragma no_arith_checks
-_Pragma("inline=forced") __intrinsic unsigned int __iar_isfinite64(double _X)
-{
-    signed int _Ix = __iar_fpgethi64(_X);
-    return ((_Ix << 1) >> (52 - 31)) + 1;
-}
-
-
- 
-#pragma no_arith_checks
-_Pragma("inline=forced") __intrinsic unsigned int __iar_isnan32(float _X)
-{
-    signed int _Ix = __iar_fp2bits32(_X) << 1;
-    return (_Ix >> (23 + 1)) + 1 ? 0 : (_Ix << (31 - 23));
-}
-
-#pragma no_arith_checks
-_Pragma("inline=forced") __intrinsic unsigned int __iar_isnan64(double _X)
-{
-    signed int _Ix = __iar_fpgethi64(_X);
-    return ((_Ix << 1) >> (52 - 31)) + 1 ? 0 : _Ix << (64 - 52);
-}
-
-
-
-
- 
-#pragma no_arith_checks
-_Pragma("inline=forced") __intrinsic unsigned int __iar_iszero32(float _X)
-{
-    unsigned int _Ix = __iar_fp2bits32(_X);
-    return (_Ix << 1) == 0;
-}
-
-#pragma no_arith_checks
-_Pragma("inline=forced") __intrinsic unsigned int __iar_iszero64(double _X)
-{
-    unsigned long long int _Ix = __iar_fp2bits64(_X);
-    return (_Ix & ~(1ULL << 63)) == 0;
-}
-
-
-
-
-
- 
-#pragma no_arith_checks
-_Pragma("inline=forced") __intrinsic unsigned int __iar_isinf32(float _X)
-{
-    signed int _Ix = __iar_fp2bits32(_X);
-    return ((_Ix << 1) >> (23 + 1)) + 1
-           ? 0
-           : ((_Ix << (32 - 23)) == 0);
-}
-
-#pragma no_arith_checks
-_Pragma("inline=forced") __intrinsic unsigned int __iar_isinf64(double _X)
-{
-    signed int _Ix = __iar_fpgethi64(_X);
-    return ((_Ix << 1) >> (52 - 31)) + 1 
-             ? 0 
-             : ((_Ix << (64 - 52)) == 0);
-}
-
-
-
-
-
- 
-#pragma no_arith_checks
-_Pragma("inline=forced") __intrinsic unsigned int __iar_issubnormal32(float _X)
-{
-    unsigned int _Ix = __iar_fp2bits32(_X) & ~(1 << 31);
-    return (_Ix != 0) && (_Ix < (1 << 23));
-}
-
-#pragma no_arith_checks
-_Pragma("inline=forced") __intrinsic unsigned int __iar_issubnormal64(double _X)
-{
-    unsigned long long int _Ix = __iar_fp2bits64(_X) & ~(1ULL << 63);
-    return (_Ix != 0) && (_Ix < (1ULL << 52));
-}
-
-
-
-
- 
-#pragma no_arith_checks
-_Pragma("inline=forced") __intrinsic unsigned int __iar_isnormal32(float _X)
-{
-  signed int _Exp = ((signed int)
-                          (__iar_fp2bits32(_X) << 1) >> (23 + 1));
-  return ((_Exp + 1) >> 1);
-}
-
-#pragma no_arith_checks
-_Pragma("inline=forced") __intrinsic unsigned int __iar_isnormal64(double _X)
-{
-    signed int _Exp = 
-      ((signed int)(__iar_fpgethi64(_X) << 1) >> (52 - 31));
-    return ((_Exp + 1) >> 1);
-}
-
-
-
-
- 
-#pragma no_arith_checks
-_Pragma("inline=forced") __intrinsic unsigned int __iar_signbit32(float _X)
-{
-  unsigned int _Ix = __iar_fp2bits32(_X);
-  return (_Ix >> 31);
-}
-
-#pragma no_arith_checks
-_Pragma("inline=forced") __intrinsic unsigned int __iar_signbit64(double _X)
-{
-  unsigned long long int _Ix = __iar_fp2bits64(_X);
-  return (_Ix >> 63);
-}
-
-
-
-
-
-  typedef float float_t;
-  typedef double double_t;
-
-
-
-   
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       acos(double);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       asin(double);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       atan(double);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       atan2(double, double);
-  _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind      double       ceil(double);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       cos(double);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       cosh(double);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       exp(double);
-  _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind      double       fabs(double);
-  _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind      double       floor(double);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       fmod(double, double);
-  _Pragma("function_effects = no_state, no_read(2), always_returns") __intrinsic __nounwind   double       frexp(double, int *);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       ldexp(double, int);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       log(double);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       log10(double);
-  _Pragma("function_effects = no_state, no_read(2), always_returns") __intrinsic __nounwind   double       modf(double, double *);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       pow(double, double);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       sin(double);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       sinh(double);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       sqrt(double);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       tan(double);
-  _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind      double       tanh(double);
-
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    double       acosh(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    double       asinh(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    double       atanh(double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    double       cbrt(double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    double       copysign(double, double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  double       erf(double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  double       erfc(double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  double       expm1(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    double       exp2(double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    double       fdim(double, double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  double       fma(double, double, double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    double       fmax(double, double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    double       fmin(double, double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    double       hypot(double, double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    int          ilogb(double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  double       lgamma(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long long    llrint(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long long    llround(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns")  __intrinsic __nounwind   double       log1p(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns")  __intrinsic __nounwind   double       log2(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns")  __intrinsic __nounwind   double       logb(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns")  __intrinsic __nounwind   long         lrint(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns")  __intrinsic __nounwind   long         lround(double);
-    _Pragma("function_effects = no_state, always_returns")  __intrinsic __nounwind   double       nan(const char *);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    double       nearbyint(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    double       nextafter(double, double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    double       nexttoward(double, long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    double       remainder(double, double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    double       remquo(double, double, int *);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    double       rint(double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    double       round(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    double       scalbn(double, int);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    double       scalbln(double, long);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  double       tgamma(double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    double       trunc(double);
-
-     
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        acosf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        acoshf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        asinf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        asinhf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        atanf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        atanhf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        atan2f(float, float);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    float        ceilf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        coshf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        cosf(float);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    float        cbrtf(float);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    float        copysignf(float, float);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  float        erff(float);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  float        erfcf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        expf(float);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  float        expm1f(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        exp2f(float);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    float        fabsf(float);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    float        fdimf(float, float);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    float        floorf(float);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  float        fmaf(float, float, float);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    float        fmaxf(float, float);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    float        fminf(float, float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        fmodf(float, float);
-    _Pragma("function_effects = no_state, no_read(2), always_returns") __intrinsic __nounwind float        frexpf(float, int *);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        hypotf(float, float);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    int          ilogbf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        ldexpf(float, int);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  float        lgammaf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long long    llrintf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long long    llroundf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        logbf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        logf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        log1pf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        log2f(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        log10f(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long         lrintf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long         lroundf(float);
-    _Pragma("function_effects = no_state, no_read(2), always_returns") __intrinsic __nounwind float        modff(float, float *);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    float        nanf(const char *);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        nearbyintf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        nextafterf(float, float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        nexttowardf(float, long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        powf(float, float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        remainderf(float, float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        remquof(float, float, int *);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        rintf(float);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    float        roundf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        scalbnf(float, int);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        scalblnf(float, long);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        sinf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        sinhf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        sqrtf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        tanf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    float        tanhf(float);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  float        tgammaf(float);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    float        truncf(float);
-
-     
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  acoshl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  acosl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  asinhl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  asinl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  atanl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  atanhl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  atan2l(long double, long double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    long double  ceill(long double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    long double  cbrtl(long double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    long double  copysignl(long double, long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  coshl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  cosl(long double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  long double  erfl(long double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  long double  erfcl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  expl(long double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  long double  expm1l(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  exp2l(long double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    long double  fabsl(long double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    long double  fdiml(long double, long double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    long double  floorl(long double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  long double  fmal(long double, long double,
-                                               long double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    long double  fmaxl(long double, long double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    long double  fminl(long double, long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  fmodl(long double, long double);
-    _Pragma("function_effects = no_state, no_read(2), always_returns") __intrinsic __nounwind long double  frexpl(long double, int *);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  hypotl(long double, long double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    int          ilogbl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  ldexpl(long double, int);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  long double  lgammal(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long long    llrintl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long long    llroundl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  logbl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  logl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  log1pl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  log10l(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  log2l(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long         lrintl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long         lroundl(long double);
-    _Pragma("function_effects = no_state, no_read(2), always_returns") __intrinsic __nounwind long double  modfl(long double, long double *);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    long double  nanl(const char *);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  nearbyintl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  nextafterl(long double, long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  nexttowardl(long double, long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  powl(long double, long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  remainderl(long double, long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  remquol(long double, long double,
-                                                  int *);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  rintl(long double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    long double  roundl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  scalbnl(long double, int);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  scalblnl(long double, long);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  sinhl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  sinl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  sqrtl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  tanl(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind    long double  tanhl(long double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind  long double  tgammal(long double);
-    _Pragma("function_effects = no_state, always_returns") __intrinsic __nounwind    long double  truncl(long double);
-
-   
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   double        __iar_cos_medium(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   double        __iar_exp_medium(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   double        __iar_log_medium(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   double        __iar_log10_medium(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   double        __iar_log2_medium(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   double        __iar_pow_medium(double, double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   double        __iar_sin_medium(double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   double        __iar_tan_medium(double);
-
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   float         __iar_cos_mediumf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   float         __iar_exp_mediumf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   float         __iar_log_mediumf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   float         __iar_log10_mediumf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   float         __iar_log2_mediumf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   float         __iar_pow_mediumf(float, float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   float         __iar_sin_mediumf(float);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   float         __iar_tan_mediumf(float);
-
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   long double   __iar_cos_mediuml(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   long double   __iar_exp_mediuml(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   long double   __iar_log_mediuml(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   long double   __iar_log10_mediuml(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   long double   __iar_log2_mediuml(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   long double   __iar_pow_mediuml(long double,
-                                                           long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   long double   __iar_sin_mediuml(long double);
-    _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind   long double   __iar_tan_mediuml(long double);
-
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind double        __iar_cos_accurate(double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind double        __iar_pow_accurate(double, double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind double        __iar_sin_accurate(double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind double        __iar_tan_accurate(double);
-
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind float         __iar_cos_accuratef(float);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind float         __iar_pow_accuratef(float, float);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind float         __iar_sin_accuratef(float);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind float         __iar_tan_accuratef(float);
-
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind long double   __iar_cos_accuratel(long double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind long double   __iar_pow_accuratel(long double,
-                                                              long double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind long double   __iar_sin_accuratel(long double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind long double   __iar_tan_accuratel(long double);
-
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind double        __iar_cos_small(double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind double        __iar_exp_small(double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind double        __iar_log_small(double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind double        __iar_log10_small(double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind double        __iar_log2_small(double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind double        __iar_pow_small(double, double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind double        __iar_sin_small(double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind double        __iar_tan_small(double);
-
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind float         __iar_cos_smallf(float);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind float         __iar_exp_smallf(float);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind float         __iar_log_smallf(float);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind float         __iar_log10_smallf(float);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind float         __iar_log2_smallf(float);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind float         __iar_pow_smallf(float, float);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind float         __iar_sin_smallf(float);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind float         __iar_tan_smallf(float);
-
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind long double   __iar_cos_smalll(long double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind long double   __iar_exp_smalll(long double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind long double   __iar_log_smalll(long double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind long double   __iar_log10_smalll(long double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind long double   __iar_log2_smalll(long double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind long double   __iar_pow_smalll(long double,
-                                                         long double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind long double   __iar_sin_smalll(long double);
-      _Pragma("function_effects = no_state, write_errno, always_returns") __intrinsic __nounwind long double   __iar_tan_smalll(long double);
-
-
-
-
-   
-  enum __FPclass { __kInfinity, __kNan, __kFinite, __kDenorm, __kZero };
-
-  #pragma inline=forced
-  __intrinsic int __iar_FPclassify32(float x)
-  {
-    if (!__iar_isfinite32(x))
-    {
-      if (__iar_isnan32(x))
-      {
-        return __kNan;
-      }
-      return __kInfinity;
-    }
-    if (__iar_iszero32(x))
-    {
-      return __kZero;
-    }
-    if (__iar_issubnormal32(x))
-    {
-      return __kDenorm;
-    }
-    return __kFinite;
-  }
-
-    #pragma inline=forced
-    __intrinsic int __iar_FPclassify64(double x)
-    {
-      if (!__iar_isfinite64(x))
-      {
-        if (__iar_isnan64(x))
-        {
-          return __kNan;
-        }
-        return __kInfinity;
-      }
-      if (__iar_iszero64(x))
-      {
-        return __kZero;
-      }
-      if (__iar_issubnormal64(x))
-      {
-        return __kDenorm;
-      }
-      return __kFinite;
-    }
-
-   
-
-
-
-
-
-   
-
-
-
-
-    #pragma inline
-    __iar_FlagSType __isnormalf(float _Left)
-    {       
-      return !__iar_isnan32(_Left) && __iar_isnormal32(_Left);
-    }
-    #pragma inline
-    __iar_FlagSType __isnormal(double _Left)
-    {       
-      return !__iar_isnan64(_Left) && __iar_isnormal64(_Left);
-    }
-    #pragma inline
-    __iar_FlagSType __isnormall(long double _Left)
-    {       
-      return !__iar_isnan64(_Left) && __iar_isnormal64(_Left);
-    }
-    #pragma inline
-     __iar_FlagSType __isinff(float _Left)
-    {       
-      return !__iar_isnan32(_Left) && __iar_isinf32(_Left);
-    }
-    #pragma inline
-     __iar_FlagSType __isinf(double _Left)
-    {       
-      return !__iar_isnan64(_Left) && __iar_isinf64(_Left);
-    }
-    #pragma inline
-     __iar_FlagSType __isinfl(long double _Left)
-    {       
-      return !__iar_isnan64(_Left) && __iar_isinf64(_Left);
-    }
-
-
-
-
-    #pragma inline
-    __iar_FlagSType __isunorderedf(float _x, float _y)
-    {
-      return __iar_isnan32(_x) || __iar_isnan32(_y);
-    }
-    #pragma inline
-    __iar_FlagSType __isunordered(double _x, double _y)
-    {
-      return __iar_isnan64(_x) || __iar_isnan64(_y);
-    }
-    #pragma inline
-    __iar_FlagSType __isunorderedl(long double _x, long double _y)
-    {
-      return __iar_isnan64(_x) || __iar_isnan64(_y);
-    }
-    #pragma inline
-    __iar_FlagSType __islessgreaterf(float _x, float _y)
-    {
-      if (__isunorderedf(_x, _y))
-        return 0;
-      return _x < _y || _x > _y;
-    }
-    #pragma inline
-    __iar_FlagSType __islessgreater(double _x, double _y)
-    {
-      if (__isunordered(_x, _y))
-        return 0;
-      return _x < _y || _x > _y;
-    }
-    #pragma inline
-    __iar_FlagSType __islessgreaterl(long double _x, long double _y)
-    {
-      if (__isunorderedl(_x, _y))
-        return 0;
-      return _x < _y || _x > _y;
-    }
-
-
-
-
-
-
-
- 
-
-
-extern uint8_t *BlackImage;
-
-
-int OLED_0in91_test(void);
-int OLED_0in95_rgb_test(void);
-int OLED_0in96_test(void);
-int OLED_1in3_test(void);
-int OLED_1in3_c_test(void);
-int OLED_1in5_test(void);
-int OLED_1in5_rgb_test(void);
-
-
-void OLED_Print(void);
-    
-
-
-
-
  TIM_HandleTypeDef TimHandle3,TimHandle4,TimHandle5,TimHandle8;
 	
  TIM_OC_InitTypeDef Tim3Pwm,Tim8Pwm;
@@ -30226,7 +29326,7 @@ void Timer_init(void)
     HAL_TIM_Base_Start_IT(&TimHandle4);
 	
     
-    HAL_Delay( 500 );
+ 
 	
  
 	 
@@ -30333,7 +29433,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
         USART_TIM();
         
 	    
-        
+        SPI_FLASH_Timer_1ms();
         
         
        

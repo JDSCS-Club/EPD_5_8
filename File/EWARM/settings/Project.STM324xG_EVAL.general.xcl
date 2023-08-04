@@ -2,13 +2,13 @@
 
 "C:\Program Files\IAR Systems\Embedded Workbench 9.1\arm\bin\armJLINK.dll" 
 
-"C:\D\JDS_DATA\LEDC_EMU_TEST\File\EWARM\STM324xG_EVAL\Exe\Project.out" 
+"C:\D\SW2_Team\EPD_5_8\File\EWARM\STM324xG_EVAL\Exe\Project.out" 
 
 --plugin="C:\Program Files\IAR Systems\Embedded Workbench 9.1\arm\bin\armbat.dll" 
 
 --device_macro="C:\Program Files\IAR Systems\Embedded Workbench 9.1\arm/config/debugger/ST/STM32F4xx.dmac" 
 
---flash_loader="C:\D\JDS_DATA\LEDC_EMU_TEST\File\EWARM\Project.board" 
+--flash_loader="C:\D\SW2_Team\EPD_5_8\File\EWARM\Project.board" 
 
 
 

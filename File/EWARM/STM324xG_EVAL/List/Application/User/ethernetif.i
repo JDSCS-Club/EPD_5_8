@@ -28913,48 +28913,101 @@ void MyPrintf_USART1(char * format, ... );
 
 
 
-    extern I2C_HandleTypeDef hi2c1;
-    extern I2C_HandleTypeDef hi2c2;
-     
-     
-	 void MX_I2C_Process(void);
-		 
-     void MX_I2C1_Init(void);
-     void MX_I2C2_Init(void);
-    
-     void AMP_Init(uint16_t Address); 
-    
-    
-     
-    
-    
-      void AMP_Mute_OFF(
+        extern I2C_HandleTypeDef hi2c1;
+        extern I2C_HandleTypeDef hi2c2;
+
+
+        void MX_I2C_Process(void);
+         
+        void MX_I2C1_Init(void);
+
+
+        void AMP_Init(uint16_t Address); 
+
+
+        
+        
+
+        void AMP_Mute_OFF(
                    uint16_t Address1, 
                    uint16_t Address2, 
                    uint16_t Address3);
-     
-      void AMP_Mute_ON(
+
+        void AMP_Mute_ON(
                    uint16_t Address1,uint8_t ad_ch1,
                    uint16_t Address2,uint8_t ad_ch2,
                    uint16_t Address3,uint8_t ad_ch3);
           
           
-    
-     int I2C_HAL_WriteBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t TxBufferSize);
-     
+
+        int I2C_HAL_WriteBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t TxBufferSize);
+
          
          
-     int I2C_HAL_ReadBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t RxBufferSize);
+        int I2C_HAL_ReadBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t RxBufferSize);
+
+
+        void AMP_FAULT(void);
+
+        void AMP_SPK_CHECK(void);
+
+        int AMP_PowOn_Check(void);
+
+        void processCurrentVal(void);
+
+        int at24_HAL_WriteBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t TxBufferSize);
+        int at24_HAL_ReadBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemAddress, uint8_t *pData,uint16_t RxBufferSize);
      
-     
-     void AMP_FAULT(void);
-     
-     void AMP_SPK_CHECK(void);
-     
-     int AMP_PowOn_Check(void);
-     
-     void processCurrentVal(void);
-     
+        
+       
+
+
+        
+void TestEEPROM( I2C_HandleTypeDef *hi2c );
+
+         
+enum eEEPAddr
+{
+	EPPAddrQBufLog = 0x100,
+
+	EPPAddrMagicNumH = (EPPAddrQBufLog - 8),
+	EPPAddrMagicNumL,
+	EPPAddrMaxLogSizeH,
+	EPPAddrMaxLogSizeL,
+	EPPAddrQBufStartH,
+	EPPAddrQBufStartL,
+	EPPAddrQBufEndH,
+	EPPAddrQBufEndL,
+};
+
+enum eEEPVal
+{
+	EEPMagicNumH = 0xAA,
+	EEPMagicNumL = 0x55,
+
+	EEPLogMaxSize = 0x800, 
+
+};
+
+void TestEEPLog(void);
+
+int EEPLogInit(I2C_HandleTypeDef *hi2c);
+int EEPLogReset		( void );
+
+int EEPLogGetMaxSize( void );
+int EEPLogGetSize	( void );
+
+int EEPLogWrite		( char sBuf[] );
+
+
+int EEPLogPrint		( void );
+
+int cmd_logPrint(int argc, char *argv[]);
+
+int cmd_logTest(int argc, char *argv[]);
+
+int cmd_logReset(int argc, char *argv[]);
+
      
 
      
@@ -29054,8 +29107,28 @@ void njw1192_mute(uint8_t On_Off);
  
      
 
+ 
+
+     
+     
+     
+  
+     
+     
+
+     
+     
+     
+     
+     
+ 
+     
 
 
+     
+ 
+     
+     
 enum AMP_MUTE
 {
     AMP_ID_0        =   0x00,
@@ -29178,7 +29251,7 @@ extern volatile uint16_t ADCValue[6];
  
  
  
- 
+
 
 
 
@@ -30040,74 +30113,6 @@ ETH_HandleTypeDef EthHandle;
 void HAL_ETH_MspInit(ETH_HandleTypeDef *heth)
 { 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     
      GPIO_InitTypeDef GPIO_InitStructure;
   
@@ -30117,7 +30122,28 @@ void HAL_ETH_MspInit(ETH_HandleTypeDef *heth)
   do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (2U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (2U)))); ((void)(tmpreg)); } while(0U);
   do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (4U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (4U)))); ((void)(tmpreg)); } while(0U);
   
-  
+
+    GPIO_InitStructure.Pin = ((uint16_t)0x0001)|((uint16_t)0x0002)|((uint16_t)0x0004)|((uint16_t)0x0008) |((uint16_t)0x0080);
+    GPIO_InitStructure.Mode = 0x00000002U;
+    GPIO_InitStructure.Pull = 0x00000000U;
+    GPIO_InitStructure.Speed = 0x00000003U;
+    GPIO_InitStructure.Alternate = ((uint8_t)0x0B);
+    HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0000U)), &GPIO_InitStructure);
+
+    GPIO_InitStructure.Pin = ((uint16_t)0x0001)|((uint16_t)0x0002)|((uint16_t)0x0400)|((uint16_t)0x0800) |((uint16_t)0x1000)|((uint16_t)0x2000);
+    GPIO_InitStructure.Mode = 0x00000002U;
+    GPIO_InitStructure.Pull = 0x00000000U;
+    GPIO_InitStructure.Speed = 0x00000003U;
+    GPIO_InitStructure.Alternate = ((uint8_t)0x0B);
+    HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0400U)), &GPIO_InitStructure);
+    
+    GPIO_InitStructure.Pin = ((uint16_t)0x0002)|((uint16_t)0x0004)|((uint16_t)0x0008)|((uint16_t)0x0010) |((uint16_t)0x0020);
+    GPIO_InitStructure.Mode = 0x00000002U;
+    GPIO_InitStructure.Pull = 0x00000000U;
+    GPIO_InitStructure.Speed = 0x00000003U;
+    GPIO_InitStructure.Alternate = ((uint8_t)0x0B);
+    HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0800U)), &GPIO_InitStructure);
+    
     GPIO_InitStructure.Pin = ((uint16_t)0x0004);
     GPIO_InitStructure.Mode = 0x00000002U;
     GPIO_InitStructure.Pull = 0x00000000U;
@@ -30125,29 +30151,6 @@ void HAL_ETH_MspInit(ETH_HandleTypeDef *heth)
     GPIO_InitStructure.Alternate = ((uint8_t)0x0B);
     HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x1000U)), &GPIO_InitStructure);
 
-    GPIO_InitStructure.Pin = ((uint16_t)0x0002)|((uint16_t)0x0004)|((uint16_t)0x0008)|((uint16_t)0x0010)
-                          |((uint16_t)0x0020);
-    GPIO_InitStructure.Mode = 0x00000002U;
-    GPIO_InitStructure.Pull = 0x00000000U;
-    GPIO_InitStructure.Speed = 0x00000003U;
-    GPIO_InitStructure.Alternate = ((uint8_t)0x0B);
-    HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0800U)), &GPIO_InitStructure);
-
-    GPIO_InitStructure.Pin = ((uint16_t)0x0001)|((uint16_t)0x0002)|((uint16_t)0x0004)|((uint16_t)0x0008)
-                          |((uint16_t)0x0080);
-    GPIO_InitStructure.Mode = 0x00000002U;
-    GPIO_InitStructure.Pull = 0x00000000U;
-    GPIO_InitStructure.Speed = 0x00000003U;
-    GPIO_InitStructure.Alternate = ((uint8_t)0x0B);
-    HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0000U)), &GPIO_InitStructure);
-
-    GPIO_InitStructure.Pin = ((uint16_t)0x0001)|((uint16_t)0x0002)|((uint16_t)0x0400)|((uint16_t)0x0800)
-                          |((uint16_t)0x1000)|((uint16_t)0x2000);
-    GPIO_InitStructure.Mode = 0x00000002U;
-    GPIO_InitStructure.Pull = 0x00000000U;
-    GPIO_InitStructure.Speed = 0x00000003U;
-    GPIO_InitStructure.Alternate = ((uint8_t)0x0B);
-    HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0400U)), &GPIO_InitStructure);
   
 
   
@@ -30169,31 +30172,15 @@ void HAL_ETH_MspInit(ETH_HandleTypeDef *heth)
 static void low_level_init(struct netif *netif)
 { 
   uint32_t regvalue = 0;
-  uint64_t sMacAdd = 0x183009003610; 
+  uint64_t sMacAdd = 0x183009113610; 
   uint8_t sHSW_1 = 0;
   uint8_t sHSW_2 = 0;
   uint8_t sHSW_3 = 0;
   
 
   
-  uint8_t macaddress[6]= { 0x18, 0x30, 0x09 + (IP_ADDR_VAL_DATA>>24)&0xFF, 10 + (IP_ADDR_VAL_DATA>>16)&0xFF, 0x32 + (IP_ADDR_VAL_DATA>>8)&0xFF, 0x28 + (IP_ADDR_VAL_DATA>>0)&0xFF };
+  uint8_t macaddress[6]= { 0x17, 0x30, 0x99, 10, 0x32, 0x28 };
   
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   
   EthHandle.Instance = ((ETH_TypeDef *) ((0x40000000U + 0x00020000U) + 0x8000U));  
   EthHandle.Init.MACAddr = macaddress;
@@ -30222,19 +30209,19 @@ static void low_level_init(struct netif *netif)
   netif->hwaddr_len = 6;
   
    
-  netif->hwaddr[0] =  0x18 ;
+  netif->hwaddr[0] =  0x17 ;
   netif->hwaddr[1] =  0x30;
-  netif->hwaddr[2] =  0x09 + (IP_ADDR_VAL_DATA>>24)&0xFF;
-  netif->hwaddr[3] =  10 + (IP_ADDR_VAL_DATA>>16)&0xFF;
-  netif->hwaddr[4] =  0x32 + (IP_ADDR_VAL_DATA>>8)&0xFF;
-  netif->hwaddr[5] =  0x28 + (IP_ADDR_VAL_DATA>>0)&0xFF;
+  netif->hwaddr[2] =  0x99;
+  netif->hwaddr[3] =  10;
+  netif->hwaddr[4] =  0x32;
+  netif->hwaddr[5] =  0x28;
   
    
-  netif->mtu = 1500;
+  netif->mtu = 1000;
   
    
    
-  netif->flags |= 0x02U | 0x08U | 0x20U;
+  netif->flags |= 0x02U | 0x08U;
   
    
   HAL_ETH_Start(&EthHandle);
