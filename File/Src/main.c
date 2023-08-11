@@ -59,6 +59,9 @@
 
 #include "naranja_boron.h"
 
+#include "cli.h"
+#include "occpa.h"
+#include "QBuf.h"
 //#include "test.h"
 
 
@@ -364,6 +367,10 @@ int main(void)
 		//SPI_FLASH_Main();
     
 		USARTRX_MainPro();
+        
+        LoopProcCLI();		//	CLI ( Command Line Interface )
+        
+        
     
         
 //        if(HAL_GetTick() == 30000 ) // 15초 부팅 할때 초기 AMP  제어 OFF
@@ -642,6 +649,13 @@ static void BSP_Config(void)
     HAL_GPIO_WritePin(GPIOA, OVERRIDE_Pin, GPIO_PIN_RESET);
     
     
+    GPIO_InitStructure.Pin = RTS_3CH_Pin;
+	GPIO_InitStructure.Pull = GPIO_NOPULL;
+	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+	HAL_GPIO_Init(RTS_3CH_Port, &GPIO_InitStructure);
+    
+    HAL_GPIO_WritePin(GPIOA, RTS_3CH_Pin, GPIO_PIN_RESET); // RTS OFF
     
      //---------------------------------------------------------------------------------//
      // C_GPIO_IN 
@@ -664,13 +678,16 @@ static void BSP_Config(void)
     
     
       // D_GPIO_OUT
-    GPIO_InitStructure.Pin = AMP_STANDBY | LED_75_Pin | RF_LED_Pin | LED_100_RED_Pin | LED_100_GREEN_Pin;
+    GPIO_InitStructure.Pin = RF_POWN_EN_Pin| AMP_STANDBY | LED_75_Pin | RF_LED_Pin | LED_100_RED_Pin | LED_100_GREEN_Pin;
 	GPIO_InitStructure.Pull = GPIO_NOPULL;
 	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
     GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
 	HAL_GPIO_Init(GPIOD, &GPIO_InitStructure);
     //AMP_STANDBY
     HAL_GPIO_WritePin(GPIOD, AMP_STANDBY, GPIO_PIN_SET);
+    
+    HAL_GPIO_WritePin(GPIOD, RF_POWN_EN_Pin, GPIO_PIN_SET);
+    
     
     HAL_GPIO_WritePin(GPIOD, RF_LED_Pin, GPIO_PIN_SET);
     HAL_GPIO_WritePin(GPIOD, LED_75_Pin, GPIO_PIN_RESET);
@@ -813,6 +830,7 @@ static void SystemClock_Config(void)
 	{
 		Error_Handler();
 	}
+    
 
 	/* Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2 
 	 clocks dividers */
@@ -983,7 +1001,7 @@ void Time_Main(void)
     if (!(m_Main_TIM_Cnt % 5000)) // 1000ms 
 	{
         
-       
+       RFMOccPaStart();
         //----------------------------------------
             processCurrentVal();
             //----------------------------------------

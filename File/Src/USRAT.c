@@ -25,6 +25,7 @@
 #include "stdarg.h"
 
 #include "main.h"
+#include "QBuf.h"
 
 
 
@@ -33,6 +34,8 @@ UART_HandleTypeDef UartHandle1;
 UART_HandleTypeDef UartHandle3;
 
 UART_HandleTypeDef UartHandle4;
+
+UART_HandleTypeDef UartHandle6;
 
 DMA_HandleTypeDef hdma_usart4_tx;
 DMA_HandleTypeDef hdma_usart4_rx;
@@ -44,6 +47,7 @@ __IO ITStatus UartReady = RESET;
 USART_INIT_SHAPE USART_1Ch;
 USART_INIT_SHAPE USART_3Ch;
 USART_INIT_SHAPE USART_4Ch;
+USART_INIT_SHAPE USART_6Ch;
 
 RING_BUF_PRO RingBuf;
 
@@ -88,6 +92,7 @@ uint16_t crc16tab[256]= {
 uint8_t mUSARTRXFlag_1Ch = 0;
 uint8_t mUSARTRXFlag_3Ch = 0;
 uint8_t mUSARTRXFlag_4Ch = 0;
+uint8_t mUSARTRXFlag_6Ch = 0;
 
 uint8_t mUSART_RXBuf_1ch[USART_BUF_MIN];
 uint8_t mUSART_GetRXBuf_1ch[USART_BUF_Get];
@@ -104,6 +109,12 @@ uint8_t mUSART_RXBuf_4ch[USART_BUF_MIN];
 uint8_t mUSART_GetRXBuf_4ch[USART_BUF_Get];
 uint8_t mUSART_TXBuf_4ch[USART_BUF_MIN];
 uint8_t mUSART_RXBufBackUp_4ch[USART_BUF_MIN];
+
+
+uint8_t mUSART_RXBuf_6ch[USART_BUF_MIN];
+uint8_t mUSART_GetRXBuf_6ch[USART_BUF_Get];
+uint8_t mUSART_TXBuf_6ch[USART_BUF_MIN];
+uint8_t mUSART_RXBufBackUp_6ch[USART_BUF_MIN];
 
 
 uint8_t mUSART_TIM_Flag = 0;
@@ -129,6 +140,7 @@ uint8_t mSSID[10];
   * @retval None
   */
   
+
 
 void HAL_UART_MspInit(UART_HandleTypeDef *huart)
 {  
@@ -195,95 +207,38 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart)
 		HAL_NVIC_SetPriority(USART3_IRQn, 15, 1);
 		HAL_NVIC_EnableIRQ(USART3_IRQn);
 	}
-//    else if(huart->Instance == UART4)
-//    {
-//      
-//
-//        
-//          /*##-1- Enable peripherals and GPIO Clocks #################################*/
-//        /* Enable GPIO TX/RX clock */
-//        __HAL_RCC_GPIOC_CLK_ENABLE();
-//
-//        /* Enable USART1 clock */
-//        __HAL_RCC_UART4_CLK_ENABLE(); 
-//        
-//        __HAL_RCC_DMA1_CLK_ENABLE();
-//
-//        /*##-2- Configure peripheral GPIO ##########################################*/  
-//        /* UART TX GPIO pin configuration  */
-//        GPIO_InitStruct.Pin       = GPIO_PIN_10|GPIO_PIN_11;
-//        GPIO_InitStruct.Mode      = GPIO_MODE_AF_PP;
-//        GPIO_InitStruct.Pull      = GPIO_PULLUP;
-//        GPIO_InitStruct.Speed     = GPIO_SPEED_HIGH;
-//        GPIO_InitStruct.Alternate = GPIO_AF8_UART4;
-//        HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-//              
-//
-//        
-//        hdma_usart4_tx.Instance             = DMA1_Stream4;
-//        hdma_usart4_tx.Init.Channel         = DMA_CHANNEL_4;
-//        hdma_usart4_tx.Init.Direction       = DMA_MEMORY_TO_PERIPH;
-//        hdma_usart4_tx.Init.PeriphInc       = DMA_PINC_DISABLE;
-//        hdma_usart4_tx.Init.MemInc          = DMA_MINC_ENABLE;
-//        hdma_usart4_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-//        hdma_usart4_tx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-//        hdma_usart4_tx.Init.Mode            = DMA_NORMAL;
-//        hdma_usart4_tx.Init.Priority        = DMA_PRIORITY_LOW;
-//        hdma_usart4_tx.Init.FIFOMode        = DMA_FIFOMODE_DISABLE;
-//        hdma_usart4_tx.Init.FIFOThreshold   = DMA_FIFO_THRESHOLD_FULL;
-//        hdma_usart4_tx.Init.MemBurst        = DMA_MBURST_INC16;
-//        hdma_usart4_tx.Init.PeriphBurst     = DMA_MBURST_SINGLE;
-//        
-//        
-//        if(HAL_DMA_Init(&hdma_usart4_tx) != HAL_OK)
-//        {
-//          //Error_Handler();
-//                      
-//        }
-//        
-//        __HAL_LINKDMA(huart,hdmatx,hdma_usart4_tx);
-//        
-//        
-//        hdma_usart4_rx.Instance             = DMA1_Stream2;
-//        hdma_usart4_rx.Init.Channel         = DMA_CHANNEL_4;
-//        hdma_usart4_rx.Init.Direction       = DMA_MEMORY_TO_PERIPH;
-//        hdma_usart4_rx.Init.PeriphInc       = DMA_PINC_DISABLE;
-//        hdma_usart4_rx.Init.MemInc          = DMA_MINC_ENABLE;
-//        hdma_usart4_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-//        hdma_usart4_rx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-//        hdma_usart4_rx.Init.Mode            = DMA_NORMAL;
-//        hdma_usart4_rx.Init.Priority        = DMA_PRIORITY_LOW;
-//        hdma_usart4_rx.Init.FIFOMode        = DMA_FIFOMODE_DISABLE;
-//        hdma_usart4_rx.Init.FIFOThreshold   = DMA_FIFO_THRESHOLD_FULL;
-//        hdma_usart4_rx.Init.MemBurst        = DMA_MBURST_INC16;
-//        hdma_usart4_rx.Init.PeriphBurst     = DMA_MBURST_SINGLE;
-//        
-//        if(HAL_DMA_Init(&hdma_usart4_rx) != HAL_OK)
-//        {
-//          //Error_Handler();
-//                      
-//        }
-//        
-//        __HAL_LINKDMA(huart,hdmarx,hdma_usart4_rx);
-//        
-//        
-//        /*##-4- Configure the NVIC for DMA #########################################*/
-//        /* NVIC configuration for DMA transfer complete interrupt (USARTx_TX) */
-//        HAL_NVIC_SetPriority(DMA1_Stream4_IRQn, 0, 1);
-//        HAL_NVIC_EnableIRQ(DMA1_Stream4_IRQn);
-//        
-//        /* NVIC configuration for DMA transfer complete interrupt (USARTx_RX) */
-//        HAL_NVIC_SetPriority(DMA1_Stream2_IRQn, 0, 0);   
-//        HAL_NVIC_EnableIRQ(DMA1_Stream2_IRQn);
-//  
-//  
-//        
-//        HAL_NVIC_SetPriority(UART4_IRQn, 15, 1);
-//        HAL_NVIC_EnableIRQ(UART4_IRQn);
-//        
-//  
-//  
-//    }
+    else if (huart->Instance == USART6)
+	{
+       /*##-1- Enable peripherals and GPIO Clocks #################################*/
+	  /* Enable GPIO TX/RX clock */
+		__HAL_RCC_GPIOC_CLK_ENABLE();
+
+		/* Enable USART1 clock */
+		__HAL_RCC_USART6_CLK_ENABLE(); 
+
+		/*##-2- Configure peripheral GPIO ##########################################*/  
+		/* UART TX GPIO pin configuration  */
+		GPIO_InitStruct.Pin       = GPIO_PIN_6 | GPIO_PIN_7;
+		GPIO_InitStruct.Mode      = GPIO_MODE_AF_PP;
+		GPIO_InitStruct.Pull      = GPIO_PULLUP;
+		GPIO_InitStruct.Speed     = GPIO_SPEED_HIGH;
+		GPIO_InitStruct.Alternate = GPIO_AF8_USART6;
+
+		HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+		/* UART RX GPIO pin configuration  */
+		//GPIO_InitStruct.Pin = GPIO_PIN_11;
+		//GPIO_InitStruct.Alternate = GPIO_AF7_USART3;
+
+		//HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+
+		HAL_NVIC_SetPriority(USART6_IRQn, 15, 1);
+		HAL_NVIC_EnableIRQ(USART6_IRQn);
+        
+    }
+    
+
   
 }
 
@@ -329,29 +284,22 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef *huart)
 
 		HAL_NVIC_DisableIRQ(USART3_IRQn);
 	}
-//     else if(huart->Instance == UART4)
-//    {
-//        __HAL_RCC_UART4_CLK_DISABLE();
-//         /*##-1- Reset peripherals ##################################################*/
-//        __HAL_RCC_UART4_FORCE_RESET();
-//        __HAL_RCC_UART4_RELEASE_RESET();
-//
-//        /*##-2- Disable peripherals and GPIO Clocks #################################*/
-//        /* Configure UART Tx as alternate function  */
-//        HAL_GPIO_DeInit(GPIOC, GPIO_PIN_10);
-//        /* Configure UART Rx as alternate function  */
-//        HAL_GPIO_DeInit(GPIOC, GPIO_PIN_11);
-//
-//        HAL_NVIC_DisableIRQ(UART4_IRQn); 
-//        
-//        
-//        HAL_DMA_DeInit(&hdma_usart4_tx); 
-//        HAL_DMA_DeInit(&hdma_usart4_rx); 
-//        
-//        HAL_NVIC_DisableIRQ(DMA1_Stream4_IRQn);
-//        HAL_NVIC_DisableIRQ(DMA1_Stream2_IRQn);
-//        
-//    }
+    else if (huart->Instance == USART6)
+	{
+		__HAL_RCC_USART6_CLK_DISABLE();
+		/*##-1- Reset peripherals ##################################################*/
+		__HAL_RCC_USART6_FORCE_RESET();
+		__HAL_RCC_USART6_RELEASE_RESET();
+
+		/*##-2- Disable peripherals and GPIO Clocks #################################*/
+		/* Configure UART Tx as alternate function  */
+		HAL_GPIO_DeInit(GPIOC, GPIO_PIN_6);
+		/* Configure UART Rx as alternate function  */
+		HAL_GPIO_DeInit(GPIOC, GPIO_PIN_7);
+
+		HAL_NVIC_DisableIRQ(USART6_IRQn);
+	}
+
   
 }
 
@@ -408,26 +356,21 @@ void USRAT_init(void)
 
     HAL_UART_Receive_IT(&UartHandle3, (uint8_t *)mUSART_RXBuf_3ch, 1);
 
-//    /*############################## UART4 ####################################*
-//    UartHandle4.Instance          = UART4;
-//
-//    UartHandle4.Init.BaudRate     = 115200;
-//    UartHandle4.Init.WordLength   = UART_WORDLENGTH_8B;
-//    UartHandle4.Init.StopBits     = UART_STOPBITS_1;
-//    UartHandle4.Init.Parity       = UART_PARITY_NONE;
-//    UartHandle4.Init.HwFlowCtl    = UART_HWCONTROL_NONE;
-//    UartHandle4.Init.Mode         = UART_MODE_TX_RX;
-//    UartHandle4.Init.OverSampling = UART_OVERSAMPLING_16;
-//
-//
-//    HAL_UART_Init(&UartHandle4);
-//
-//    //인터럽트 방식에서 사용 .
-//    //HAL_UART_Receive_IT(&UartHandle4, (uint8_t *)mUSART_RXBuf_4ch, 1);
+    //############################## USART6  Xbee ####################################
+    UartHandle6.Instance          = USART6;
+
+    UartHandle6.Init.BaudRate     = 115200;
+    UartHandle6.Init.WordLength   = UART_WORDLENGTH_8B;
+    UartHandle6.Init.StopBits     = UART_STOPBITS_1;
+    UartHandle6.Init.Parity       = UART_PARITY_NONE;
+    UartHandle6.Init.HwFlowCtl    = UART_HWCONTROL_NONE;
+    UartHandle6.Init.Mode         = UART_MODE_TX_RX;
+    UartHandle6.Init.OverSampling = UART_OVERSAMPLING_16;
 
 
+    HAL_UART_Init(&UartHandle6);
 
-
+    HAL_UART_Receive_IT(&UartHandle6, (uint8_t *)mUSART_RXBuf_6ch, 1);
 
 
 //    //############################## USART1 ####################################
@@ -469,28 +412,31 @@ void USRAT_init(void)
     memset(USART_3Ch.nRxBuffer,0,sizeof(mUSART_RXBuf_3ch));
     memset(USART_3Ch.nTxBuffer,0,sizeof(mUSART_TXBuf_3ch));
     memset(USART_3Ch.nRxBuf_BackUp,0,sizeof(mUSART_RXBufBackUp_3ch));
+    
+    
+     //############################## USART6 ####################################
+    USART_6Ch.nRxOK = 0;
+    USART_6Ch.nRxOK_Cnt = 0;
+    USART_6Ch.nRxLen = 20; // 초기 길이를 10으로 지정.
+    USART_6Ch.nRxPos = 0;
+    USART_6Ch.nTxLen = 10;
+    USART_6Ch.nTxPos = 0;
+    USART_6Ch.nTxOK = TRUE;
+    USART_6Ch.nTxOK_Cnt = 0;
+    USART_6Ch.nRxDlyTm = 0;
+    USART_6Ch.nRxBuffer = mUSART_RXBuf_3ch;
+    USART_6Ch.nGetRxBuf = mUSART_GetRXBuf_3ch;
+    USART_6Ch.nTxBuffer = mUSART_TXBuf_3ch;
+    USART_6Ch.nRxBuf_BackUp = mUSART_RXBufBackUp_3ch;
+
+    memset(USART_6Ch.nRxBuffer,0,sizeof(mUSART_RXBuf_6ch));
+    memset(USART_6Ch.nTxBuffer,0,sizeof(mUSART_TXBuf_6ch));
+    memset(USART_6Ch.nRxBuf_BackUp,0,sizeof(mUSART_RXBufBackUp_6ch));
+    
+    //Cli Command 
+    init_queue( &g_qUart1 );
 
 
-    /*############################## USART4 ####################################* 
-    USART_4Ch.nRxOK = 0;
-    USART_4Ch.nRxOK_Cnt = 0;
-    USART_4Ch.nRxLen = 10; // AE±a ±æAI¸| 10A¸·I AoA¤.
-    USART_4Ch.nRxPos = 0;
-    USART_4Ch.nTxLen = 10;
-    USART_4Ch.nTxPos = 0;
-    USART_4Ch.nTxOK = TRUE;
-    USART_4Ch.nTxOK_Cnt = 0;
-    USART_4Ch.nRxDlyTm = 0;
-    USART_4Ch.nRxBuffer = mUSART_RXBuf_4ch;
-    USART_4Ch.nGetRxBuf = mUSART_GetRXBuf_4ch;
-    USART_4Ch.nTxBuffer = mUSART_TXBuf_4ch;
-    USART_4Ch.nRxBuf_BackUp = mUSART_RXBufBackUp_4ch;
-
-    memset(USART_4Ch.nRxBuffer,0,sizeof(mUSART_RXBuf_4ch));
-    memset(USART_4Ch.nTxBuffer,0,sizeof(mUSART_TXBuf_4ch));
-    memset(USART_4Ch.nRxBuf_BackUp,0,sizeof(mUSART_RXBufBackUp_4ch));
-  
-  ***********************/
 
 }
 
@@ -558,7 +504,16 @@ void UART4_IRQHandler(void)
 	HAL_UART_IRQHandler(& UartHandle4);
 }
 
+/*****************************************************************************
+* @brief -
+* @param -
+* @retval-
+******************************************************************************/
 
+void USART6_IRQHandler(void)
+{
+	HAL_UART_IRQHandler(& UartHandle6);
+}
 /*****************************************************************************
   * @brief  This function handles DMA RX interrupt request.  
   * @param  None
@@ -615,6 +570,9 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
         
 		USART_1Ch.nRxOK = HAL_UART_Receive_IT(&UartHandle1, (uint8_t *)USART_1Ch.nGetRxBuf, 1);
         
+        //	문자 Queue에 쌓기.
+		qput( &g_qUart1, USART_1Ch.nGetRxBuf[0] );
+        
         
 
 	}
@@ -622,6 +580,12 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 	{
         
 		HAL_UART_Receive_IT(&UartHandle3, (uint8_t *)USART_3Ch.nGetRxBuf, 1);
+		
+	}
+    else  if(huart->Instance == USART6)
+	{
+        
+		HAL_UART_Receive_IT(&UartHandle6, (uint8_t *)USART_6Ch.nGetRxBuf, 1);
 		
 	}
 	
@@ -827,9 +791,13 @@ void MyPrintf_USART1(char *format, ... )
     {
         DP_RING_BUF_PUSH((uint8_t*)szBuf,strlen(szBuf),1);
     }
-    else
+    else if(mChen == 0x03)
     {
         DP_RING_BUF_PUSH((uint8_t*)szBuf,strlen(szBuf),3);
+    }
+     else if(mChen == 0x06)
+    {
+        DP_RING_BUF_PUSH((uint8_t*)szBuf,strlen(szBuf),6);
     }
     
 	////HAL_UART_Transmit_DMA(&UartHandle1, (uint8_t*)szBuf, strlen(szBuf));
@@ -977,40 +945,36 @@ void USART_RingBuf_Pro(void)
 
         }
         
-        else if(WORD_L(sCh) == 3)
+        else if(WORD_L(sCh) == 3) // 485
         {
             if(UartHandle3.gState == HAL_UART_STATE_READY) // 통신 상태가 준비 일때 전송 한다.
             {
                 
-                DP_RING_BUF_POP(USART_3Ch.nTxBuffer,&USART_3Ch.nTxLen);
+                HAL_GPIO_WritePin(RTS_3CH_Port,RTS_3CH_Pin,GPIO_PIN_SET); // CLK High   -> RTS ON
+                
+                DP_RING_BUF_POP(USART_3Ch.nTxBuffer,&USART_3Ch.nTxLen); 
                 HAL_UART_Transmit_IT(&UartHandle3, (uint8_t*)USART_3Ch.nTxBuffer,USART_3Ch.nTxLen);
             }
 
         }
-//        else if(WORD_L(sCh) == 4)
-//        {
-//            if(UartHandle4.gState == HAL_UART_STATE_READY) // 통신 상태가 준비 일때 전송 한다.
-//            {
-//                
-//                HAL_GPIO_WritePin(GPIOC,GPIO_PIN_12,GPIO_PIN_SET); // CLK High   -> RTS ON
-//                
-//                DP_RING_BUF_POP(USART_4Ch.nTxBuffer,&USART_4Ch.nTxLen);
-//               // HAL_UART_Transmit_IT(&UartHandle4, (uint8_t*)USART_4Ch.nTxBuffer,USART_4Ch.nTxLen);
-//                
-//#ifdef JDS_DEBUG
-//                HAL_UART_Transmit_DMA(&UartHandle4, (uint8_t*)USART_4Ch.nTxBuffer,USART_4Ch.nTxLen);
-//#endif   
-//            
-//            }
-//
-//        }
+         else if(WORD_L(sCh) == 6)
+        {
+            if(UartHandle6.gState == HAL_UART_STATE_READY) // 통신 상태가 준비 일때 전송 한다.
+            {
+                
+                DP_RING_BUF_POP(USART_6Ch.nTxBuffer,&USART_6Ch.nTxLen);
+                HAL_UART_Transmit_IT(&UartHandle6, (uint8_t*)USART_6Ch.nTxBuffer,USART_6Ch.nTxLen);
+            }
+
+        }
+
 
     }
     else{
       
-      if(UartHandle4.gState == HAL_UART_STATE_READY)
+      if(UartHandle3.gState == HAL_UART_STATE_READY)
       {
-            //HAL_GPIO_WritePin(GPIOC,GPIO_PIN_12,GPIO_PIN_RESET);  //RTS OFF
+            HAL_GPIO_WritePin(RTS_3CH_Port,RTS_3CH_Pin,GPIO_PIN_RESET);  //RTS OFF
       }
       
     }

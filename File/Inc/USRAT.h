@@ -59,6 +59,7 @@ typedef struct
 	uint8_t nTx_Rts_Off;    // -------
 	uint8_t *nTxBuffer;     // TX 버퍼.
 	uint16_t nTxTimeOut;     // TX 전송 OUT 시간. 256 ms  이상일때 를 위해 형을 uint16_t
+    
 	uint8_t nRxOK;          // Rx 완료.
 	uint8_t nRxOK_Cnt;      // RX 전체 전송 카운터
 	uint8_t nRxRearPos;     // ------------ 
@@ -144,10 +145,12 @@ typedef struct
 extern UART_HandleTypeDef UartHandle1;
 extern UART_HandleTypeDef UartHandle4;
 extern UART_HandleTypeDef UartHandle3;
+extern UART_HandleTypeDef UartHandle6;
 
 extern USART_INIT_SHAPE USART_1Ch;
 extern USART_INIT_SHAPE USART_3Ch;
 extern USART_INIT_SHAPE USART_4Ch;
+extern USART_INIT_SHAPE USART_6Ch;
 
 
 extern uint8_t mSSID[10];

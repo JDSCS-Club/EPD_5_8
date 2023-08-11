@@ -19,6 +19,27 @@
 //#include "typedef.h"	//	uint8_t
 #include <stdint.h>		//	uint8_t
 
+
+typedef struct _Queue_t
+{
+#define QMAX 256
+
+	unsigned char queue[QMAX];
+
+	int front, rear;
+
+} Queue_t;
+
+//========================================================================
+int				qcount		( Queue_t *q );
+void			init_queue	( Queue_t *q );
+void			clear_queue	( Queue_t *q );
+int				qput		( Queue_t *q, unsigned char k );
+unsigned char	qget		( Queue_t *q );
+//========================================================================
+
+
+
 typedef struct _QBuf_t
 {
 //#define QBUFMAX 128
@@ -42,6 +63,9 @@ int		qBufGet		( QBuf_t *q, uint8_t *pBuf, int size );
 void	QBufTest	( QBuf_t *q, int blkSize );
 //===========================================================================
 
+extern	Queue_t		g_qUart1;
+
+int		input_check		( void );
 
 //========================================================================
 #endif		//	QUEUE_BUF_H

@@ -44,7 +44,7 @@
      
 
 /* Private defines --------------------- in       ----------------------          out ----------------                    AD ----*/
-
+// AAAAAAAAAAAAAAAAAA
 #define DEV_ID3_Pin                     GPIO_PIN_4
 #define DEV_ID3_GPIO_Port               GPIOA
 #define AUDIO_ON_Pin                    GPIO_PIN_8
@@ -54,13 +54,15 @@
 #define NTC_Pin 			                                                                                            GPIO_PIN_12
 #define NTC_GPIO_Port 			                                                                                        GPIOA
      
-     
+// BBBBBBBBBBBBBBBB    
 #define SCL1_Pin                        GPIO_PIN_8
 #define I2C1_GPIO_Port                  GPIOB
 #define SDA1_Pin                        GPIO_PIN_9
 #define I2C1_GPIO_Port                  GPIOB  
+#define RTS_3CH_Pin                                                             GPIO_PIN_14
+#define RTS_3CH_Port                                                            GPIOB     
      
-  
+// CCCCCCCCCCCCCCCCC 
 #define BAT_VCC_Pin 			                                                                                        GPIO_PIN_0
 #define BAT_VCC_GPIO_Port                                                                                               GPIOC     
 #define ST_BY_Pin                       GPIO_PIN_8
@@ -83,13 +85,18 @@
 #define CHARGER_DET_GPIO_Port 	        GPIOC
 
      
-     
+// DDDDDDDDDDDDDDDDDD     
 #define VCC_RF_IN                       GPIO_PIN_0
 #define VCC_RF_IN_Port                  GPIOD
 #define AMP_STANDBY                                                             GPIO_PIN_1
 #define AMP_STANDBY_Port                                                        GPIOD
 #define AMP_FAULT_Pin                   GPIO_PIN_2
 #define AMP_FAULT_Port                  GPIOD
+     
+#define RF_POWN_EN_Pin                                                          GPIO_PIN_6
+#define RF_POWN_EN_Port                                                         GPIOD
+     
+     
 #define LED_75_Pin                                                              GPIO_PIN_10
 #define LED_75_GPIO_Port                                                        GPIOD
 #define RF_LED_Pin                                                              GPIO_PIN_11
@@ -103,7 +110,7 @@
      
      
      
- 
+// EEEEEEEEEEEEEEEEEE
 #define VCC_IN_Pin 			            GPIO_PIN_1
 #define VCC_IN_GPIO_Port 		        GPIOE
 #define SD_Pin                                                                  GPIO_PIN_3
