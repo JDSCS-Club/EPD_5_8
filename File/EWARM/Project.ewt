@@ -1443,6 +1443,9 @@
                 <name>$PROJ_DIR$\..\Src\app_ethernet.c</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\Src\cli.c</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\Src\CRC8.c</name>
             </file>
             <file>
@@ -1462,6 +1465,9 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\naranja_boron.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Src\occpa.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\QBuf.c</name>
@@ -1574,9 +1580,6 @@
                     <name>$PROJ_DIR$\..\Drivers\display\Example\ImageData.c</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\Drivers\display\Example\OLED_1in3_c_test.c</name>
-                </file>
-                <file>
                     <name>$PROJ_DIR$\..\Drivers\display\Example\test.h</name>
                 </file>
             </group>
@@ -1588,9 +1591,6 @@
             </group>
             <group>
                 <name>OLED</name>
-                <file>
-                    <name>$PROJ_DIR$\..\Drivers\display\OLED\OLED_1in3_c.c</name>
-                </file>
             </group>
         </group>
         <group>

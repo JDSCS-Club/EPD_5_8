@@ -27810,6 +27810,7 @@ typedef struct
 	uint8_t nTx_Rts_Off;    
 	uint8_t *nTxBuffer;     
 	uint16_t nTxTimeOut;     
+    
 	uint8_t nRxOK;          
 	uint8_t nRxOK_Cnt;      
 	uint8_t nRxRearPos;     
@@ -27895,10 +27896,12 @@ typedef struct
 extern UART_HandleTypeDef UartHandle1;
 extern UART_HandleTypeDef UartHandle4;
 extern UART_HandleTypeDef UartHandle3;
+extern UART_HandleTypeDef UartHandle6;
 
 extern USART_INIT_SHAPE USART_1Ch;
 extern USART_INIT_SHAPE USART_3Ch;
 extern USART_INIT_SHAPE USART_4Ch;
+extern USART_INIT_SHAPE USART_6Ch;
 
 
 extern uint8_t mSSID[10];
@@ -28171,10 +28174,12 @@ void njw1192_mute(uint8_t On_Off);
  
 
      
+
+     
+
      
      
-  
-     
+
      
 
      
@@ -28182,7 +28187,8 @@ void njw1192_mute(uint8_t On_Off);
      
      
      
- 
+     
+
      
 
 
@@ -30114,6 +30120,26 @@ void OLED_Print(void);
 
 
 
+
+typedef struct _Queue_t
+{
+
+	unsigned char queue[256];
+
+	int front, rear;
+
+} Queue_t;
+
+
+int				qcount		( Queue_t *q );
+void			init_queue	( Queue_t *q );
+void			clear_queue	( Queue_t *q );
+int				qput		( Queue_t *q, unsigned char k );
+unsigned char	qget		( Queue_t *q );
+
+
+
+
 typedef struct _QBuf_t
 {
 
@@ -30137,6 +30163,9 @@ int		qBufGet		( QBuf_t *q, uint8_t *pBuf, int size );
 void	QBufTest	( QBuf_t *q, int blkSize );
 
 
+extern	Queue_t		g_qUart1;
+
+int		input_check		( void );
 
 
 

@@ -29155,6 +29155,7 @@ typedef struct
 	uint8_t nTx_Rts_Off;    
 	uint8_t *nTxBuffer;     
 	uint16_t nTxTimeOut;     
+    
 	uint8_t nRxOK;          
 	uint8_t nRxOK_Cnt;      
 	uint8_t nRxRearPos;     
@@ -29240,10 +29241,12 @@ typedef struct
 extern UART_HandleTypeDef UartHandle1;
 extern UART_HandleTypeDef UartHandle4;
 extern UART_HandleTypeDef UartHandle3;
+extern UART_HandleTypeDef UartHandle6;
 
 extern USART_INIT_SHAPE USART_1Ch;
 extern USART_INIT_SHAPE USART_3Ch;
 extern USART_INIT_SHAPE USART_4Ch;
+extern USART_INIT_SHAPE USART_6Ch;
 
 
 extern uint8_t mSSID[10];
@@ -29516,10 +29519,12 @@ void njw1192_mute(uint8_t On_Off);
  
 
      
+
+     
+
      
      
-  
-     
+
      
 
      
@@ -29527,7 +29532,8 @@ void njw1192_mute(uint8_t On_Off);
      
      
      
- 
+     
+
      
 
 

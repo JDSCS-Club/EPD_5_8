@@ -27782,6 +27782,7 @@ typedef struct
 	uint8_t nTx_Rts_Off;    
 	uint8_t *nTxBuffer;     
 	uint16_t nTxTimeOut;     
+    
 	uint8_t nRxOK;          
 	uint8_t nRxOK_Cnt;      
 	uint8_t nRxRearPos;     
@@ -27867,10 +27868,12 @@ typedef struct
 extern UART_HandleTypeDef UartHandle1;
 extern UART_HandleTypeDef UartHandle4;
 extern UART_HandleTypeDef UartHandle3;
+extern UART_HandleTypeDef UartHandle6;
 
 extern USART_INIT_SHAPE USART_1Ch;
 extern USART_INIT_SHAPE USART_3Ch;
 extern USART_INIT_SHAPE USART_4Ch;
+extern USART_INIT_SHAPE USART_6Ch;
 
 
 extern uint8_t mSSID[10];
@@ -28143,10 +28146,12 @@ void njw1192_mute(uint8_t On_Off);
  
 
      
+
+     
+
      
      
-  
-     
+
      
 
      
@@ -28154,7 +28159,8 @@ void njw1192_mute(uint8_t On_Off);
      
      
      
- 
+     
+
      
 
 
@@ -28885,11 +28891,82 @@ extern mLED_PROCESS_Flag mLed_Process_Flag;
 
 
 
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+typedef struct _Queue_t
+{
+
+	unsigned char queue[256];
+
+	int front, rear;
+
+} Queue_t;
+
+
+int				qcount		( Queue_t *q );
+void			init_queue	( Queue_t *q );
+void			clear_queue	( Queue_t *q );
+int				qput		( Queue_t *q, unsigned char k );
+unsigned char	qget		( Queue_t *q );
+
+
+
+
+typedef struct _QBuf_t
+{
+
+
+	uint8_t	*qBuf;
+	int	size;
+
+	int front, rear;
+
+} QBuf_t;
+
+
+void	qBufInit	( QBuf_t *q, uint8_t *_qBuf, int _size );
+void	qBufClear	( QBuf_t *q );
+int		qBufCnt		( QBuf_t *q );
+int		qBufPut		( QBuf_t *q, uint8_t *pBuf, int size );
+int		qBufGet		( QBuf_t *q, uint8_t *pBuf, int size );
+
+
+
+void	QBufTest	( QBuf_t *q, int blkSize );
+
+
+extern	Queue_t		g_qUart1;
+
+int		input_check		( void );
+
+
+
+
+
+
+
+
 UART_HandleTypeDef UartHandle1; 
 
 UART_HandleTypeDef UartHandle3;
 
 UART_HandleTypeDef UartHandle4;
+
+UART_HandleTypeDef UartHandle6;
 
 DMA_HandleTypeDef hdma_usart4_tx;
 DMA_HandleTypeDef hdma_usart4_rx;
@@ -28901,6 +28978,7 @@ volatile ITStatus UartReady = RESET;
 USART_INIT_SHAPE USART_1Ch;
 USART_INIT_SHAPE USART_3Ch;
 USART_INIT_SHAPE USART_4Ch;
+USART_INIT_SHAPE USART_6Ch;
 
 RING_BUF_PRO RingBuf;
 
@@ -28945,6 +29023,7 @@ uint16_t crc16tab[256]= {
 uint8_t mUSARTRXFlag_1Ch = 0;
 uint8_t mUSARTRXFlag_3Ch = 0;
 uint8_t mUSARTRXFlag_4Ch = 0;
+uint8_t mUSARTRXFlag_6Ch = 0;
 
 uint8_t mUSART_RXBuf_1ch[256];
 uint8_t mUSART_GetRXBuf_1ch[5];
@@ -28961,6 +29040,12 @@ uint8_t mUSART_RXBuf_4ch[256];
 uint8_t mUSART_GetRXBuf_4ch[5];
 uint8_t mUSART_TXBuf_4ch[256];
 uint8_t mUSART_RXBufBackUp_4ch[256];
+
+
+uint8_t mUSART_RXBuf_6ch[256];
+uint8_t mUSART_GetRXBuf_6ch[5];
+uint8_t mUSART_TXBuf_6ch[256];
+uint8_t mUSART_RXBufBackUp_6ch[256];
 
 
 uint8_t mUSART_TIM_Flag = 0;
@@ -28986,6 +29071,7 @@ uint8_t mSSID[10];
 
  
   
+
 
 void HAL_UART_MspInit(UART_HandleTypeDef *huart)
 {  
@@ -29052,94 +29138,37 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart)
 		HAL_NVIC_SetPriority(USART3_IRQn, 15, 1);
 		HAL_NVIC_EnableIRQ(USART3_IRQn);
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    else if (huart->Instance == ((USART_TypeDef *) ((0x40000000U + 0x00010000U) + 0x1400U)))
+	{
+        
+	   
+		do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (2U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (2U)))); ((void)(tmpreg)); } while(0U);
+
+		 
+		do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->APB2ENR) |= ((0x1U << (5U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->APB2ENR) & ((0x1U << (5U)))); ((void)(tmpreg)); } while(0U); 
+
+		   
+		 
+		GPIO_InitStruct.Pin       = ((uint16_t)0x0040) | ((uint16_t)0x0080);
+		GPIO_InitStruct.Mode      = 0x00000002U;
+		GPIO_InitStruct.Pull      = 0x00000001U;
+		GPIO_InitStruct.Speed     = 0x00000003U;
+		GPIO_InitStruct.Alternate = ((uint8_t)0x08);
+
+		HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0800U)), &GPIO_InitStruct);
+
+		 
+		
+		
+
+		
+
+
+		HAL_NVIC_SetPriority(USART6_IRQn, 15, 1);
+		HAL_NVIC_EnableIRQ(USART6_IRQn);
+        
+    }
+    
 
   
 }
@@ -29186,28 +29215,21 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef *huart)
 
 		HAL_NVIC_DisableIRQ(USART3_IRQn);
 	}
+    else if (huart->Instance == ((USART_TypeDef *) ((0x40000000U + 0x00010000U) + 0x1400U)))
+	{
+		(((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->APB2ENR &= ~((0x1U << (5U))));
+		 
+		(((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->APB2RSTR |= ((0x1U << (5U))));
+		(((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->APB2RSTR &= ~((0x1U << (5U))));
 
+		 
+		 
+		HAL_GPIO_DeInit(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0800U)), ((uint16_t)0x0040));
+		 
+		HAL_GPIO_DeInit(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0800U)), ((uint16_t)0x0080));
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		HAL_NVIC_DisableIRQ(USART6_IRQn);
+	}
 
   
 }
@@ -29265,26 +29287,21 @@ void USRAT_init(void)
 
     HAL_UART_Receive_IT(&UartHandle3, (uint8_t *)mUSART_RXBuf_3ch, 1);
 
+    
+    UartHandle6.Instance          = ((USART_TypeDef *) ((0x40000000U + 0x00010000U) + 0x1400U));
+
+    UartHandle6.Init.BaudRate     = 115200;
+    UartHandle6.Init.WordLength   = 0x00000000U;
+    UartHandle6.Init.StopBits     = 0x00000000U;
+    UartHandle6.Init.Parity       = 0x00000000U;
+    UartHandle6.Init.HwFlowCtl    = 0x00000000U;
+    UartHandle6.Init.Mode         = ((uint32_t)((0x1U << (3U)) |(0x1U << (2U))));
+    UartHandle6.Init.OverSampling = 0x00000000U;
 
 
+    HAL_UART_Init(&UartHandle6);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    HAL_UART_Receive_IT(&UartHandle6, (uint8_t *)mUSART_RXBuf_6ch, 1);
 
 
 
@@ -29326,28 +29343,31 @@ void USRAT_init(void)
     memset(USART_3Ch.nRxBuffer,0,sizeof(mUSART_RXBuf_3ch));
     memset(USART_3Ch.nTxBuffer,0,sizeof(mUSART_TXBuf_3ch));
     memset(USART_3Ch.nRxBuf_BackUp,0,sizeof(mUSART_RXBufBackUp_3ch));
-
-
     
+    
+     
+    USART_6Ch.nRxOK = 0;
+    USART_6Ch.nRxOK_Cnt = 0;
+    USART_6Ch.nRxLen = 20; 
+    USART_6Ch.nRxPos = 0;
+    USART_6Ch.nTxLen = 10;
+    USART_6Ch.nTxPos = 0;
+    USART_6Ch.nTxOK = 1;
+    USART_6Ch.nTxOK_Cnt = 0;
+    USART_6Ch.nRxDlyTm = 0;
+    USART_6Ch.nRxBuffer = mUSART_RXBuf_3ch;
+    USART_6Ch.nGetRxBuf = mUSART_GetRXBuf_3ch;
+    USART_6Ch.nTxBuffer = mUSART_TXBuf_3ch;
+    USART_6Ch.nRxBuf_BackUp = mUSART_RXBufBackUp_3ch;
+
+    memset(USART_6Ch.nRxBuffer,0,sizeof(mUSART_RXBuf_6ch));
+    memset(USART_6Ch.nTxBuffer,0,sizeof(mUSART_TXBuf_6ch));
+    memset(USART_6Ch.nRxBuf_BackUp,0,sizeof(mUSART_RXBufBackUp_6ch));
+    
+    
+    init_queue( &g_qUart1 );
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
 
 }
 
@@ -29419,6 +29439,15 @@ void UART4_IRQHandler(void)
 
 
 
+ 
+
+void USART6_IRQHandler(void)
+{
+	HAL_UART_IRQHandler(& UartHandle6);
+}
+
+
+
 
  
 
@@ -29473,12 +29502,21 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 		USART_1Ch.nRxOK = HAL_UART_Receive_IT(&UartHandle1, (uint8_t *)USART_1Ch.nGetRxBuf, 1);
         
         
+		qput( &g_qUart1, USART_1Ch.nGetRxBuf[0] );
+        
+        
 
 	}
 	else  if(huart->Instance == ((USART_TypeDef *) (0x40000000U + 0x4800U)))
 	{
         
 		HAL_UART_Receive_IT(&UartHandle3, (uint8_t *)USART_3Ch.nGetRxBuf, 1);
+		
+	}
+    else  if(huart->Instance == ((USART_TypeDef *) ((0x40000000U + 0x00010000U) + 0x1400U)))
+	{
+        
+		HAL_UART_Receive_IT(&UartHandle6, (uint8_t *)USART_6Ch.nGetRxBuf, 1);
 		
 	}
 	
@@ -29684,9 +29722,13 @@ void MyPrintf_USART1(char *format, ... )
     {
         DP_RING_BUF_PUSH((uint8_t*)szBuf,strlen(szBuf),1);
     }
-    else
+    else if(mChen == 0x03)
     {
         DP_RING_BUF_PUSH((uint8_t*)szBuf,strlen(szBuf),3);
+    }
+     else if(mChen == 0x06)
+    {
+        DP_RING_BUF_PUSH((uint8_t*)szBuf,strlen(szBuf),6);
     }
     
 	
@@ -29834,40 +29876,36 @@ void USART_RingBuf_Pro(void)
 
         }
         
-        else if(((sCh) & 0x0ff) == 3)
+        else if(((sCh) & 0x0ff) == 3) 
         {
             if(UartHandle3.gState == HAL_UART_STATE_READY) 
             {
                 
-                DP_RING_BUF_POP(USART_3Ch.nTxBuffer,&USART_3Ch.nTxLen);
+                HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0400U)),((uint16_t)0x4000),GPIO_PIN_SET); 
+                
+                DP_RING_BUF_POP(USART_3Ch.nTxBuffer,&USART_3Ch.nTxLen); 
                 HAL_UART_Transmit_IT(&UartHandle3, (uint8_t*)USART_3Ch.nTxBuffer,USART_3Ch.nTxLen);
+            }
+
+        }
+         else if(((sCh) & 0x0ff) == 6)
+        {
+            if(UartHandle6.gState == HAL_UART_STATE_READY) 
+            {
+                
+                DP_RING_BUF_POP(USART_6Ch.nTxBuffer,&USART_6Ch.nTxLen);
+                HAL_UART_Transmit_IT(&UartHandle6, (uint8_t*)USART_6Ch.nTxBuffer,USART_6Ch.nTxLen);
             }
 
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
     else{
       
-      if(UartHandle4.gState == HAL_UART_STATE_READY)
+      if(UartHandle3.gState == HAL_UART_STATE_READY)
       {
-            
+            HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0400U)),((uint16_t)0x4000),GPIO_PIN_RESET);  
       }
       
     }

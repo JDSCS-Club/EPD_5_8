@@ -27772,6 +27772,7 @@ typedef struct
 	uint8_t nTx_Rts_Off;    
 	uint8_t *nTxBuffer;     
 	uint16_t nTxTimeOut;     
+    
 	uint8_t nRxOK;          
 	uint8_t nRxOK_Cnt;      
 	uint8_t nRxRearPos;     
@@ -27857,10 +27858,12 @@ typedef struct
 extern UART_HandleTypeDef UartHandle1;
 extern UART_HandleTypeDef UartHandle4;
 extern UART_HandleTypeDef UartHandle3;
+extern UART_HandleTypeDef UartHandle6;
 
 extern USART_INIT_SHAPE USART_1Ch;
 extern USART_INIT_SHAPE USART_3Ch;
 extern USART_INIT_SHAPE USART_4Ch;
+extern USART_INIT_SHAPE USART_6Ch;
 
 
 extern uint8_t mSSID[10];
@@ -28133,10 +28136,12 @@ void njw1192_mute(uint8_t On_Off);
  
 
      
+
+     
+
      
      
-  
-     
+
      
 
      
@@ -28144,7 +28149,8 @@ void njw1192_mute(uint8_t On_Off);
      
      
      
- 
+     
+
      
 
 
@@ -30840,6 +30846,294 @@ extern void ONTD_Function(void);
 
 
 
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+ 
+typedef unsigned char	BYTE;
+
+ 
+typedef short			SHORT;
+typedef unsigned short	WORD;
+typedef unsigned short	WCHAR;
+
+ 
+typedef int				INT;
+typedef unsigned int	UINT;
+
+ 
+typedef long			LONG;
+typedef unsigned long	DWORD;
+
+
+typedef char char_t;
+
+
+
+
+
+							
+
+
+							
+
+
+
+typedef char                CHAR;
+typedef signed char         INT8;
+typedef unsigned char       UCHAR;
+typedef unsigned char       UINT8;
+typedef unsigned char       BYTE;
+typedef signed short        INT16;
+typedef unsigned short      USHORT;
+typedef unsigned short      UINT16;
+typedef unsigned short      WORD;
+typedef signed int          INT32;
+typedef unsigned int        UINT32;
+typedef unsigned long       ULONG;
+
+
+typedef unsigned char 		BIT;
+typedef unsigned char 		U8;
+typedef unsigned int 		U16;
+typedef unsigned long 		U32;
+
+typedef signed char 		S8;
+typedef signed int 			S16;
+typedef signed long 		S32;
+
+
+
+
+
+
+
+
+
+
+typedef struct ip_addr {
+	union {
+		struct { UCHAR s_b1, s_b2, s_b3, s_b4; } S_un_b;
+		struct { USHORT s_w1, s_w2; } S_un_w;
+		ULONG S_addr;
+	} S_un;
+
+} IP_ADDR, *PIP_ADDR;
+
+
+
+
+
+
+
+extern	int	open_command_idx;
+
+typedef	struct	user_commnand
+{
+	char	*command_name;
+	char	*command_help1;
+	char	*command_help2;
+	int		( *func )(int argc, char *argv[]);
+} user_command_t;
+
+extern	user_command_t	user_command_table[];
+
+int 	a2hex		( char *pv );
+int 	readline	( char *bufp );
+void 	dump		( unsigned char *a, int delta, int width );
+int 	cmd_period	( int argc, char *argv[] );
+int 	cmd_ts		( int argc, char *argv[] );
+
+void	LoopProcCLI ( void );
+
+void	vCLITask	( void *pvParameters );	
+
+extern int			data_option;
+
+
+
+void	CLIPrompt		( void );
+int		ProcessCommand	( char *cmd );
+
+
+
+void	SetCLIPrompt	( void ( *fnPrompt )( void ) );
+void	SetCLIProc		( int ( *fnProc )( char *cmd ) );
+
+
+
+
+
+int cmd_help	( int argc, char *argv[] );
+int cmd_reset	( int argc, char *argv[] );
+int cmd_uptime	( int argc, char *argv[] );
+int cmd_ver		( int argc, char *argv[] );
+
+int cmd_wr		( int argc, char *argv[] );
+int cmd_rd		( int argc, char *argv[] );
+
+int cmd_rfm		( int argc, char *argv[] );
+int cmd_WDGStOff( int argc, char *argv[] );
+
+int cmd_battery( int argc, char *argv[] );		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+void	RFMOccPaStart	( void );
+
+
+
+void	RFMOccPaStop	( void );
+
+
+
+
+int		cmd_occ			( int argc, char *argv[] );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+typedef struct _Queue_t
+{
+
+	unsigned char queue[256];
+
+	int front, rear;
+
+} Queue_t;
+
+
+int				qcount		( Queue_t *q );
+void			init_queue	( Queue_t *q );
+void			clear_queue	( Queue_t *q );
+int				qput		( Queue_t *q, unsigned char k );
+unsigned char	qget		( Queue_t *q );
+
+
+
+
+typedef struct _QBuf_t
+{
+
+
+	uint8_t	*qBuf;
+	int	size;
+
+	int front, rear;
+
+} QBuf_t;
+
+
+void	qBufInit	( QBuf_t *q, uint8_t *_qBuf, int _size );
+void	qBufClear	( QBuf_t *q );
+int		qBufCnt		( QBuf_t *q );
+int		qBufPut		( QBuf_t *q, uint8_t *pBuf, int size );
+int		qBufGet		( QBuf_t *q, uint8_t *pBuf, int size );
+
+
+
+void	QBufTest	( QBuf_t *q, int blkSize );
+
+
+extern	Queue_t		g_qUart1;
+
+int		input_check		( void );
+
+
+
+
+
+
+
+
+
+
+
+
+
  
 uint8_t mEtherNetRx_Flag = 0;
 
@@ -30994,14 +31288,14 @@ const unsigned char completeVersion[] =
 const unsigned char completeVersionBuild[] = 
 {
 	'B',
-	("Aug  2 2023"[ 9]),
-	("Aug  2 2023"[10]),
+	("Aug 11 2023"[ 9]),
+	("Aug 11 2023"[10]),
    
-	((("Aug  2 2023"[0] == 'O') || ("Aug  2 2023"[0] == 'N') || ("Aug  2 2023"[0] == 'D')) ? '1' : '0'),
-	( (("Aug  2 2023"[0] == 'J' && "Aug  2 2023"[1] == 'a' && "Aug  2 2023"[2] == 'n')) ? '1' : (("Aug  2 2023"[0] == 'F')) ? '2' : (("Aug  2 2023"[0] == 'M' && "Aug  2 2023"[1] == 'a' && "Aug  2 2023"[2] == 'r')) ? '3' : (("Aug  2 2023"[0] == 'A' && "Aug  2 2023"[1] == 'p')) ? '4' : (("Aug  2 2023"[0] == 'M' && "Aug  2 2023"[1] == 'a' && "Aug  2 2023"[2] == 'y')) ? '5' : (("Aug  2 2023"[0] == 'J' && "Aug  2 2023"[1] == 'u' && "Aug  2 2023"[2] == 'n')) ? '6' : (("Aug  2 2023"[0] == 'J' && "Aug  2 2023"[1] == 'u' && "Aug  2 2023"[2] == 'l')) ? '7' : (("Aug  2 2023"[0] == 'A' && "Aug  2 2023"[1] == 'u')) ? '8' : (("Aug  2 2023"[0] == 'S')) ? '9' : (("Aug  2 2023"[0] == 'O')) ? '0' : (("Aug  2 2023"[0] == 'N')) ? '1' : (("Aug  2 2023"[0] == 'D')) ? '2' : '?' ),
+	((("Aug 11 2023"[0] == 'O') || ("Aug 11 2023"[0] == 'N') || ("Aug 11 2023"[0] == 'D')) ? '1' : '0'),
+	( (("Aug 11 2023"[0] == 'J' && "Aug 11 2023"[1] == 'a' && "Aug 11 2023"[2] == 'n')) ? '1' : (("Aug 11 2023"[0] == 'F')) ? '2' : (("Aug 11 2023"[0] == 'M' && "Aug 11 2023"[1] == 'a' && "Aug 11 2023"[2] == 'r')) ? '3' : (("Aug 11 2023"[0] == 'A' && "Aug 11 2023"[1] == 'p')) ? '4' : (("Aug 11 2023"[0] == 'M' && "Aug 11 2023"[1] == 'a' && "Aug 11 2023"[2] == 'y')) ? '5' : (("Aug 11 2023"[0] == 'J' && "Aug 11 2023"[1] == 'u' && "Aug 11 2023"[2] == 'n')) ? '6' : (("Aug 11 2023"[0] == 'J' && "Aug 11 2023"[1] == 'u' && "Aug 11 2023"[2] == 'l')) ? '7' : (("Aug 11 2023"[0] == 'A' && "Aug 11 2023"[1] == 'u')) ? '8' : (("Aug 11 2023"[0] == 'S')) ? '9' : (("Aug 11 2023"[0] == 'O')) ? '0' : (("Aug 11 2023"[0] == 'N')) ? '1' : (("Aug 11 2023"[0] == 'D')) ? '2' : '?' ),
    
-	(("Aug  2 2023"[4] >= '0') ? ("Aug  2 2023"[4]) : '0'),
-	("Aug  2 2023"[ 5]),
+	(("Aug 11 2023"[4] >= '0') ? ("Aug 11 2023"[4]) : '0'),
+	("Aug 11 2023"[ 5]),
 	
 	
     
@@ -31132,6 +31426,10 @@ int main(void)
 		
     
 		USARTRX_MainPro();
+        
+        LoopProcCLI();		
+        
+        
     
         
 
@@ -31408,6 +31706,13 @@ static void BSP_Config(void)
     HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0000U)), ((uint16_t)0x0800), GPIO_PIN_RESET);
     
     
+    GPIO_InitStructure.Pin = ((uint16_t)0x4000);
+	GPIO_InitStructure.Pull = 0x00000000U;
+	GPIO_InitStructure.Mode = 0x00000001U;
+    GPIO_InitStructure.Speed = 0x00000003U;
+	HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0400U)), &GPIO_InitStructure);
+    
+    HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0000U)), ((uint16_t)0x4000), GPIO_PIN_RESET); 
     
      
      
@@ -31430,13 +31735,16 @@ static void BSP_Config(void)
     
     
       
-    GPIO_InitStructure.Pin = ((uint16_t)0x0002) | ((uint16_t)0x0400) | ((uint16_t)0x0800) | ((uint16_t)0x1000) | ((uint16_t)0x2000);
+    GPIO_InitStructure.Pin = ((uint16_t)0x0040)| ((uint16_t)0x0002) | ((uint16_t)0x0400) | ((uint16_t)0x0800) | ((uint16_t)0x1000) | ((uint16_t)0x2000);
 	GPIO_InitStructure.Pull = 0x00000000U;
 	GPIO_InitStructure.Mode = 0x00000001U;
     GPIO_InitStructure.Speed = 0x00000003U;
 	HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), &GPIO_InitStructure);
     
     HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0002), GPIO_PIN_SET);
+    
+    HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0040), GPIO_PIN_SET);
+    
     
     HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0800), GPIO_PIN_SET);
     HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0400), GPIO_PIN_RESET);
@@ -31573,6 +31881,7 @@ static void SystemClock_Config(void)
 	{
 		Error_Handler();
 	}
+    
 
 	
  
@@ -31743,7 +32052,7 @@ void Time_Main(void)
     if (!(m_Main_TIM_Cnt % 5000)) 
 	{
         
-       
+       RFMOccPaStart();
         
             processCurrentVal();
             
