@@ -162,7 +162,7 @@ void rfLedOff(void){ HAL_GPIO_WritePin(RF_LED_GPIO_Port, RF_LED_Pin, true); }
 //--------------------------------------------------------------------------------------------//
 
 bool getVccRfIn(void){ return HAL_GPIO_ReadPin(VCC_RF_IN_Port, VCC_RF_IN); }
-
+bool getAmpFault(void){ return HAL_GPIO_ReadPin(AMP_FAULT_Port, AMP_FAULT_Pin); }
 bool getVccLedIn(void){ return HAL_GPIO_ReadPin(VCC_LED_IN_Port, VCC_LED_IN); }
 bool getVccAudioIn(void){ return HAL_GPIO_ReadPin(VCC_AUDIO_IN_Port, VCC_AUDIO_IN); }
 //--------------------------------------------------------------------------------------------//
@@ -177,6 +177,10 @@ void ledCtrOff(void){  HAL_GPIO_WritePin(LED_CTL_GPIO_Port, LED_CTL_Pin, false);
 //--------------------------------------------------------------------------------------------//
 //
 //--------------------------------------------------------------------------------------------//
+
+bool getAudioOn(void){ return HAL_GPIO_ReadPin(AUDIO_ON_GPIO_Port, AUDIO_ON_Pin); }
+
+
 /**
   * @brief  get Audio state
   */
@@ -420,23 +424,16 @@ void processLightLed(void)
   */
 void processAudioAmpProcess(void)
 {
-    static int d_AudioAmpProcess_Cnt = 0;
+
     
 	if(getAudioOn())
 	{
-        
-        d_AudioAmpProcess_Cnt++;
-        
-        if(!(d_AudioAmpProcess_Cnt%2000)) 
-        {
-            printf( "%s(%d)\n", __func__, __LINE__ );
-        }
         
 		bAmpOnOff = true;
 		if(bCurAmpOnOff != bAmpOnOff)
 		{
 			bCurAmpOnOff = bAmpOnOff;
-			setAmpSd(true);
+			AMP_Init(AMP_ID_1);
 
 			HAL_GPIO_WritePin(SD_GPIO_Port, SD_Pin, true); // SD
 
@@ -446,7 +443,7 @@ void processAudioAmpProcess(void)
 		if(bAmpSettingDetected)
 		{
 			bAmpSettingDetected = false;
-			ampMuteOff();
+			AMP_Mute_OFF(AMP_ID_1, AMP_ID_2, AMP_ID_3); // 모든 채널을 ON 하고 릴레이로 제어 한다.
                 
             uAudioPlayFlag = true;
 		}
@@ -458,8 +455,8 @@ void processAudioAmpProcess(void)
 		if(bCurAmpOnOff != bAmpOnOff)
 		{
 			bCurAmpOnOff = bAmpOnOff;
-			//ampMuteOn();
-			u16AmpSettingTick = 100;
+			AMP_Mute_ON(AMP_ID_1, AMP_CH_All, AMP_ID_2, AMP_CH_All, AMP_ID_3, AMP_CH_All); 
+			u16AmpSettingTick = 500;
                 
             uAudioPlayFlag = false;
 		}
@@ -467,7 +464,7 @@ void processAudioAmpProcess(void)
 		if(bAmpSettingDetected)
 		{
 			bAmpSettingDetected = false;
-			setAmpSd(false);
+			//setAmpSd(false);
 
 			//HAL_GPIO_WritePin(SD_GPIO_Port, SD_Pin, false); // SD
 		}
@@ -482,11 +479,11 @@ void processAudioAmpProcess(void)
 void processGetBatVol(void)
 {
 	u16CntBatVol++;
-	uint16_t batVol = getAdc1Vol();
+	uint16_t batVol = getAdc2Vol();
     
     //printf("Time-Tick --->[%d]\n", u16LedChangeTick);
     
-	if(getVccIn())
+	if(!getVccIn())
 	{
 		batVol-=VOLTAGE_CHARGE_BAT;
 	}
@@ -499,13 +496,13 @@ void processGetBatVol(void)
 	}
     
 	u16BatVolSum += batVol;
-	if(u16CntBatVol >= 1000)
+	if(u16CntBatVol >= 1)
 	{
 		u16BatVol = u16BatVolSum / u16CntBatVol;
 		u16CntBatVol = 0;
 		u16BatVolSum = 0;
         
-        printf("bat----> [%d]\n", u16BatVol);
+        MyPrintf_USART1("bat----> [%d]\n", u16BatVol);
 	}
 }
 //--------------------------------------------------------------------------------------------//
