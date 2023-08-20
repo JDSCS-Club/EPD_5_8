@@ -1145,6 +1145,7 @@ void	QBufTest	( QBuf_t *q, int blkSize );
 
 
 extern	Queue_t		g_qUart1;
+extern	Queue_t		g_qUart6;
 
 int		input_check		( void );
 
@@ -21909,6 +21910,8 @@ int ConvDec2Hex(char nCh);
 int FunConvHexAsc(uint8_t *InhexData,char *OUTAscData,int Len);
 void MyPrintf_USART1(char * format, ... );
 
+void Dump( char *sTitle, char *sBuf, int nSize );
+
 
 
 
@@ -21931,7 +21934,7 @@ void MyPrintf_USART1(char * format, ... );
 
 
 Queue_t		g_qUart1;
-
+Queue_t		g_qUart6;
 
 
 

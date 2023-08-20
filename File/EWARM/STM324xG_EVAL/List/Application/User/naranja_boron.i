@@ -27891,6 +27891,8 @@ int ConvDec2Hex(char nCh);
 int FunConvHexAsc(uint8_t *InhexData,char *OUTAscData,int Len);
 void MyPrintf_USART1(char * format, ... );
 
+void Dump( char *sTitle, char *sBuf, int nSize );
+
 
 
 
@@ -28228,6 +28230,7 @@ extern volatile uint16_t ADCValue[6];
  
 
  
+
 
 
 
@@ -29094,7 +29097,7 @@ void rfLedOff(void){ HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020
 
 
 _Bool getVccRfIn(void){ return HAL_GPIO_ReadPin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0001)); }
-
+_Bool getAmpFault(void){ return HAL_GPIO_ReadPin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0004)); }
 _Bool getVccLedIn(void){ return HAL_GPIO_ReadPin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0800U)), ((uint16_t)0x4000)); }
 _Bool getVccAudioIn(void){ return HAL_GPIO_ReadPin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0800U)), ((uint16_t)0x2000)); }
 
@@ -29107,6 +29110,10 @@ void setLedCtr(void ){  HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00
 void ledCtrOn(void){  HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x1000U)), ((uint16_t)0x0010), 1); }
 void ledCtrOff(void){  HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x1000U)), ((uint16_t)0x0010), 0); }
 
+
+
+
+_Bool getAudioOn(void){ return HAL_GPIO_ReadPin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0000U)), ((uint16_t)0x0100)); }
 
 
 
@@ -29352,23 +29359,16 @@ void processLightLed(void)
  
 void processAudioAmpProcess(void)
 {
-    static int d_AudioAmpProcess_Cnt = 0;
+
     
 	if(getAudioOn())
 	{
-        
-        d_AudioAmpProcess_Cnt++;
-        
-        if(!(d_AudioAmpProcess_Cnt%2000)) 
-        {
-            printf( "%s(%d)\n", __func__, 432 );
-        }
         
 		bAmpOnOff = 1;
 		if(bCurAmpOnOff != bAmpOnOff)
 		{
 			bCurAmpOnOff = bAmpOnOff;
-			setAmpSd(1);
+			AMP_Init(AMP_ID_1);
 
 			HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x1000U)), ((uint16_t)0x0008), 1); 
 
@@ -29378,7 +29378,7 @@ void processAudioAmpProcess(void)
 		if(bAmpSettingDetected)
 		{
 			bAmpSettingDetected = 0;
-			ampMuteOff();
+			AMP_Mute_OFF(AMP_ID_1, AMP_ID_2, AMP_ID_3); 
                 
             uAudioPlayFlag = 1;
 		}
@@ -29390,8 +29390,8 @@ void processAudioAmpProcess(void)
 		if(bCurAmpOnOff != bAmpOnOff)
 		{
 			bCurAmpOnOff = bAmpOnOff;
-			
-			u16AmpSettingTick = 100;
+			AMP_Mute_ON(AMP_ID_1, AMP_CH_All, AMP_ID_2, AMP_CH_All, AMP_ID_3, AMP_CH_All); 
+			u16AmpSettingTick = 500;
                 
             uAudioPlayFlag = 0;
 		}
@@ -29399,7 +29399,7 @@ void processAudioAmpProcess(void)
 		if(bAmpSettingDetected)
 		{
 			bAmpSettingDetected = 0;
-			setAmpSd(0);
+			
 
 			
 		}
@@ -29414,11 +29414,11 @@ void processAudioAmpProcess(void)
 void processGetBatVol(void)
 {
 	u16CntBatVol++;
-	uint16_t batVol = getAdc1Vol();
+	uint16_t batVol = getAdc2Vol();
     
     
     
-	if(getVccIn())
+	if(!getVccIn())
 	{
 		batVol-=85;
 	}
@@ -29431,7 +29431,7 @@ void processGetBatVol(void)
 	}
     
 	u16BatVolSum += batVol;
-	if(u16CntBatVol >= 1000)
+	if(u16CntBatVol >= 1)
 	{
 		u16BatVol = u16BatVolSum / u16CntBatVol;
 		u16CntBatVol = 0;

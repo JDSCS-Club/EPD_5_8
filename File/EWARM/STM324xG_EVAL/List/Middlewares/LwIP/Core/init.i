@@ -29531,6 +29531,8 @@ int ConvDec2Hex(char nCh);
 int FunConvHexAsc(uint8_t *InhexData,char *OUTAscData,int Len);
 void MyPrintf_USART1(char * format, ... );
 
+void Dump( char *sTitle, char *sBuf, int nSize );
+
 
 
 
@@ -29868,6 +29870,7 @@ extern volatile uint16_t ADCValue[6];
  
 
  
+
 
 
 

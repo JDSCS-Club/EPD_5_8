@@ -16,7 +16,7 @@
         <LeaveTargetRunning>_ 0</LeaveTargetRunning>
     </StLinkDriver>
     <DebugChecksum>
-        <Checksum>3112214496</Checksum>
+        <Checksum>2458164267</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -189,58 +189,6 @@
         <StallCPU>1</StallCPU>
         <NoPCCapture>1</NoPCCapture>
     </ETMTraceWindow>
-    <struct_types>
-        <Fmt0>AnsSetFlag-tAnsCnt	3	0</Fmt0>
-        <Fmt1>ETH_DMADescTypeDef-Buffer2NextDescAddr	4	0</Fmt1>
-        <Fmt2>ETH_DMADescTypeDef-ControlBufferSize	4	0</Fmt2>
-        <Fmt3>ETH_DMADescTypeDef-Status	4	0</Fmt3>
-        <Fmt4>ETH_HandleTypeDef-RxDesc	4	0</Fmt4>
-        <Fmt5>ip4_addr_p_t-addr	4	0</Fmt5>
-        <Fmt6>ip4_addr_t-addr	4	0</Fmt6>
-        <Fmt7>ip_addr_t-addr	5	0</Fmt7>
-        <Fmt8>mLED_PROCESS_Flag-sMy_IP_Info	3	0</Fmt8>
-        <Fmt9>struct netif-flags	4	0</Fmt9>
-        <Fmt10>struct sys_timeo-time	2	0</Fmt10>
-        <Fmt11>struct udp_hdr-dest	3	0</Fmt11>
-    </struct_types>
-    <array_types>
-        <Fmt0>uint8_t[100]	5	0</Fmt0>
-        <Fmt1>uint8_t[2]	4	0</Fmt1>
-    </array_types>
-    <watch_formats>
-        <Fmt0>{W}1:ipaddr	4	1</Fmt0>
-        <Fmt1>{W}1:sCRC_Check1	4	0</Fmt1>
-        <Fmt2>{W}1:sCRC_Check2	4	0</Fmt2>
-        <Fmt3>{W}1:sCnt	3	0</Fmt3>
-        <Fmt4>{W}1:sCompareCnt	3	0</Fmt4>
-        <Fmt5>{W}1:sRxBitCompare	4	0</Fmt5>
-        <Fmt6>{W}42:Color256_Test_Cnt	3	0</Fmt6>
-        <Fmt7>{W}42:Color256_Test_Cnt2	3	0</Fmt7>
-        <Fmt8>{W}42:FlashAddressPosion	4	0</Fmt8>
-        <Fmt9>{W}42:SPI_FLASH_ID	4	0</Fmt9>
-        <Fmt10>{W}42:Tcp_flag	4	0</Fmt10>
-        <Fmt11>{W}42:d_BuffCheck	3	0</Fmt11>
-        <Fmt12>{W}42:d_EthernetBuff[53]	4	0</Fmt12>
-        <Fmt13>{W}42:d_EthernetRxCnt	4	0</Fmt13>
-        <Fmt14>{W}42:d_RingPop_Cnt	3	0</Fmt14>
-        <Fmt15>{W}42:d_RingPush_Cnt	3	0</Fmt15>
-        <Fmt16>{W}42:d_hexSwith_Read	4	0</Fmt16>
-        <Fmt17>{W}42:d_hexSwith_Read2	4	0</Fmt17>
-        <Fmt18>{W}42:daa	3	0</Fmt18>
-        <Fmt19>{W}42:gnetif.ip_addr.addr	4	0</Fmt19>
-        <Fmt20>{W}42:mDI_CheckFlag	3	0</Fmt20>
-        <Fmt21>{W}42:mLCD_InputData	1	0</Fmt21>
-        <Fmt22>{W}42:mLed_Process_Flag.sAmp_Falut_val	1	0</Fmt22>
-        <Fmt23>{W}42:mLed_Process_Flag.sDHCP_IP_Val	3	0</Fmt23>
-        <Fmt24>{W}42:mLed_Process_Flag.sScreen_Page_Cnt	3	0</Fmt24>
-        <Fmt25>{W}42:next_timeout	2	0</Fmt25>
-        <Fmt26>{W}42:pmEthernet_Rx_struct	4	0</Fmt26>
-        <Fmt27>{W}42:s_SpkCheck	1	0</Fmt27>
-    </watch_formats>
-    <Trace2>
-        <Enabled>1</Enabled>
-        <ShowSource>1</ShowSource>
-    </Trace2>
     <SWOTraceWindow>
         <PcSampling>0</PcSampling>
         <InterruptLogs>0</InterruptLogs>
@@ -299,6 +247,63 @@
         <ShowTimeSum>1</ShowTimeSum>
         <SumSortOrder>0</SumSortOrder>
     </EventLog>
+    <PowerProbe>
+        <Frequency>10000</Frequency>
+        <Probe0>I0</Probe0>
+        <ProbeSetup0>2 1 1 2 0 0</ProbeSetup0>
+    </PowerProbe>
+    <struct_types>
+        <Fmt0>AnsSetFlag-tAnsCnt	3	0</Fmt0>
+        <Fmt1>ETH_DMADescTypeDef-Buffer2NextDescAddr	4	0</Fmt1>
+        <Fmt2>ETH_DMADescTypeDef-ControlBufferSize	4	0</Fmt2>
+        <Fmt3>ETH_DMADescTypeDef-Status	4	0</Fmt3>
+        <Fmt4>ETH_HandleTypeDef-RxDesc	4	0</Fmt4>
+        <Fmt5>ip4_addr_p_t-addr	4	0</Fmt5>
+        <Fmt6>ip4_addr_t-addr	4	0</Fmt6>
+        <Fmt7>ip_addr_t-addr	5	0</Fmt7>
+        <Fmt8>mLED_PROCESS_Flag-sMy_IP_Info	3	0</Fmt8>
+        <Fmt9>struct netif-flags	4	0</Fmt9>
+        <Fmt10>struct sys_timeo-time	2	0</Fmt10>
+        <Fmt11>struct udp_hdr-dest	3	0</Fmt11>
+    </struct_types>
+    <array_types>
+        <Fmt0>uint8_t[100]	5	0</Fmt0>
+        <Fmt1>uint8_t[2]	4	0</Fmt1>
+    </array_types>
+    <watch_formats>
+        <Fmt0>{W}1:ipaddr	4	1</Fmt0>
+        <Fmt1>{W}1:sCRC_Check1	4	0</Fmt1>
+        <Fmt2>{W}1:sCRC_Check2	4	0</Fmt2>
+        <Fmt3>{W}1:sCnt	3	0</Fmt3>
+        <Fmt4>{W}1:sCompareCnt	3	0</Fmt4>
+        <Fmt5>{W}1:sRxBitCompare	4	0</Fmt5>
+        <Fmt6>{W}42:Color256_Test_Cnt	3	0</Fmt6>
+        <Fmt7>{W}42:Color256_Test_Cnt2	3	0</Fmt7>
+        <Fmt8>{W}42:FlashAddressPosion	4	0</Fmt8>
+        <Fmt9>{W}42:SPI_FLASH_ID	4	0</Fmt9>
+        <Fmt10>{W}42:Tcp_flag	4	0</Fmt10>
+        <Fmt11>{W}42:d_BuffCheck	3	0</Fmt11>
+        <Fmt12>{W}42:d_EthernetBuff[53]	4	0</Fmt12>
+        <Fmt13>{W}42:d_EthernetRxCnt	4	0</Fmt13>
+        <Fmt14>{W}42:d_RingPop_Cnt	3	0</Fmt14>
+        <Fmt15>{W}42:d_RingPush_Cnt	3	0</Fmt15>
+        <Fmt16>{W}42:d_hexSwith_Read	4	0</Fmt16>
+        <Fmt17>{W}42:d_hexSwith_Read2	4	0</Fmt17>
+        <Fmt18>{W}42:daa	3	0</Fmt18>
+        <Fmt19>{W}42:gnetif.ip_addr.addr	4	0</Fmt19>
+        <Fmt20>{W}42:mDI_CheckFlag	3	0</Fmt20>
+        <Fmt21>{W}42:mLCD_InputData	1	0</Fmt21>
+        <Fmt22>{W}42:mLed_Process_Flag.sAmp_Falut_val	1	0</Fmt22>
+        <Fmt23>{W}42:mLed_Process_Flag.sDHCP_IP_Val	3	0</Fmt23>
+        <Fmt24>{W}42:mLed_Process_Flag.sScreen_Page_Cnt	3	0</Fmt24>
+        <Fmt25>{W}42:next_timeout	2	0</Fmt25>
+        <Fmt26>{W}42:pmEthernet_Rx_struct	4	0</Fmt26>
+        <Fmt27>{W}42:s_SpkCheck	1	0</Fmt27>
+    </watch_formats>
+    <Trace2>
+        <Enabled>1</Enabled>
+        <ShowSource>1</ShowSource>
+    </Trace2>
     <TermIOLog>
         <LoggingEnabled>_ 0</LoggingEnabled>
         <LogFile>_ "$PROJ_DIR$\TermIO.log"</LogFile>
@@ -315,11 +320,6 @@
     <CallStackStripe>
         <ShowTiming>1</ShowTiming>
     </CallStackStripe>
-    <PowerProbe>
-        <Frequency>10000</Frequency>
-        <Probe0>I0</Probe0>
-        <ProbeSetup0>2 1 1 2 0 0</ProbeSetup0>
-    </PowerProbe>
     <LogFile>
         <LoggingEnabled>_ 0</LoggingEnabled>
         <LogFile>_ ""</LogFile>

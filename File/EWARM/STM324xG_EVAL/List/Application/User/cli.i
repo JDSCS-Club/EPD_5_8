@@ -28062,6 +28062,8 @@ int ConvDec2Hex(char nCh);
 int FunConvHexAsc(uint8_t *InhexData,char *OUTAscData,int Len);
 void MyPrintf_USART1(char * format, ... );
 
+void Dump( char *sTitle, char *sBuf, int nSize );
+
 
 
 
@@ -28399,6 +28401,7 @@ extern volatile uint16_t ADCValue[6];
  
 
  
+
 
 
 
@@ -29159,6 +29162,9 @@ typedef struct ip_addr {
 
 extern	int	open_command_idx;
 
+extern	int	debug_level;
+
+
 typedef	struct	user_commnand
 {
 	char	*command_name;
@@ -29206,7 +29212,8 @@ int cmd_rd		( int argc, char *argv[] );
 int cmd_rfm		( int argc, char *argv[] );
 int cmd_WDGStOff( int argc, char *argv[] );
 
-int cmd_battery( int argc, char *argv[] );		
+int cmd_battery ( int argc, char *argv[] );		
+int	cmd_debug	( int argc, char *argv[] );
 
 
 
@@ -29272,6 +29279,7 @@ void	QBufTest	( QBuf_t *q, int blkSize );
 
 
 extern	Queue_t		g_qUart1;
+extern	Queue_t		g_qUart6;
 
 int		input_check		( void );
 
@@ -29347,6 +29355,8 @@ char		prompt_string[0x10];
 
 int			data_option = 1;
 
+int	        debug_level;
+
 
 
 
@@ -29387,6 +29397,10 @@ user_command_t	user_command_table[] = {
 		"bat		-	Battery Charge Rate\n\r",
 		(char *)0,
 		cmd_battery,},
+     {"debug",
+		"debug		-	set debug level.",
+		(char *)0,
+		cmd_debug, },   
 		
 
 	{"occ",
@@ -29469,6 +29483,26 @@ int 	a2hex(char *pv)
 	return strtol(pv, pos, 16 );
 }
 
+
+
+
+
+
+int cmd_debug(int argc, char *argv[])
+
+{
+	if (argc == 1)
+	{
+		MyPrintf_USART1("current debug level = 0x%x\n", debug_level);
+	}
+	else
+	{
+		debug_level = a2hex(argv[1]);
+		MyPrintf_USART1("debug level = 0x%x\n", debug_level);
+	}
+
+	return 0;
+}
 
 
 
@@ -29992,7 +30026,7 @@ int cmd_rfm(int argc, char *argv[])
 
 {
 	
-	MyPrintf_USART1("%s(%d)\n", __func__, 850 );
+	MyPrintf_USART1("%s(%d)\n", __func__, 876 );
 
 	return 0;
 }

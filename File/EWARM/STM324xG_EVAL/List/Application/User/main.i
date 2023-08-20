@@ -27902,6 +27902,8 @@ int ConvDec2Hex(char nCh);
 int FunConvHexAsc(uint8_t *InhexData,char *OUTAscData,int Len);
 void MyPrintf_USART1(char * format, ... );
 
+void Dump( char *sTitle, char *sBuf, int nSize );
+
 
 
 
@@ -28239,6 +28241,7 @@ extern volatile uint16_t ADCValue[6];
  
 
  
+
 
 
 
@@ -30959,6 +30962,9 @@ typedef struct ip_addr {
 
 extern	int	open_command_idx;
 
+extern	int	debug_level;
+
+
 typedef	struct	user_commnand
 {
 	char	*command_name;
@@ -31006,7 +31012,8 @@ int cmd_rd		( int argc, char *argv[] );
 int cmd_rfm		( int argc, char *argv[] );
 int cmd_WDGStOff( int argc, char *argv[] );
 
-int cmd_battery( int argc, char *argv[] );		
+int cmd_battery ( int argc, char *argv[] );		
+int	cmd_debug	( int argc, char *argv[] );
 
 
 
@@ -31119,6 +31126,7 @@ void	QBufTest	( QBuf_t *q, int blkSize );
 
 
 extern	Queue_t		g_qUart1;
+extern	Queue_t		g_qUart6;
 
 int		input_check		( void );
 
@@ -31288,14 +31296,14 @@ const unsigned char completeVersion[] =
 const unsigned char completeVersionBuild[] = 
 {
 	'B',
-	("Aug 11 2023"[ 9]),
-	("Aug 11 2023"[10]),
+	("Aug 18 2023"[ 9]),
+	("Aug 18 2023"[10]),
    
-	((("Aug 11 2023"[0] == 'O') || ("Aug 11 2023"[0] == 'N') || ("Aug 11 2023"[0] == 'D')) ? '1' : '0'),
-	( (("Aug 11 2023"[0] == 'J' && "Aug 11 2023"[1] == 'a' && "Aug 11 2023"[2] == 'n')) ? '1' : (("Aug 11 2023"[0] == 'F')) ? '2' : (("Aug 11 2023"[0] == 'M' && "Aug 11 2023"[1] == 'a' && "Aug 11 2023"[2] == 'r')) ? '3' : (("Aug 11 2023"[0] == 'A' && "Aug 11 2023"[1] == 'p')) ? '4' : (("Aug 11 2023"[0] == 'M' && "Aug 11 2023"[1] == 'a' && "Aug 11 2023"[2] == 'y')) ? '5' : (("Aug 11 2023"[0] == 'J' && "Aug 11 2023"[1] == 'u' && "Aug 11 2023"[2] == 'n')) ? '6' : (("Aug 11 2023"[0] == 'J' && "Aug 11 2023"[1] == 'u' && "Aug 11 2023"[2] == 'l')) ? '7' : (("Aug 11 2023"[0] == 'A' && "Aug 11 2023"[1] == 'u')) ? '8' : (("Aug 11 2023"[0] == 'S')) ? '9' : (("Aug 11 2023"[0] == 'O')) ? '0' : (("Aug 11 2023"[0] == 'N')) ? '1' : (("Aug 11 2023"[0] == 'D')) ? '2' : '?' ),
+	((("Aug 18 2023"[0] == 'O') || ("Aug 18 2023"[0] == 'N') || ("Aug 18 2023"[0] == 'D')) ? '1' : '0'),
+	( (("Aug 18 2023"[0] == 'J' && "Aug 18 2023"[1] == 'a' && "Aug 18 2023"[2] == 'n')) ? '1' : (("Aug 18 2023"[0] == 'F')) ? '2' : (("Aug 18 2023"[0] == 'M' && "Aug 18 2023"[1] == 'a' && "Aug 18 2023"[2] == 'r')) ? '3' : (("Aug 18 2023"[0] == 'A' && "Aug 18 2023"[1] == 'p')) ? '4' : (("Aug 18 2023"[0] == 'M' && "Aug 18 2023"[1] == 'a' && "Aug 18 2023"[2] == 'y')) ? '5' : (("Aug 18 2023"[0] == 'J' && "Aug 18 2023"[1] == 'u' && "Aug 18 2023"[2] == 'n')) ? '6' : (("Aug 18 2023"[0] == 'J' && "Aug 18 2023"[1] == 'u' && "Aug 18 2023"[2] == 'l')) ? '7' : (("Aug 18 2023"[0] == 'A' && "Aug 18 2023"[1] == 'u')) ? '8' : (("Aug 18 2023"[0] == 'S')) ? '9' : (("Aug 18 2023"[0] == 'O')) ? '0' : (("Aug 18 2023"[0] == 'N')) ? '1' : (("Aug 18 2023"[0] == 'D')) ? '2' : '?' ),
    
-	(("Aug 11 2023"[4] >= '0') ? ("Aug 11 2023"[4]) : '0'),
-	("Aug 11 2023"[ 5]),
+	(("Aug 18 2023"[4] >= '0') ? ("Aug 18 2023"[4]) : '0'),
+	("Aug 18 2023"[ 5]),
 	
 	
     
@@ -31335,6 +31343,7 @@ int d_TestSp_SR_Flag = 0;
 int main(void)
 {
   
+    int nTick;
   
 	HAL_Init();  
 
@@ -31383,6 +31392,15 @@ int main(void)
     
     static int sOLED_InitCnt = 0;
     
+    static int s_nTick;
+    static int s_nOccCnt;   
+    static int s_currentCnt;
+    
+    static int sVccInFlag = 0;
+    static int sVccOff_TimeCnt = 0;
+    
+    static int s_bMstIn = 0;
+    static int s_vcc = 0;
 
 
     
@@ -31429,7 +31447,130 @@ int main(void)
         
         LoopProcCLI();		
         
+        processRfLed();
+		processChargeLed();
+		processLightLed();
+		processAudioAmpProcess();
         
+        nTick = HAL_GetTick();
+        
+        if ( (nTick - s_nOccCnt) >= 100)
+        {
+
+
+        	 s_nOccCnt = nTick;
+
+
+
+        	if(s_vcc != getVccIn())
+        	{
+        		s_vcc = getVccIn();
+        		MyPrintf_USART1("Timer_getVccIn():%d\n", getVccIn());
+        		MyPrintf_USART1("Timer_getMasterIn():%d\n", getMasterIn());
+        	}
+
+
+
+        	if(getVccIn() == 1) 
+        	{
+        		sVccInFlag++;
+
+        		if(sVccInFlag > 15)
+        		{
+
+					int bMstIn = getMasterIn();
+
+					if ( bMstIn )
+					{
+						sVccOff_TimeCnt++;
+					}
+					else
+					{
+						sVccOff_TimeCnt = 0;
+					}
+
+					if ( (s_bMstIn != bMstIn) && ((sVccOff_TimeCnt > 5) || (sVccOff_TimeCnt == 0)))
+					{
+						s_bMstIn = bMstIn;
+
+						
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+						if ( s_bMstIn )
+						{
+							MyPrintf_USART1("getVccIn():%d,%d,%d\n", getVccIn(),sVccOff_TimeCnt,sVccInFlag);
+
+							
+							RFMOccPaStart();
+						}
+						else
+						{
+							MyPrintf_USART1("getVccIn():%d,%d,%d\n", getVccIn(),sVccOff_TimeCnt,sVccInFlag);
+
+							
+							RFMOccPaStop();
+						}
+					}
+        		}
+        	}
+        	else
+        	{
+        		s_bMstIn = 1;
+        		
+        		sVccInFlag = 0;
+
+        	}
+
+
+
+        }
+            
+                
+		if ( (nTick - s_nTick) >= 1000)
+		{
+
+			s_nTick = nTick;
+			processGetBatVol();			
+            
+                
+			if(getAmpFault())
+			{
+
+				
+			}
+			else
+			{
+				
+			}
+
+			
+		}
+
+        if ( (nTick - s_currentCnt) >= 5000)
+        {
+            s_currentCnt = nTick;
+                
+             
+                 
+                
+   
+            
+        }
+        
+      
     
         
 
@@ -31663,6 +31804,7 @@ static void BSP_Config(void)
     
     
      do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (0U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (0U)))); ((void)(tmpreg)); } while(0U);
+     do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (1U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (1U)))); ((void)(tmpreg)); } while(0U);
      do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (2U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (2U)))); ((void)(tmpreg)); } while(0U);
      do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (3U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (3U)))); ((void)(tmpreg)); } while(0U);
      do { volatile uint32_t tmpreg = 0x00U; ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) |= ((0x1U << (4U)))); tmpreg = ((((RCC_TypeDef *) ((0x40000000U + 0x00020000U) + 0x3800U))->AHB1ENR) & ((0x1U << (4U)))); ((void)(tmpreg)); } while(0U);
@@ -31706,13 +31848,14 @@ static void BSP_Config(void)
     HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0000U)), ((uint16_t)0x0800), GPIO_PIN_RESET);
     
     
+     
     GPIO_InitStructure.Pin = ((uint16_t)0x4000);
 	GPIO_InitStructure.Pull = 0x00000000U;
 	GPIO_InitStructure.Mode = 0x00000001U;
     GPIO_InitStructure.Speed = 0x00000003U;
 	HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0400U)), &GPIO_InitStructure);
     
-    HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0000U)), ((uint16_t)0x4000), GPIO_PIN_RESET); 
+    HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0400U)), ((uint16_t)0x4000), GPIO_PIN_RESET); 
     
      
      
@@ -32031,6 +32174,23 @@ void Time_Main(void)
     mDI_CheckFlag = ((d_SR_Flag << 3) | (d_SL_Flag << 2) | ( d_AR_Flag<< 1) | (d_RS_Flag & 0x01));  
     
     
+      if(u16LedChangeTick)
+	  u16LedChangeTick--;
+
+      if(u16Led75UnderFlickerTick)
+          u16Led75UnderFlickerTick--;
+
+      if(u16Led100UnderFlickerTick)
+          u16Led100UnderFlickerTick--;
+
+      if(u16AmpSettingTick)
+      {
+          u16AmpSettingTick--;
+          if (u16AmpSettingTick == 0)
+              bAmpSettingDetected = 1;
+      }
+  
+  
     
 	if (!(m_Main_TIM_Cnt % 100)) 
 	{
