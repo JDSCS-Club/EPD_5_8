@@ -80,6 +80,8 @@ char		prompt_string[0x10];
 
 int			data_option = 1;
 
+int	        debug_level;
+
 //=============================================================================
 
 /*
@@ -120,6 +122,10 @@ user_command_t	user_command_table[] = {
 		"bat		-	Battery Charge Rate\n\r",
 		(char *)0,
 		cmd_battery,},
+     {"debug",
+		"debug		-	set debug level.",
+		(char *)0,
+		cmd_debug, },   
 		//cmd_battery
 #if defined(_RS485_H_)
 	{"sd",
@@ -291,6 +297,26 @@ strtok_r ( char *s, const char *delim, char **save_ptr )
 //========================================================================
 #endif
 //========================================================================
+
+
+//========================================================================
+int cmd_debug(int argc, char *argv[])
+//========================================================================
+{
+	if (argc == 1)
+	{
+		MyPrintf_USART1("current debug level = 0x%x\n", debug_level);
+	}
+	else
+	{
+		debug_level = a2hex(argv[1]);
+		MyPrintf_USART1("debug level = 0x%x\n", debug_level);
+	}
+
+	return 0;
+}
+
+
 
 /*
  * parse cmd & argument, return argc

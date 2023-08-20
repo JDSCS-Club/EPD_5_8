@@ -274,6 +274,7 @@ int d_TestSp_SR_Flag = 0;
 int main(void)
 {
   
+    int nTick;
   
 	HAL_Init();  
 
@@ -322,6 +323,15 @@ int main(void)
     
     static int sOLED_InitCnt = 0;
     
+    static int s_nTick;
+    static int s_nOccCnt;   
+    static int s_currentCnt;
+    
+    static int sVccInFlag = 0;
+    static int sVccOff_TimeCnt = 0;
+    
+    static int s_bMstIn = 0;
+    static int s_vcc = 0;
 
 
     //WWDG_Init(); //
@@ -370,7 +380,147 @@ int main(void)
         
         LoopProcCLI();		//	CLI ( Command Line Interface )
         
+        processRfLed();
+		processChargeLed();
+		processLightLed();
+		processAudioAmpProcess();
         
+        nTick = HAL_GetTick();
+        
+        if ( (nTick - s_nOccCnt) >= 100)
+        {
+
+#if defined(EPD_5_8)
+
+        	 s_nOccCnt = nTick;
+
+
+
+        	if(s_vcc != getVccIn())
+        	{
+        		s_vcc = getVccIn();
+        		MyPrintf_USART1("Timer_getVccIn():%d\n", getVccIn());
+        		MyPrintf_USART1("Timer_getMasterIn():%d\n", getMasterIn());
+        	}
+
+
+
+        	if(getVccIn() == 1) //차량 전원이 ON 일때만 동작.
+        	{
+        		sVccInFlag++;
+
+        		if(sVccInFlag > 15)
+        		{
+
+					int bMstIn = getMasterIn();
+
+					if ( bMstIn )
+					{
+						sVccOff_TimeCnt++;
+					}
+					else
+					{
+						sVccOff_TimeCnt = 0;
+					}
+
+					if ( (s_bMstIn != bMstIn) && ((sVccOff_TimeCnt > 5) || (sVccOff_TimeCnt == 0)))
+					{
+						s_bMstIn = bMstIn;
+
+						/*
+						if(bMstIn)
+						{
+							sVccOff_TimeCnt++;
+							if(sVccOff_TimeCnt > 5)
+							{
+								s_bMstIn = bMstIn;
+							}
+						}
+						else
+						{
+							sVccOff_TimeCnt = 0;
+							s_bMstIn = bMstIn;
+						}*/
+
+
+						if ( s_bMstIn )
+						{
+							MyPrintf_USART1("getVccIn():%d,%d,%d\n", getVccIn(),sVccOff_TimeCnt,sVccInFlag);
+
+							//RFMOccPaStop();
+							RFMOccPaStart();
+						}
+						else
+						{
+							MyPrintf_USART1("getVccIn():%d,%d,%d\n", getVccIn(),sVccOff_TimeCnt,sVccInFlag);
+
+							//RFMOccPaStart();
+							RFMOccPaStop();
+						}
+					}
+        		}
+        	}
+        	else
+        	{
+        		s_bMstIn = 1;
+        		//printf("getVccIn():%d\n", getVccIn());
+        		sVccInFlag = 0;
+
+        	}
+
+
+
+#else
+            s_nOccCnt = nTick;
+                
+            // 1?�차 �??10 ?�차�?? ?�??�객 ?�작 ?�도�???�정.
+            if(getRS485Id() == 0x01 ||
+               getRS485Id() == 0x0A )
+            {
+                processOverrideOn();
+            }
+                
+            ONTD_Function();
+#endif
+        }
+            
+                
+		if ( (nTick - s_nTick) >= 1000)
+		{
+//			printf("[%d]\n", nTick);
+			s_nTick = nTick;
+			processGetBatVol();			//	ADC
+            
+                
+			if(getAmpFault())
+			{
+
+				//printf( "getAmpOk \n" );
+			}
+			else
+			{
+				//printf( "getAmpFault \n" );
+			}
+
+			
+		}
+
+#if 0	//	defined(SIL_RFM)
+		//	SIL - SPK Check Disable
+#else
+        if ( (nTick - s_currentCnt) >= 5000)
+        {
+            s_currentCnt = nTick;
+                
+             //processCurrentVal();
+                 
+                
+   
+            
+        }
+#endif
+        
+      
     
         
 //        if(HAL_GetTick() == 30000 ) // 15초 부팅 할때 초기 AMP  제어 OFF
@@ -606,6 +756,7 @@ static void BSP_Config(void)
     
     
      __GPIOA_CLK_ENABLE();
+     __GPIOB_CLK_ENABLE();
      __GPIOC_CLK_ENABLE();
      __GPIOD_CLK_ENABLE();
      __GPIOE_CLK_ENABLE();
@@ -649,13 +800,14 @@ static void BSP_Config(void)
     HAL_GPIO_WritePin(GPIOA, OVERRIDE_Pin, GPIO_PIN_RESET);
     
     
+     // B_GPIO_OUT 
     GPIO_InitStructure.Pin = RTS_3CH_Pin;
 	GPIO_InitStructure.Pull = GPIO_NOPULL;
 	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
     GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
 	HAL_GPIO_Init(RTS_3CH_Port, &GPIO_InitStructure);
     
-    HAL_GPIO_WritePin(GPIOA, RTS_3CH_Pin, GPIO_PIN_RESET); // RTS OFF
+    HAL_GPIO_WritePin(RTS_3CH_Port, RTS_3CH_Pin, GPIO_PIN_RESET); // RTS OFF
     
      //---------------------------------------------------------------------------------//
      // C_GPIO_IN 
@@ -980,6 +1132,23 @@ void Time_Main(void)
     mDI_CheckFlag = ((d_SR_Flag << 3) | (d_SL_Flag << 2) | ( d_AR_Flag<< 1) | (d_RS_Flag & 0x01));  
     
     
+      if(u16LedChangeTick)
+	  u16LedChangeTick--;
+
+      if(u16Led75UnderFlickerTick)
+          u16Led75UnderFlickerTick--;
+
+      if(u16Led100UnderFlickerTick)
+          u16Led100UnderFlickerTick--;
+
+      if(u16AmpSettingTick)
+      {
+          u16AmpSettingTick--;
+          if (u16AmpSettingTick == 0)
+              bAmpSettingDetected = true;
+      }
+  
+  
     
 	if (!(m_Main_TIM_Cnt % 100)) // 100ms 
 	{

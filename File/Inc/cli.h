@@ -20,6 +20,9 @@
 
 extern	int	open_command_idx;
 
+extern	int	debug_level;
+
+
 typedef	struct	user_commnand
 {
 	char	*command_name;
@@ -71,7 +74,8 @@ int cmd_rd		( int argc, char *argv[] );
 int cmd_rfm		( int argc, char *argv[] );
 int cmd_WDGStOff( int argc, char *argv[] );
 
-int cmd_battery( int argc, char *argv[] );		//	베터리 잔량
+int cmd_battery ( int argc, char *argv[] );		//	베터리 잔량
+int	cmd_debug	( int argc, char *argv[] );
 
 //========================================================================
 

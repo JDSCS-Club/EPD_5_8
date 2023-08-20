@@ -265,6 +265,8 @@ extern __IO uint16_t ADCValue[6];
 #define MAC_ADDR5   0x28 //+ (IP_ADDR_VAL_DATA>>0)&0xFF
 
 
+
+#define EPD_5_8		1	
 ///*****************************************************************************
 //* @brief - 메모리 구조 정리.
 //* @param -
