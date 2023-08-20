@@ -435,6 +435,9 @@ void USRAT_init(void)
     
     //Cli Command 
     init_queue( &g_qUart1 );
+    
+     //RF Console
+    init_queue( &g_qUart6 );
 
 
 
@@ -586,6 +589,8 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 	{
         
 		HAL_UART_Receive_IT(&UartHandle6, (uint8_t *)USART_6Ch.nGetRxBuf, 1);
+        
+        qput( &g_qUart6, USART_6Ch.nGetRxBuf[0] );
 		
 	}
 	
@@ -689,6 +694,98 @@ void USART_3CH_PRO(uint8_t *pData)
 
 	
 	
+     
+}
+
+
+/*****************************************************************************
+* @brief - RF Console
+* @param -
+* @retval-
+******************************************************************************/
+
+void USART_6CH_PRO(uint8_t *pData)
+{
+    int nTick;
+    static int s_nTick_F = 0;
+    static int s_nTick_R = 0;
+    static int s_RxnTick;
+
+    static int s_RxOkFlag =0;
+    static int s_RxOkLen =0;
+
+    int s_EtxLen = 0;
+
+    int idx;
+
+    //=============================================================================
+    int nTick_2;
+    static int s_2_nTick_F = 0;
+    static int s_2_nTick_R = 0;
+    char d;
+
+
+    //=============================================================================
+    //
+    char	c;
+
+    nTick = HAL_GetTick();
+
+    while (qcount(&g_qUart6) > 0)
+    {
+
+        s_nTick_F = nTick;
+
+        // 통신 중간에 타임 아웃시 카운터 클리어 하는 부분 추가.
+        if ( (s_nTick_F - s_nTick_R) >= 5){  USART_6Ch.nRxPos = 0; }
+        s_nTick_R = s_nTick_F;
+
+        c = qget(&g_qUart6);
+        //		printf( "0x%02X ", c );
+
+        USART_6Ch.nRxBuffer[USART_6Ch.nRxPos++] = c;		//	Buffering
+
+       // s_EtxLen = (sizeof(FRAME_SDR) - 3);
+
+        switch(USART_6Ch.nRxPos)
+        {
+            case 1:  break;
+            default:
+            if(USART_6Ch.nRxPos >= 7 )
+            {
+                if (strncmp((char*)(USART_6Ch.nRxBuffer), "RSSI_NG", 7) == 0)
+                {
+             
+
+                    Dump( "Rx : ", USART_6Ch.nRxBuffer, USART_6Ch.nRxPos );
+
+                    USART_6Ch.nRxPos = 0;
+
+                }
+                else
+                {
+                    init_queue(&g_qUart6);		//	Queue Clear
+
+                    USART_6Ch.nRxPos = 0;
+                }
+                
+                USART_6Ch.nRxOK = 1;
+
+            }
+            break;
+        }
+    }
+
+    // RX 수신 OK 하면.
+    if ( ((nTick - s_RxnTick) >= 10) && (USART_6Ch.nRxOK == 1))
+    {
+        USART_6Ch.nRxOK = 0;
+        s_RxnTick = nTick;
+
+    //ProcessFrame(rxbuffer_2, s_RxOkLen);
+    }
+    
+
      
 }
 
@@ -916,6 +1013,22 @@ int FunConvHexAsc(uint8_t *InhexData,char *OUTAscData,int Len)
 	return sCnt;
 }
 
+
+//========================================================================
+void Dump( char *sTitle, char *sBuf, int nSize )
+//========================================================================
+{
+	MyPrintf_USART1( "[%08d]%s ", HAL_GetTick(), sTitle );
+
+	int idx;
+	for ( idx = 0; idx < nSize; idx++ )
+	{
+		MyPrintf_USART1( "%02X ", sBuf[idx] );
+	}
+	MyPrintf_USART1("\n");
+}
+
+
 /*****************************************************************************
 * @brief - MyPrintf
 * @param -
@@ -954,6 +1067,9 @@ void USART_RingBuf_Pro(void)
                 
                 DP_RING_BUF_POP(USART_3Ch.nTxBuffer,&USART_3Ch.nTxLen); 
                 HAL_UART_Transmit_IT(&UartHandle3, (uint8_t*)USART_3Ch.nTxBuffer,USART_3Ch.nTxLen);
+                
+                //HAL_GPIO_WritePin(RTS_3CH_Port,RTS_3CH_Pin,GPIO_PIN_RESET);  //RTS OFF
+                
             }
 
         }
@@ -974,7 +1090,7 @@ void USART_RingBuf_Pro(void)
       
       if(UartHandle3.gState == HAL_UART_STATE_READY)
       {
-            HAL_GPIO_WritePin(RTS_3CH_Port,RTS_3CH_Pin,GPIO_PIN_RESET);  //RTS OFF
+           HAL_GPIO_WritePin(RTS_3CH_Port,RTS_3CH_Pin,GPIO_PIN_RESET);  //RTS OFF
       }
       
     }

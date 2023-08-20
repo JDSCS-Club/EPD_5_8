@@ -64,6 +64,7 @@ void	QBufTest	( QBuf_t *q, int blkSize );
 //===========================================================================
 
 extern	Queue_t		g_qUart1;
+extern	Queue_t		g_qUart6;
 
 int		input_check		( void );
 
