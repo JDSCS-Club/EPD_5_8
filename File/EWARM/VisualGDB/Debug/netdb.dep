@@ -1,0 +1,133 @@
+VisualGDB/Debug/netdb.o: \
+ D:/GitHub_Pro/LEDC5_1(SeptaMl)/LwIP_TCP_Echo_Server(SDI)_Ver1.1.1/Middlewares/Third_Party/LwIP/src/api/netdb.c \
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/netdb.h \
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/opt.h ../Inc/lwipopts.h \
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/debug.h \
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/arch.h \
+ ../Middlewares/Third_Party/LwIP/system/arch/cc.h \
+ ../Middlewares/Third_Party/LwIP/system/arch/cpu.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\stdlib.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\machine\ieeefp.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\_ansi.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\newlib.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\_newlib_version.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\config.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\features.h \
+ c:\sysgcc\arm-eabi\lib\gcc\arm-none-eabi\9.3.1\include\stddef.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\reent.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\_ansi.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\_types.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\machine\_types.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\machine\_default_types.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\lock.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\cdefs.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\machine\stdlib.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\alloca.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\stdio.h \
+ c:\sysgcc\arm-eabi\lib\gcc\arm-none-eabi\9.3.1\include\stdarg.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\types.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\_stdint.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\machine\endian.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\machine\_endian.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\select.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\_sigset.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\_timeval.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\timespec.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\_timespec.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\_pthreadtypes.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\sched.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\machine\types.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\stdio.h \
+ c:\sysgcc\arm-eabi\lib\gcc\arm-none-eabi\9.3.1\include\stdint.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\stdint.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\_intsup.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\inttypes.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\_locale.h
+
+../Middlewares/Third_Party/LwIP/src/include/lwip/netdb.h:
+
+../Middlewares/Third_Party/LwIP/src/include/lwip/opt.h:
+
+../Inc/lwipopts.h:
+
+../Middlewares/Third_Party/LwIP/src/include/lwip/debug.h:
+
+../Middlewares/Third_Party/LwIP/src/include/lwip/arch.h:
+
+../Middlewares/Third_Party/LwIP/system/arch/cc.h:
+
+../Middlewares/Third_Party/LwIP/system/arch/cpu.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\stdlib.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\machine\ieeefp.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\_ansi.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\newlib.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\_newlib_version.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\config.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\features.h:
+
+c:\sysgcc\arm-eabi\lib\gcc\arm-none-eabi\9.3.1\include\stddef.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\reent.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\_ansi.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\_types.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\machine\_types.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\machine\_default_types.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\lock.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\cdefs.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\machine\stdlib.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\alloca.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\stdio.h:
+
+c:\sysgcc\arm-eabi\lib\gcc\arm-none-eabi\9.3.1\include\stdarg.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\types.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\_stdint.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\machine\endian.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\machine\_endian.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\select.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\_sigset.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\_timeval.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\timespec.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\_timespec.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\_pthreadtypes.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\sched.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\machine\types.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\stdio.h:
+
+c:\sysgcc\arm-eabi\lib\gcc\arm-none-eabi\9.3.1\include\stdint.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\stdint.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\_intsup.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\inttypes.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\_locale.h:

@@ -1,0 +1,10 @@
+ili9325.pbi: \
+  D:\GitHub_Pro\LEDC5_1(SeptaMl)\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\Drivers\BSP\Components\ili9325\ili9325.c \
+  D:\GitHub_Pro\LEDC5_1(SeptaMl)\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\Drivers\BSP\Components\ili9325/ili9325.h \
+  D:\GitHub_Pro\LEDC5_1(SeptaMl)\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\Drivers\BSP\Components\ili9325/../Common/lcd.h \
+  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.3\arm\inc\c\stdint.h \
+  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.3\arm\inc\c\ycheck.h \
+  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.3\arm\inc\c\yvals.h \
+  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.3\arm\inc\c\DLib_Defaults.h \
+  C:\\Program\ Files\ (x86)\\IAR\ Systems\\Embedded\ Workbench\ 8.3\\arm\\inc\\c\\DLib_Config_Full.h \
+  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.3\arm\inc\c\DLib_Product.h

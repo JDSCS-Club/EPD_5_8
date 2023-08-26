@@ -1,0 +1,32 @@
+VisualGDB/Debug/stmpe811.o: \
+ D:/GitHub_Pro/LEDC5_1(SeptaMl)/LwIP_TCP_Echo_Server(SDI)_Ver1.1.1/Drivers/BSP/Components/stmpe811/stmpe811.c \
+ D:/GitHub_Pro/LEDC5_1(SeptaMl)/LwIP_TCP_Echo_Server(SDI)_Ver1.1.1/Drivers/BSP/Components/stmpe811/stmpe811.h \
+ d:\github_pro\ledc5_1(septaml)\lwip_tcp_echo_server(sdi)_ver1.1.1\drivers\bsp\components\common\ts.h \
+ c:\sysgcc\arm-eabi\lib\gcc\arm-none-eabi\9.3.1\include\stdint.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\stdint.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\machine\_default_types.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\features.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\_newlib_version.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\_intsup.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\_stdint.h \
+ d:\github_pro\ledc5_1(septaml)\lwip_tcp_echo_server(sdi)_ver1.1.1\drivers\bsp\components\common\io.h
+
+D:/GitHub_Pro/LEDC5_1(SeptaMl)/LwIP_TCP_Echo_Server(SDI)_Ver1.1.1/Drivers/BSP/Components/stmpe811/stmpe811.h:
+
+d:\github_pro\ledc5_1(septaml)\lwip_tcp_echo_server(sdi)_ver1.1.1\drivers\bsp\components\common\ts.h:
+
+c:\sysgcc\arm-eabi\lib\gcc\arm-none-eabi\9.3.1\include\stdint.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\stdint.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\machine\_default_types.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\features.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\_newlib_version.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\_intsup.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\_stdint.h:
+
+d:\github_pro\ledc5_1(septaml)\lwip_tcp_echo_server(sdi)_ver1.1.1\drivers\bsp\components\common\io.h:

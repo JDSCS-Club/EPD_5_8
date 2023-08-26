@@ -1,0 +1,21 @@
+{
+  "ewp": "${workspaceFolder}\\File\\EWARM\\Project.ewp",
+  "configuration": "STM324xG_EVAL",
+  "toolchain": "C:\\Program Files\\IAR Systems\\Embedded Workbench 9.1",
+  "workspace": {
+    "path": "${workspaceFolder}\\File\\EWARM\\Project.eww"
+  },
+  "workspaces": {
+    "${workspaceFolder}\\File\\EWARM\\Project.eww": {
+      "configs": {
+        "${workspaceFolder}\\File\\EWARM\\Project.ewp": "STM324xG_EVAL"
+      },
+      "selected": {
+        "path": "${workspaceFolder}\\File\\EWARM\\Project.ewp"
+      }
+    }
+  },
+  "workbench": {
+    "path": "C:\\\\Program Files\\\\IAR Systems\\\\Embedded Workbench 9.1"
+  }
+}

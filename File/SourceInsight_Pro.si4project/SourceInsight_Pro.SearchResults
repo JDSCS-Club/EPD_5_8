@@ -1,0 +1,30 @@
+---- sDefault_Blk_Add_Buf Matches (2 in 2 files) ----
+LedProCessInit in main.c (Src) : 
+    
+    mLed_Process_Flag.sDefault_Blk_Add_Buf[0] =  0;
+    mLed_Process_Flag.sDefault_Blk_Add_Buf[1] =  1024;
+    mLed_Process_Flag.sDefault_Blk_Add_Buf[2] =  2048;
+    mLed_Process_Flag.sDefault_Blk_Add_Buf[3] =  3072;
+    mLed_Process_Flag.sDefault_Blk_Add_Buf[4] =  4096;
+    mLed_Process_Flag.sDefault_Blk_Add_Buf[5] =  5120;
+    mLed_Process_Flag.sDefault_Blk_Add_Buf[6] =  6144;
+    mLed_Process_Flag.sDefault_Blk_Add_Buf[7] =  7168;
+    mLed_Process_Flag.sDefault_Blk_Add_Buf[8] =  8192;
+    mLed_Process_Flag.sDefault_Blk_Add_Buf[9] =  9216;
+    mLed_Process_Flag.sDefault_Blk_Add_Buf[10] = 10240;
+    mLed_Process_Flag.sDefault_Blk_Add_Buf[11] = 11264;
+    mLed_Process_Flag.sDefault_Blk_Add_Buf[12] = 12288;
+    mLed_Process_Flag.sDefault_Blk_Add_Buf[13] = 13312;
+    mLed_Process_Flag.sDefault_Blk_Add_Buf[14] = 14336;
+    mLed_Process_Flag.sDefault_Blk_Add_Buf[15] = 15360;
+    mLed_Process_Flag.sDefault_Blk_Add_Buf[16] = 16384;
+    mLed_Process_Flag.sDefault_Blk_Add_Buf[17] = 17408;
+  
+    //1024 - 1280
+    //192  - 160
+{anonmLED_PROCESS_Flag} in main.h (Inc) : 
+    uint16_t sRx_Blk_Add_Buf[18];       //통신으로 수신한 주소 데이타를 버퍼  한다.
+    uint16_t sDefault_Blk_Add_Buf[18];  //각 장치 마다 기본 버퍼 주소.
+    uint8_t  sRx_Blk_Add_Cnt;           // 통신 이미지 수산 카운터.
+    uint8_t  sRx_Public_Buf[50];        // 프로토콜 수신 데이타 버퍼.
+    

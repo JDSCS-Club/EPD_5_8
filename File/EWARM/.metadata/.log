@@ -1,0 +1,189 @@
+!SESSION 2018-07-03 23:48:27.587 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_121
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=ko_KR
+Command-line arguments:  -os win32 -ws win32 -arch x86 -data D:\STM32F_Pro\Keil\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\EWARM
+
+!ENTRY com.iar.cdt.arm.toolchain.cmsis.adapter 1 0 2018-07-03 23:48:32.623
+!MESSAGE Using CMSIS pack repositories: http://links.iar.com/cmsis/pack
+
+!ENTRY com.iar.cmsismanager.product 1 0 2018-07-03 23:48:33.419
+!MESSAGE CMSIS Agent interface registered with service registry at ServiceLocation(host:\\.\pipe\iar-cspy-cpp-binary-com.iar.thrift.service.registry-5537882a-6bf9-4592-9efe-ddbbd70305f0-1, port:0, protocol:Binary, transport:Pipe)
+!SESSION 2018-07-04 09:27:38.329 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_121
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=ko_KR
+Command-line arguments:  -os win32 -ws win32 -arch x86 -data D:\STM32F_Pro\Keil\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\EWARM
+
+!ENTRY com.iar.cdt.arm.toolchain.cmsis.adapter 1 0 2018-07-04 09:27:48.082
+!MESSAGE Using CMSIS pack repositories: http://links.iar.com/cmsis/pack
+
+!ENTRY com.iar.cmsismanager.product 1 0 2018-07-04 09:27:49.500
+!MESSAGE CMSIS Agent interface registered with service registry at ServiceLocation(host:\\.\pipe\iar-cspy-cpp-binary-com.iar.thrift.service.registry-425f2bad-9e53-4552-8a39-2a41d3223dc0-1, port:0, protocol:Binary, transport:Pipe)
+
+!ENTRY org.eclipse.equinox.p2.touchpoint.natives 2 0 2018-07-04 09:29:08.067
+!MESSAGE Could not remove temporary backup directory (it is safe to manually delete it and its contents): C:\Users\JDS_DELL\AppData\Local\Temp\DefaultProfile_2c8c562b6020_c0a838011748
+!SESSION 2018-07-04 09:29:11.195 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_121
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=ko_KR
+Command-line arguments:  -os win32 -ws win32 -arch x86 -data file:/D:/STM32F_Pro/Keil/LwIP_TCP_Echo_Server(SDI)_Ver1.1.1/EWARM/
+
+!ENTRY com.iar.cdt.arm.toolchain.cmsis.adapter 4 0 2018-07-04 09:29:13.146
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: com.iar.cdt.arm.toolchain.cmsis.adapter [573]
+  Another singleton bundle selected: osgi.identity; osgi.identity="com.iar.cdt.arm.toolchain.cmsis.adapter"; type="osgi.bundle"; version:Version="1.0.0.201806131256"; singleton:="true"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:444)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1550)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY com.iar.cmsisagent 4 0 2018-07-04 09:29:13.151
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: com.iar.cmsisagent [582]
+  Another singleton bundle selected: osgi.identity; osgi.identity="com.iar.cmsisagent"; type="osgi.bundle"; version:Version="1.0.0.201806131256"; singleton:="true"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:444)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1550)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY com.iar.cmsismanager.product 4 0 2018-07-04 09:29:13.155
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: com.iar.cmsismanager.product [584]
+  Another singleton bundle selected: osgi.identity; osgi.identity="com.iar.cmsismanager.product"; type="osgi.bundle"; version:Version="1.0.0.201806131256"; singleton:="true"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:444)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1550)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY com.iar.cdt.arm.toolchain.cmsis.adapter 1 0 2018-07-04 09:29:15.838
+!MESSAGE Using CMSIS pack repositories: http://links.iar.com/cmsis/pack
+
+!ENTRY com.iar.cmsismanager.product 1 0 2018-07-04 09:29:16.351
+!MESSAGE CMSIS Agent interface registered with service registry at ServiceLocation(host:\\.\pipe\iar-cspy-cpp-binary-com.iar.thrift.service.registry-425f2bad-9e53-4552-8a39-2a41d3223dc0-1, port:0, protocol:Binary, transport:Pipe)
+!SESSION 2018-07-06 09:26:00.984 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_121
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=ko_KR
+Command-line arguments:  -os win32 -ws win32 -arch x86 -data D:\STM32F_Pro\Keil\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\EWARM
+
+!ENTRY com.iar.cdt.arm.toolchain.cmsis.adapter 4 0 2018-07-06 09:26:09.779
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: com.iar.cdt.arm.toolchain.cmsis.adapter [573]
+  Another singleton bundle selected: osgi.identity; type="osgi.bundle"; version:Version="1.0.0.201806131256"; osgi.identity="com.iar.cdt.arm.toolchain.cmsis.adapter"; singleton:="true"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:444)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1634)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1613)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1585)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1528)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY com.iar.cmsisagent 4 0 2018-07-06 09:26:09.785
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: com.iar.cmsisagent [582]
+  Another singleton bundle selected: osgi.identity; type="osgi.bundle"; version:Version="1.0.0.201806131256"; osgi.identity="com.iar.cmsisagent"; singleton:="true"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:444)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1634)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1613)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1585)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1528)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY com.iar.cmsismanager.product 4 0 2018-07-06 09:26:09.793
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: com.iar.cmsismanager.product [584]
+  Another singleton bundle selected: osgi.identity; type="osgi.bundle"; version:Version="1.0.0.201806131256"; osgi.identity="com.iar.cmsismanager.product"; singleton:="true"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:444)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1634)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1613)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1585)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1528)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY com.iar.cdt.arm.toolchain.cmsis.adapter 1 0 2018-07-06 09:26:12.179
+!MESSAGE Using CMSIS pack repositories: http://links.iar.com/cmsis/pack
+
+!ENTRY com.iar.cmsismanager.product 1 0 2018-07-06 09:26:13.647
+!MESSAGE CMSIS Agent interface registered with service registry at ServiceLocation(host:\\.\pipe\iar-cspy-cpp-binary-com.iar.thrift.service.registry-d0ea07cc-445d-4527-93f0-772bcf03923d-1, port:0, protocol:Binary, transport:Pipe)
+!SESSION 2018-08-27 19:02:39.384 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_121
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=ko_KR
+Command-line arguments:  -os win32 -ws win32 -arch x86 -data D:\Dropbox\STM32F_Pro\Keil\LEDC_5.1_TRACE\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\EWARM
+
+!ENTRY com.iar.cdt.arm.toolchain.cmsis.adapter 4 0 2018-08-27 19:02:40.212
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: com.iar.cdt.arm.toolchain.cmsis.adapter [573]
+  Another singleton bundle selected: osgi.identity; type="osgi.bundle"; version:Version="1.0.0.201806131256"; osgi.identity="com.iar.cdt.arm.toolchain.cmsis.adapter"; singleton:="true"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:444)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1634)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1613)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1585)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1528)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY com.iar.cmsisagent 4 0 2018-08-27 19:02:40.228
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: com.iar.cmsisagent [582]
+  Another singleton bundle selected: osgi.identity; type="osgi.bundle"; version:Version="1.0.0.201806131256"; osgi.identity="com.iar.cmsisagent"; singleton:="true"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:444)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1634)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1613)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1585)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1528)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY com.iar.cmsismanager.product 4 0 2018-08-27 19:02:40.228
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: com.iar.cmsismanager.product [584]
+  Another singleton bundle selected: osgi.identity; type="osgi.bundle"; version:Version="1.0.0.201806131256"; osgi.identity="com.iar.cmsismanager.product"; singleton:="true"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:444)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1634)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1613)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1585)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1528)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY com.iar.cdt.arm.toolchain.cmsis.adapter 1 0 2018-08-27 19:02:43.511
+!MESSAGE Using CMSIS pack repositories: http://links.iar.com/cmsis/pack
+
+!ENTRY com.iar.cmsismanager.product 1 0 2018-08-27 19:02:44.105
+!MESSAGE CMSIS Agent interface registered with service registry at ServiceLocation(host:\\.\pipe\iar-cspy-cpp-binary-com.iar.thrift.service.registry-3c517e29-5eba-4672-b1c4-1f58b048fab2-1, port:0, protocol:Binary, transport:Pipe)

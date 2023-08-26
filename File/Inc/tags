@@ -1,0 +1,316 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ADDR_FLASH_SECTOR_0	Flash.h	/^#define ADDR_FLASH_SECTOR_0 /;"	d
+ADDR_FLASH_SECTOR_1	Flash.h	/^#define ADDR_FLASH_SECTOR_1 /;"	d
+ADDR_FLASH_SECTOR_10	Flash.h	/^#define ADDR_FLASH_SECTOR_10 /;"	d
+ADDR_FLASH_SECTOR_11	Flash.h	/^#define ADDR_FLASH_SECTOR_11 /;"	d
+ADDR_FLASH_SECTOR_2	Flash.h	/^#define ADDR_FLASH_SECTOR_2 /;"	d
+ADDR_FLASH_SECTOR_3	Flash.h	/^#define ADDR_FLASH_SECTOR_3 /;"	d
+ADDR_FLASH_SECTOR_4	Flash.h	/^#define ADDR_FLASH_SECTOR_4 /;"	d
+ADDR_FLASH_SECTOR_5	Flash.h	/^#define ADDR_FLASH_SECTOR_5 /;"	d
+ADDR_FLASH_SECTOR_6	Flash.h	/^#define ADDR_FLASH_SECTOR_6 /;"	d
+ADDR_FLASH_SECTOR_7	Flash.h	/^#define ADDR_FLASH_SECTOR_7 /;"	d
+ADDR_FLASH_SECTOR_8	Flash.h	/^#define ADDR_FLASH_SECTOR_8 /;"	d
+ADDR_FLASH_SECTOR_9	Flash.h	/^#define ADDR_FLASH_SECTOR_9 /;"	d
+ALL_DISPLAY_ADDRESS	LED.h	/^#define ALL_DISPLAY_ADDRESS /;"	d
+ALL_DISPLAY_ADDRESSDown	LED.h	/^#define ALL_DISPLAY_ADDRESSDown /;"	d
+ALL_DISPLAY_ADDRESS_DOWN_SCROLDATA	LED.h	/^#define ALL_DISPLAY_ADDRESS_DOWN_SCROLDATA /;"	d
+ALL_DISPLAY_SIZE	LED.h	/^#define ALL_DISPLAY_SIZE /;"	d
+ALL_DOTPRINT_ADDRESS	LED.h	/^#define ALL_DOTPRINT_ADDRESS /;"	d
+BYTE_H	USRAT.h	/^#define BYTE_H(/;"	d
+BYTE_L	USRAT.h	/^#define BYTE_L(/;"	d
+CACHE_SIZE	lcd_log_conf.h	/^#define     CACHE_SIZE /;"	d
+CHECKSUM_BY_HARDWARE	lwipopts.h	/^#define CHECKSUM_BY_HARDWARE /;"	d
+CHECKSUM_CHECK_IP	lwipopts.h	/^  #define CHECKSUM_CHECK_IP /;"	d
+CHECKSUM_CHECK_TCP	lwipopts.h	/^  #define CHECKSUM_CHECK_TCP /;"	d
+CHECKSUM_CHECK_UDP	lwipopts.h	/^  #define CHECKSUM_CHECK_UDP /;"	d
+CHECKSUM_GEN_ICMP	lwipopts.h	/^  #define CHECKSUM_GEN_ICMP /;"	d
+CHECKSUM_GEN_IP	lwipopts.h	/^  #define CHECKSUM_GEN_IP /;"	d
+CHECKSUM_GEN_TCP	lwipopts.h	/^  #define CHECKSUM_GEN_TCP /;"	d
+CHECKSUM_GEN_UDP	lwipopts.h	/^  #define CHECKSUM_GEN_UDP /;"	d
+CommCod1	USRAT.h	/^		uint8_t CommCod1; \/\/RNS 10 \/ OCC 80$/;"	m	struct:__anon9
+CommCod2	USRAT.h	/^		uint8_t CommCod2; \/\/51,52,53 -> A1,A2,A3$/;"	m	struct:__anon9
+DATA_CACHE_ENABLE	stm32f4xx_hal_conf.h	/^#define  DATA_CACHE_ENABLE /;"	d
+DEST_IP_ADDR0	main.h	/^#define DEST_IP_ADDR0 /;"	d
+DEST_IP_ADDR1	main.h	/^#define DEST_IP_ADDR1 /;"	d
+DEST_IP_ADDR2	main.h	/^#define DEST_IP_ADDR2 /;"	d
+DEST_IP_ADDR3	main.h	/^#define DEST_IP_ADDR3 /;"	d
+DHCP_ADDRESS_ASSIGNED	app_ethernet.h	/^#define DHCP_ADDRESS_ASSIGNED /;"	d
+DHCP_LINK_DOWN	app_ethernet.h	/^#define DHCP_LINK_DOWN /;"	d
+DHCP_OFF	app_ethernet.h	/^#define DHCP_OFF /;"	d
+DHCP_START	app_ethernet.h	/^#define DHCP_START /;"	d
+DHCP_TIMEOUT	app_ethernet.h	/^#define DHCP_TIMEOUT /;"	d
+DHCP_WAIT_ADDRESS	app_ethernet.h	/^#define DHCP_WAIT_ADDRESS /;"	d
+DISPLAY_VARIABLE	LED.h	/^}DISPLAY_VARIABLE;$/;"	t	typeref:struct:__anon7
+DP83848_PHY_ADDRESS	stm32f4xx_hal_conf.h	/^#define DP83848_PHY_ADDRESS /;"	d
+DWORD_H	USRAT.h	/^#define DWORD_H(/;"	d
+DWORD_L	USRAT.h	/^#define DWORD_L(/;"	d
+DWORD_MASKING	USRAT.h	/^#define DWORD_MASKING(/;"	d
+ETHERNET_RX_STRUCT	LED.h	/^}ETHERNET_RX_STRUCT, *pETHERNET_RX_STRUCT;$/;"	t	typeref:struct:__anon3
+ETHERNET_RX_STRUCT_PATTERN	LED.h	/^}ETHERNET_RX_STRUCT_PATTERN, *pETHERNET_RX_STRUCT_PATTERN;$/;"	t	typeref:struct:__anon4
+ETHERNET_RX_STRUCT_STATE	LED.h	/^}ETHERNET_RX_STRUCT_STATE, *pETHERNET_RX_STRUCT_STATE;$/;"	t	typeref:struct:__anon6
+ETHERNET_RX_STRUCT_SWVER	LED.h	/^}ETHERNET_RX_STRUCT_SWVER, *pETHERNET_RX_STRUCT_SWVER;$/;"	t	typeref:struct:__anon5
+ETH_RXBUFNB	stm32f4xx_hal_conf.h	/^#define ETH_RXBUFNB /;"	d
+ETH_RX_BUF_SIZE	stm32f4xx_hal_conf.h	/^#define ETH_RX_BUF_SIZE /;"	d
+ETH_TXBUFNB	stm32f4xx_hal_conf.h	/^#define ETH_TXBUFNB /;"	d
+ETH_TX_BUF_SIZE	stm32f4xx_hal_conf.h	/^#define ETH_TX_BUF_SIZE /;"	d
+ETX	USRAT.h	/^#define ETX /;"	d
+EXTERNAL_CLOCK_VALUE	stm32f4xx_hal_conf.h	/^  #define EXTERNAL_CLOCK_VALUE /;"	d
+FALSE	USRAT.h	/^#define FALSE	/;"	d
+FDI_SCREEN_BOKCK	LED.h	/^}FDI_SCREEN_BOKCK, *pFDI_SCREEN_BOKCK;$/;"	t	typeref:struct:__anon2
+FLASH_USER_END_ADDR	Flash.h	/^#define FLASH_USER_END_ADDR /;"	d
+FLASH_USER_START_ADDR	Flash.h	/^#define FLASH_USER_START_ADDR /;"	d
+GW_ADDR0	main.h	/^#define GW_ADDR0 /;"	d
+GW_ADDR1	main.h	/^#define GW_ADDR1 /;"	d
+GW_ADDR2	main.h	/^#define GW_ADDR2 /;"	d
+GW_ADDR3	main.h	/^#define GW_ADDR3 /;"	d
+HALF_DISPLAY_SIZE	LED.h	/^#define HALF_DISPLAY_SIZE /;"	d
+HAL_CORTEX_MODULE_ENABLED	stm32f4xx_hal_conf.h	/^#define HAL_CORTEX_MODULE_ENABLED$/;"	d
+HAL_DMA_MODULE_ENABLED	stm32f4xx_hal_conf.h	/^#define HAL_DMA_MODULE_ENABLED$/;"	d
+HAL_ETH_MODULE_ENABLED	stm32f4xx_hal_conf.h	/^#define HAL_ETH_MODULE_ENABLED /;"	d
+HAL_FLASH_MODULE_ENABLED	stm32f4xx_hal_conf.h	/^#define HAL_FLASH_MODULE_ENABLED /;"	d
+HAL_GPIO_MODULE_ENABLED	stm32f4xx_hal_conf.h	/^#define HAL_GPIO_MODULE_ENABLED$/;"	d
+HAL_I2C_MODULE_ENABLED	stm32f4xx_hal_conf.h	/^#define HAL_I2C_MODULE_ENABLED$/;"	d
+HAL_I2S_MODULE_ENABLED	stm32f4xx_hal_conf.h	/^#define HAL_I2S_MODULE_ENABLED /;"	d
+HAL_MODULE_ENABLED	stm32f4xx_hal_conf.h	/^#define HAL_MODULE_ENABLED /;"	d
+HAL_PWR_MODULE_ENABLED	stm32f4xx_hal_conf.h	/^#define HAL_PWR_MODULE_ENABLED /;"	d
+HAL_RCC_MODULE_ENABLED	stm32f4xx_hal_conf.h	/^#define HAL_RCC_MODULE_ENABLED /;"	d
+HAL_SPI_MODULE_ENABLED	stm32f4xx_hal_conf.h	/^#define HAL_SPI_MODULE_ENABLED /;"	d
+HAL_SRAM_MODULE_ENABLED	stm32f4xx_hal_conf.h	/^#define HAL_SRAM_MODULE_ENABLED$/;"	d
+HAL_TIM_MODULE_ENABLED	stm32f4xx_hal_conf.h	/^#define HAL_TIM_MODULE_ENABLED /;"	d
+HAL_UART_MODULE_ENABLED	stm32f4xx_hal_conf.h	/^#define HAL_UART_MODULE_ENABLED /;"	d
+HAL_USART_MODULE_ENABLED	stm32f4xx_hal_conf.h	/^#define HAL_USART_MODULE_ENABLED /;"	d
+HAL_WWDG_MODULE_ENABLED	stm32f4xx_hal_conf.h	/^#define HAL_WWDG_MODULE_ENABLED$/;"	d
+HSE_STARTUP_TIMEOUT	stm32f4xx_hal_conf.h	/^  #define HSE_STARTUP_TIMEOUT /;"	d
+HSE_VALUE	stm32f4xx_hal_conf.h	/^  #define HSE_VALUE /;"	d
+HSI_VALUE	stm32f4xx_hal_conf.h	/^  #define HSI_VALUE /;"	d
+INSTRUCTION_CACHE_ENABLE	stm32f4xx_hal_conf.h	/^#define  INSTRUCTION_CACHE_ENABLE /;"	d
+IP_ADDR0	main.h	/^#define IP_ADDR0 /;"	d
+IP_ADDR1	main.h	/^#define IP_ADDR1 /;"	d
+IP_ADDR2	main.h	/^#define IP_ADDR2 /;"	d
+IP_ADDR3	main.h	/^#define IP_ADDR3 /;"	d
+LCD_LOG_BACKGROUND_COLOR	lcd_log_conf.h	/^#define     LCD_LOG_BACKGROUND_COLOR /;"	d
+LCD_LOG_DEFAULT_COLOR	lcd_log_conf.h	/^#define     LCD_LOG_DEFAULT_COLOR /;"	d
+LCD_LOG_FOOTER_FONT	lcd_log_conf.h	/^#define     LCD_LOG_FOOTER_FONT /;"	d
+LCD_LOG_HEADER_FONT	lcd_log_conf.h	/^#define     LCD_LOG_HEADER_FONT /;"	d
+LCD_LOG_PUTCHAR	lcd_log_conf.h	/^#define LCD_LOG_PUTCHAR /;"	d
+LCD_LOG_SOLID_BACKGROUND_COLOR	lcd_log_conf.h	/^#define     LCD_LOG_SOLID_BACKGROUND_COLOR /;"	d
+LCD_LOG_SOLID_TEXT_COLOR	lcd_log_conf.h	/^#define     LCD_LOG_SOLID_TEXT_COLOR /;"	d
+LCD_LOG_TEXT_COLOR	lcd_log_conf.h	/^#define     LCD_LOG_TEXT_COLOR /;"	d
+LCD_LOG_TEXT_FONT	lcd_log_conf.h	/^#define     LCD_LOG_TEXT_FONT /;"	d
+LCD_SCROLL_ENABLED	lcd_log_conf.h	/^#define     LCD_SCROLL_ENABLED /;"	d
+LSE_STARTUP_TIMEOUT	stm32f4xx_hal_conf.h	/^  #define LSE_STARTUP_TIMEOUT /;"	d
+LSE_VALUE	stm32f4xx_hal_conf.h	/^ #define LSE_VALUE /;"	d
+LSI_VALUE	stm32f4xx_hal_conf.h	/^ #define LSI_VALUE /;"	d
+LWIP_DHCP	lwipopts.h	/^#define LWIP_DHCP /;"	d
+LWIP_ICMP	lwipopts.h	/^#define LWIP_ICMP /;"	d
+LWIP_IPV4	lwipopts.h	/^#define LWIP_IPV4 /;"	d
+LWIP_NETCONN	lwipopts.h	/^#define LWIP_NETCONN /;"	d
+LWIP_NETIF_LINK_CALLBACK	lwipopts.h	/^#define LWIP_NETIF_LINK_CALLBACK /;"	d
+LWIP_SOCKET	lwipopts.h	/^#define LWIP_SOCKET /;"	d
+LWIP_STATS	lwipopts.h	/^#define LWIP_STATS /;"	d
+LWIP_TCP	lwipopts.h	/^#define LWIP_TCP /;"	d
+LWIP_UDP	lwipopts.h	/^#define LWIP_UDP /;"	d
+MAC_ADDR0	stm32f4xx_hal_conf.h	/^#define MAC_ADDR0 /;"	d
+MAC_ADDR1	stm32f4xx_hal_conf.h	/^#define MAC_ADDR1 /;"	d
+MAC_ADDR2	stm32f4xx_hal_conf.h	/^#define MAC_ADDR2 /;"	d
+MAC_ADDR3	stm32f4xx_hal_conf.h	/^#define MAC_ADDR3 /;"	d
+MAC_ADDR4	stm32f4xx_hal_conf.h	/^#define MAC_ADDR4 /;"	d
+MAC_ADDR5	stm32f4xx_hal_conf.h	/^#define MAC_ADDR5 /;"	d
+MAKE_BYTE	USRAT.h	/^#define MAKE_BYTE(/;"	d
+MAKE_DWORD	USRAT.h	/^#define MAKE_DWORD(/;"	d
+MAKE_WORD	USRAT.h	/^#define MAKE_WORD(/;"	d
+MEMP_NUM_PBUF	lwipopts.h	/^#define MEMP_NUM_PBUF /;"	d
+MEMP_NUM_SYS_TIMEOUT	lwipopts.h	/^#define MEMP_NUM_SYS_TIMEOUT /;"	d
+MEMP_NUM_TCP_PCB	lwipopts.h	/^#define MEMP_NUM_TCP_PCB /;"	d
+MEMP_NUM_TCP_PCB_LISTEN	lwipopts.h	/^#define MEMP_NUM_TCP_PCB_LISTEN /;"	d
+MEMP_NUM_TCP_SEG	lwipopts.h	/^#define MEMP_NUM_TCP_SEG /;"	d
+MEMP_NUM_UDP_PCB	lwipopts.h	/^#define MEMP_NUM_UDP_PCB /;"	d
+MEM_ALIGNMENT	lwipopts.h	/^#define MEM_ALIGNMENT /;"	d
+MEM_SIZE	lwipopts.h	/^#define MEM_SIZE /;"	d
+NETMASK_ADDR0	main.h	/^#define NETMASK_ADDR0 /;"	d
+NETMASK_ADDR1	main.h	/^#define NETMASK_ADDR1 /;"	d
+NETMASK_ADDR2	main.h	/^#define NETMASK_ADDR2 /;"	d
+NETMASK_ADDR3	main.h	/^#define NETMASK_ADDR3 /;"	d
+NO_SYS	lwipopts.h	/^#define NO_SYS /;"	d
+PBUF_POOL_BUFSIZE	lwipopts.h	/^#define PBUF_POOL_BUFSIZE /;"	d
+PBUF_POOL_SIZE	lwipopts.h	/^#define PBUF_POOL_SIZE /;"	d
+PHY_AUTONEGOTIATION	stm32f4xx_hal_conf.h	/^#define PHY_AUTONEGOTIATION /;"	d
+PHY_AUTONEGO_COMPLETE	stm32f4xx_hal_conf.h	/^#define PHY_AUTONEGO_COMPLETE /;"	d
+PHY_BCR	stm32f4xx_hal_conf.h	/^#define PHY_BCR /;"	d
+PHY_BSR	stm32f4xx_hal_conf.h	/^#define PHY_BSR /;"	d
+PHY_CONFIG_DELAY	stm32f4xx_hal_conf.h	/^#define PHY_CONFIG_DELAY /;"	d
+PHY_DUPLEX_STATUS	stm32f4xx_hal_conf.h	/^#define PHY_DUPLEX_STATUS /;"	d
+PHY_FULLDUPLEX_100M	stm32f4xx_hal_conf.h	/^#define PHY_FULLDUPLEX_100M /;"	d
+PHY_FULLDUPLEX_10M	stm32f4xx_hal_conf.h	/^#define PHY_FULLDUPLEX_10M /;"	d
+PHY_HALFDUPLEX_100M	stm32f4xx_hal_conf.h	/^#define PHY_HALFDUPLEX_100M /;"	d
+PHY_HALFDUPLEX_10M	stm32f4xx_hal_conf.h	/^#define PHY_HALFDUPLEX_10M /;"	d
+PHY_ISOLATE	stm32f4xx_hal_conf.h	/^#define PHY_ISOLATE /;"	d
+PHY_JABBER_DETECTION	stm32f4xx_hal_conf.h	/^#define PHY_JABBER_DETECTION /;"	d
+PHY_LINKED_STATUS	stm32f4xx_hal_conf.h	/^#define PHY_LINKED_STATUS /;"	d
+PHY_LINK_INTERRUPT	stm32f4xx_hal_conf.h	/^#define PHY_LINK_INTERRUPT /;"	d
+PHY_LINK_STATUS	stm32f4xx_hal_conf.h	/^#define PHY_LINK_STATUS /;"	d
+PHY_LOOPBACK	stm32f4xx_hal_conf.h	/^#define PHY_LOOPBACK /;"	d
+PHY_MICR	stm32f4xx_hal_conf.h	/^#define PHY_MICR /;"	d
+PHY_MICR_INT_EN	stm32f4xx_hal_conf.h	/^#define PHY_MICR_INT_EN /;"	d
+PHY_MICR_INT_OE	stm32f4xx_hal_conf.h	/^#define PHY_MICR_INT_OE /;"	d
+PHY_MISR	stm32f4xx_hal_conf.h	/^#define PHY_MISR /;"	d
+PHY_MISR_LINK_INT_EN	stm32f4xx_hal_conf.h	/^#define PHY_MISR_LINK_INT_EN /;"	d
+PHY_POWERDOWN	stm32f4xx_hal_conf.h	/^#define PHY_POWERDOWN /;"	d
+PHY_READ_TO	stm32f4xx_hal_conf.h	/^#define PHY_READ_TO /;"	d
+PHY_RESET	stm32f4xx_hal_conf.h	/^#define PHY_RESET /;"	d
+PHY_RESET_DELAY	stm32f4xx_hal_conf.h	/^#define PHY_RESET_DELAY /;"	d
+PHY_RESTART_AUTONEGOTIATION	stm32f4xx_hal_conf.h	/^#define PHY_RESTART_AUTONEGOTIATION /;"	d
+PHY_SPEED_STATUS	stm32f4xx_hal_conf.h	/^#define PHY_SPEED_STATUS /;"	d
+PHY_SR	stm32f4xx_hal_conf.h	/^#define PHY_SR /;"	d
+PHY_WRITE_TO	stm32f4xx_hal_conf.h	/^#define PHY_WRITE_TO /;"	d
+PREFETCH_ENABLE	stm32f4xx_hal_conf.h	/^#define  PREFETCH_ENABLE /;"	d
+PRINT_DOT16	LED.h	/^}PRINT_DOT16;$/;"	t	typeref:struct:__anon1
+RING_BUF_PRO	USRAT.h	/^}RING_BUF_PRO;$/;"	t	typeref:struct:__anon14
+RING_BUF_SIZE	USRAT.h	/^#define RING_BUF_SIZE /;"	d
+RING_DATA	USRAT.h	/^}RING_DATA;$/;"	t	typeref:struct:__anon13
+SPI_Buff_SIZE	spi_flash.h	/^#define SPI_Buff_SIZE /;"	d
+SPI_FLASH_CS_HIGH	spi_flash.h	/^#define SPI_FLASH_CS_HIGH(/;"	d
+SPI_FLASH_CS_LOW	spi_flash.h	/^#define SPI_FLASH_CS_LOW(/;"	d
+SPI_FLASH_ReadAddress	spi_flash.h	/^#define  SPI_FLASH_ReadAddress /;"	d
+SPI_FLASH_SectorToErase	spi_flash.h	/^#define  SPI_FLASH_SectorToErase /;"	d
+SPI_FLASH_WriteAddress	spi_flash.h	/^#define  SPI_FLASH_WriteAddress /;"	d
+SPI_RX_BufferSize	spi_flash.h	/^#define  SPI_RX_BufferSize(/;"	d
+SST26VF032B_FLASH_ID	spi_flash.h	/^#define  SST26VF032B_FLASH_ID /;"	d
+STX	USRAT.h	/^#define STX /;"	d
+SYS_LIGHTWEIGHT_PROT	lwipopts.h	/^#define SYS_LIGHTWEIGHT_PROT /;"	d
+SequeNum	USRAT.h	/^		uint8_t SequeNum; \/\/TX Cnt = 0~127  |  RX Cnt = 128 ~ 256 $/;"	m	struct:__anon9
+TCP_MSS	lwipopts.h	/^#define TCP_MSS /;"	d
+TCP_QUEUE_OOSEQ	lwipopts.h	/^#define TCP_QUEUE_OOSEQ /;"	d
+TCP_SND_BUF	lwipopts.h	/^#define TCP_SND_BUF /;"	d
+TCP_SND_QUEUELEN	lwipopts.h	/^#define TCP_SND_QUEUELEN /;"	d
+TCP_TTL	lwipopts.h	/^#define TCP_TTL /;"	d
+TCP_WND	lwipopts.h	/^#define TCP_WND /;"	d
+TICK_INT_PRIORITY	stm32f4xx_hal_conf.h	/^#define  TICK_INT_PRIORITY /;"	d
+TIMx3_IRQHandler	Timer.h	/^#define TIMx3_IRQHandler /;"	d
+TIMx4_IRQHandler	Timer.h	/^#define TIMx4_IRQHandler /;"	d
+TRUE	USRAT.h	/^#define TRUE	/;"	d
+UDP_CLIENT_PORT	main.h	/^#define UDP_CLIENT_PORT /;"	d
+UDP_SERVER_PORT	main.h	/^#define UDP_SERVER_PORT /;"	d
+UDP_TTL	lwipopts.h	/^#define UDP_TTL /;"	d
+USART_BUF_Get	USRAT.h	/^#define USART_BUF_Get /;"	d
+USART_BUF_MAX	USRAT.h	/^#define USART_BUF_MAX /;"	d
+USART_BUF_MIN	USRAT.h	/^#define USART_BUF_MIN /;"	d
+USART_INIT_SHAPE	USRAT.h	/^} USART_INIT_SHAPE,*pUSART_INIT_SHAPE;$/;"	t	typeref:struct:__anon8
+USART_OPERATOR_PTC	USRAT.h	/^} USART_OPERATOR_PTC, *pUSART_OPERATOR_PTC;$/;"	t	typeref:struct:__anon11
+USART_PROTOCOL_HEAD	USRAT.h	/^} USART_PROTOCOL_HEAD, *pUSART_PROTOCOL_HEAD;$/;"	t	typeref:struct:__anon9
+USART_ROUTEID_PTC	USRAT.h	/^} USART_ROUTEID_PTC, *pUSART_ROUTEID_PTC;$/;"	t	typeref:struct:__anon10
+USART_ROU_OPER_PTC	USRAT.h	/^} USART_ROU_OPER_PTC, *pUSART_ROU_OPER_PTC;$/;"	t	typeref:struct:__anon12
+USE_DHCP	main.h	/^#define USE_DHCP /;"	d
+USE_RTOS	stm32f4xx_hal_conf.h	/^#define  USE_RTOS /;"	d
+USE_SPI_CRC	stm32f4xx_hal_conf.h	/^#define USE_SPI_CRC /;"	d
+VDD_VALUE	stm32f4xx_hal_conf.h	/^#define  VDD_VALUE /;"	d
+WORD_H	USRAT.h	/^#define WORD_H(/;"	d
+WORD_L	USRAT.h	/^#define WORD_L(/;"	d
+YWINDOW_SIZE	lcd_log_conf.h	/^#define     YWINDOW_SIZE /;"	d
+__APP_ETHERNET_H	app_ethernet.h	/^#define __APP_ETHERNET_H$/;"	d
+__CRC8_H__	CRC8.h	/^#define __CRC8_H__$/;"	d
+__ETHERNETIF_H__	ethernetif.h	/^#define __ETHERNETIF_H__$/;"	d
+__FLASH_H__	Flash.h	/^#define __FLASH_H__$/;"	d
+__LCD_H__	CharLCD.h	/^#define __LCD_H__$/;"	d
+__LCD_LOG_CONF_H	lcd_log_conf.h	/^#define  __LCD_LOG_CONF_H$/;"	d
+__LED_H__	LED.h	/^#define __LED_H__$/;"	d
+__LWIPOPTS_H__	lwipopts.h	/^#define __LWIPOPTS_H__$/;"	d
+__MAIN_H	main.h	/^#define __MAIN_H$/;"	d
+__SPI_FLASH_H	spi_flash.h	/^#define __SPI_FLASH_H$/;"	d
+__STM32F4xx_HAL_CONF_H	stm32f4xx_hal_conf.h	/^#define __STM32F4xx_HAL_CONF_H$/;"	d
+__STM32F4xx_IT_H	stm32f4xx_it.h	/^#define __STM32F4xx_IT_H$/;"	d
+__TCP_ECHOSERVER_H__	tcp_echoserver.h	/^#define __TCP_ECHOSERVER_H__$/;"	d
+__TIMER_H__	Timer.h	/^#define __TIMER_H__$/;"	d
+__UDP_ECHOCLIENT_H__	udp_echoclient.h	/^#define __UDP_ECHOCLIENT_H__$/;"	d
+__USRAT_H__	USRAT.h	/^#define __USRAT_H__$/;"	d
+__WWDG_H__	WWDG.h	/^#define __WWDG_H__$/;"	d
+assert_param	stm32f4xx_hal_conf.h	/^  #define assert_param(/;"	d
+countof	spi_flash.h	/^#define countof(/;"	d
+max	USRAT.h	/^#define max(/;"	d
+min	USRAT.h	/^#define min(/;"	d
+nBPS	USRAT.h	/^	uint8_t nBPS;$/;"	m	struct:__anon8
+nCRC	USRAT.h	/^	uint8_t nCRC[2];$/;"	m	struct:__anon10
+nCRC	USRAT.h	/^	uint8_t nCRC[2];$/;"	m	struct:__anon11
+nCRC	USRAT.h	/^	uint8_t nCRC[2];$/;"	m	struct:__anon12
+nCh	USRAT.h	/^	uint8_t nCh;	\/\/전송 해야할 채널$/;"	m	struct:__anon13
+nDataBuf	USRAT.h	/^	uint8_t nDataBuf[500];\/\/전송 데이타$/;"	m	struct:__anon13
+nETX	USRAT.h	/^	uint8_t nETX;$/;"	m	struct:__anon10
+nETX	USRAT.h	/^	uint8_t nETX;$/;"	m	struct:__anon11
+nETX	USRAT.h	/^	uint8_t nETX;$/;"	m	struct:__anon12
+nGetRxBuf	USRAT.h	/^	uint8_t *nGetRxBuf;     \/\/ RX 임시 Buff$/;"	m	struct:__anon8
+nHead	USRAT.h	/^	USART_PROTOCOL_HEAD nHead;$/;"	m	struct:__anon10
+nHead	USRAT.h	/^	USART_PROTOCOL_HEAD nHead;$/;"	m	struct:__anon11
+nHead	USRAT.h	/^	USART_PROTOCOL_HEAD nHead;$/;"	m	struct:__anon12
+nLen	USRAT.h	/^	uint16_t nLen;	\/\/전송 길이$/;"	m	struct:__anon13
+nLine	LED.h	/^	PRINT_DOT16 nLine[32];$/;"	m	struct:__anon2
+nMsgLen1	USRAT.h	/^		uint8_t nMsgLen1; \/\/ 0x0D - 전체 같이, 0x0A - Operator ID, 0x08 - Route ID$/;"	m	struct:__anon9
+nMsgLen2	USRAT.h	/^		uint8_t nMsgLen2; $/;"	m	struct:__anon9
+nOperatorIDBuf	USRAT.h	/^	uint8_t nOperatorIDBuf[5];$/;"	m	struct:__anon11
+nOperatorIDBuf	USRAT.h	/^	uint8_t nOperatorIDBuf[5];$/;"	m	struct:__anon12
+nPop_Cnt	USRAT.h	/^	uint16_t nPop_Cnt;		\/\/출력 카운터$/;"	m	struct:__anon14
+nPush_Cnt	USRAT.h	/^	uint16_t nPush_Cnt;	\/\/입력 카운터$/;"	m	struct:__anon14
+nRingData	USRAT.h	/^	RING_DATA nRingData[RING_BUF_SIZE];$/;"	m	struct:__anon14
+nRouteIDBuf	USRAT.h	/^	uint8_t nRouteIDBuf[3];$/;"	m	struct:__anon10
+nRouteIDBuf	USRAT.h	/^	uint8_t nRouteIDBuf[3];$/;"	m	struct:__anon12
+nRxBuf_BackUp	USRAT.h	/^	uint8_t *nRxBuf_BackUp; \/\/ RX 완료 버퍼.$/;"	m	struct:__anon8
+nRxBuffer	USRAT.h	/^	uint8_t *nRxBuffer;     \/\/ RX Buff$/;"	m	struct:__anon8
+nRxCommand	USRAT.h	/^	uint8_t nRxCommand;    \/\/ ------------ $/;"	m	struct:__anon8
+nRxDlyTm	USRAT.h	/^	uint8_t nRxDlyTm;       \/\/ $/;"	m	struct:__anon8
+nRxLen	USRAT.h	/^	uint16_t nRxLen;         \/\/ RX 수신 길이$/;"	m	struct:__anon8
+nRxOK	USRAT.h	/^	uint8_t nRxOK;          \/\/ Rx 완료.$/;"	m	struct:__anon8
+nRxOK_Cnt	USRAT.h	/^	uint8_t nRxOK_Cnt;      \/\/ RX 전체 전송 카운터$/;"	m	struct:__anon8
+nRxPos	USRAT.h	/^	uint16_t nRxPos;         \/\/ RX 현재 위치$/;"	m	struct:__anon8
+nRxRearPos	USRAT.h	/^	uint8_t nRxRearPos;     \/\/ ------------ $/;"	m	struct:__anon8
+nRxTimeOut	USRAT.h	/^	uint16_t nRxTimeOut;     \/\/ RX 수신 대기 $/;"	m	struct:__anon8
+nSTX	USRAT.h	/^		uint8_t nSTX;$/;"	m	struct:__anon9
+nTxBuffer	USRAT.h	/^	uint8_t *nTxBuffer;     \/\/ TX 버퍼.$/;"	m	struct:__anon8
+nTxLen	USRAT.h	/^	uint16_t nTxLen;         \/\/ 전송 전체 길이.$/;"	m	struct:__anon8
+nTxOK	USRAT.h	/^	uint8_t nTxOK;          \/\/ TX 완료.$/;"	m	struct:__anon8
+nTxOK_Cnt	USRAT.h	/^	uint8_t nTxOK_Cnt;      \/\/ 전체 전송 카운터.$/;"	m	struct:__anon8
+nTxPos	USRAT.h	/^	uint16_t nTxPos;         \/\/ 전송하는 현재 위치.$/;"	m	struct:__anon8
+nTxTimeOut	USRAT.h	/^	uint16_t nTxTimeOut;     \/\/ TX 전송 OUT 시간. 256 ms  이상일때 를 위해 형을 uint16_t$/;"	m	struct:__anon8
+nTx_Rts_Off	USRAT.h	/^	uint8_t nTx_Rts_Off;    \/\/ -------$/;"	m	struct:__anon8
+pETHERNET_RX_STRUCT	LED.h	/^}ETHERNET_RX_STRUCT, *pETHERNET_RX_STRUCT;$/;"	t	typeref:struct:__anon3
+pETHERNET_RX_STRUCT_PATTERN	LED.h	/^}ETHERNET_RX_STRUCT_PATTERN, *pETHERNET_RX_STRUCT_PATTERN;$/;"	t	typeref:struct:__anon4
+pETHERNET_RX_STRUCT_STATE	LED.h	/^}ETHERNET_RX_STRUCT_STATE, *pETHERNET_RX_STRUCT_STATE;$/;"	t	typeref:struct:__anon6
+pETHERNET_RX_STRUCT_SWVER	LED.h	/^}ETHERNET_RX_STRUCT_SWVER, *pETHERNET_RX_STRUCT_SWVER;$/;"	t	typeref:struct:__anon5
+pFDI_SCREEN_BOKCK	LED.h	/^}FDI_SCREEN_BOKCK, *pFDI_SCREEN_BOKCK;$/;"	t	typeref:struct:__anon2
+pUSART_INIT_SHAPE	USRAT.h	/^} USART_INIT_SHAPE,*pUSART_INIT_SHAPE;$/;"	t	typeref:struct:__anon8
+pUSART_OPERATOR_PTC	USRAT.h	/^} USART_OPERATOR_PTC, *pUSART_OPERATOR_PTC;$/;"	t	typeref:struct:__anon11
+pUSART_PROTOCOL_HEAD	USRAT.h	/^} USART_PROTOCOL_HEAD, *pUSART_PROTOCOL_HEAD;$/;"	t	typeref:struct:__anon9
+pUSART_ROUTEID_PTC	USRAT.h	/^} USART_ROUTEID_PTC, *pUSART_ROUTEID_PTC;$/;"	t	typeref:struct:__anon10
+pUSART_ROU_OPER_PTC	USRAT.h	/^} USART_ROU_OPER_PTC, *pUSART_ROU_OPER_PTC;$/;"	t	typeref:struct:__anon12
+s16_Dot	LED.h	/^	uint8_t s16_Dot[1][160];$/;"	m	struct:__anon1
+sEtherNetRxFlag	LED.h	/^	uint8_t sEtherNetRxFlag;$/;"	m	struct:__anon7
+sFDI_SDI_ID	LED.h	/^	uint8_t sFDI_SDI_ID;$/;"	m	struct:__anon3
+sFDI_SDI_ID	LED.h	/^	uint8_t sFDI_SDI_ID;$/;"	m	struct:__anon4
+sFDI_SDI_ID	LED.h	/^	uint8_t sFDI_SDI_ID;$/;"	m	struct:__anon5
+sFDI_SDI_ID	LED.h	/^	uint8_t sFDI_SDI_ID;$/;"	m	struct:__anon6
+sFramHeader	LED.h	/^	uint8_t sFramHeader;$/;"	m	struct:__anon3
+sFramHeader	LED.h	/^	uint8_t sFramHeader;$/;"	m	struct:__anon4
+sFramHeader	LED.h	/^	uint8_t sFramHeader;$/;"	m	struct:__anon5
+sFramHeader	LED.h	/^	uint8_t sFramHeader;$/;"	m	struct:__anon6
+sFrameChecksum	LED.h	/^	uint8_t sFrameChecksum;$/;"	m	struct:__anon3
+sFrameChecksum	LED.h	/^	uint8_t sFrameChecksum;$/;"	m	struct:__anon4
+sFrameChecksum	LED.h	/^	uint8_t sFrameChecksum;$/;"	m	struct:__anon5
+sFrameChecksum	LED.h	/^	uint8_t sFrameChecksum;$/;"	m	struct:__anon6
+sLastStationID	LED.h	/^	uint8_t sLastStationID[2];$/;"	m	struct:__anon3
+sListStationID	LED.h	/^	uint8_t sListStationID;$/;"	m	struct:__anon7
+sMessageLength	LED.h	/^	uint8_t sMessageLength;$/;"	m	struct:__anon3
+sMessageLength	LED.h	/^	uint8_t sMessageLength;$/;"	m	struct:__anon4
+sMessageLength	LED.h	/^	uint8_t sMessageLength;$/;"	m	struct:__anon5
+sMessageLength	LED.h	/^	uint8_t sMessageLength;$/;"	m	struct:__anon6
+sNextStationID	LED.h	/^	uint8_t sNextStationID;$/;"	m	struct:__anon7
+sNextStationID	LED.h	/^	uint8_t sNextStationID[2];$/;"	m	struct:__anon3
+sOpcode	LED.h	/^	uint8_t sOpcode;$/;"	m	struct:__anon3
+sOpcode	LED.h	/^	uint8_t sOpcode;$/;"	m	struct:__anon4
+sOpcode	LED.h	/^	uint8_t sOpcode;$/;"	m	struct:__anon5
+sOpcode	LED.h	/^	uint8_t sOpcode;$/;"	m	struct:__anon6
+sPatternTestFlag	LED.h	/^	uint8_t sPatternTestFlag;$/;"	m	struct:__anon7
+sSWVersion	LED.h	/^	uint8_t sSWVersion[3];$/;"	m	struct:__anon5
+sTESTRequest	LED.h	/^	uint8_t sTESTRequest;$/;"	m	struct:__anon4

@@ -1,0 +1,29 @@
+VisualGDB/Debug/ili9325.o: \
+ D:/GitHub_Pro/LEDC5_1(SeptaMl)/LwIP_TCP_Echo_Server(SDI)_Ver1.1.1/Drivers/BSP/Components/ili9325/ili9325.c \
+ D:/GitHub_Pro/LEDC5_1(SeptaMl)/LwIP_TCP_Echo_Server(SDI)_Ver1.1.1/Drivers/BSP/Components/ili9325/ili9325.h \
+ d:\github_pro\ledc5_1(septaml)\lwip_tcp_echo_server(sdi)_ver1.1.1\drivers\bsp\components\common\lcd.h \
+ c:\sysgcc\arm-eabi\lib\gcc\arm-none-eabi\9.3.1\include\stdint.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\stdint.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\machine\_default_types.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\features.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\_newlib_version.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\_intsup.h \
+ c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\_stdint.h
+
+D:/GitHub_Pro/LEDC5_1(SeptaMl)/LwIP_TCP_Echo_Server(SDI)_Ver1.1.1/Drivers/BSP/Components/ili9325/ili9325.h:
+
+d:\github_pro\ledc5_1(septaml)\lwip_tcp_echo_server(sdi)_ver1.1.1\drivers\bsp\components\common\lcd.h:
+
+c:\sysgcc\arm-eabi\lib\gcc\arm-none-eabi\9.3.1\include\stdint.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\stdint.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\machine\_default_types.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\features.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\_newlib_version.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\_intsup.h:
+
+c:\sysgcc\arm-eabi\arm-none-eabi\include\sys\_stdint.h:
