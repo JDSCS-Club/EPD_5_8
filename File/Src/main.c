@@ -1744,13 +1744,7 @@ void AUDIO_AMP_Boot_Set(void)
     I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x06, (uint8_t *)nRbuf_1, 1);
     MyPrintf_USART1("getAmp1 Mode read :%02X \r\n", nRbuf_1[0]); 
 
-//    nRbuf_1[0] = 0xFF;
-//    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x06, (uint8_t *)nRbuf_1, 1);     
-//    MyPrintf_USART1("getAmp2 Mode read :%02X \r\n", nRbuf_1[0]); 
-//
-//    nRbuf_1[0] = 0xFF;
-//    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x06, (uint8_t *)nRbuf_1, 1);
-//    MyPrintf_USART1("getAmp3 Mode read :%02X \r\n", nRbuf_1[0]); 
+
 //   
 //    //setAMP_Standby(false); // 모든 AMP IC
 //	

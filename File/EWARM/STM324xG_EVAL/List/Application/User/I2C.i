@@ -30345,288 +30345,288 @@ void processCurrentVal(void)
 
 
  
-void MX_I2C_Process(void)
-{
-	static uint16_t s_SpkCheck = 0; 
-	static uint16_t R_s_SpkCheck = 0; 
-	static uint16_t R_s_SpkCheckCnt = 0; 
-    
-	static uint16_t s_InitCnt = 0;
-    
-    static uint16_t s_SpCh1 = 0;
-    static uint16_t s_SpCh2 = 0;
-    
 
-    uint8_t sPowerStandbyFlag;
-        
-    uint8_t     nRbuf_0[2];
-    uint8_t     nRbuf_1[2];
-    uint8_t     nRbuf_2[2];
-    
 
-	
-	s_SpkCheck = mDI_CheckFlag;
-    
-            
-	if (s_SpkCheck != R_s_SpkCheck)
-	{
-        
-		R_s_SpkCheck = s_SpkCheck;
-        
-         setAMP_Standby(1); 
-         setAMP_Standby(0); 
-         setAMP_Standby(1); 
-           
-         
-      
 
-         njw1192_mute(0);
-       
-         
-         R_s_SpkCheckCnt = 1;
-          
-        
-         MyPrintf_USART1 ("+++++ AMP T : %d \r\n",HAL_GetTick() );
-            
-	}
-			
 
-	if (R_s_SpkCheckCnt)
-	{
 
-		R_s_SpkCheckCnt--;
-        
-        if (getSW_RS() || getSW_AR()) 
-		{
-            
-            MyPrintf_USART1 ("+++++ AMP T-1 : %d \r\n",HAL_GetTick() );
-            
-                s_SpCh1++;
-                
-                setAmp_Mute_1(0);
-                setAmp_Mute_2(0);
-                  
-                
-                
-                if(mLed_Process_Flag.sAnsm_Run_Flag)
-                {
-                    if ((mAnsSetFlag.tAnsCnt > 15) || (mLed_Process_Flag.tAmp_Vol_UpFlag == 1))
-                    {
-                        mAnsSetFlag.tAnsFlgSet = 1;
-                        njw1192_vol_setting(mLed_Process_Flag.tAmp_Vol_UpFlag, 1); 
-                    }
-                    else
-                    {
-                        if (mAnsSetFlag.tAnsFlgSet) 
-                        {
-                            mAnsSetFlag.tAnsFlgSet = 0;
-                            njw1192_vol_setting(0, 0); 
-                        }
-                        
-                    }
-                }
-                else
-                {
-                    if(mLed_Process_Flag.tAmp_Vol_UpFlag == 1)
-                    {
-                        mAnsSetFlag.tAnsFlgSet = 1;
-                        njw1192_vol_setting(mLed_Process_Flag.tAmp_Vol_UpFlag, 1); 
-                        
-                    }
-                    else
-                    {
-                        if (mAnsSetFlag.tAnsFlgSet) 
-                        {
-                            mAnsSetFlag.tAnsFlgSet = 0;
-                            njw1192_vol_setting(0, 0); 
-                        }
-                        
-                        
-                       
-                       
-                       
-                       
-                       if(mLed_Process_Flag.sVolTestFlg)
-                       {
-                           njw1192_vol_setting(0, 0); 
-                       }
 
-                    }
-                    
-                }
-               
-                
-                
-               
-                if(s_SpCh1 == 1 && s_SpCh2 == 0)
-                {
-                    if(0 == 0)
-                    {
-                        AMP_Init(AMP_ID_1);
-                    }
-                    
-                    
-                    else if(mLed_Process_Flag.sCurrentTestFlag == 1) 
-                    {
-                        AMP_Init(AMP_ID_1);
 
-                    }
-                    
-                }
-                
-                sPowerStandbyFlag = AMP_PowOn_Check();
-                
-                if(sPowerStandbyFlag != 0x07) 
-                {
-                    udp_SysLog("--------->NG RS/AR PowerStandBy( %d )",sPowerStandbyFlag);
-                }
-                
-                s_SpCh2 = 0;
-                
-                  AMP_Mute_OFF(AMP_ID_1, AMP_ID_2, AMP_ID_3);
-                  
-                
-             
-                setBk_Out_1(1);
-                setBk_Out_3(1);
-                setBk_Out_5(1);
 
-                
-                if ((getSW_SL() && (mLed_Process_Flag.sDHCP_IP_Val == 96)) 
-                  ||(getSW_SR() && (mLed_Process_Flag.sDHCP_IP_Val == 97)))
-                {
-                    setBk_Out_6(1);
-                    mLed_Process_Flag.sOut_Spk_Flag = 1;
-                    
-                    setRSP_Led(1);
-                    setOSP_Led(1);
-                }
-                else
-                {
-                    setBk_Out_6(0);
-                    mLed_Process_Flag.sOut_Spk_Flag = 0;
-                    
-                    
-                    setRSP_Led(1);
-                    setOSP_Led(0);
-                }
-                
 
-                mLed_Process_Flag.sRom_Spk_Flag = 1;
-                
-                mLed_Process_Flag.sSpk_check_Cnt = 10;
-                mLed_Process_Flag.sAudio_Play_mode = 1;
-                
-     
-                MyPrintf_USART1 ("+++++ AMP E-1 : %d \r\n",HAL_GetTick() );
 
-                
-            
-		}
-		else if ((getSW_SL() && (mLed_Process_Flag.sDHCP_IP_Val == 96)) 
-               ||(getSW_SR() && (mLed_Process_Flag.sDHCP_IP_Val == 97)))
-		{
-            
-            
-            
-            s_SpCh2++;
-                
-            setAmp_Mute_1(0);
-            setAmp_Mute_2(0);
-			
-			
-             njw1192_vol_setting_OutSpk();
-            
-			
-                
 
-			
-               
-			 if(s_SpCh1 == 0 && s_SpCh2 == 1)
-            { 
-                
-                
-                AMP_Init(AMP_ID_1);
-                mLed_Process_Flag.sAudio_Play_mode = 1;
-                
-                
-            }
-            
-            sPowerStandbyFlag = AMP_PowOn_Check();
-                
-            if(sPowerStandbyFlag != 0x07) 
-            {
-                udp_SysLog("--------->NG SL/SR PowerStandBy( %d )",sPowerStandbyFlag);
-            }
-			
-            s_SpCh1 = 0;
-            
-            
-            AMP_Mute_OFF(AMP_ID_1, AMP_ID_2, AMP_ID_3); 
-            
-            
-			
-			setBk_Out_1(0);
-			setBk_Out_3(0);
-			setBk_Out_5(0);
 
-			setBk_Out_6(1);
-            
-            mLed_Process_Flag.sRom_Spk_Flag = 0;
-            mLed_Process_Flag.sOut_Spk_Flag = 1;
-            mLed_Process_Flag.sSpk_check_Cnt = 10;
-            mLed_Process_Flag.sAudio_Play_mode = 1;
-            
-             
-            setRSP_Led(0);
-			setOSP_Led(1);
-   
-                
-		}
-		else
-		{
-            s_SpCh1 = 0;
-            s_SpCh2 = 0 ;   
-			
-			setRSP_Led(0);
-			setOSP_Led(0);
 
-                
-            
-            setBk_Out_1(0);
-			setBk_Out_3(0);
-			setBk_Out_5(0);
 
-			setBk_Out_6(0);
-            
-			AMP_Mute_ON(AMP_ID_1, AMP_CH_All, AMP_ID_2, AMP_CH_All, AMP_ID_3, AMP_CH_All); 
-                
-            
-          
-            njw1192_mute(1);
-            setAmp_Mute_1(1);
-            setAmp_Mute_2(1);
-          
-            
-            MyPrintf_USART1 ("+++++ AMP E : %d \r\n",HAL_GetTick() );
-                
-			mAnsSetFlag.tAnsCnt = 0; 
-            
-            
-            if(mLed_Process_Flag.sSpk_check_Cnt >= 1) { mLed_Process_Flag.sSpk_check_Cnt = 0;}
-            
-            
-            mLed_Process_Flag.sRom_Spk_Flag = 1;
-            
-            mLed_Process_Flag.sSpk_check_Cnt = 10;  
-            
-            mLed_Process_Flag.sAudio_Play_mode = 0;
-            
 
-		}
-	}
 
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -30696,7 +30696,6 @@ void AMP_Init(uint16_t Address)
         MyPrintf_USART1( "-Gain Select (0xD8-0x08) NG \r\n" );
     }
 
-
     
     
     
@@ -30710,7 +30709,6 @@ void AMP_Init(uint16_t Address)
     {
         MyPrintf_USART1( "- Clip_OTW Configuration (0xD8-0x0A) NG \r\n" );
     }
-
 
     
     
@@ -30736,18 +30734,11 @@ void AMP_Init(uint16_t Address)
         MyPrintf_USART1( "-play mode (0xD8-0x0C) NG \r\n" );
     }
 
-
-
-
-
-
     
 	HAL_Delay(5);  
       
 	nRbuf[0] = 0xFF;
 	I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x00, (uint8_t *)nRbuf, 1);
-
-
 
     
 
@@ -30781,23 +30772,6 @@ void AMP_Mute_OFF(
        
 	}
     
-	if (AMP_ID_2 == Address2)
-	{
-        
-		nTbuf[0] = 0x09;
-		I2C_HAL_WriteBytes(&hi2c1, AMP_ID_2, 0x0C, (uint8_t *)nTbuf, 1);
-            
-       
-	}
-    
-	if (AMP_ID_3 == Address3)
-	{
-		nTbuf[0] = 0x09;
-		I2C_HAL_WriteBytes(&hi2c1, AMP_ID_3, 0x0C, (uint8_t *)nTbuf, 1);
-            
-	}
-     
-    
 }
 
 
@@ -30829,7 +30803,7 @@ int AMP_PowOn_Check(void)
     sPowerStandBy = 0;
     
     
-    MyPrintf_USART1( "+++++ %s(%d)\r\n", __func__, 683 );
+    MyPrintf_USART1( "+++++ %s(%d)\r\n", __func__, 657 );
     
     
     I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x00, (uint8_t *)nRbuf, 1);
@@ -30843,28 +30817,7 @@ int AMP_PowOn_Check(void)
     
     MyPrintf_USART1( "+++++ AMP_ID_1 (%x - %x)\r\n",nRbuf[0],nRbuf1[0] );
     
-    
-    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x00, (uint8_t *)nRbuf, 1);
-    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x01, (uint8_t *)nRbuf1, 1);
-    
-     if(nRbuf[0] == 0x00 && nRbuf1[0] == 0x00)
-    {
-        sPowerStandBy = sPowerStandBy | (0x01 <<1);
-    }
-    
-    MyPrintf_USART1( "+++++ AMP_ID_2 (%x - %x)\r\n",nRbuf[0],nRbuf1[0] );
-    
-    
-    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x00, (uint8_t *)nRbuf, 1);
-    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x01, (uint8_t *)nRbuf1, 1);
-    
-     if(nRbuf[0] == 0x00 && nRbuf1[0] == 0x00)
-    {
-        sPowerStandBy = sPowerStandBy | (0x01 <<2);
-    }
-    
-    MyPrintf_USART1( "+++++ AMP_ID_3 (%x - %x)\r\n",nRbuf[0],nRbuf1[0] );
-    
+
     
     return sPowerStandBy;
     
@@ -30912,52 +30865,7 @@ void AMP_Mute_ON(
        
 	}
     
-	if (AMP_ID_2 == Address2)
-	{
-        
-		if (ad_ch2 == AMP_CH_All)
-		{
-			nTbuf[0] = 0x1F;
-			I2C_HAL_WriteBytes(&hi2c1, AMP_ID_2, 0x0C, (uint8_t *)nTbuf, 1);
-		}
-		else if (ad_ch2 == AMP_CH_1) 
-		{
-			nTbuf[0] = 0x1D;
-			I2C_HAL_WriteBytes(&hi2c1, AMP_ID_2, 0x0C, (uint8_t *)nTbuf, 1);
-            
-		}
-		else if(ad_ch2 == AMP_CH_2) 
-		{
-			nTbuf[0] = 0x1B;
-			I2C_HAL_WriteBytes(&hi2c1, AMP_ID_2, 0x0C, (uint8_t *)nTbuf, 1);
-		}
-            
-       
-	}
-    
-    
-	if (AMP_ID_3 == Address3)
-	{
-		if (ad_ch3 == AMP_CH_All)
-		{
-			nTbuf[0] = 0x1F;
-			I2C_HAL_WriteBytes(&hi2c1, AMP_ID_3, 0x0C, (uint8_t *)nTbuf, 1);
-		}
-		else if (ad_ch3 == AMP_CH_1) 
-		{
-			nTbuf[0] = 0x1D;
-			I2C_HAL_WriteBytes(&hi2c1, AMP_ID_3, 0x0C, (uint8_t *)nTbuf, 1);
-            
-		}
-		else if(ad_ch3 == AMP_CH_2) 
-		{
-			nTbuf[0] = 0x1B;
-			I2C_HAL_WriteBytes(&hi2c1, AMP_ID_3, 0x0C, (uint8_t *)nTbuf, 1);
-		}
-        
-            
-	}
-    
+
 }
 
 
@@ -31001,52 +30909,7 @@ void AMP_FAULT(void)
             mLed_Process_Flag.sAmp_Falut_val &= 0x0E;
         }
             
-      
-        if (getAmp2_Pault() == 0)
-        {
-            nRbuf[0] = 0xFF;    
-            nRbuf1[0] = 0xFF;
-            I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x00, (uint8_t *)nRbuf, 1);
-            I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x01, (uint8_t *)nRbuf1, 1);
-                
-                
-            MyPrintf_USART1("+++++ getAmp2_Pault - 1:%02x / 2:%02x \r\n", nRbuf[0],nRbuf1[0]);
-                
-            sprintf(&mLCDPrintBuf[2][5], "P2-%2x", nRbuf[0]);
-            
-            mLed_Process_Flag.sAmp_Falut_val |= 0x01<<1;
-                
-        }
-        else
-        {
-            sprintf(&mLCDPrintBuf[2][5], "*****");
-            
-            mLed_Process_Flag.sAmp_Falut_val &= 0x0D;
-        }
-            
-      
-        if (getAmp3_Pault() == 0)
-        {
-            nRbuf[0] = 0xFF;    
-            nRbuf1[0] = 0xFF;
-            I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x00, (uint8_t *)nRbuf, 1);
-            I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x01, (uint8_t *)nRbuf1, 1);
-                
-            
-            MyPrintf_USART1("+++++ getAmp3_Pault - 1:%02x / 2:%02x \r\n", nRbuf[0],nRbuf1[0]);
-                
-            sprintf(&mLCDPrintBuf[2][10], "P3-%2x", nRbuf[0]);
-            
-             mLed_Process_Flag.sAmp_Falut_val |= 0x01<<2;
-                
-                
-        }
-        else
-        {
-            sprintf(&mLCDPrintBuf[2][10], "-----");
-            
-            mLed_Process_Flag.sAmp_Falut_val &= 0x0B;
-        }
+   
 
   
     sprintf(&mLCDPrintBuf[2][15], "Temp-%02d",mLed_Process_Flag.sCpu_Temp);
@@ -31069,8 +30932,7 @@ void AMP_FAULT(void)
             nRbuf2[0] = 0xFF;
             
             I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x04, (uint8_t *)nRbuf, 1);
-            I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x04, (uint8_t *)nRbuf1, 1);
-            I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x04, (uint8_t *)nRbuf2, 1);
+           
             
             MyPrintf_USART1("+++++ getAmpPault - 1:%02x -- 2:%02x -- 3:%02x \r\n", nRbuf[0],nRbuf1[0],nRbuf2[0]);
             
@@ -31079,7 +30941,6 @@ void AMP_FAULT(void)
             if(sAmpRestCnt &0x01)
             {
                 setAmp_Mute_1(0);
-                setAmp_Mute_2(0);
                 
                 setAMP_Standby(0); 
  
@@ -31166,8 +31027,7 @@ void AMP_SPK_CHECK(void)
         nRbuf_2[0] = 0xFF;
         
         I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x06, (uint8_t *)nRbuf_0, 1);
-        I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x06, (uint8_t *)nRbuf_1, 1);
-        I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x06, (uint8_t *)nRbuf_2, 1);
+      
         
         MyPrintf_USART1("+++++ In-Amp Mute/Play mode- 1:%02X / 2:%02X / 3:%02X \r\n",nRbuf_0[0],nRbuf_1[0],nRbuf_2[0] );
         
@@ -31210,39 +31070,7 @@ void AMP_SPK_CHECK(void)
                 mLed_Process_Flag.sSt_Buf_Val[0] = ((nRbuf_1[0]&0xF0) | (nRbuf_2[0]&0x0F));
                 
                 
-                nRbuf_1[0] = 0xFF;
-                nRbuf_2[0] = 0xFF;
-                
-                
-
-                I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x02, (uint8_t *)nRbuf_1, 1);
-                I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x03, (uint8_t *)nRbuf_2, 1);
-                              
-                MyPrintf_USART1("+++++ getAmp2 Spk read :%02X \r\n", ((nRbuf_1[0]&0xF0) | (nRbuf_2[0]&0x0F)));
-            
-                mLed_Process_Flag.sSt_Buf_Val[1] = ((nRbuf_1[0]&0xF0) | (nRbuf_2[0]&0x0F));
-                
-                
-                
-                nRbuf_1[0] = 0xFF;
-                nRbuf_2[0] = 0xFF;
-                
-                I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x02, (uint8_t *)nRbuf_1, 1);
-                
-                if(mLed_Process_Flag.sOut_Spk_Flag) 
-                {
-                    mLed_Process_Flag.sOut_Spk_Flag = 0;
-
-                    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x03, (uint8_t *)nRbuf_2, 1);
-                }
-                else 
-                {
-                    nRbuf_2[0] = 0x00;
-                }
-                              
-                MyPrintf_USART1("+++++ getAmp3 Spk read :%02X \r\n", ((nRbuf_1[0]&0xF0) | (nRbuf_2[0]&0x0F)));
-                
-                mLed_Process_Flag.sSt_Buf_Val[2] = ((nRbuf_1[0]&0xF0) | (nRbuf_2[0]&0x0F));
+  
             }
             
             
@@ -31296,23 +31124,15 @@ void AMP_SPK_CHECK(void)
          mLed_Process_Flag.sOut_Spk_Flag = 0;
          
          
-        
 
-        
          
          nRbuf_1[0] = 0x0F;
          nRbuf_2[0] = 0xFF;
          
-        I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x03, (uint8_t *)nRbuf_2, 1);
-                      
-        MyPrintf_USART1("+++++ getAmp3 Spk read :%02X \r\n", ((nRbuf_1[0]&0xF0) | (nRbuf_2[0]&0x0F)));
-        
-        mLed_Process_Flag.sSt_Buf_Val[3] = ((nRbuf_1[0]&0xF0) | (nRbuf_2[0]&0x0F));
         
         
         I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x06, (uint8_t *)nRbuf_0, 1);
-        I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x06, (uint8_t *)nRbuf_1, 1);
-        I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x06, (uint8_t *)nRbuf_2, 1);
+      
         
         MyPrintf_USART1("+++++ Out- Amp Mute/Play mode- 1:%02X / 2:%02X / 3:%02X \r\n",nRbuf_0[0],nRbuf_1[0],nRbuf_2[0] );
         
@@ -31373,7 +31193,7 @@ int at24_HAL_WriteBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t Mem
 		}
 		else
 		{
-			MyPrintf_USART1("%s(%d) - failed\r\n", __func__, 1247);
+			MyPrintf_USART1("%s(%d) - failed\r\n", __func__, 1067);
 			return 0;
 		}
 
@@ -31444,7 +31264,7 @@ int at24_HAL_ReadBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemA
 		}
 		else
 		{
-			MyPrintf_USART1("%s(%d) - failed\r\n", __func__, 1335);
+			MyPrintf_USART1("%s(%d) - failed\r\n", __func__, 1155);
 			return 0;
 		}
 
@@ -31562,7 +31382,7 @@ char s_sLogBuf[257];
 void TestEEPLog( void )
 
 {
-	printf("%s(%d)\n", __func__, 1454);
+	printf("%s(%d)\n", __func__, 1274);
 
 	EEPLogWrite( "TEST Log Write\n");		
 	EEPLogWrite( "TEST Log2\n");
@@ -31611,7 +31431,7 @@ uint16_t EEPRead16(uint16_t nAddr)
 int EEPLogInit( I2C_HandleTypeDef *hi2c )
 
 {
-	MyPrintf_USART1( "%s(%d)\n\r", __func__, 1503 );
+	MyPrintf_USART1( "%s(%d)\n\r", __func__, 1323 );
 
 	g_hi2c = hi2c;
 
@@ -31626,7 +31446,7 @@ int EEPLogInit( I2C_HandleTypeDef *hi2c )
 	g_qLog.front 	= 	EEPRead16( EPPAddrQBufStartH );
 	g_qLog.rear 	= 	EEPRead16( EPPAddrQBufEndH );
 
-	MyPrintf_USART1("%s(%d) - size : 0x%04X / front : 0x%04X / rear : 0x%04X\n\r", __func__, 1518,
+	MyPrintf_USART1("%s(%d) - size : 0x%04X / front : 0x%04X / rear : 0x%04X\n\r", __func__, 1338,
 		   g_qLog.size, g_qLog.front, g_qLog.rear );
 
 	return 1;
@@ -31643,7 +31463,7 @@ int EEPLogReset(void)
 	if (g_hi2c == 0)
 		return 0;
 
-	MyPrintf_USART1("%s(%d)EEPLogInit", __func__, 1535);
+	MyPrintf_USART1("%s(%d)EEPLogInit", __func__, 1355);
 
 	s_n16Val.cBuf[0] = EEPMagicNumH;
 	s_n16Val.cBuf[1] = EEPMagicNumL;
@@ -31672,7 +31492,7 @@ int EEPLogGetMaxSize(void)
 	if (g_hi2c == 0)
 		return 0;
 
-	MyPrintf_USART1("%s(%d)\n", __func__, 1564);
+	MyPrintf_USART1("%s(%d)\n", __func__, 1384);
 
 	return EEPRead16(EPPAddrMaxLogSizeH);
 }
@@ -31700,7 +31520,7 @@ int EEPLogWrite(char *sBuf)
 	int nLen;
 	nLen = strlen(sBuf);
 
-	printf("%s(%d) - rear(%d) / len(%d) / %s\n", __func__, 1592, g_qLog.rear, nLen, sBuf);
+	printf("%s(%d) - rear(%d) / len(%d) / %s\n", __func__, 1412, g_qLog.rear, nLen, sBuf);
 
 
 	if ( g_qLog.rear + nLen > g_qLog.size )
@@ -31774,7 +31594,7 @@ int EEPLogPrint(void)
 
 {
 	
-	printf("%s(%d)\n", __func__, 1668);
+	printf("%s(%d)\n", __func__, 1488);
 
 	int nIdx;
 	int nSize;
@@ -31783,14 +31603,14 @@ int EEPLogPrint(void)
 	nIdx = g_qLog.front;
 	nSize = qBufCnt(&g_qLog);
 
-	printf("%s(%d) - logsize(%d) / front(%d)/rear(%d)\n", __func__, 1677,
+	printf("%s(%d) - logsize(%d) / front(%d)/rear(%d)\n", __func__, 1497,
 		   nSize, g_qLog.front, g_qLog.rear );
 
 	if ( g_qLog.front == g_qLog.rear )
 	{
 		
 		printf("%s(%d) - No Log Skip ( front(0x%02X) / rear(0x%02X) )\n",
-			__func__, 1684, g_qLog.front, g_qLog.rear );
+			__func__, 1504, g_qLog.front, g_qLog.rear );
 	}
 	else if ( g_qLog.front < g_qLog.rear )
 	{
@@ -31892,7 +31712,7 @@ int EEPLogPrint(void)
 int cmd_logPrint(int argc, char *argv[])
 
 {
-	printf("%s(%d)\n", __func__, 1786);
+	printf("%s(%d)\n", __func__, 1606);
 	EEPLogPrint();
 }
 
@@ -31904,7 +31724,7 @@ int cmd_logPrint(int argc, char *argv[])
 int cmd_logTest(int argc, char *argv[])
 
 {
-	printf("%s(%d)\n", __func__, 1798);
+	printf("%s(%d)\n", __func__, 1618);
 	TestEEPLog();
 }
 
@@ -31916,7 +31736,7 @@ int cmd_logTest(int argc, char *argv[])
 int cmd_logReset(int argc, char *argv[])
 
 {
-	printf("%s(%d)\n", __func__, 1810);
+	printf("%s(%d)\n", __func__, 1630);
 	EEPLogReset();
 }
 

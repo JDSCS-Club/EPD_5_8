@@ -28929,6 +28929,7 @@ uint16_t getAdc1Vol(void)
     volt = (Get_Adc1_Value() * 3.3) / 0xFFF;
     
 	return (volt-0.76)/0.0025 + 25.0; 
+       
 }
 
 

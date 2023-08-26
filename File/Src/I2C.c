@@ -196,288 +196,288 @@ void processCurrentVal(void)
 * @param -
 * @retval-
 ******************************************************************************/
-void MX_I2C_Process(void)
-{
-	static uint16_t s_SpkCheck = 0; 
-	static uint16_t R_s_SpkCheck = 0; 
-	static uint16_t R_s_SpkCheckCnt = 0; 
-    
-	static uint16_t s_InitCnt = 0;
-    
-    static uint16_t s_SpCh1 = 0;
-    static uint16_t s_SpCh2 = 0;
-    
-
-    uint8_t sPowerStandbyFlag;
-        
-    uint8_t     nRbuf_0[2];
-    uint8_t     nRbuf_1[2];
-    uint8_t     nRbuf_2[2];
-    
-
-	
-	s_SpkCheck = mDI_CheckFlag;
-    
-            
-	if (s_SpkCheck != R_s_SpkCheck)
-	{
-        
-		R_s_SpkCheck = s_SpkCheck;
-        
-         setAMP_Standby(true); // 모든 AMP IC
-         setAMP_Standby(false); // 모든 AMP IC
-         setAMP_Standby(true); // 모든 AMP IC
-           
-         
-      //---------AUDIO-----------------------
-
-         njw1192_mute(false);
-       //-------------------------------------
-         
-         R_s_SpkCheckCnt = 1;
-          
-        
-         MyPrintf_USART1 ("+++++ AMP T : %d \r\n",HAL_GetTick() );
-            
-	}
-			
-
-	if (R_s_SpkCheckCnt)
-	{
-
-		R_s_SpkCheckCnt--;
-        
-        if (getSW_RS() || getSW_AR()) 
-		{
-            
-            MyPrintf_USART1 ("+++++ AMP T-1 : %d \r\n",HAL_GetTick() );
-            
-                s_SpCh1++;
-                
-                setAmp_Mute_1(false);
-                setAmp_Mute_2(false);
-                  
-                
-                //--------------------Audio IC Vol seting ANSM---------------------------//   
-                if(mLed_Process_Flag.sAnsm_Run_Flag)
-                {
-                    if ((mAnsSetFlag.tAnsCnt > 15) || (mLed_Process_Flag.tAmp_Vol_UpFlag == true))
-                    {
-                        mAnsSetFlag.tAnsFlgSet = true;
-                        njw1192_vol_setting(mLed_Process_Flag.tAmp_Vol_UpFlag, true); // ANS ON_OFF 기능.
-                    }
-                    else
-                    {
-                        if (mAnsSetFlag.tAnsFlgSet) // 이전에 ANS가 ON 이였다면, 동작 한다.
-                        {
-                            mAnsSetFlag.tAnsFlgSet = false;
-                            njw1192_vol_setting(0, false); // ANS ON_OFF 기능.
-                        }
-                        
-                    }
-                }
-                else
-                {
-                    if(mLed_Process_Flag.tAmp_Vol_UpFlag == true)
-                    {
-                        mAnsSetFlag.tAnsFlgSet = true;
-                        njw1192_vol_setting(mLed_Process_Flag.tAmp_Vol_UpFlag, true); // ANS ON_OFF 기능.
-                        
-                    }
-                    else
-                    {
-                        if (mAnsSetFlag.tAnsFlgSet) // 이전에 ANS가 ON 이였다면, 동작 한다.
-                        {
-                            mAnsSetFlag.tAnsFlgSet = false;
-                            njw1192_vol_setting(0, false); // ANS ON_OFF 기능.
-                        }
-                        
-                        
-                       // if( TEST_ROOM == 1) //TEST 시험 할때는 항상 동작.
-                       // {
-                       //     njw1192_vol_setting(0, false); // ANS ON_OFF 기능.
-                       // }
-                       if(mLed_Process_Flag.sVolTestFlg)// COB 에서 볼륨 레벨을 선택 한다.
-                       {
-                           njw1192_vol_setting(0, false); // ANS ON_OFF 기능.
-                       }
-
-                    }
-                    
-                }
-               //****************************************************************// 
-                
-                
-               //--------------------AMP  IC Vol seting---------------------------//   
-                if(s_SpCh1 == 1 && s_SpCh2 == 0)
-                {
-                    if(AMP_H_TEMP == 0)
-                    {
-                        AMP_Init(AMP_ID_1);
-                    }
-                    // 초기화 로직이 60ms  정도 소유 된다.  
-                    // 가장 빠른 속도는  고온 모드로 동작하고, 초기화 로직을 삭제 하는 것이다.
-                    else if(mLed_Process_Flag.sCurrentTestFlag == TRUE) // 스피커 체크  동작 일때만 정상 동작 하도록 수정.
-                    {
-                        AMP_Init(AMP_ID_1);
-
-                    }
-                    
-                }
-                
-                sPowerStandbyFlag = AMP_PowOn_Check();
-                
-                if(sPowerStandbyFlag != 0x07) 
-                {
-                    udp_SysLog("--------->NG RS/AR PowerStandBy( %d )",sPowerStandbyFlag);
-                }
-                
-                s_SpCh2 = 0;
-                
-                  AMP_Mute_OFF(AMP_ID_1, AMP_ID_2, AMP_ID_3);
-                  
-                //****************************************************************//   
-             
-                setBk_Out_1(true);
-                setBk_Out_3(true);
-                setBk_Out_5(true);
-
-                
-                if ((getSW_SL() && (mLed_Process_Flag.sDHCP_IP_Val == 96)) // IP 96은 실외 스피커  왼쪽.
-                  ||(getSW_SR() && (mLed_Process_Flag.sDHCP_IP_Val == 97)))// IP 97은 실외 스피커 오른쪽.
-                {
-                    setBk_Out_6(true);
-                    mLed_Process_Flag.sOut_Spk_Flag = true;
-                    
-                    setRSP_Led(true);
-                    setOSP_Led(true);
-                }
-                else
-                {
-                    setBk_Out_6(false);
-                    mLed_Process_Flag.sOut_Spk_Flag = false;
-                    
-                    
-                    setRSP_Led(true);
-                    setOSP_Led(false);
-                }
-                
-
-                mLed_Process_Flag.sRom_Spk_Flag = true;
-                
-                mLed_Process_Flag.sSpk_check_Cnt = 10;
-                mLed_Process_Flag.sAudio_Play_mode = true;
-                
-     
-                MyPrintf_USART1 ("+++++ AMP E-1 : %d \r\n",HAL_GetTick() );
-
-                
-            
-		}
-		else if ((getSW_SL() && (mLed_Process_Flag.sDHCP_IP_Val == 96)) // IP 96은 실외 스피커  왼쪽.
-               ||(getSW_SR() && (mLed_Process_Flag.sDHCP_IP_Val == 97)))// IP 97은 실외 스피커 오른쪽.
-		{
-            
-            
-            
-            s_SpCh2++;
-                
-            setAmp_Mute_1(false);
-            setAmp_Mute_2(false);
-			
-			
-             njw1192_vol_setting_OutSpk();
-            
-			//****************************************************************//   
-                
-
-			//--------------------AMP  IC Vol seting---------------------------//   
-               
-			 if(s_SpCh1 == 0 && s_SpCh2 == 1)
-            { 
-                
-                // 실외 스피커는 사림이 인지하는 속도가 느리기 때문에 그대로 사용.
-                AMP_Init(AMP_ID_1);
-                mLed_Process_Flag.sAudio_Play_mode = true;
-                
-                
-            }
-            
-            sPowerStandbyFlag = AMP_PowOn_Check();
-                
-            if(sPowerStandbyFlag != 0x07) 
-            {
-                udp_SysLog("--------->NG SL/SR PowerStandBy( %d )",sPowerStandbyFlag);
-            }
-			
-            s_SpCh1 = 0;
-            
-            
-            AMP_Mute_OFF(AMP_ID_1, AMP_ID_2, AMP_ID_3); // 모든 채널을 ON 하고 릴레이로 제어 한다.
-            
-            //****************************************************************//   
-			
-			setBk_Out_1(false);
-			setBk_Out_3(false);
-			setBk_Out_5(false);
-
-			setBk_Out_6(true);
-            
-            mLed_Process_Flag.sRom_Spk_Flag = false;
-            mLed_Process_Flag.sOut_Spk_Flag = true;
-            mLed_Process_Flag.sSpk_check_Cnt = 10;
-            mLed_Process_Flag.sAudio_Play_mode = true;
-            
-             
-            setRSP_Led(false);
-			setOSP_Led(true);
-   
-                
-		}
-		else
-		{
-            s_SpCh1 = 0;
-            s_SpCh2 = 0 ;   
-			
-			setRSP_Led(false);
-			setOSP_Led(false);
-
-                
-            //AMP close 노이즈 해결하기 위해 릴레이를  먼저 close
-            setBk_Out_1(false);
-			setBk_Out_3(false);
-			setBk_Out_5(false);
-
-			setBk_Out_6(false);
-            
-			AMP_Mute_ON(AMP_ID_1, AMP_CH_All, AMP_ID_2, AMP_CH_All, AMP_ID_3, AMP_CH_All); // amp ic all mute
-                
-            
-          //---------AUDIO-----------------------
-            njw1192_mute(true);
-            setAmp_Mute_1(true);
-            setAmp_Mute_2(true);
-          //--------------------------------
-            
-            MyPrintf_USART1 ("+++++ AMP E : %d \r\n",HAL_GetTick() );
-                
-			mAnsSetFlag.tAnsCnt = 0; // ANSM 초기화
-            
-            //방송 시간이  스피커 체크 시간보다  짧으면 스피커 체크를 중단 한다.
-            if(mLed_Process_Flag.sSpk_check_Cnt >= 1) { mLed_Process_Flag.sSpk_check_Cnt = 0;}
-            
-            
-            mLed_Process_Flag.sRom_Spk_Flag = true;
-            
-            mLed_Process_Flag.sSpk_check_Cnt = 10;  // ** AMP Standby OFF count 
-            
-            mLed_Process_Flag.sAudio_Play_mode = false;
-            
-
-		}
-	}
-
-}
+//void MX_I2C_Process(void)
+//{
+//	static uint16_t s_SpkCheck = 0; 
+//	static uint16_t R_s_SpkCheck = 0; 
+//	static uint16_t R_s_SpkCheckCnt = 0; 
+//    
+//	static uint16_t s_InitCnt = 0;
+//    
+//    static uint16_t s_SpCh1 = 0;
+//    static uint16_t s_SpCh2 = 0;
+//    
+//
+//    uint8_t sPowerStandbyFlag;
+//        
+//    uint8_t     nRbuf_0[2];
+//    uint8_t     nRbuf_1[2];
+//    uint8_t     nRbuf_2[2];
+//    
+//
+//	
+//	s_SpkCheck = mDI_CheckFlag;
+//    
+//            
+//	if (s_SpkCheck != R_s_SpkCheck)
+//	{
+//        
+//		R_s_SpkCheck = s_SpkCheck;
+//        
+//         setAMP_Standby(true); // 모든 AMP IC
+//         setAMP_Standby(false); // 모든 AMP IC
+//         setAMP_Standby(true); // 모든 AMP IC
+//           
+//         
+//      //---------AUDIO-----------------------
+//
+//         njw1192_mute(false);
+//       //-------------------------------------
+//         
+//         R_s_SpkCheckCnt = 1;
+//          
+//        
+//         MyPrintf_USART1 ("+++++ AMP T : %d \r\n",HAL_GetTick() );
+//            
+//	}
+//			
+//
+//	if (R_s_SpkCheckCnt)
+//	{
+//
+//		R_s_SpkCheckCnt--;
+//        
+//        if (getSW_RS() || getSW_AR()) 
+//		{
+//            
+//            MyPrintf_USART1 ("+++++ AMP T-1 : %d \r\n",HAL_GetTick() );
+//            
+//                s_SpCh1++;
+//                
+//                setAmp_Mute_1(false);
+//                setAmp_Mute_2(false);
+//                  
+//                
+//                //--------------------Audio IC Vol seting ANSM---------------------------//   
+//                if(mLed_Process_Flag.sAnsm_Run_Flag)
+//                {
+//                    if ((mAnsSetFlag.tAnsCnt > 15) || (mLed_Process_Flag.tAmp_Vol_UpFlag == true))
+//                    {
+//                        mAnsSetFlag.tAnsFlgSet = true;
+//                        njw1192_vol_setting(mLed_Process_Flag.tAmp_Vol_UpFlag, true); // ANS ON_OFF 기능.
+//                    }
+//                    else
+//                    {
+//                        if (mAnsSetFlag.tAnsFlgSet) // 이전에 ANS가 ON 이였다면, 동작 한다.
+//                        {
+//                            mAnsSetFlag.tAnsFlgSet = false;
+//                            njw1192_vol_setting(0, false); // ANS ON_OFF 기능.
+//                        }
+//                        
+//                    }
+//                }
+//                else
+//                {
+//                    if(mLed_Process_Flag.tAmp_Vol_UpFlag == true)
+//                    {
+//                        mAnsSetFlag.tAnsFlgSet = true;
+//                        njw1192_vol_setting(mLed_Process_Flag.tAmp_Vol_UpFlag, true); // ANS ON_OFF 기능.
+//                        
+//                    }
+//                    else
+//                    {
+//                        if (mAnsSetFlag.tAnsFlgSet) // 이전에 ANS가 ON 이였다면, 동작 한다.
+//                        {
+//                            mAnsSetFlag.tAnsFlgSet = false;
+//                            njw1192_vol_setting(0, false); // ANS ON_OFF 기능.
+//                        }
+//                        
+//                        
+//                       // if( TEST_ROOM == 1) //TEST 시험 할때는 항상 동작.
+//                       // {
+//                       //     njw1192_vol_setting(0, false); // ANS ON_OFF 기능.
+//                       // }
+//                       if(mLed_Process_Flag.sVolTestFlg)// COB 에서 볼륨 레벨을 선택 한다.
+//                       {
+//                           njw1192_vol_setting(0, false); // ANS ON_OFF 기능.
+//                       }
+//
+//                    }
+//                    
+//                }
+//               //****************************************************************// 
+//                
+//                
+//               //--------------------AMP  IC Vol seting---------------------------//   
+//                if(s_SpCh1 == 1 && s_SpCh2 == 0)
+//                {
+//                    if(AMP_H_TEMP == 0)
+//                    {
+//                        AMP_Init(AMP_ID_1);
+//                    }
+//                    // 초기화 로직이 60ms  정도 소유 된다.  
+//                    // 가장 빠른 속도는  고온 모드로 동작하고, 초기화 로직을 삭제 하는 것이다.
+//                    else if(mLed_Process_Flag.sCurrentTestFlag == TRUE) // 스피커 체크  동작 일때만 정상 동작 하도록 수정.
+//                    {
+//                        AMP_Init(AMP_ID_1);
+//
+//                    }
+//                    
+//                }
+//                
+//                sPowerStandbyFlag = AMP_PowOn_Check();
+//                
+//                if(sPowerStandbyFlag != 0x07) 
+//                {
+//                    udp_SysLog("--------->NG RS/AR PowerStandBy( %d )",sPowerStandbyFlag);
+//                }
+//                
+//                s_SpCh2 = 0;
+//                
+//                  AMP_Mute_OFF(AMP_ID_1, AMP_ID_2, AMP_ID_3);
+//                  
+//                //****************************************************************//   
+//             
+//                setBk_Out_1(true);
+//                setBk_Out_3(true);
+//                setBk_Out_5(true);
+//
+//                
+//                if ((getSW_SL() && (mLed_Process_Flag.sDHCP_IP_Val == 96)) // IP 96은 실외 스피커  왼쪽.
+//                  ||(getSW_SR() && (mLed_Process_Flag.sDHCP_IP_Val == 97)))// IP 97은 실외 스피커 오른쪽.
+//                {
+//                    setBk_Out_6(true);
+//                    mLed_Process_Flag.sOut_Spk_Flag = true;
+//                    
+//                    setRSP_Led(true);
+//                    setOSP_Led(true);
+//                }
+//                else
+//                {
+//                    setBk_Out_6(false);
+//                    mLed_Process_Flag.sOut_Spk_Flag = false;
+//                    
+//                    
+//                    setRSP_Led(true);
+//                    setOSP_Led(false);
+//                }
+//                
+//
+//                mLed_Process_Flag.sRom_Spk_Flag = true;
+//                
+//                mLed_Process_Flag.sSpk_check_Cnt = 10;
+//                mLed_Process_Flag.sAudio_Play_mode = true;
+//                
+//     
+//                MyPrintf_USART1 ("+++++ AMP E-1 : %d \r\n",HAL_GetTick() );
+//
+//                
+//            
+//		}
+//		else if ((getSW_SL() && (mLed_Process_Flag.sDHCP_IP_Val == 96)) // IP 96은 실외 스피커  왼쪽.
+//               ||(getSW_SR() && (mLed_Process_Flag.sDHCP_IP_Val == 97)))// IP 97은 실외 스피커 오른쪽.
+//		{
+//            
+//            
+//            
+//            s_SpCh2++;
+//                
+//            setAmp_Mute_1(false);
+//            setAmp_Mute_2(false);
+//			
+//			
+//             njw1192_vol_setting_OutSpk();
+//            
+//			//****************************************************************//   
+//                
+//
+//			//--------------------AMP  IC Vol seting---------------------------//   
+//               
+//			 if(s_SpCh1 == 0 && s_SpCh2 == 1)
+//            { 
+//                
+//                // 실외 스피커는 사림이 인지하는 속도가 느리기 때문에 그대로 사용.
+//                AMP_Init(AMP_ID_1);
+//                mLed_Process_Flag.sAudio_Play_mode = true;
+//                
+//                
+//            }
+//            
+//            sPowerStandbyFlag = AMP_PowOn_Check();
+//                
+//            if(sPowerStandbyFlag != 0x07) 
+//            {
+//                udp_SysLog("--------->NG SL/SR PowerStandBy( %d )",sPowerStandbyFlag);
+//            }
+//			
+//            s_SpCh1 = 0;
+//            
+//            
+//            AMP_Mute_OFF(AMP_ID_1, AMP_ID_2, AMP_ID_3); // 모든 채널을 ON 하고 릴레이로 제어 한다.
+//            
+//            //****************************************************************//   
+//			
+//			setBk_Out_1(false);
+//			setBk_Out_3(false);
+//			setBk_Out_5(false);
+//
+//			setBk_Out_6(true);
+//            
+//            mLed_Process_Flag.sRom_Spk_Flag = false;
+//            mLed_Process_Flag.sOut_Spk_Flag = true;
+//            mLed_Process_Flag.sSpk_check_Cnt = 10;
+//            mLed_Process_Flag.sAudio_Play_mode = true;
+//            
+//             
+//            setRSP_Led(false);
+//			setOSP_Led(true);
+//   
+//                
+//		}
+//		else
+//		{
+//            s_SpCh1 = 0;
+//            s_SpCh2 = 0 ;   
+//			
+//			setRSP_Led(false);
+//			setOSP_Led(false);
+//
+//                
+//            //AMP close 노이즈 해결하기 위해 릴레이를  먼저 close
+//            setBk_Out_1(false);
+//			setBk_Out_3(false);
+//			setBk_Out_5(false);
+//
+//			setBk_Out_6(false);
+//            
+//			AMP_Mute_ON(AMP_ID_1, AMP_CH_All, AMP_ID_2, AMP_CH_All, AMP_ID_3, AMP_CH_All); // amp ic all mute
+//                
+//            
+//          //---------AUDIO-----------------------
+//            njw1192_mute(true);
+//            setAmp_Mute_1(true);
+//            setAmp_Mute_2(true);
+//          //--------------------------------
+//            
+//            MyPrintf_USART1 ("+++++ AMP E : %d \r\n",HAL_GetTick() );
+//                
+//			mAnsSetFlag.tAnsCnt = 0; // ANSM 초기화
+//            
+//            //방송 시간이  스피커 체크 시간보다  짧으면 스피커 체크를 중단 한다.
+//            if(mLed_Process_Flag.sSpk_check_Cnt >= 1) { mLed_Process_Flag.sSpk_check_Cnt = 0;}
+//            
+//            
+//            mLed_Process_Flag.sRom_Spk_Flag = true;
+//            
+//            mLed_Process_Flag.sSpk_check_Cnt = 10;  // ** AMP Standby OFF count 
+//            
+//            mLed_Process_Flag.sAudio_Play_mode = false;
+//            
+//
+//		}
+//	}
+//
+//}
 
 
 /*****************************************************************************
@@ -546,8 +546,7 @@ void AMP_Init(uint16_t Address)
     {
         MyPrintf_USART1( "-Gain Select (0xD8-0x08) NG \r\n" );
     }
-//    I2C_HAL_WriteBytes(&hi2c1, AMP_ID_2, 0x08, (uint8_t *)nRbuf, 1);
-//    I2C_HAL_WriteBytes(&hi2c1, AMP_ID_3, 0x08, (uint8_t *)nRbuf, 1);
+
     
     
     
@@ -561,8 +560,7 @@ void AMP_Init(uint16_t Address)
     {
         MyPrintf_USART1( "- Clip_OTW Configuration (0xD8-0x0A) NG \r\n" );
     }
-//    I2C_HAL_WriteBytes(&hi2c1, AMP_ID_2, 0x0A, (uint8_t *)nRbuf, 1);
-//    I2C_HAL_WriteBytes(&hi2c1, AMP_ID_3, 0x0A, (uint8_t *)nRbuf, 1);
+
     
     
     
@@ -587,18 +585,11 @@ void AMP_Init(uint16_t Address)
         MyPrintf_USART1( "-play mode (0xD8-0x0C) NG \r\n" );
     }
 
-//    nRbuf[0] = 0x12;
-//	I2C_HAL_WriteBytes(&hi2c1, AMP_ID_2, 0x0b, (uint8_t *)nRbuf, 1);
-//    
-//    nRbuf[0] = 0x16;
-//	I2C_HAL_WriteBytes(&hi2c1, AMP_ID_3, 0x0b, (uint8_t *)nRbuf, 1);
     
 	HAL_Delay(5);  // 100ms 항상 유지 필요
       
 	nRbuf[0] = 0xFF;
 	I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x00, (uint8_t *)nRbuf, 1);
-//	I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x00, (uint8_t *)nRbuf, 1);
-//	I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x00, (uint8_t *)nRbuf, 1);
 
     
 
@@ -631,23 +622,6 @@ void AMP_Mute_OFF(
 		I2C_HAL_WriteBytes(&hi2c1, AMP_ID_1, 0x0C, (uint8_t *)nTbuf, 1);
        
 	}
-    
-	if (AMP_ID_2 == Address2)
-	{
-        
-		nTbuf[0] = 0x09;
-		I2C_HAL_WriteBytes(&hi2c1, AMP_ID_2, 0x0C, (uint8_t *)nTbuf, 1);
-            
-       
-	}
-    
-	if (AMP_ID_3 == Address3)
-	{
-		nTbuf[0] = 0x09;
-		I2C_HAL_WriteBytes(&hi2c1, AMP_ID_3, 0x0C, (uint8_t *)nTbuf, 1);
-            
-	}
-     
     
 }
 
@@ -694,28 +668,7 @@ int AMP_PowOn_Check(void)
     
     MyPrintf_USART1( "+++++ AMP_ID_1 (%x - %x)\r\n",nRbuf[0],nRbuf1[0] );
     
-    
-    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x00, (uint8_t *)nRbuf, 1);
-    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x01, (uint8_t *)nRbuf1, 1);
-    
-     if(nRbuf[0] == 0x00 && nRbuf1[0] == 0x00)
-    {
-        sPowerStandBy = sPowerStandBy | (0x01 <<1);
-    }
-    
-    MyPrintf_USART1( "+++++ AMP_ID_2 (%x - %x)\r\n",nRbuf[0],nRbuf1[0] );
-    
-    
-    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x00, (uint8_t *)nRbuf, 1);
-    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x01, (uint8_t *)nRbuf1, 1);
-    
-     if(nRbuf[0] == 0x00 && nRbuf1[0] == 0x00)
-    {
-        sPowerStandBy = sPowerStandBy | (0x01 <<2);
-    }
-    
-    MyPrintf_USART1( "+++++ AMP_ID_3 (%x - %x)\r\n",nRbuf[0],nRbuf1[0] );
-    
+
     
     return sPowerStandBy;
     
@@ -763,52 +716,7 @@ void AMP_Mute_ON(
        
 	}
     
-	if (AMP_ID_2 == Address2)
-	{
-        
-		if (ad_ch2 == AMP_CH_All)
-		{
-			nTbuf[0] = 0x1F;
-			I2C_HAL_WriteBytes(&hi2c1, AMP_ID_2, 0x0C, (uint8_t *)nTbuf, 1);
-		}
-		else if (ad_ch2 == AMP_CH_1) // 1ch mute
-		{
-			nTbuf[0] = 0x1D;
-			I2C_HAL_WriteBytes(&hi2c1, AMP_ID_2, 0x0C, (uint8_t *)nTbuf, 1);
-            
-		}
-		else if(ad_ch2 == AMP_CH_2) // 2ch mute
-		{
-			nTbuf[0] = 0x1B;
-			I2C_HAL_WriteBytes(&hi2c1, AMP_ID_2, 0x0C, (uint8_t *)nTbuf, 1);
-		}
-            
-       
-	}
-    
-    
-	if (AMP_ID_3 == Address3)
-	{
-		if (ad_ch3 == AMP_CH_All)
-		{
-			nTbuf[0] = 0x1F;
-			I2C_HAL_WriteBytes(&hi2c1, AMP_ID_3, 0x0C, (uint8_t *)nTbuf, 1);
-		}
-		else if (ad_ch3 == AMP_CH_1) // 1ch mute
-		{
-			nTbuf[0] = 0x1D;
-			I2C_HAL_WriteBytes(&hi2c1, AMP_ID_3, 0x0C, (uint8_t *)nTbuf, 1);
-            
-		}
-		else if(ad_ch3 == AMP_CH_2) // 2ch mute
-		{
-			nTbuf[0] = 0x1B;
-			I2C_HAL_WriteBytes(&hi2c1, AMP_ID_3, 0x0C, (uint8_t *)nTbuf, 1);
-		}
-        
-            
-	}
-    
+
 }
 
 /*****************************************************************************
@@ -852,52 +760,7 @@ void AMP_FAULT(void)
             mLed_Process_Flag.sAmp_Falut_val &= 0x0E;
         }
             
-      //-----------------------------------------------------------------------------------------------      
-        if (getAmp2_Pault() == false)
-        {
-            nRbuf[0] = 0xFF;    
-            nRbuf1[0] = 0xFF;
-            I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x00, (uint8_t *)nRbuf, 1);
-            I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x01, (uint8_t *)nRbuf1, 1);
-                
-                
-            MyPrintf_USART1("+++++ getAmp2_Pault - 1:%02x / 2:%02x \r\n", nRbuf[0],nRbuf1[0]);
-                
-            sprintf(&mLCDPrintBuf[2][5], "P2-%2x", nRbuf[0]);
-            
-            mLed_Process_Flag.sAmp_Falut_val |= 0x01<<1;
-                
-        }
-        else
-        {
-            sprintf(&mLCDPrintBuf[2][5], "*****");
-            
-            mLed_Process_Flag.sAmp_Falut_val &= 0x0D;
-        }
-            
-      //-----------------------------------------------------------------------------------------------      
-        if (getAmp3_Pault() == false)
-        {
-            nRbuf[0] = 0xFF;    
-            nRbuf1[0] = 0xFF;
-            I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x00, (uint8_t *)nRbuf, 1);
-            I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x01, (uint8_t *)nRbuf1, 1);
-                
-            
-            MyPrintf_USART1("+++++ getAmp3_Pault - 1:%02x / 2:%02x \r\n", nRbuf[0],nRbuf1[0]);
-                
-            sprintf(&mLCDPrintBuf[2][10], "P3-%2x", nRbuf[0]);
-            
-             mLed_Process_Flag.sAmp_Falut_val |= 0x01<<2;
-                
-                
-        }
-        else
-        {
-            sprintf(&mLCDPrintBuf[2][10], "-----");
-            
-            mLed_Process_Flag.sAmp_Falut_val &= 0x0B;
-        }
+   
 
   //-----------------------------------------------------------------------------------------------
     sprintf(&mLCDPrintBuf[2][15], "Temp-%02d",mLed_Process_Flag.sCpu_Temp);
@@ -920,8 +783,7 @@ void AMP_FAULT(void)
             nRbuf2[0] = 0xFF;
             
             I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x04, (uint8_t *)nRbuf, 1);
-            I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x04, (uint8_t *)nRbuf1, 1);
-            I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x04, (uint8_t *)nRbuf2, 1);
+           
             
             MyPrintf_USART1("+++++ getAmpPault - 1:%02x -- 2:%02x -- 3:%02x \r\n", nRbuf[0],nRbuf1[0],nRbuf2[0]);
             
@@ -930,7 +792,6 @@ void AMP_FAULT(void)
             if(sAmpRestCnt &0x01)
             {
                 setAmp_Mute_1(false);
-                setAmp_Mute_2(false);
                 
                 setAMP_Standby(false); //   
  
@@ -1017,8 +878,7 @@ void AMP_SPK_CHECK(void)
         nRbuf_2[0] = 0xFF;
         
         I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x06, (uint8_t *)nRbuf_0, 1);
-        I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x06, (uint8_t *)nRbuf_1, 1);
-        I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x06, (uint8_t *)nRbuf_2, 1);
+      
         
         MyPrintf_USART1("+++++ In-Amp Mute/Play mode- 1:%02X / 2:%02X / 3:%02X \r\n",nRbuf_0[0],nRbuf_1[0],nRbuf_2[0] );
         
@@ -1061,39 +921,7 @@ void AMP_SPK_CHECK(void)
                 mLed_Process_Flag.sSt_Buf_Val[0] = ((nRbuf_1[0]&0xF0) | (nRbuf_2[0]&0x0F));
                 
                 
-                nRbuf_1[0] = 0xFF;
-                nRbuf_2[0] = 0xFF;
-                
-                // I2C_HAL_ReadBytes(&hi2c2, AMP_ID_2, 0x00, (uint8_t *)nRbuf_1, 1);
-
-                I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x02, (uint8_t *)nRbuf_1, 1);
-                I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x03, (uint8_t *)nRbuf_2, 1);
-                              
-                MyPrintf_USART1("+++++ getAmp2 Spk read :%02X \r\n", ((nRbuf_1[0]&0xF0) | (nRbuf_2[0]&0x0F)));
-            
-                mLed_Process_Flag.sSt_Buf_Val[1] = ((nRbuf_1[0]&0xF0) | (nRbuf_2[0]&0x0F));
-                
-                
-                
-                nRbuf_1[0] = 0xFF;
-                nRbuf_2[0] = 0xFF;
-                
-                I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x02, (uint8_t *)nRbuf_1, 1);
-                
-                if(mLed_Process_Flag.sOut_Spk_Flag) // 추가로 실외 스피커 동작 하면 같이 체크한다. 
-                {
-                    mLed_Process_Flag.sOut_Spk_Flag = false;
-
-                    I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x03, (uint8_t *)nRbuf_2, 1);
-                }
-                else 
-                {
-                    nRbuf_2[0] = 0x00;
-                }
-                              
-                MyPrintf_USART1("+++++ getAmp3 Spk read :%02X \r\n", ((nRbuf_1[0]&0xF0) | (nRbuf_2[0]&0x0F)));
-                
-                mLed_Process_Flag.sSt_Buf_Val[2] = ((nRbuf_1[0]&0xF0) | (nRbuf_2[0]&0x0F));
+  
             }
             
             
@@ -1147,23 +975,15 @@ void AMP_SPK_CHECK(void)
          mLed_Process_Flag.sOut_Spk_Flag = false;
          
          
-        // I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x00, (uint8_t *)nRbuf_1, 1);
 
-        //I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x02, (uint8_t *)nRbuf_1, 1);
          
          nRbuf_1[0] = 0x0F;
          nRbuf_2[0] = 0xFF;
          
-        I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x03, (uint8_t *)nRbuf_2, 1);
-                      
-        MyPrintf_USART1("+++++ getAmp3 Spk read :%02X \r\n", ((nRbuf_1[0]&0xF0) | (nRbuf_2[0]&0x0F)));
-        
-        mLed_Process_Flag.sSt_Buf_Val[3] = ((nRbuf_1[0]&0xF0) | (nRbuf_2[0]&0x0F));
         
         
         I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x06, (uint8_t *)nRbuf_0, 1);
-        I2C_HAL_ReadBytes(&hi2c1, AMP_ID_2, 0x06, (uint8_t *)nRbuf_1, 1);
-        I2C_HAL_ReadBytes(&hi2c1, AMP_ID_3, 0x06, (uint8_t *)nRbuf_2, 1);
+      
         
         MyPrintf_USART1("+++++ Out- Amp Mute/Play mode- 1:%02X / 2:%02X / 3:%02X \r\n",nRbuf_0[0],nRbuf_1[0],nRbuf_2[0] );
         

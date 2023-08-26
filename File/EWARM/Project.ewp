@@ -665,7 +665,7 @@
                 </option>
                 <option>
                     <name>OOCOutputFile</name>
-                    <state>5_8EPD_$DATE$.bin</state>
+                    <state>5_8EPD_.bin</state>
                 </option>
                 <option>
                     <name>OOCCommandLineProducer</name>
@@ -1120,9 +1120,6 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\CRC8.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\Src\debug_task.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\ethernetif.c</name>

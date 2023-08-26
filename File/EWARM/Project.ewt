@@ -1449,9 +1449,6 @@
                 <name>$PROJ_DIR$\..\Src\CRC8.c</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\..\Src\debug_task.c</name>
-            </file>
-            <file>
                 <name>$PROJ_DIR$\..\Src\ethernetif.c</name>
             </file>
             <file>

@@ -496,7 +496,7 @@ void processGetBatVol(void)
 	}
     
 	u16BatVolSum += batVol;
-	if(u16CntBatVol >= 1)
+	if(u16CntBatVol >=10)
 	{
 		u16BatVol = u16BatVolSum / u16CntBatVol;
 		u16CntBatVol = 0;

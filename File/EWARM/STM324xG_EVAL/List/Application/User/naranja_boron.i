@@ -29431,13 +29431,13 @@ void processGetBatVol(void)
 	}
     
 	u16BatVolSum += batVol;
-	if(u16CntBatVol >= 1)
+	if(u16CntBatVol >=10)
 	{
 		u16BatVol = u16BatVolSum / u16CntBatVol;
 		u16CntBatVol = 0;
 		u16BatVolSum = 0;
         
-        printf("bat----> [%d]\n", u16BatVol);
+        MyPrintf_USART1("bat----> [%d]\n", u16BatVol);
 	}
 }
 

@@ -35,6 +35,10 @@
 #endif /* __GNUC__ */
 
 
+UART_HandleTypeDef *phuart1 = NULL;			//	Debug
+
+
+
 
 Queue_t		g_qUart1;
 Queue_t		g_qUart6;
@@ -46,7 +50,7 @@ Queue_t		g_qUart6;
   * @retval None
   */
 ////===========================================================================
-//int putchar(int ch)
+//PUTCHAR_PROTOTYPE
 ////===========================================================================
 //{
 //	/* Place your implementation of fputc here */
@@ -54,12 +58,14 @@ Queue_t		g_qUart6;
 //
 //	//========================================================================
 //	//	Console
-//
-//		HAL_UART_Transmit_IT( &UartHandle1, (uint8_t *)&ch, 1 );
+//    if ( phuart1 )
+//	  {
+//		HAL_UART_Transmit_IT( phuart1, (uint8_t *)&ch, 1 );
 //		if ( ch == '\n' )
 //		{
-//			HAL_UART_Transmit_IT( &UartHandle1, (uint8_t *)"\r", 1 );
+//			HAL_UART_Transmit_IT( phuart1, (uint8_t *)"\r", 1 );
 //		}
+//    }
 //
 //
 //	return ch;

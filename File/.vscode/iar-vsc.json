@@ -1,5 +1,21 @@
 {
-    "ewp": "c:\\D\\Git_Hub\\LEDC-B1\\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\\EWARM\\Project.ewp",
-    "configuration": "STM324xG_EVAL",
-    "toolchain": "C:\\Program Files (x86)\\IAR Systems\\Embedded Workbench 8.3"
+  "ewp": "c:\\D\\Git_Hub\\LEDC-B1\\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\\EWARM\\Project.ewp",
+  "configuration": "STM324xG_EVAL",
+  "toolchain": "C:\\Program Files (x86)\\IAR Systems\\Embedded Workbench 8.3",
+  "workspace": {
+    "path": "${workspaceFolder}\\EWARM\\Project.eww"
+  },
+  "workspaces": {
+    "${workspaceFolder}\\EWARM\\Project.eww": {
+      "configs": {
+        "${workspaceFolder}\\EWARM\\Project.ewp": "STM324xG_EVAL"
+      },
+      "selected": {
+        "path": "${workspaceFolder}\\EWARM\\Project.ewp"
+      }
+    }
+  },
+  "workbench": {
+    "path": "C:\\Program Files\\IAR Systems\\Embedded Workbench 9.1"
+  }
 }
