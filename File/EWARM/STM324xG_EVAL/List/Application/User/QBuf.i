@@ -21932,6 +21932,10 @@ void Dump( char *sTitle, char *sBuf, int nSize );
 
 
 
+UART_HandleTypeDef *phuart1 = 0;			
+
+
+
 
 Queue_t		g_qUart1;
 Queue_t		g_qUart6;
@@ -21942,6 +21946,8 @@ Queue_t		g_qUart6;
 
 
  
+
+
 
 
 
