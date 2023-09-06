@@ -77,6 +77,11 @@ int cmd_WDGStOff( int argc, char *argv[] );
 int cmd_battery ( int argc, char *argv[] );		//	베터리 잔량
 int	cmd_debug	( int argc, char *argv[] );
 
+int cmd_RF_POWN_ON  ( int argc, char *argv[] );
+
+extern int GetDbg(void );
+
+
 //========================================================================
 
 #endif	/* _CLI_H_ */

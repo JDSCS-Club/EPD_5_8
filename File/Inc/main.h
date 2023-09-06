@@ -95,16 +95,23 @@
      
 #define RF_POWN_EN_Pin                                                          GPIO_PIN_6
 #define RF_POWN_EN_Port                                                         GPIOD
-     
-     
-#define LED_75_Pin                                                              GPIO_PIN_10
-#define LED_75_GPIO_Port                                                        GPIOD
-#define RF_LED_Pin                                                              GPIO_PIN_11
+
+
+
+#define RF_LED_Pin                                                              GPIO_PIN_10
 #define RF_LED_GPIO_Port                                                        GPIOD
-#define LED_100_RED_Pin                                                         GPIO_PIN_12
-#define LED_100_RED_GPIO_Port                                                   GPIOD
-#define LED_100_GREEN_Pin                                                       GPIO_PIN_13
+     
+#define LED_75_Pin                                                              GPIO_PIN_11
+#define LED_75_GPIO_Port                                                        GPIOD
+
+
+#define LED_100_GREEN_Pin                                                       GPIO_PIN_12
 #define LED_100_GREEN_GPIO_Port                                                 GPIOD
+
+
+#define LED_100_RED_Pin                                                         GPIO_PIN_13
+#define LED_100_RED_GPIO_Port                                                   GPIOD
+
 #define LIGHT_ON_Pin                    GPIO_PIN_15
 #define LIGHT_ON_GPIO_Port              GPIOD
      
@@ -115,14 +122,24 @@
 #define VCC_IN_GPIO_Port 		        GPIOE
 #define SD_Pin                                                                  GPIO_PIN_3
 #define SD_GPIO_Port                                                            GPIOE
+     
+     
 #define LED_CTL_Pin                                                             GPIO_PIN_4
 #define LED_CTL_GPIO_Port                                                       GPIOE   
+     
+     
 #define MASTER_IN_Pin 			        GPIO_PIN_5
 #define MASTER_IN_GPIO_Port 	        GPIOE
+     
+     
 #define DI_CTL_Pin                                                              GPIO_PIN_6
 #define DI_CTL_GPIO_Port                                                        GPIOE
+     
+     
 #define PHY_RST                                                                 GPIO_PIN_7
 #define PHY_RST_Port                                                            GPIOE
+     
+     
 #define PHY_PWR_INT                     GPIO_PIN_8
 #define PHY_PWR_INT_Port                GPIOE
      
