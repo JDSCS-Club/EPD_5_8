@@ -28192,12 +28192,29 @@ void njw1192_mute(uint8_t On_Off);
      
 
      
+
+
+
      
-     
+
+
+
+
+
      
      
      
 
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
      
 
 
@@ -28950,7 +28967,7 @@ extern uint16_t u16Led75UnderFlickerTick;
 extern uint16_t u16Led100UnderFlickerTick;
 extern uint16_t u16AmpSettingTick;
 
-extern uint8_t uDI_getMasterIn;
+extern uint8_t uDI_getMasterIn;  
 extern uint8_t uSpk_Stat;
 extern uint8_t uRssi_NgFlag;
 
@@ -28967,7 +28984,7 @@ extern void processAudioAmpProcess(void);
 extern void processGetBatVol(void);
 extern void processTestDebug(void);
 
-
+extern _Bool getVccIn(void);
 
 extern _Bool getVccRfIn(void);
 extern _Bool getAmpFault(void);
@@ -28978,7 +28995,10 @@ extern void ONTD(uint8_t IN,uint8_t *OUT,uint8_t MS,int *CLK );
 
 extern void ONTD_Function(void);
 
+extern _Bool getMasterIn(void);
 
+extern void RF_POWN_ON(void);
+extern void RF_POWN_OFF(void);
 
 
 
@@ -29035,7 +29055,7 @@ int cmd_occ(int argc, char *argv[])
     static int sProCnt = 0;
         
             
-    if(!uDI_getMasterIn) 
+    if(uDI_getMasterIn) 
     {
         
         bOnOff = 1;

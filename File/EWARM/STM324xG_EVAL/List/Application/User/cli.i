@@ -28307,12 +28307,29 @@ void njw1192_mute(uint8_t On_Off);
      
 
      
+
+
+
      
-     
+
+
+
+
+
      
      
      
 
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
      
 
 
@@ -29215,6 +29232,11 @@ int cmd_WDGStOff( int argc, char *argv[] );
 int cmd_battery ( int argc, char *argv[] );		
 int	cmd_debug	( int argc, char *argv[] );
 
+int cmd_RF_POWN_ON  ( int argc, char *argv[] );
+
+extern int GetDbg(void );
+
+
 
 
 
@@ -29374,7 +29396,7 @@ user_command_t	user_command_table[] = {
 		(char *)0,
 		cmd_help,},
 	{"uptime",
-		"uptime		-	display uptime \n\r",
+		"uptime	-   display uptime \n\r",
 		(char *)0,
 		cmd_uptime,},
 	{"ver",
@@ -29397,9 +29419,14 @@ user_command_t	user_command_table[] = {
 		"bat		-	Battery Charge Rate\n\r",
 		(char *)0,
 		cmd_battery,},
-     {"debug",
-		"debug		-	set debug level.",
+	{"RF_POWER",
+		"RF_POWER	-	RF Modual Power ON(1)/OFF(2) \n\r",
 		(char *)0,
+		cmd_RF_POWN_ON,},
+     {"debug",
+		"debug		-	set debug level.\n\r",
+		"			1 - Ethernet , 2 - Amp , 3 - Current , 4 - Run Debug ,   5 - Run Time ON \n\r",
+		
 		cmd_debug, },   
 		
 
@@ -29488,23 +29515,64 @@ int 	a2hex(char *pv)
 
 
 
+
+
+
+ 
+
 int cmd_debug(int argc, char *argv[])
 
 {
 	if (argc == 1)
 	{
-		MyPrintf_USART1("current debug level = 0x%x\n", debug_level);
+		MyPrintf_USART1("current debug level = 0x%x\r\n", debug_level);
 	}
 	else
 	{
 		debug_level = a2hex(argv[1]);
-		MyPrintf_USART1("debug level = 0x%x\n", debug_level);
+		MyPrintf_USART1("debug level = 0x%x\r\n", debug_level);
 	}
 
 	return 0;
 }
 
 
+int GetDbg(void )
+{
+	return debug_level;
+}
+
+
+
+
+
+ 
+int cmd_RF_POWN_ON(int argc , char *argv[])
+{
+	int sNum = 0;
+
+	if (argc == 1)
+	{
+		MyPrintf_USART1("RF_POWER MODE SELECT \n\r" );
+	}
+	else
+	{
+		sNum =  a2hex(argv[1]);
+
+		if(sNum == 1)
+		{
+			RF_POWN_ON();	
+			MyPrintf_USART1("RF POWN_ON \n\r ");
+		
+		}else if(sNum == 2)
+		{
+			RF_POWN_OFF();    	
+			MyPrintf_USART1("RF POWN_OFF \n\r ");
+		}
+
+		
+	}
+}
 
 
 
@@ -29818,11 +29886,12 @@ int cmd_help( int argc, char *argv[] )
 			{
 				if ( user_command_table[i].command_help1 != 0 )
 				{
-					MyPrintf_USART1( "%s\n", user_command_table[i].command_help1 );
+					MyPrintf_USART1( "%s", user_command_table[i].command_help1 );
 				}
+                
 				if ( user_command_table[i].command_help2 != 0 )
 				{
-					MyPrintf_USART1( "%s\n", user_command_table[i].command_help2 );
+					MyPrintf_USART1( "%s", user_command_table[i].command_help2 );
 				}
 				ok = 1;
 			}
@@ -29831,8 +29900,15 @@ int cmd_help( int argc, char *argv[] )
 		{
 			if ( user_command_table[i].command_help1 != 0 )
 			{
-				MyPrintf_USART1( "%s\n", user_command_table[i].command_help1 );
+				MyPrintf_USART1( "%s", user_command_table[i].command_help1 );
 			}
+            
+            
+            if ( user_command_table[i].command_help2 != 0 )
+            {
+                MyPrintf_USART1( "%s", user_command_table[i].command_help2 );
+            }
+            
 			ok = 1;
 		}
 	}
@@ -30026,7 +30102,7 @@ int cmd_rfm(int argc, char *argv[])
 
 {
 	
-	MyPrintf_USART1("%s(%d)\n", __func__, 876 );
+	MyPrintf_USART1("%s(%d)\n", __func__, 930 );
 
 	return 0;
 }

@@ -1,3 +1,9 @@
 {
-    "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools"
+    "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools",
+    "files.associations": {
+        "main.h": "c",
+        "opt.h": "c",
+        "usrat.h": "c",
+        "cli.h": "c"
+    }
 }

@@ -28147,12 +28147,29 @@ void njw1192_mute(uint8_t On_Off);
      
 
      
+
+
+
      
-     
+
+
+
+
+
      
      
      
 
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
      
 
 
@@ -30806,7 +30823,7 @@ extern uint16_t u16Led75UnderFlickerTick;
 extern uint16_t u16Led100UnderFlickerTick;
 extern uint16_t u16AmpSettingTick;
 
-extern uint8_t uDI_getMasterIn;
+extern uint8_t uDI_getMasterIn;  
 extern uint8_t uSpk_Stat;
 extern uint8_t uRssi_NgFlag;
 
@@ -30823,7 +30840,7 @@ extern void processAudioAmpProcess(void);
 extern void processGetBatVol(void);
 extern void processTestDebug(void);
 
-
+extern _Bool getVccIn(void);
 
 extern _Bool getVccRfIn(void);
 extern _Bool getAmpFault(void);
@@ -30834,7 +30851,10 @@ extern void ONTD(uint8_t IN,uint8_t *OUT,uint8_t MS,int *CLK );
 
 extern void ONTD_Function(void);
 
+extern _Bool getMasterIn(void);
 
+extern void RF_POWN_ON(void);
+extern void RF_POWN_OFF(void);
 
 
 
@@ -31014,6 +31034,11 @@ int cmd_WDGStOff( int argc, char *argv[] );
 
 int cmd_battery ( int argc, char *argv[] );		
 int	cmd_debug	( int argc, char *argv[] );
+
+int cmd_RF_POWN_ON  ( int argc, char *argv[] );
+
+extern int GetDbg(void );
+
 
 
 
@@ -31296,14 +31321,14 @@ const unsigned char completeVersion[] =
 const unsigned char completeVersionBuild[] = 
 {
 	'B',
-	("Aug 27 2023"[ 9]),
-	("Aug 27 2023"[10]),
+	("Sep  6 2023"[ 9]),
+	("Sep  6 2023"[10]),
    
-	((("Aug 27 2023"[0] == 'O') || ("Aug 27 2023"[0] == 'N') || ("Aug 27 2023"[0] == 'D')) ? '1' : '0'),
-	( (("Aug 27 2023"[0] == 'J' && "Aug 27 2023"[1] == 'a' && "Aug 27 2023"[2] == 'n')) ? '1' : (("Aug 27 2023"[0] == 'F')) ? '2' : (("Aug 27 2023"[0] == 'M' && "Aug 27 2023"[1] == 'a' && "Aug 27 2023"[2] == 'r')) ? '3' : (("Aug 27 2023"[0] == 'A' && "Aug 27 2023"[1] == 'p')) ? '4' : (("Aug 27 2023"[0] == 'M' && "Aug 27 2023"[1] == 'a' && "Aug 27 2023"[2] == 'y')) ? '5' : (("Aug 27 2023"[0] == 'J' && "Aug 27 2023"[1] == 'u' && "Aug 27 2023"[2] == 'n')) ? '6' : (("Aug 27 2023"[0] == 'J' && "Aug 27 2023"[1] == 'u' && "Aug 27 2023"[2] == 'l')) ? '7' : (("Aug 27 2023"[0] == 'A' && "Aug 27 2023"[1] == 'u')) ? '8' : (("Aug 27 2023"[0] == 'S')) ? '9' : (("Aug 27 2023"[0] == 'O')) ? '0' : (("Aug 27 2023"[0] == 'N')) ? '1' : (("Aug 27 2023"[0] == 'D')) ? '2' : '?' ),
+	((("Sep  6 2023"[0] == 'O') || ("Sep  6 2023"[0] == 'N') || ("Sep  6 2023"[0] == 'D')) ? '1' : '0'),
+	( (("Sep  6 2023"[0] == 'J' && "Sep  6 2023"[1] == 'a' && "Sep  6 2023"[2] == 'n')) ? '1' : (("Sep  6 2023"[0] == 'F')) ? '2' : (("Sep  6 2023"[0] == 'M' && "Sep  6 2023"[1] == 'a' && "Sep  6 2023"[2] == 'r')) ? '3' : (("Sep  6 2023"[0] == 'A' && "Sep  6 2023"[1] == 'p')) ? '4' : (("Sep  6 2023"[0] == 'M' && "Sep  6 2023"[1] == 'a' && "Sep  6 2023"[2] == 'y')) ? '5' : (("Sep  6 2023"[0] == 'J' && "Sep  6 2023"[1] == 'u' && "Sep  6 2023"[2] == 'n')) ? '6' : (("Sep  6 2023"[0] == 'J' && "Sep  6 2023"[1] == 'u' && "Sep  6 2023"[2] == 'l')) ? '7' : (("Sep  6 2023"[0] == 'A' && "Sep  6 2023"[1] == 'u')) ? '8' : (("Sep  6 2023"[0] == 'S')) ? '9' : (("Sep  6 2023"[0] == 'O')) ? '0' : (("Sep  6 2023"[0] == 'N')) ? '1' : (("Sep  6 2023"[0] == 'D')) ? '2' : '?' ),
    
-	(("Aug 27 2023"[4] >= '0') ? ("Aug 27 2023"[4]) : '0'),
-	("Aug 27 2023"[ 5]),
+	(("Sep  6 2023"[4] >= '0') ? ("Sep  6 2023"[4]) : '0'),
+	("Sep  6 2023"[ 5]),
 	
 	
     
@@ -31401,6 +31426,7 @@ int main(void)
     
     static int s_bMstIn = 0;
     static int s_vcc = 0;
+    static int s_Cnt = 0;
 
 
     
@@ -31408,10 +31434,10 @@ int main(void)
 
       AUDIO_AMP_Boot_Set();
 
-  	  MyPrintf_USART1("\n----TestEEPROM Test----\n\n");
+  	  MyPrintf_USART1("\n----TestEEPROM Test----\n\r");
 	  TestEEPROM(&hi2c1);	
 
-	  MyPrintf_USART1("\n----EEPLogInit Test----\n\n");
+	  MyPrintf_USART1("\n----EEPLogInit Test----\n\r");
 	  EEPLogInit(&hi2c1); 
 
 
@@ -31456,17 +31482,29 @@ int main(void)
         
         if ( (nTick - s_nOccCnt) >= 100)
         {
+            
+            
 
 
         	 s_nOccCnt = nTick;
 
 
 
-        	if(s_vcc != getVccIn())
+        	if(s_vcc != getMasterIn())
         	{
-        		s_vcc = getVccIn();
-        		MyPrintf_USART1("Timer_getVccIn():%d\n", getVccIn());
-        		MyPrintf_USART1("Timer_getMasterIn():%d\n", getMasterIn());
+                
+        		s_vcc = getMasterIn();
+                
+                s_Cnt++;
+                
+                
+                if(GetDbg() == 4)
+                {
+                
+                    MyPrintf_USART1("------************------------Timer_getVccIn():%d-%d\n\r", getVccIn(),s_Cnt);
+                    MyPrintf_USART1("------************------------Timer_getMasterIn():%d-%d\n\r", getMasterIn(),s_Cnt);
+                
+                }
         	}
 
 
@@ -31478,7 +31516,7 @@ int main(void)
         		if(sVccInFlag > 15)
         		{
 
-					int bMstIn = getMasterIn();
+					int bMstIn = uDI_getMasterIn;
 
 					if ( bMstIn )
 					{
@@ -31534,7 +31572,7 @@ int main(void)
 
         	}
 
-
+            ONTD_Function();
 
         }
             
@@ -31562,8 +31600,9 @@ int main(void)
         if ( (nTick - s_currentCnt) >= 5000)
         {
             s_currentCnt = nTick;
-                
              
+            
+             processCurrentVal();
                  
                 
    
@@ -31797,6 +31836,8 @@ int main(void)
 
 
 
+
+
  
 static void BSP_Config(void)
 {
@@ -31878,7 +31919,7 @@ static void BSP_Config(void)
     
     
       
-    GPIO_InitStructure.Pin = ((uint16_t)0x0040)| ((uint16_t)0x0002) | ((uint16_t)0x0400) | ((uint16_t)0x0800) | ((uint16_t)0x1000) | ((uint16_t)0x2000);
+    GPIO_InitStructure.Pin = ((uint16_t)0x0040)| ((uint16_t)0x0002) | ((uint16_t)0x0800) | ((uint16_t)0x0400) | ((uint16_t)0x2000) | ((uint16_t)0x1000);
 	GPIO_InitStructure.Pull = 0x00000000U;
 	GPIO_InitStructure.Mode = 0x00000001U;
     GPIO_InitStructure.Speed = 0x00000003U;
@@ -31889,9 +31930,9 @@ static void BSP_Config(void)
     HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0040), GPIO_PIN_SET);
     
     
-    HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0800), GPIO_PIN_SET);
-    HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0400), GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x1000)|((uint16_t)0x2000), GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0400), GPIO_PIN_SET);
+    HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0800), GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x2000)|((uint16_t)0x1000), GPIO_PIN_RESET);
     
 
 
@@ -31900,7 +31941,7 @@ static void BSP_Config(void)
     GPIO_InitStructure.Pin = ((uint16_t)0x0002) | ((uint16_t)0x0020);
 	GPIO_InitStructure.Pull = 0x00000000U;
 	GPIO_InitStructure.Mode = 0x00000000U;
-    GPIO_InitStructure.Speed = 0x00000003U;
+    GPIO_InitStructure.Speed = 0x00000000U;
 	HAL_GPIO_Init(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x1000U)), &GPIO_InitStructure);
     
      
@@ -31913,9 +31954,11 @@ static void BSP_Config(void)
     
     HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x1000U)), ((uint16_t)0x0080), GPIO_PIN_SET);
        
-    HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x1000U)), ((uint16_t)0x0008)|((uint16_t)0x0010), GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x1000U)), ((uint16_t)0x0008), GPIO_PIN_RESET);
    
     HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x1000U)), ((uint16_t)0x0040), GPIO_PIN_SET);   
+    
+    HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x1000U)), ((uint16_t)0x0010), GPIO_PIN_RESET);
     
     
 }
@@ -32212,9 +32255,9 @@ void Time_Main(void)
     if (!(m_Main_TIM_Cnt % 5000)) 
 	{
         
-       RFMOccPaStart();
+       
         
-            processCurrentVal();
+            
             
             
         if(mLed_Process_Flag.sCurrentTestFlag == 1) 
@@ -32283,23 +32326,26 @@ void Time_Main(void)
     {
         
         HAL_GPIO_TogglePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x1000U)), ((uint16_t)0x0008));
-        HAL_GPIO_TogglePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x1000U)), ((uint16_t)0x0010));
+        
         
         
         batVol = getAdc1Vol();
         batVol1 = getAdc2Vol();
         
         
-        MyPrintf_USART1("~~~~~~~~~~~~NewPulse 4_line PAMP~~~~~~~~~~~~\n\r");
-		MyPrintf_USART1("CPU RUN Time  = %d Second  \n\r", (m_Main_TIM_Cnt / 1000));
-        MyPrintf_USART1("IP  : %s\n\r", ip4addr_ntoa(&gnetif.ip_addr));
-		MyPrintf_USART1("MAC : %x-%x-%x-%x-%x-%x \n\r", gnetif.hwaddr[0], gnetif.hwaddr[1], gnetif.hwaddr[2], gnetif.hwaddr[3], gnetif.hwaddr[4], gnetif.hwaddr[5]);
-        MyPrintf_USART1("BAT : %02d\r\n",batVol1);
-        MyPrintf_USART1("Temp : %02d\r\n",batVol);
+        if(GetDbg() == 4)
+        {
+            
+            MyPrintf_USART1("~~~~~~~~~~~~NewPulse 4_line PAMP~~~~~~~~~~~~\n\r");
+            MyPrintf_USART1("CPU RUN Time  = %d Second  \n\r", (m_Main_TIM_Cnt / 1000));
+            MyPrintf_USART1("IP  : %s\n\r", ip4addr_ntoa(&gnetif.ip_addr));
+            MyPrintf_USART1("MAC : %x-%x-%x-%x-%x-%x \n\r", gnetif.hwaddr[0], gnetif.hwaddr[1], gnetif.hwaddr[2], gnetif.hwaddr[3], gnetif.hwaddr[4], gnetif.hwaddr[5]);
+            MyPrintf_USART1("BAT : %02d\r\n",batVol1);
+            MyPrintf_USART1("Temp : %02d\r\n",batVol);
+            
+        }
         
-        
-        
-        processTestDebug();
+        if(GetDbg() == 4) processTestDebug();
         
         
         
@@ -32313,7 +32359,7 @@ void Time_Main(void)
             mLed_Process_Flag.sDHCP_IP_Val = (((const u8_t*)(&(&gnetif . ip_addr)->addr))[3]);
             mLed_Process_Flag.sTrainID = (((const u8_t*)(&(&gnetif . ip_addr)->addr))[2]);
             
-			MyPrintf_USART1(" @@@@  CPU.....netif_is_link_up \n\r");
+			if(GetDbg() == 1) MyPrintf_USART1(" @@@@  CPU.....netif_is_link_up \n\r");
   
         
 
@@ -32332,7 +32378,7 @@ void Time_Main(void)
             else if(mLed_Process_Flag.sEth_Rx_Cnt == 8) 
             {
                  udp_SysLog_Connect(0," @@@@  CPU Processing SystemReset ");
-			     MyPrintf_USART1(" @@@@  CPU Processing SystemReset \n\r");
+			     if(GetDbg() == 1) MyPrintf_USART1(" @@@@  CPU Processing SystemReset \n\r");
 
 			     
                 
@@ -32343,7 +32389,8 @@ void Time_Main(void)
 		{
             m_Main_TIM_Cnt_Reset++;
             
-			MyPrintf_USART1(" @@@@ netif_is_link_Down \n\r");
+            
+			if(GetDbg() == 1) MyPrintf_USART1(" @@@@ netif_is_link_Down \n\r");
             
 
 
@@ -32490,7 +32537,8 @@ static void RTC_TimeShow(uint8_t* showtime)
 
 	HAL_RTC_SetAlarm_IT(&RtcHandle, &salarmstructure, 0x00000001U);
 
-	MyPrintf_USART1("--------Timer Count : %02d:%02d:%02d \n\r", BCD_BIN(stimestructureget.Hours), BCD_BIN(stimestructureget.Minutes), BCD_BIN(stimestructureget.Seconds));
+    
+    if(GetDbg() == 5) MyPrintf_USART1("--------Timer Count : %02d:%02d:%02d \n\r", BCD_BIN(stimestructureget.Hours), BCD_BIN(stimestructureget.Minutes), BCD_BIN(stimestructureget.Seconds));
     
 
 

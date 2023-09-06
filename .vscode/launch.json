@@ -1,0 +1,43 @@
+{
+    // IntelliSense를 사용하여 가능한 특성에 대해 알아보세요.
+    // 기존 특성에 대한 설명을 보려면 가리킵니다.
+    // 자세한 내용을 보려면 https://go.microsoft.com/fwlink/?linkid=830387을(를) 방문하세요.
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "cspy",
+            "request": "launch",
+            "name": "Launch: Project.STM324xG_EVAL",
+            "target": "arm",
+            "program": "${workspaceFolder}\\File\\EWARM\\STM324xG_EVAL\\Exe\\Project.out",
+            "driver": "J-Link/J-Trace",
+            "stopOnSymbol": true,
+            "workbenchPath": "${command:iar-config.toolchain}",
+            "projectPath": "${workspaceFolder}\\File\\EWARM\\Project.ewp",
+            "projectConfiguration": "STM324xG_EVAL",
+            "driverOptions": [
+                "--endian=little",
+                "--cpu=Cortex-M4",
+                "--fpu=VFPv4_SP",
+                "-p",
+                "$TOOLKIT_DIR$\\CONFIG\\debugger\\ST\\STM32F407VG.ddf",
+                "--drv_verify_download",
+                "--semihosting",
+                "--device=STM32F407VG",
+                "--drv_communication=USB:#174301289",
+                "--drv_interface_speed=auto",
+                "--jlink_initial_speed=50000",
+                "--drv_restore_breakpoints=main",
+                "--jlink_reset_strategy=0,0",
+                "--drv_catch_exceptions=0xff1",
+                "--drv_swo_clock_setup=168000000,1,2000000"
+            ],
+            "download": {
+                "flashLoader": "C:\\D\\Git_Hub\\EPD_5_8\\File\\EWARM\\Project.board",
+                "deviceMacros": [
+                    "$TOOLKIT_DIR$\\config\\debugger\\ST\\STM32F4xx.dmac"
+                ]
+            }
+        }
+    ]
+}

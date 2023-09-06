@@ -28143,12 +28143,29 @@ void njw1192_mute(uint8_t On_Off);
      
 
      
+
+
+
      
-     
+
+
+
+
+
      
      
      
 
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
      
 
 
@@ -29090,12 +29107,13 @@ void User_notification(struct netif *netif)
 
 
         sprintf((char *)iptxt, "%s", ip4addr_ntoa((const ip4_addr_t *)&netif->ip_addr));
-        MyPrintf_USART1 ("########### Static IP address: %s \n\r", iptxt);
+        
+        if(GetDbg() == 1) MyPrintf_USART1 ("########### Static IP address: %s \n\r", iptxt);
     }
     else
     {  
 
-        MyPrintf_USART1 ("########### The network cable is not connected  \n\r");
+        if(GetDbg() == 1) MyPrintf_USART1 ("########### The network cable is not connected  \n\r");
         
     }  
 }
@@ -29120,7 +29138,7 @@ void ethernetif_notify_conn_changed(struct netif *netif)
 
       
       
-    MyPrintf_USART1 ("########### The network cable is now connected  \n\r");
+    if(GetDbg() == 1) MyPrintf_USART1 ("########### The network cable is now connected  \n\r");
     
     DHCP_state = (uint8_t) 1;
     
@@ -29137,7 +29155,7 @@ void ethernetif_notify_conn_changed(struct netif *netif)
     netif_set_down(netif);
     
     
-    MyPrintf_USART1 (" ########### Netif_Set_down  \n\r");
+    if(GetDbg() == 1) MyPrintf_USART1 (" ########### Netif_Set_down  \n\r");
     
     mLed_Process_Flag.sEth_UpLInk_Cnt = 0;
     
@@ -29175,7 +29193,7 @@ void DHCP_Process(struct netif *netif)
       
       sprintf((char *)iptxt, "%s", ip4addr_ntoa((const ip4_addr_t *)&netif->ip_addr));
       
-      MyPrintf_USART1 ("########### State: Looking for DHCP server: %s\n\r", iptxt);
+      if(GetDbg() == 1) MyPrintf_USART1 ("########### State: Looking for DHCP server: %s\n\r", iptxt);
       
 
     }
@@ -29198,7 +29216,7 @@ void DHCP_Process(struct netif *netif)
             
         mLed_Process_Flag.sDhcp_Complete = 1;
         
-        MyPrintf_USART1 ("########### IP address assigned by a DHCP server : %s\n\r", iptxt);
+        if(GetDbg() == 1) MyPrintf_USART1 ("########### IP address assigned by a DHCP server : %s\n\r", iptxt);
         
         
       }
@@ -29224,7 +29242,7 @@ void DHCP_Process(struct netif *netif)
           sprintf((char *)iptxt, "%s", ip4addr_ntoa((const ip4_addr_t *)&netif->ip_addr));
           
          
-          MyPrintf_USART1("########### DHCP Timeout !! \n\r");
+          if(GetDbg() == 1) MyPrintf_USART1("########### DHCP Timeout !! \n\r");
           
           
          
@@ -29236,7 +29254,7 @@ void DHCP_Process(struct netif *netif)
         }
         else
         {
-          MyPrintf_USART1("########### DHCP TimeCnt[%d] \n\r",dhcp->tries);
+          if(GetDbg() == 1) MyPrintf_USART1("########### DHCP TimeCnt[%d] \n\r",dhcp->tries);
           
           
         }

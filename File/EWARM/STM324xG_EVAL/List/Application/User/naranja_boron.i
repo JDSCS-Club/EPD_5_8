@@ -28136,12 +28136,29 @@ void njw1192_mute(uint8_t On_Off);
      
 
      
+
+
+
      
-     
+
+
+
+
+
      
      
      
 
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
      
 
 
@@ -28894,7 +28911,7 @@ extern uint16_t u16Led75UnderFlickerTick;
 extern uint16_t u16Led100UnderFlickerTick;
 extern uint16_t u16AmpSettingTick;
 
-extern uint8_t uDI_getMasterIn;
+extern uint8_t uDI_getMasterIn;  
 extern uint8_t uSpk_Stat;
 extern uint8_t uRssi_NgFlag;
 
@@ -28911,7 +28928,7 @@ extern void processAudioAmpProcess(void);
 extern void processGetBatVol(void);
 extern void processTestDebug(void);
 
-
+extern _Bool getVccIn(void);
 
 extern _Bool getVccRfIn(void);
 extern _Bool getAmpFault(void);
@@ -28922,7 +28939,10 @@ extern void ONTD(uint8_t IN,uint8_t *OUT,uint8_t MS,int *CLK );
 
 extern void ONTD_Function(void);
 
+extern _Bool getMasterIn(void);
 
+extern void RF_POWN_ON(void);
+extern void RF_POWN_OFF(void);
 
 
 
@@ -28993,39 +29013,39 @@ uint8_t uAudioPlayFlag = 0;
 
 
  
-_Bool getLed75(void){ return HAL_GPIO_ReadPin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0400)); }
-void setLed75(_Bool state){ HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0400), state); }
-void toggleLed75(void){ HAL_GPIO_TogglePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0400)); }
-void led75On(void){ HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0400), 0); }
-void led75Off(void){ HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0400), 1); }
+_Bool getLed75(void){ return HAL_GPIO_ReadPin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0800)); }
+void setLed75(_Bool state){ HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0800), state); }
+void toggleLed75(void){ HAL_GPIO_TogglePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0800)); }
+void led75On(void){ HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0800), 0); }
+void led75Off(void){ HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0800), 1); }
 
 
 
 
 
  
-_Bool getLed100Red(void){ return HAL_GPIO_ReadPin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x1000)); }
-void setLed100Red(_Bool state){ HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x1000), state); }
-void toggleLed100Red(void){ HAL_GPIO_TogglePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x1000)); }
-void led100RedOn(void){ HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x1000), 0); }
-void led100RedOff(void){ HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x1000), 1); }
+_Bool getLed100Red(void){ return HAL_GPIO_ReadPin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x2000)); }
+void setLed100Red(_Bool state){ HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x2000), state); }
+void toggleLed100Red(void){ HAL_GPIO_TogglePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x2000)); }
+void led100RedOn(void){ HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x2000), 0); }
+void led100RedOff(void){ HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x2000), 1); }
 
 
 
 
 
  
-_Bool getLed100Green(void){ return HAL_GPIO_ReadPin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x2000)); }
-void setLed100Green(_Bool state){ HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x2000), state); }
-void led100GreenOn(void){ HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x2000), 0); }
-void led100GreenOff(void){ HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x2000), 1); }
+_Bool getLed100Green(void){ return HAL_GPIO_ReadPin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x1000)); }
+void setLed100Green(_Bool state){ HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x1000), state); }
+void led100GreenOn(void){ HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x1000), 0); }
+void led100GreenOff(void){ HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x1000), 1); }
 
 
 
 
 
  
-_Bool getChargerDet(void){ return HAL_GPIO_ReadPin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0800U)), ((uint16_t)0x8000)); }
+_Bool getChargerDet(void){ return !HAL_GPIO_ReadPin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0800U)), ((uint16_t)0x8000)); }
 
 
 
@@ -29039,7 +29059,7 @@ uint8_t getChargeRate(void){ return (Get_Adc1_Value() * 100) / 0xFFF; }
 
 
  
-_Bool getVccIn(void){ return HAL_GPIO_ReadPin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x1000U)), ((uint16_t)0x0002)); }
+_Bool getVccIn(void){ return !HAL_GPIO_ReadPin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x1000U)), ((uint16_t)0x0002)); }
 
 
 
@@ -29060,7 +29080,13 @@ _Bool getLightOn(void){ return HAL_GPIO_ReadPin(((GPIO_TypeDef *) ((0x40000000U 
 
 
  
-_Bool getMasterIn(void){ return HAL_GPIO_ReadPin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x1000U)), ((uint16_t)0x0020)); }
+
+
+
+
+
+_Bool getMasterIn(void){ return !HAL_GPIO_ReadPin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x1000U)), ((uint16_t)0x0020)); }
+
 
 
 
@@ -29082,9 +29108,9 @@ void setOverrideOn(GPIO_PinState state){ HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0
 
 
  
-void setRfLed(GPIO_PinState state){ HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0800), state); }
-void rfLedOn(void){ HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0800), 0); }
-void rfLedOff(void){ HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0800), 1); }
+void setRfLed(GPIO_PinState state){ HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0400), state); }
+void rfLedOn(void){ HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0400), 0); }
+void rfLedOff(void){ HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0400), 1); }
 
 
 
@@ -29096,10 +29122,10 @@ void rfLedOff(void){ HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020
 
 
 
-_Bool getVccRfIn(void){ return HAL_GPIO_ReadPin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0001)); }
+_Bool getVccRfIn(void){ return !HAL_GPIO_ReadPin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0001)); }
 _Bool getAmpFault(void){ return HAL_GPIO_ReadPin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0004)); }
-_Bool getVccLedIn(void){ return HAL_GPIO_ReadPin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0800U)), ((uint16_t)0x4000)); }
-_Bool getVccAudioIn(void){ return HAL_GPIO_ReadPin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0800U)), ((uint16_t)0x2000)); }
+_Bool getVccLedIn(void){ return !HAL_GPIO_ReadPin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0800U)), ((uint16_t)0x4000)); }
+_Bool getVccAudioIn(void){ return !HAL_GPIO_ReadPin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0800U)), ((uint16_t)0x2000)); }
 
 
 
@@ -29119,6 +29145,10 @@ _Bool getAudioOn(void){ return HAL_GPIO_ReadPin(((GPIO_TypeDef *) ((0x40000000U 
 
 
  
+
+void RF_POWN_ON(void)  { HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0040), GPIO_PIN_SET); }
+void RF_POWN_OFF(void) { HAL_GPIO_WritePin(((GPIO_TypeDef *) ((0x40000000U + 0x00020000U) + 0x0C00U)), ((uint16_t)0x0040), GPIO_PIN_RESET); }
+
 
 
 
@@ -29304,6 +29334,8 @@ void processChargeLed(void)
 void processLightLed(void)
 {
     static int sCnnt = 0;
+    
+    static int sLedFlag = 0;
         
             
         
@@ -29314,30 +29346,30 @@ void processLightLed(void)
              
 		
 		_Bool bLightOn = getLightOn();
-            
-		if(bLightOn)
+         
+        
+        if(bLightOn != sLedFlag)
         {
-			ledCtrOn();   
+        
+            sLedFlag = bLightOn;
             
+            if(bLightOn)
+            {
+                ledCtrOn();   
                 
-
-
-
-
+                 if(GetDbg() == 2) MyPrintf_USART1("----- ledCtrOn \r\n" ); 
+                        
+            }
+            else
+            {
+                ledCtrOff();
                     
-        }
-		else
-        {
-			ledCtrOff();
+                if(GetDbg() == 2) MyPrintf_USART1("----- ledCtrOff \r\n" ); 
+
+            }
                 
-
-
-
-
-
+            bCurLedCtr = bLightOn;
         }
-            
-		bCurLedCtr = bLightOn;
             
        
         
@@ -29437,7 +29469,7 @@ void processGetBatVol(void)
 		u16CntBatVol = 0;
 		u16BatVolSum = 0;
         
-        MyPrintf_USART1("bat----> [%d]\n", u16BatVol);
+        
 	}
 }
 

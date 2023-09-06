@@ -25,6 +25,14 @@
         <encoding>System</encoding>
     </override>
     <override>
+        <path>C:\D\Git_Hub\EPD_5_8\File\Src\Timer.c</path>
+        <encoding>System</encoding>
+    </override>
+    <override>
+        <path>C:\D\Git_Hub\EPD_5_8\File\Src\WWDG.c</path>
+        <encoding>System</encoding>
+    </override>
+    <override>
         <path>C:\D\Git_Hub\LEDC-B1\File\Middlewares\Third_Party\LwIP\src\core\udp.c</path>
         <encoding>System</encoding>
     </override>
