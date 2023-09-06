@@ -84,7 +84,7 @@ void led100GreenOff(void){ HAL_GPIO_WritePin(LED_100_GREEN_GPIO_Port, LED_100_GR
 /**
   * @brief  get Charger detection
   */
-bool getChargerDet(void){ return HAL_GPIO_ReadPin(CHARGER_DET_GPIO_Port, CHARGER_DET_Pin); }
+bool getChargerDet(void){ return !HAL_GPIO_ReadPin(CHARGER_DET_GPIO_Port, CHARGER_DET_Pin); }
 //--------------------------------------------------------------------------------------------//
 //
 //--------------------------------------------------------------------------------------------//
@@ -98,7 +98,7 @@ uint8_t getChargeRate(void){ return (Get_Adc1_Value() * 100) / ADC_MAX_DATA; }
 /**
   * @brief  get VCC input
   */
-bool getVccIn(void){ return HAL_GPIO_ReadPin(VCC_IN_GPIO_Port, VCC_IN_Pin); }
+bool getVccIn(void){ return !HAL_GPIO_ReadPin(VCC_IN_GPIO_Port, VCC_IN_Pin); }
 //--------------------------------------------------------------------------------------------//
 //
 //--------------------------------------------------------------------------------------------//
@@ -119,13 +119,13 @@ bool getLightOn(void){ return HAL_GPIO_ReadPin(LIGHT_ON_GPIO_Port, LIGHT_ON_Pin)
 /**
   * @brief  get Master input
   */
-#if defined( MASTER_IN_OUT_GPIO_Port )
-
-//	MASTER_IN 신호 Output으로 수정.
-bool getMasterIn(void){ return 1; }
-#else
-bool getMasterIn(void){ return HAL_GPIO_ReadPin(MASTER_IN_GPIO_Port, MASTER_IN_Pin); }
-#endif
+//#if defined( MASTER_IN_OUT_GPIO_Port )
+//
+////	MASTER_IN 신호 Output으로 수정.
+//bool getMasterIn(void){ return 1; }
+//#else
+bool getMasterIn(void){ return !HAL_GPIO_ReadPin(MASTER_IN_GPIO_Port, MASTER_IN_Pin); }
+//#endif
 //--------------------------------------------------------------------------------------------//
 //
 //--------------------------------------------------------------------------------------------//
@@ -161,10 +161,10 @@ void rfLedOff(void){ HAL_GPIO_WritePin(RF_LED_GPIO_Port, RF_LED_Pin, true); }
 //
 //--------------------------------------------------------------------------------------------//
 
-bool getVccRfIn(void){ return HAL_GPIO_ReadPin(VCC_RF_IN_Port, VCC_RF_IN); }
+bool getVccRfIn(void){ return !HAL_GPIO_ReadPin(VCC_RF_IN_Port, VCC_RF_IN); }
 bool getAmpFault(void){ return HAL_GPIO_ReadPin(AMP_FAULT_Port, AMP_FAULT_Pin); }
-bool getVccLedIn(void){ return HAL_GPIO_ReadPin(VCC_LED_IN_Port, VCC_LED_IN); }
-bool getVccAudioIn(void){ return HAL_GPIO_ReadPin(VCC_AUDIO_IN_Port, VCC_AUDIO_IN); }
+bool getVccLedIn(void){ return !HAL_GPIO_ReadPin(VCC_LED_IN_Port, VCC_LED_IN); }
+bool getVccAudioIn(void){ return !HAL_GPIO_ReadPin(VCC_AUDIO_IN_Port, VCC_AUDIO_IN); }
 //--------------------------------------------------------------------------------------------//
 //
 //--------------------------------------------------------------------------------------------//
@@ -184,6 +184,10 @@ bool getAudioOn(void){ return HAL_GPIO_ReadPin(AUDIO_ON_GPIO_Port, AUDIO_ON_Pin)
 /**
   * @brief  get Audio state
   */
+
+void RF_POWN_ON(void)  { HAL_GPIO_WritePin(GPIOD, RF_POWN_EN_Pin, GPIO_PIN_SET); }
+void RF_POWN_OFF(void) { HAL_GPIO_WritePin(GPIOD, RF_POWN_EN_Pin, GPIO_PIN_RESET); }
+
 
 //--------------------------------------------------------------------------------------------//
 //
@@ -369,40 +373,42 @@ void processChargeLed(void)
 void processLightLed(void)
 {
     static int sCnnt = 0;
+    
+    static int sLedFlag = 0;
         
             
         
-	if(!uDI_getMasterIn)//양산 버전.
+	if(!uDI_getMasterIn)//양산 버전. 대승객 방송이 아니라면,
     //if(uDI_getMasterIn)
 	{
          sCnnt++;
              
 		//	방공등 Off
 		bool bLightOn = getLightOn();
-            
-		if(bLightOn)
+         
+        
+        if(bLightOn != sLedFlag)
         {
-			ledCtrOn();   
+        
+            sLedFlag = bLightOn;
             
+            if(bLightOn)
+            {
+                ledCtrOn();   
                 
-//             if(!(sCnnt%5000))
-//            {
-//                printf("---ledCtrOn \n\r" ); 
-//            }
+                 if(GetDbg() == 2) MyPrintf_USART1("----- ledCtrOn \r\n" ); 
+                        
+            }
+            else
+            {
+                ledCtrOff();
                     
-        }
-		else
-        {
-			ledCtrOff();
-                
-//             if(!(sCnnt%5000))
-//            {
-//                printf("---ledCtrOff \n\r" ); 
-//            }
+                if(GetDbg() == 2) MyPrintf_USART1("----- ledCtrOff \r\n" ); 
 
+            }
+                
+            bCurLedCtr = bLightOn;
         }
-            
-		bCurLedCtr = bLightOn;
             
        
         
@@ -502,7 +508,7 @@ void processGetBatVol(void)
 		u16CntBatVol = 0;
 		u16BatVolSum = 0;
         
-        MyPrintf_USART1("bat----> [%d]\n", u16BatVol);
+        //MyPrintf_USART1("bat----> [%d]\n", u16BatVol);
 	}
 }
 //--------------------------------------------------------------------------------------------//
