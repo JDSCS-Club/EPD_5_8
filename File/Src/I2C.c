@@ -102,7 +102,8 @@ void processCurrentVal(void)
             
         if(I2C_HAL_WriteBytes(&hi2c1,0x80,0x00,(uint8_t *)nRbuf,2))
         {
-            MyPrintf_USART1("++++++++++++ Write Calibration Register  ++++++++++++ \n\r" );
+           
+            if(GetDbg() == 3) MyPrintf_USART1("++++++++++++ Write Calibration Register  ++++++++++++ \n\r" );
         }
         else
         {
@@ -116,11 +117,11 @@ void processCurrentVal(void)
         {
             //printf("++ INA226 OK \n\r");
                 
-             MyPrintf_USART1( "++ Read Shunt Register (%02X,%02X) ------\r\n",nRbuf[0],nRbuf[1] );
+             if(GetDbg() == 3) if(GetDbg() == 2) MyPrintf_USART1( "++ Read Shunt Register (%02X,%02X) ------\r\n",nRbuf[0],nRbuf[1] );
         }
         else
         {
-            MyPrintf_USART1( "++ INA226 NG \n\r" );
+            if(GetDbg() == 3) MyPrintf_USART1( "++ INA226 NG \n\r" );
         }
 
 
@@ -131,11 +132,11 @@ void processCurrentVal(void)
              //소주점 2번째 가지까지 환산. (ex : 2427 -> 24.27v)
              sData_val = (float)((nRbuf[0] << 8) | nRbuf[1]) / 7.77; 
                 
-             MyPrintf_USART1( "++ Read Bus Voltage Register (%d) \r\n",sData_val );
+             if(GetDbg() == 3) MyPrintf_USART1( "++ Read Bus Voltage Register (%d) \r\n",sData_val );
         }
         else
         {
-            MyPrintf_USART1( "++ INA226 NG \n\r" );
+            if(GetDbg() == 3) MyPrintf_USART1( "++ INA226 NG \n\r" );
         }
             
                 
@@ -146,11 +147,11 @@ void processCurrentVal(void)
                 
             if(I2C_HAL_WriteBytes(&hi2c1,0x80,0x05,(uint8_t *)nRbuf,2))
             {
-                MyPrintf_USART1("++ Write V-C Change \r\n" );
+                if(GetDbg() == 3) MyPrintf_USART1("++ Write V-C Change \r\n" );
             }
             else
             {
-                MyPrintf_USART1( "++Write Calibration NG \n\r" );
+                if(GetDbg() == 3) MyPrintf_USART1( "++Write Calibration NG \n\r" );
             }
       /////////////////////////////////////                  
                 
@@ -165,11 +166,11 @@ void processCurrentVal(void)
                 mLed_Process_Flag.sCurrentVal = sData_val; // 전류 측정 값 리턴.  
              }
             
-            MyPrintf_USART1( "++ Read Current Register(%03d) \n\r",sData_val );
+            if(GetDbg() == 3) MyPrintf_USART1( "++ Read Current Register(%03d) \n\r",sData_val );
         }
         else
         {
-            MyPrintf_USART1( "++ INA226 Read NG \n\r");
+            if(GetDbg() == 3) MyPrintf_USART1( "++ INA226 Read NG \n\r");
         }
             
                 
@@ -179,11 +180,11 @@ void processCurrentVal(void)
         {
             //printf("++ INA226 OK \n\r");
                 
-             MyPrintf_USART1( "++ Read Power Register(%02X,%02X) \n\r",nRbuf[0],nRbuf[1] );
+             if(GetDbg() == 3) MyPrintf_USART1( "++ Read Power Register(%02X,%02X) \n\r",nRbuf[0],nRbuf[1] );
         }
         else
         {
-            MyPrintf_USART1( "++ INA226 NG \n\r" );
+            if(GetDbg() == 3) MyPrintf_USART1( "++ INA226 NG \n\r" );
                 
         }
                     
@@ -530,7 +531,7 @@ void AMP_Init(uint16_t Address)
 	uint8_t     nRbuf[10];
       
 
-     MyPrintf_USART1( "+++++ %s(%d)\r\n", __func__, __LINE__ );
+     if(GetDbg() == 2) MyPrintf_USART1( "+++++ %s(%d)\r\n", __func__, __LINE__ );
      
      
      if(mLed_Process_Flag.sVolTestFlg == 1) { nRbuf[0] = 0x14; } // Set channel Gain // 양산
@@ -540,11 +541,11 @@ void AMP_Init(uint16_t Address)
    
      if(I2C_HAL_WriteBytes(&hi2c1, AMP_ID_1, 0x08, (uint8_t *)nRbuf, 1))
     {
-        MyPrintf_USART1("-Gain Select (0xD8-0x%02X) OK \r\n",nRbuf[0] );
+        if(GetDbg() == 2) MyPrintf_USART1("-Gain Select (0xD8-0x%02X) OK \r\n",nRbuf[0] );
     }
     else
     {
-        MyPrintf_USART1( "-Gain Select (0xD8-0x08) NG \r\n" );
+        if(GetDbg() == 2) MyPrintf_USART1( "-Gain Select (0xD8-0x08) NG \r\n" );
     }
 
     
@@ -554,11 +555,11 @@ void AMP_Init(uint16_t Address)
 	
     if(I2C_HAL_WriteBytes(&hi2c1, AMP_ID_1, 0x0A, (uint8_t *)nRbuf, 1))
     {
-        MyPrintf_USART1("- Clip_OTW Configuration (0xD8-0x%02X) OK \r\n",nRbuf[0] );
+        if(GetDbg() == 2) MyPrintf_USART1("-Clip_OTW Configuration (0xD8-0x%02X) OK \r\n",nRbuf[0] );
     }
     else
     {
-        MyPrintf_USART1( "- Clip_OTW Configuration (0xD8-0x0A) NG \r\n" );
+        if(GetDbg() == 2) MyPrintf_USART1( "-Clip_OTW Configuration (0xD8-0x0A) NG \r\n" );
     }
 
     
@@ -568,21 +569,21 @@ void AMP_Init(uint16_t Address)
     
 	if(I2C_HAL_WriteBytes(&hi2c1, AMP_ID_1, 0x0b, (uint8_t *)nRbuf, 1))
     {
-        MyPrintf_USART1("-Load Diagnostics (0xD8-0x%02X) OK \r\n",nRbuf[0] );
+        if(GetDbg() == 2) MyPrintf_USART1("-Load Diagnostics (0xD8-0x%02X) OK \r\n",nRbuf[0] );
     }
     else
     {
-        MyPrintf_USART1( "-Load Diagnostics (0xD8-0x0B) NG \r\n" );
+        if(GetDbg() == 2) MyPrintf_USART1( "-Load Diagnostics (0xD8-0x0B) NG \r\n" );
     }
     
     nRbuf[0] = 0x00; // 
     if(I2C_HAL_WriteBytes(&hi2c1, AMP_ID_1, 0x0C, (uint8_t *)nRbuf, 1))
     {
-        MyPrintf_USART1("-play mode (0xD8-0xC%02X) OK \r\n",nRbuf[0] );
+        if(GetDbg() == 2) MyPrintf_USART1("-play mode (0xD8-0xC%02X) OK \r\n",nRbuf[0] );
     }
     else
     {
-        MyPrintf_USART1( "-play mode (0xD8-0x0C) NG \r\n" );
+        if(GetDbg() == 2) MyPrintf_USART1( "-play mode (0xD8-0x0C) NG \r\n" );
     }
 
     
@@ -609,6 +610,10 @@ void AMP_Mute_OFF(
                     uint16_t Address2, 
                     uint16_t Address3)
 {
+    
+    if(GetDbg() == 2) MyPrintf_USART1( "+++++ AMP_Mute_OFF \r\n");
+    
+    
 	uint8_t     nTbuf[10];
 	uint8_t     nRbuf[10];
     
@@ -654,7 +659,7 @@ int AMP_PowOn_Check(void)
     sPowerStandBy = 0;
     
     
-    MyPrintf_USART1( "+++++ %s(%d)\r\n", __func__, __LINE__ );
+    if(GetDbg() == 2) MyPrintf_USART1( "+++++ %s(%d)\r\n", __func__, __LINE__ );
     
     
     I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x00, (uint8_t *)nRbuf, 1);
@@ -666,7 +671,7 @@ int AMP_PowOn_Check(void)
         sPowerStandBy = sPowerStandBy | (0x01);
     }
     
-    MyPrintf_USART1( "+++++ AMP_ID_1 (%x - %x)\r\n",nRbuf[0],nRbuf1[0] );
+    if(GetDbg() == 2) MyPrintf_USART1( "+++++ AMP_ID_1 (%x - %x)\r\n",nRbuf[0],nRbuf1[0] );
     
 
     
@@ -688,6 +693,9 @@ void AMP_Mute_ON(
                 uint16_t Address3,
                 uint8_t ad_ch3)
 {
+    if(GetDbg() == 2) MyPrintf_USART1( "+++++ AMP_Mute_ON \r\n");
+    
+    
      
 	uint8_t     nTbuf[10];
 	uint8_t     nRbuf[10];
@@ -745,7 +753,7 @@ void AMP_FAULT(void)
             I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x00, (uint8_t *)nRbuf, 1);
             I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x01, (uint8_t *)nRbuf1, 1);
                 
-            MyPrintf_USART1("+++++ getAmp1_Pault - 1:%02x / 2:%02x \r\n", nRbuf[0],nRbuf1[0]);
+            if(GetDbg() == 2) MyPrintf_USART1("+++++ getAmp1_Pault - 1:%02x / 2:%02x \r\n", nRbuf[0],nRbuf1[0]);
                 
             sprintf(&mLCDPrintBuf[2][0], "P1-%2x", nRbuf[0]);
             
@@ -785,7 +793,7 @@ void AMP_FAULT(void)
             I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x04, (uint8_t *)nRbuf, 1);
            
             
-            MyPrintf_USART1("+++++ getAmpPault - 1:%02x -- 2:%02x -- 3:%02x \r\n", nRbuf[0],nRbuf1[0],nRbuf2[0]);
+            if(GetDbg() == 2) MyPrintf_USART1("+++++ getAmpPault - 1:%02x -- 2:%02x -- 3:%02x \r\n", nRbuf[0],nRbuf1[0],nRbuf2[0]);
             
             sAmpRestCnt++;
             
@@ -823,7 +831,7 @@ void AMP_FAULT(void)
             AMP_Mute_OFF(AMP_ID_1, AMP_ID_2, AMP_ID_3);
 
 
-            MyPrintf_USART1("+++++ getAmpPault ---> RESET\r\n");
+            if(GetDbg() == 2) MyPrintf_USART1("+++++ getAmpPault ---> RESET\r\n");
 
             udp_SysLog("+++++ getAmpPault(%02d,%02d)/ Temp(%02d)---> RESET\r\n",IP_ADDR1_INPUT_DATA,IP_ADDR2_INPUT_DATA,mLed_Process_Flag.sCpu_Temp);
             
@@ -880,7 +888,7 @@ void AMP_SPK_CHECK(void)
         I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x06, (uint8_t *)nRbuf_0, 1);
       
         
-        MyPrintf_USART1("+++++ In-Amp Mute/Play mode- 1:%02X / 2:%02X / 3:%02X \r\n",nRbuf_0[0],nRbuf_1[0],nRbuf_2[0] );
+        if(GetDbg() == 2) MyPrintf_USART1("+++++ In-Amp Mute/Play mode- 1:%02X / 2:%02X / 3:%02X \r\n",nRbuf_0[0],nRbuf_1[0],nRbuf_2[0] );
         
         
         
@@ -916,7 +924,7 @@ void AMP_SPK_CHECK(void)
                 I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x02, (uint8_t *)nRbuf_1, 1);
                 I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x03, (uint8_t *)nRbuf_2, 1);
                               
-                MyPrintf_USART1("+++++ getAmp1 Spk read :%02X \r\n", ((nRbuf_1[0]&0xF0) | (nRbuf_2[0]&0x0F)));
+                if(GetDbg() == 2) MyPrintf_USART1("+++++ getAmp1 Spk read :%02X \r\n", ((nRbuf_1[0]&0xF0) | (nRbuf_2[0]&0x0F)));
 
                 mLed_Process_Flag.sSt_Buf_Val[0] = ((nRbuf_1[0]&0xF0) | (nRbuf_2[0]&0x0F));
                 
@@ -959,7 +967,7 @@ void AMP_SPK_CHECK(void)
                 //저온 돟작 모드는  Standby 를 OFF
                 setAMP_Standby(false); //AMP Standby OFF 
                 
-                 MyPrintf_USART1("+++++ setAMP_Standby_OFF \r\n");
+                 if(GetDbg() == 2) MyPrintf_USART1("+++++ setAMP_Standby_OFF \r\n");
                 
             }
             else
@@ -985,7 +993,7 @@ void AMP_SPK_CHECK(void)
         I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x06, (uint8_t *)nRbuf_0, 1);
       
         
-        MyPrintf_USART1("+++++ Out- Amp Mute/Play mode- 1:%02X / 2:%02X / 3:%02X \r\n",nRbuf_0[0],nRbuf_1[0],nRbuf_2[0] );
+        if(GetDbg() == 2) MyPrintf_USART1("+++++ Out- Amp Mute/Play mode- 1:%02X / 2:%02X / 3:%02X \r\n",nRbuf_0[0],nRbuf_1[0],nRbuf_2[0] );
         
         
      }
@@ -1028,7 +1036,7 @@ int at24_HAL_WriteBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t Mem
 	}
 	else
 	{
-		MyPrintf_USART1("%s(%d) - failed\r\n", __func__, __LINE__);
+		if(GetDbg() == 2) MyPrintf_USART1("%s(%d) - failed\r\n", __func__, __LINE__);
 		return 0;
 	}
 
@@ -1036,7 +1044,7 @@ int at24_HAL_WriteBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t Mem
 
 	uint16_t nSize;
 
-	MyPrintf_USART1("eepwr [0x%04X] size(%d)\r\n", MemAddress, TxBufferSize);
+	if(GetDbg() == 2) MyPrintf_USART1("eepwr [0x%04X] size(%d)\r\n", MemAddress, TxBufferSize);
 
 	while ( TxBufferSize > 0 )
 	{
@@ -1064,7 +1072,7 @@ int at24_HAL_WriteBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t Mem
 		}
 		else
 		{
-			MyPrintf_USART1("%s(%d) - failed\r\n", __func__, __LINE__);
+			if(GetDbg() == 2) MyPrintf_USART1("%s(%d) - failed\r\n", __func__, __LINE__);
 			return 0;
 		}
 
@@ -1112,7 +1120,7 @@ int at24_HAL_ReadBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemA
 	}
 	else
 	{
-		MyPrintf_USART1("%s(%d) - failed\r\n", __func__, __LINE__);
+		if(GetDbg() == 2) MyPrintf_USART1("%s(%d) - failed\r\n", __func__, __LINE__);
 		return 0;
 	}
 
@@ -1152,7 +1160,7 @@ int at24_HAL_ReadBytes(I2C_HandleTypeDef *hi2c,uint16_t DevAddress,uint16_t MemA
 		}
 		else
 		{
-			MyPrintf_USART1("%s(%d) - failed\r\n", __func__, __LINE__);
+			if(GetDbg() == 2) MyPrintf_USART1("%s(%d) - failed\r\n", __func__, __LINE__);
 			return 0;
 		}
 
@@ -1179,14 +1187,14 @@ void TestEEPROM( I2C_HandleTypeDef *hi2c )
 	char d[3]={0xAA,0xBB,0xCC};
 	char c[3]={20,20,20};
 	
-	MyPrintf_USART1("%s - 0x%02X, 0x%02X, 0x%02X\r\n", __func__, c[0],c[1],c[2]);
+	if(GetDbg() == 2) MyPrintf_USART1("%s - 0x%02X, 0x%02X, 0x%02X\r\n", __func__, c[0],c[1],c[2]);
 	at24_HAL_ReadBytes(hi2c, 0xA0, 0, c, 3);
-	MyPrintf_USART1("%s - 0x%02X, 0x%02X, 0x%02X\r\n", __func__, c[0],c[1],c[2]);
+	if(GetDbg() == 2) MyPrintf_USART1("%s - 0x%02X, 0x%02X, 0x%02X\r\n", __func__, c[0],c[1],c[2]);
 	
 	at24_HAL_WriteBytes(hi2c, 0xA0, 0, d, 3);
 
 	at24_HAL_ReadBytes(hi2c, 0xA0, 0, c, 3);
-	MyPrintf_USART1("%s - 0x%02X, 0x%02X, 0x%02X\r\n", __func__, c[0],c[1],c[2]);
+	if(GetDbg() == 2) MyPrintf_USART1("%s - 0x%02X, 0x%02X, 0x%02X\r\n", __func__, c[0],c[1],c[2]);
 
 	/*
 	int i;
@@ -1320,7 +1328,7 @@ uint16_t EEPRead16(uint16_t nAddr)
 int EEPLogInit( I2C_HandleTypeDef *hi2c )
 //========================================================================
 {
-	MyPrintf_USART1( "%s(%d)\n\r", __func__, __LINE__ );
+	if(GetDbg() == 2) MyPrintf_USART1( "%s(%d)\n\r", __func__, __LINE__ );
 
 	g_hi2c = hi2c;
 
@@ -1335,7 +1343,7 @@ int EEPLogInit( I2C_HandleTypeDef *hi2c )
 	g_qLog.front 	= 	EEPRead16( EPPAddrQBufStartH );
 	g_qLog.rear 	= 	EEPRead16( EPPAddrQBufEndH );
 
-	MyPrintf_USART1("%s(%d) - size : 0x%04X / front : 0x%04X / rear : 0x%04X\n\r", __func__, __LINE__,
+	if(GetDbg() == 2) MyPrintf_USART1("%s(%d) - size : 0x%04X / front : 0x%04X / rear : 0x%04X\n\r", __func__, __LINE__,
 		   g_qLog.size, g_qLog.front, g_qLog.rear );
 
 	return TRUE;
@@ -1352,7 +1360,7 @@ int EEPLogReset(void)
 	if (g_hi2c == NULL)
 		return 0;
 
-	MyPrintf_USART1("%s(%d)EEPLogInit", __func__, __LINE__);
+	if(GetDbg() == 2) MyPrintf_USART1("%s(%d)EEPLogInit", __func__, __LINE__);
 
 	s_n16Val.cBuf[0] = EEPMagicNumH;
 	s_n16Val.cBuf[1] = EEPMagicNumL;
@@ -1381,7 +1389,7 @@ int EEPLogGetMaxSize(void)
 	if (g_hi2c == NULL)
 		return 0;
 
-	MyPrintf_USART1("%s(%d)\n", __func__, __LINE__);
+	if(GetDbg() == 2) MyPrintf_USART1("%s(%d)\n", __func__, __LINE__);
 
 	return EEPRead16(EPPAddrMaxLogSizeH);
 }

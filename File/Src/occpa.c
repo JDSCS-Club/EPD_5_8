@@ -72,7 +72,7 @@ int cmd_occ(int argc, char *argv[])
     static int sProCnt = 0;
         
             
-    if(!uDI_getMasterIn) //접점이 ON 되면 동작.
+    if(uDI_getMasterIn) //접점이 ON 되면 동작.
     {
         
         bOnOff = 1;

@@ -332,6 +332,7 @@ int main(void)
     
     static int s_bMstIn = 0;
     static int s_vcc = 0;
+    static int s_Cnt = 0;
 
 
     //WWDG_Init(); //
@@ -340,10 +341,10 @@ int main(void)
 
       AUDIO_AMP_Boot_Set();
 
-  	  MyPrintf_USART1("\n----TestEEPROM Test----\n\n");
+  	  MyPrintf_USART1("\n----TestEEPROM Test----\n\r");
 	  TestEEPROM(&hi2c1);	//i2c
 
-	  MyPrintf_USART1("\n----EEPLogInit Test----\n\n");
+	  MyPrintf_USART1("\n----EEPLogInit Test----\n\r");
 	  EEPLogInit(&hi2c1); // FIXME: EEPROM�� I2C�ʱ�ȭ ���Ŀ� ����. ( MX_I2C1_Init() ȣ�� ���� �ٷ� ������ EEProm Error�߻�. )
 //    TestEEPLog();
 
@@ -389,6 +390,8 @@ int main(void)
         
         if ( (nTick - s_nOccCnt) >= 100)
         {
+            
+            
 
 #if defined(EPD_5_8)
 
@@ -396,11 +399,21 @@ int main(void)
 
 
 
-        	if(s_vcc != getVccIn())
+        	if(s_vcc != getMasterIn())
         	{
-        		s_vcc = getVccIn();
-        		MyPrintf_USART1("Timer_getVccIn():%d\n", getVccIn());
-        		MyPrintf_USART1("Timer_getMasterIn():%d\n", getMasterIn());
+                
+        		s_vcc = getMasterIn();
+                
+                s_Cnt++;
+                
+                
+                if(GetDbg() == 4)
+                {
+                
+                    MyPrintf_USART1("------************------------Timer_getVccIn():%d-%d\n\r", getVccIn(),s_Cnt);
+                    MyPrintf_USART1("------************------------Timer_getMasterIn():%d-%d\n\r", getMasterIn(),s_Cnt);
+                
+                }
         	}
 
 
@@ -412,7 +425,7 @@ int main(void)
         		if(sVccInFlag > 15)
         		{
 
-					int bMstIn = getMasterIn();
+					int bMstIn = uDI_getMasterIn;//getMasterIn();
 
 					if ( bMstIn )
 					{
@@ -468,7 +481,7 @@ int main(void)
 
         	}
 
-
+            ONTD_Function();
 
 #else
             s_nOccCnt = nTick;
@@ -511,8 +524,9 @@ int main(void)
         if ( (nTick - s_currentCnt) >= 5000)
         {
             s_currentCnt = nTick;
-                
-             //processCurrentVal();
+             
+            
+             processCurrentVal();
                  
                 
    
@@ -735,6 +749,8 @@ int main(void)
 
 
 
+
+
 ///*****************************************************************************
 //* @brief -
 //* @param -
@@ -852,7 +868,7 @@ static void BSP_Config(void)
     GPIO_InitStructure.Pin = VCC_IN_Pin | MASTER_IN_Pin;
 	GPIO_InitStructure.Pull = GPIO_NOPULL;
 	GPIO_InitStructure.Mode = GPIO_MODE_INPUT;
-    GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+    GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_LOW;
 	HAL_GPIO_Init(GPIOE, &GPIO_InitStructure);
     
      // E_GPIO_OUT
@@ -865,9 +881,11 @@ static void BSP_Config(void)
     //PHY_RST
     HAL_GPIO_WritePin(PHY_RST_Port, PHY_RST, GPIO_PIN_SET);
        
-    HAL_GPIO_WritePin(GPIOE, SD_Pin|LED_CTL_Pin, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOE, SD_Pin, GPIO_PIN_RESET);
    
     HAL_GPIO_WritePin(GPIOE, DI_CTL_Pin, GPIO_PIN_SET);   
+    
+    HAL_GPIO_WritePin(LED_CTL_GPIO_Port, LED_CTL_Pin, GPIO_PIN_RESET);
     
     
 }
@@ -1170,9 +1188,9 @@ void Time_Main(void)
     if (!(m_Main_TIM_Cnt % 5000)) // 1000ms 
 	{
         
-       RFMOccPaStart();
+       //RFMOccPaStart();
         //----------------------------------------
-            processCurrentVal();
+            //processCurrentVal();
             //----------------------------------------
             
         if(mLed_Process_Flag.sCurrentTestFlag == TRUE) // 
@@ -1241,23 +1259,26 @@ void Time_Main(void)
     {
         
         HAL_GPIO_TogglePin(GPIOE, SD_Pin);
-        HAL_GPIO_TogglePin(GPIOE, LED_CTL_Pin);
+        //HAL_GPIO_TogglePin(GPIOE, LED_CTL_Pin);
         
         
         batVol = getAdc1Vol();
         batVol1 = getAdc2Vol();
         
-        //////--------------------------------------------------------------------//////
-        MyPrintf_USART1("~~~~~~~~~~~~NewPulse 4_line PAMP~~~~~~~~~~~~\n\r");
-		MyPrintf_USART1("CPU RUN Time  = %d Second  \n\r", (m_Main_TIM_Cnt / 1000));
-        MyPrintf_USART1("IP  : %s\n\r", ip4addr_ntoa(&gnetif.ip_addr));
-		MyPrintf_USART1("MAC : %x-%x-%x-%x-%x-%x \n\r", gnetif.hwaddr[0], gnetif.hwaddr[1], gnetif.hwaddr[2], gnetif.hwaddr[3], gnetif.hwaddr[4], gnetif.hwaddr[5]);
-        MyPrintf_USART1("BAT : %02d\r\n",batVol1);
-        MyPrintf_USART1("Temp : %02d\r\n",batVol);
-        //////--------------------------------------------------------------------//////
         
+        if(GetDbg() == 4)
+        {
+            //////--------------------------------------------------------------------//////
+            MyPrintf_USART1("~~~~~~~~~~~~NewPulse 4_line PAMP~~~~~~~~~~~~\n\r");
+            MyPrintf_USART1("CPU RUN Time  = %d Second  \n\r", (m_Main_TIM_Cnt / 1000));
+            MyPrintf_USART1("IP  : %s\n\r", ip4addr_ntoa(&gnetif.ip_addr));
+            MyPrintf_USART1("MAC : %x-%x-%x-%x-%x-%x \n\r", gnetif.hwaddr[0], gnetif.hwaddr[1], gnetif.hwaddr[2], gnetif.hwaddr[3], gnetif.hwaddr[4], gnetif.hwaddr[5]);
+            MyPrintf_USART1("BAT : %02d\r\n",batVol1);
+            MyPrintf_USART1("Temp : %02d\r\n",batVol);
+            //////--------------------------------------------------------------------//////
+        }
         
-        processTestDebug();
+        if(GetDbg() == 4) processTestDebug();
         
         
         
@@ -1271,7 +1292,7 @@ void Time_Main(void)
             mLed_Process_Flag.sDHCP_IP_Val = ip4_addr4(&gnetif.ip_addr);
             mLed_Process_Flag.sTrainID = ip4_addr3(&gnetif.ip_addr);
             
-			MyPrintf_USART1(" @@@@  CPU.....netif_is_link_up \n\r");
+			if(GetDbg() == 1) MyPrintf_USART1(" @@@@  CPU.....netif_is_link_up \n\r");
   
         
 #if LWIP_IGMP 
@@ -1288,7 +1309,7 @@ void Time_Main(void)
                 
 				igmp_joingroup(&gnetif.ip_addr, &allrouters);
                 
-                MyPrintf_USART1("++++++igmp group : %d\n\r",mLed_Process_Flag.sDhcp_Complete);
+                if(GetDbg() == 1) MyPrintf_USART1("++++++igmp group : %d\n\r",mLed_Process_Flag.sDhcp_Complete);
 			}
 
 #endif
@@ -1308,7 +1329,7 @@ void Time_Main(void)
             else if(mLed_Process_Flag.sEth_Rx_Cnt == 8) // 80 초 동안  데이타  수신이 없으면
             {
                  udp_SysLog_Connect(0," @@@@  CPU Processing SystemReset ");
-			     MyPrintf_USART1(" @@@@  CPU Processing SystemReset \n\r");
+			     if(GetDbg() == 1) MyPrintf_USART1(" @@@@  CPU Processing SystemReset \n\r");
 
 			     //HAL_NVIC_SystemReset(); // 장치 Reset 한다.
                 
@@ -1319,7 +1340,8 @@ void Time_Main(void)
 		{
             m_Main_TIM_Cnt_Reset++;
             
-			MyPrintf_USART1(" @@@@ netif_is_link_Down \n\r");
+            
+			if(GetDbg() == 1) MyPrintf_USART1(" @@@@ netif_is_link_Down \n\r");
             
 //			if ((m_Main_TIM_Cnt_Reset) >= 6) // 부팅하고 60초 동안 네트워크 연결이 없으면, 리셋 한다.
 //			{
@@ -1466,7 +1488,8 @@ static void RTC_TimeShow(uint8_t* showtime)
 
 	HAL_RTC_SetAlarm_IT(&RtcHandle, &salarmstructure, RTC_FORMAT_BCD);
 
-	MyPrintf_USART1("--------Timer Count : %02d:%02d:%02d \n\r", BCD_BIN(stimestructureget.Hours), BCD_BIN(stimestructureget.Minutes), BCD_BIN(stimestructureget.Seconds));
+    
+    if(GetDbg() == 5) MyPrintf_USART1("--------Timer Count : %02d:%02d:%02d \n\r", BCD_BIN(stimestructureget.Hours), BCD_BIN(stimestructureget.Minutes), BCD_BIN(stimestructureget.Seconds));
     
 //    if(getSW_RS()|| getSW_AR() || getSW_SL() || getSW_SL()) // 접점 신호가 있으면 접점 신호를 출력한다.
 //    {

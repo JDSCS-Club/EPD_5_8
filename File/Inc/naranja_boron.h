@@ -33,7 +33,7 @@ extern uint16_t u16Led75UnderFlickerTick;
 extern uint16_t u16Led100UnderFlickerTick;
 extern uint16_t u16AmpSettingTick;
 
-extern uint8_t uDI_getMasterIn;
+extern uint8_t uDI_getMasterIn;  //H - 동작중, -- L - 대기중.
 extern uint8_t uSpk_Stat;
 extern uint8_t uRssi_NgFlag;
 
@@ -50,7 +50,7 @@ extern void processAudioAmpProcess(void);
 extern void processGetBatVol(void);
 extern void processTestDebug(void);
 //--------------------------------------------------------------------------------------------//
-
+extern bool getVccIn(void);
 //--------------------------------------------------------------------------------------------//
 extern bool getVccRfIn(void);
 extern bool getAmpFault(void);
@@ -61,7 +61,10 @@ extern void ONTD(uint8_t IN,uint8_t *OUT,uint8_t MS,int *CLK );
 
 extern void ONTD_Function(void);
 
+extern bool getMasterIn(void);
 
+extern void RF_POWN_ON(void);
+extern void RF_POWN_OFF(void);
 
 //--------------------------------------------------------------------------------------------//
 //
