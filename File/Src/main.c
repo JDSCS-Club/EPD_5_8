@@ -391,13 +391,7 @@ int main(void)
         if ( (nTick - s_nOccCnt) >= 100)
         {
             
-            
-
-#if defined(EPD_5_8)
-
         	 s_nOccCnt = nTick;
-
-
 
         	if(s_vcc != getMasterIn())
         	{
@@ -415,7 +409,6 @@ int main(void)
                 
                 }
         	}
-
 
 
         	if(getVccIn() == 1) //차량 전원이 ON 일때만 동작.
@@ -439,23 +432,7 @@ int main(void)
 					if ( (s_bMstIn != bMstIn) && ((sVccOff_TimeCnt > 5) || (sVccOff_TimeCnt == 0)))
 					{
 						s_bMstIn = bMstIn;
-
-						/*
-						if(bMstIn)
-						{
-							sVccOff_TimeCnt++;
-							if(sVccOff_TimeCnt > 5)
-							{
-								s_bMstIn = bMstIn;
-							}
-						}
-						else
-						{
-							sVccOff_TimeCnt = 0;
-							s_bMstIn = bMstIn;
-						}*/
-
-
+						
 						if ( s_bMstIn )
 						{
 							MyPrintf_USART1("getVccIn():%d,%d,%d\n", getVccIn(),sVccOff_TimeCnt,sVccInFlag);
@@ -483,18 +460,6 @@ int main(void)
 
             ONTD_Function();
 
-#else
-            s_nOccCnt = nTick;
-                
-            // 1?�차 �??10 ?�차�?? ?�??�객 ?�작 ?�도�???�정.
-            if(getRS485Id() == 0x01 ||
-               getRS485Id() == 0x0A )
-            {
-                processOverrideOn();
-            }
-                
-            ONTD_Function();
-#endif
         }
             
                 
@@ -508,11 +473,11 @@ int main(void)
 			if(getAmpFault())
 			{
 
-				//printf( "getAmpOk \n" );
+				MyPrintf_USART1( "getAmpOk \r\n" );
 			}
 			else
 			{
-				//printf( "getAmpFault \n" );
+				MyPrintf_USART1( "getAmpFault \r\n" );
 			}
 
 			
@@ -536,150 +501,7 @@ int main(void)
         
       
     
-        
-//        if(HAL_GetTick() == 30000 ) // 15초 부팅 할때 초기 AMP  제어 OFF
-//        {
-//            HAL_GPIO_WritePin(GPIOE, GPIO_PIN_7, GPIO_PIN_SET);
-//            HAL_GPIO_WritePin(GPIOE, GPIO_PIN_7, GPIO_PIN_RESET);
-//            HAL_GPIO_WritePin(GPIOE, GPIO_PIN_7, GPIO_PIN_SET);
-//            
-//        }
-        
-        
-        
-    
-//            s_MainTimeCng++;
-//                
-//
-//            if(s_MainTimeCng == 1)
-//            {
-//                s_MainTimeCng++;
-//                    
-//                s_100msCng = HAL_GetTick();
-//                s_200msCng = HAL_GetTick();
-//                s_1000msCng = HAL_GetTick(); 
-//                
-//            }
-//            
-//            // 500ms 마다 스피커 동작 DI를 체크 한다.
-//             //s_DI_Check = ((getSW_RS() << 3) | (getSW_AR() << 2) | (getSW_SL() << 1) | (getSW_SR() & 0x01));
-//            if ((HAL_GetTick() - s_100msCng >= 100) )
-//            {
-//                
-//                s_100msCng = HAL_GetTick();
-//
-//                    
-//                MX_I2C_Process();
-//
-//            }
-//        
-//           // 100MS 마다 ADC DMA 스켄.
-//            if (HAL_GetTick() - s_200msCng >= 100)
-//            {
-//                s_200msCng = HAL_GetTick();
-//            
-//                HAL_ADC_Start_DMA(&AdcHandle1, (uint32_t*)&ADCValue1, 1) ;
-//                HAL_ADC_Start_DMA(&AdcHandle3, (uint32_t*)&ADCValue3, 1) ;
-//            
-//            }
-//            
-//
-//              // 1초마다 LCD 화면 갱신 및 AMP 고장 확인.
-//            if (HAL_GetTick() - s_1000msCng >= 1000)
-//            {
-//                s_1000msCng = HAL_GetTick();
-//
-//                sOLED_InitCnt++;
-//                
-//                if(!(sOLED_InitCnt % 120) && (sOLED_InitCnt < 400)) //Power On 400초 동안 ( 120초 마다 한번씩  초기화 로직 추가.)
-//                {
-//                    OLED_1in3_C_Init();
-//                }
-//                
-//                mLed_Process_Flag.sOLED_Display_Flag = true;
-//                
-//               // MyPrintf_USART1("OLED Tim s: %d \n\r",HAL_GetTick());
-//                
-//                OLED_Print(); // 약 150ms 필요. --> 클럭속도 4000 향상하면 50ms 까지 감소.
-//            
-//                //MyPrintf_USART1("OLED Tim e: %d \n\r",HAL_GetTick());
-//                
-//                mLed_Process_Flag.sOLED_Display_Flag = false;
-//                
-//                if(mLed_Process_Flag.sAudio_Play_mode == true)
-//                {
-//                    
-//                    AMP_FAULT();
-//                }
-//                
-//                 // 계속 전송하는 방식으로 변경. 
-//                  udp_SysLog_Connect(0,"AMP_%01d%01d%01d%01d_A%03d",
-//                                       ((mLed_Process_Flag.sSt_Buf_Val[0] & 0x80) == 0x80 ? 1 : 0) ,
-//                                       ((mLed_Process_Flag.sSt_Buf_Val[1] & 0x80) == 0x80 ? 1 : 0) ,
-//                                       ((mLed_Process_Flag.sSt_Buf_Val[2] & 0x80) == 0x80 ? 1 : 0) ,
-//                                       ((mLed_Process_Flag.sSt_Buf_Val[3] & 0x08) == 0x08 ? 1 : 0) ,
-//                                        mLed_Process_Flag.sCurrentVal );
-//                
-//                
-//                udp_SysLog_Connect(1,"%c.%c.%c.%c%c%c%c",
-//                                    VERSION_MAJOR_INIT,
-//                                    VERSION_MINOR_INIT,
-//                                    VERSION__REVISION_INIT,
-//                                    BUILD_MONTH_CH0,
-//                                    BUILD_MONTH_CH1,
-//                                    BUILD_DAY_CH0,
-//                                    BUILD_DAY_CH1);
-//                
-//                
-//                
-//            
-//            }
-//            
-//   
-//        }
-//        
-//
-//          //------------ UDP 수신 데이타 처리 부분.
-//        if((mLed_Process_Flag.sEth_Rx_Finish_TimeCnt) == 1) // 통신 time out 완료 
-//        {
-//
-//            mLed_Process_Flag.sEth_Rx_Finish_TimeCnt = 0;
-//         
-//            
-//            pmEthernet_Rx_struct = (mETHERNET_RX_STRUCT *)mLed_Process_Flag.sRx_Public_Buf;
-//            
-//            
-//            if(mLed_Process_Flag.sEth_Rx_Request_Flag) //수신  flag
-//            {
-//                mLed_Process_Flag.sEth_Rx_Request_Flag = 0;
-//                
-//                
-//                udp_SysLog_Connect(0,"AMP_%01d%01d%01d%01d_A%03d",
-//                                   ((mLed_Process_Flag.sSt_Buf_Val[0] & 0x80) == 0x80 ? 1 : 0) ,
-//                                   ((mLed_Process_Flag.sSt_Buf_Val[1] & 0x80) == 0x80 ? 1 : 0) ,
-//                                   ((mLed_Process_Flag.sSt_Buf_Val[2] & 0x80) == 0x80 ? 1 : 0) ,
-//                                   ((mLed_Process_Flag.sSt_Buf_Val[3] & 0x08) == 0x08 ? 1 : 0) ,
-//                                    mLed_Process_Flag.sCurrentVal );
-//                
-//                
-//            }
-//
-//        }
-        
-        
-//        if(mLed_Process_Flag.sSpk_check_Cnt == 1)
-//        {
-//            mLed_Process_Flag.sSpk_check_Cnt = 0;
-//            
-//            mLed_Process_Flag.sSpk_check_Flag = true;
-//                
-//            AMP_SPK_CHECK();
-//            
-//        }
-    
-            
-        
-       
+      
 
 
         /*
@@ -698,20 +520,7 @@ int main(void)
         }
         
 		*/
-        
-        
-//		if (nTime_Flage)
-//		{
-//			nTime_Flage = 0;
-//          
-//            mLed_Process_Flag.sEth_Rx_Request_Flag = 0;
-//            
-//			udp_SysLog_Connect(0,"FDI - sending udp client message %d",mEthernet_Tx_struct.sWatchdog_Cnt);
-//			udp_echoclient_connect();
-//            
-//  
-//		}
-          
+         
     
 		//네트워크 설정 다시 리셋 하는 부분.
 //	  
