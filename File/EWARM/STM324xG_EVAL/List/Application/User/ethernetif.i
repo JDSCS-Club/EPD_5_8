@@ -27178,33 +27178,6 @@ typedef struct
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-   
-   
-unsigned crc8(unsigned crc, unsigned char const *data, size_t len);
-unsigned crc8_slow(unsigned crc, unsigned char const *data, size_t len);
-
-unsigned short crc16_ccitt(unsigned char const *data, int len);
-
-
-
  
 
 
@@ -28917,10 +28890,28 @@ void Dump( char *sTitle, char *sBuf, int nSize );
 
 
 
+     
+ 
+ 
+
+
+  #pragma system_include
+
+
+
+
+
+
+
+
+ 
 
         extern I2C_HandleTypeDef hi2c1;
         extern I2C_HandleTypeDef hi2c2;
 
+        
+        void setAMP_Standby(_Bool state);
+        
 
         void MX_I2C_Process(void);
          
@@ -29096,20 +29087,6 @@ void njw1192_mute(uint8_t On_Off);
 
      
      
- 
- 
-
-
-  #pragma system_include
-
-
-
-
-
-
-
-
- 
      
 
  

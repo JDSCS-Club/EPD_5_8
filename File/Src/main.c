@@ -37,8 +37,7 @@
 #include "lwip/udp.h"
 
 
-#include "AmpGpio.h"
-#include "LED.h"
+
 #include "Timer.h"
 #include "USRAT.h"
 
@@ -47,11 +46,11 @@
 
 #include "build_defs.h"
 
-#include "CRC8.h"
 
 
 #include "debug_task.h"
 
+#include "I2C.h"
 
 #include "Flash.h"
 
@@ -67,9 +66,7 @@
 
 //#include "CharLCD.h"
 
-#ifdef USE_LCD
-#include "lcd_log.h"
-#endif
+
 
 
 

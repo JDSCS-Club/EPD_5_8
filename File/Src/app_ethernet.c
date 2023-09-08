@@ -19,9 +19,7 @@
 #include "app_ethernet.h"
 #include "usrat.h"
 #include "main.h"
-#ifdef USE_LCD
-#include "lcd_log.h"
-#endif
+
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/

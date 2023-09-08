@@ -27940,10 +27940,28 @@ void Dump( char *sTitle, char *sBuf, int nSize );
 
 
 
+     
+ 
+ 
+
+
+  #pragma system_include
+
+
+
+
+
+
+
+
+ 
 
         extern I2C_HandleTypeDef hi2c1;
         extern I2C_HandleTypeDef hi2c2;
 
+        
+        void setAMP_Standby(_Bool state);
+        
 
         void MX_I2C_Process(void);
          
@@ -28119,20 +28137,6 @@ void njw1192_mute(uint8_t On_Off);
 
      
      
- 
- 
-
-
-  #pragma system_include
-
-
-
-
-
-
-
-
- 
      
 
  
@@ -30040,374 +30044,6 @@ void tcp_echoclient_connect(void);
 
 
 
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
- 
-
-  
-
-     
-     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-     
-     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
- 
-     
-     
-     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-   
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-void LED_GPIO_Init(void);
-void LED_init(void);
-
-void LED_SCREEN_PRINT(void);
-	
-
-void LED_Imag_ScreenUp(uint8_t *Imag);
-void LED_Imag_ScreenDown(uint8_t *Imag);
-void LED_Imag_ScreenScroll(void);
-uint8_t LED_Imag_ScreenScroll_Cnt(void);
-uint8_t LED_Imag_ScreenNormal_Cnt(void);
-
-void LED_Imag_ScreenUp_16Font(uint8_t *Imag);
-
-
-
-void LED_Block_Screen_Buf(void);
-void LED_FONT_POSITION(uint8_t *nAscii_Len_Buf);
-uint8_t LED_Pattern_TEST(void);
-
-void LED_Timer_1ms(void);
-
-extern char mStringBuf[15][40] ;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-typedef struct
-{
-	uint8_t s16_Dot[12][16];
-}PRINT_DOT16;
-
-
-typedef struct
-{
-	PRINT_DOT16 nLine[32];
-
-}FDI_SCREEN_BOKCK, *pFDI_SCREEN_BOKCK;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -30680,34 +30316,6 @@ static void WWDG_Error_Handler(void);
         
    
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-   
-   
-unsigned crc8(unsigned crc, unsigned char const *data, size_t len);
-unsigned crc8_slow(unsigned crc, unsigned char const *data, size_t len);
-
-unsigned short crc16_ccitt(unsigned char const *data, int len);
 
 
 
@@ -31167,6 +30775,7 @@ int		input_check		( void );
 
 
 
+
  
 uint8_t mEtherNetRx_Flag = 0;
 
@@ -31321,14 +30930,14 @@ const unsigned char completeVersion[] =
 const unsigned char completeVersionBuild[] = 
 {
 	'B',
-	("Sep  6 2023"[ 9]),
-	("Sep  6 2023"[10]),
+	("Sep  8 2023"[ 9]),
+	("Sep  8 2023"[10]),
    
-	((("Sep  6 2023"[0] == 'O') || ("Sep  6 2023"[0] == 'N') || ("Sep  6 2023"[0] == 'D')) ? '1' : '0'),
-	( (("Sep  6 2023"[0] == 'J' && "Sep  6 2023"[1] == 'a' && "Sep  6 2023"[2] == 'n')) ? '1' : (("Sep  6 2023"[0] == 'F')) ? '2' : (("Sep  6 2023"[0] == 'M' && "Sep  6 2023"[1] == 'a' && "Sep  6 2023"[2] == 'r')) ? '3' : (("Sep  6 2023"[0] == 'A' && "Sep  6 2023"[1] == 'p')) ? '4' : (("Sep  6 2023"[0] == 'M' && "Sep  6 2023"[1] == 'a' && "Sep  6 2023"[2] == 'y')) ? '5' : (("Sep  6 2023"[0] == 'J' && "Sep  6 2023"[1] == 'u' && "Sep  6 2023"[2] == 'n')) ? '6' : (("Sep  6 2023"[0] == 'J' && "Sep  6 2023"[1] == 'u' && "Sep  6 2023"[2] == 'l')) ? '7' : (("Sep  6 2023"[0] == 'A' && "Sep  6 2023"[1] == 'u')) ? '8' : (("Sep  6 2023"[0] == 'S')) ? '9' : (("Sep  6 2023"[0] == 'O')) ? '0' : (("Sep  6 2023"[0] == 'N')) ? '1' : (("Sep  6 2023"[0] == 'D')) ? '2' : '?' ),
+	((("Sep  8 2023"[0] == 'O') || ("Sep  8 2023"[0] == 'N') || ("Sep  8 2023"[0] == 'D')) ? '1' : '0'),
+	( (("Sep  8 2023"[0] == 'J' && "Sep  8 2023"[1] == 'a' && "Sep  8 2023"[2] == 'n')) ? '1' : (("Sep  8 2023"[0] == 'F')) ? '2' : (("Sep  8 2023"[0] == 'M' && "Sep  8 2023"[1] == 'a' && "Sep  8 2023"[2] == 'r')) ? '3' : (("Sep  8 2023"[0] == 'A' && "Sep  8 2023"[1] == 'p')) ? '4' : (("Sep  8 2023"[0] == 'M' && "Sep  8 2023"[1] == 'a' && "Sep  8 2023"[2] == 'y')) ? '5' : (("Sep  8 2023"[0] == 'J' && "Sep  8 2023"[1] == 'u' && "Sep  8 2023"[2] == 'n')) ? '6' : (("Sep  8 2023"[0] == 'J' && "Sep  8 2023"[1] == 'u' && "Sep  8 2023"[2] == 'l')) ? '7' : (("Sep  8 2023"[0] == 'A' && "Sep  8 2023"[1] == 'u')) ? '8' : (("Sep  8 2023"[0] == 'S')) ? '9' : (("Sep  8 2023"[0] == 'O')) ? '0' : (("Sep  8 2023"[0] == 'N')) ? '1' : (("Sep  8 2023"[0] == 'D')) ? '2' : '?' ),
    
-	(("Sep  6 2023"[4] >= '0') ? ("Sep  6 2023"[4]) : '0'),
-	("Sep  6 2023"[ 5]),
+	(("Sep  8 2023"[4] >= '0') ? ("Sep  8 2023"[4]) : '0'),
+	("Sep  8 2023"[ 5]),
 	
 	
     
@@ -31483,12 +31092,7 @@ int main(void)
         if ( (nTick - s_nOccCnt) >= 100)
         {
             
-            
-
-
         	 s_nOccCnt = nTick;
-
-
 
         	if(s_vcc != getMasterIn())
         	{
@@ -31506,7 +31110,6 @@ int main(void)
                 
                 }
         	}
-
 
 
         	if(getVccIn() == 1) 
@@ -31530,23 +31133,7 @@ int main(void)
 					if ( (s_bMstIn != bMstIn) && ((sVccOff_TimeCnt > 5) || (sVccOff_TimeCnt == 0)))
 					{
 						s_bMstIn = bMstIn;
-
 						
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
 						if ( s_bMstIn )
 						{
 							MyPrintf_USART1("getVccIn():%d,%d,%d\n", getVccIn(),sVccOff_TimeCnt,sVccInFlag);
@@ -31587,11 +31174,11 @@ int main(void)
 			if(getAmpFault())
 			{
 
-				
+				MyPrintf_USART1( "getAmpOk \r\n" );
 			}
 			else
 			{
-				
+				MyPrintf_USART1( "getAmpFault \r\n" );
 			}
 
 			
@@ -31611,150 +31198,7 @@ int main(void)
         
       
     
-        
-
-
-
-
-
-
-
-        
-        
-        
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-        
-
-
-
-
-
-
-
-
-
-    
-            
-        
-       
+      
 
 
         
@@ -31773,20 +31217,7 @@ int main(void)
 
 
  
-        
-        
-
-
-
-
-
-
-
-
-
-
-
-          
+         
     
 		
 

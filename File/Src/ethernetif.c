@@ -19,7 +19,7 @@
 #include "netif/etharp.h"
 #include "ethernetif.h"
 #include "LED.h"
-#include "CRC8.h"
+
 #include "main.h"
 #include "USRAT.h"
 #include "Flash.h"

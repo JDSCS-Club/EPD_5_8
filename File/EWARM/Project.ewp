@@ -1110,16 +1110,10 @@
                 <name>$PROJ_DIR$\..\Src\adc.c</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\..\Src\AmpGpio.c</name>
-            </file>
-            <file>
                 <name>$PROJ_DIR$\..\Src\app_ethernet.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\cli.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\Src\CRC8.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\ethernetif.c</name>
@@ -1207,61 +1201,10 @@
     <group>
         <name>Drivers</name>
         <group>
-            <name>BSP</name>
-            <group>
-                <name>Components</name>
-                <file>
-                    <name>$PROJ_DIR$\..\Drivers\BSP\Components\ili9325\ili9325.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Drivers\BSP\Components\stmpe811\stmpe811.c</name>
-                </file>
-            </group>
-            <group>
-                <name>STM324xG_EVAL</name>
-                <file>
-                    <name>$PROJ_DIR$\..\Drivers\BSP\STM324xG_EVAL\stm324xg_eval.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Drivers\BSP\STM324xG_EVAL\stm324xg_eval_io.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Drivers\BSP\STM324xG_EVAL\stm324xg_eval_sram.c</name>
-                </file>
-            </group>
-        </group>
-        <group>
             <name>CMSIS</name>
             <file>
                 <name>$PROJ_DIR$\..\Src\system_stm32f4xx.c</name>
             </file>
-        </group>
-        <group>
-            <name>display</name>
-            <group>
-                <name>Config</name>
-                <file>
-                    <name>$PROJ_DIR$\..\Drivers\display\Config\DEV_Config.c</name>
-                </file>
-            </group>
-            <group>
-                <name>Example</name>
-                <file>
-                    <name>$PROJ_DIR$\..\Drivers\display\Example\ImageData.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Drivers\display\Example\test.h</name>
-                </file>
-            </group>
-            <group>
-                <name>GUI</name>
-                <file>
-                    <name>$PROJ_DIR$\..\Drivers\display\GUI\GUI_Paint.c</name>
-                </file>
-            </group>
-            <group>
-                <name>OLED</name>
-            </group>
         </group>
         <group>
             <name>STM32F4xx_HAL_Driver</name>

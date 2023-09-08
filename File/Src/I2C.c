@@ -18,8 +18,7 @@
 
 #include "stm32f4xx_hal.h"
 
-#include "test.h"
-#include "../Utilities/Fonts/fonts.h"
+
 #include "main.h"
 #include "I2C.h"
 #include "AmpGpio.h"
@@ -30,6 +29,13 @@
 
 I2C_HandleTypeDef hi2c1;
 
+
+void setAMP_Standby(bool state)
+{ 
+	HAL_GPIO_WritePin(AMP_STANDBY_Port, AMP_STANDBY, state); 
+	HAL_GPIO_WritePin(AMP_STANDBY_Port, AMP_STANDBY, state); 
+
+}
 
 
 /*****************************************************************************

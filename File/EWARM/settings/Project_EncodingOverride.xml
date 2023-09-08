@@ -25,6 +25,10 @@
         <encoding>System</encoding>
     </override>
     <override>
+        <path>C:\D\Git_Hub\EPD_5_8\File\Inc\LED.h</path>
+        <encoding>System</encoding>
+    </override>
+    <override>
         <path>C:\D\Git_Hub\EPD_5_8\File\Src\Timer.c</path>
         <encoding>System</encoding>
     </override>

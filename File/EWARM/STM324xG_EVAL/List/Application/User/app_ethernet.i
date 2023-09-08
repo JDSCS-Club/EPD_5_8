@@ -27936,10 +27936,28 @@ void Dump( char *sTitle, char *sBuf, int nSize );
 
 
 
+     
+ 
+ 
+
+
+  #pragma system_include
+
+
+
+
+
+
+
+
+ 
 
         extern I2C_HandleTypeDef hi2c1;
         extern I2C_HandleTypeDef hi2c2;
 
+        
+        void setAMP_Standby(_Bool state);
+        
 
         void MX_I2C_Process(void);
          
@@ -28115,20 +28133,6 @@ void njw1192_mute(uint8_t On_Off);
 
      
      
- 
- 
-
-
-  #pragma system_include
-
-
-
-
-
-
-
-
- 
      
 
  
@@ -29079,6 +29083,7 @@ void DHCP_Periodic_Handle(struct netif *netif);
 
 
  
+
 
 
  

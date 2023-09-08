@@ -222,7 +222,7 @@ extern __IO uint16_t ADCValue[6];
 
 
 /* Exported constants --------------------------------------------------------*/
-//#define USE_LCD        /* enable LCD  */  
+
 
 //#define DEST_IP_ADDR0   10
 //#define DEST_IP_ADDR1   128

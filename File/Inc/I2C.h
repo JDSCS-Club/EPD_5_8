@@ -25,10 +25,15 @@
 #ifdef __cplusplus
  extern "C" {
 #endif
+     
+        #include "stdbool.h"
 
         extern I2C_HandleTypeDef hi2c1;
         extern I2C_HandleTypeDef hi2c2;
 
+        
+        void setAMP_Standby(bool state);
+        
 
         void MX_I2C_Process(void);
          
