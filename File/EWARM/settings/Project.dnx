@@ -155,8 +155,8 @@
         <PowerConnectPC>1</PowerConnectPC>
     </SWOManager>
     <ArmDriver>
-        <EnableCache>1</EnableCache>
         <EnforceMemoryConfiguration>1</EnforceMemoryConfiguration>
+        <EnableCache>1</EnableCache>
     </ArmDriver>
     <PlDdfRanges>
         <ConfigRanges0>Memory ROM 536805376 32768 1</ConfigRanges0>

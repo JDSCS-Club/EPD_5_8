@@ -3,7 +3,7 @@
   "configuration": "STM324xG_EVAL",
   "toolchain": "C:\\Program Files\\IAR Systems\\Embedded Workbench 9.1",
   "workspace": {
-    "path": "${workspaceFolder}\\File\\EWARM\\Project.eww"
+    "path": "${workspaceFolder}/File/EWARM/Project.eww"
   },
   "workspaces": {
     "${workspaceFolder}\\File\\EWARM\\Project.eww": {
