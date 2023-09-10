@@ -155,8 +155,8 @@
         <PowerConnectPC>1</PowerConnectPC>
     </SWOManager>
     <ArmDriver>
-        <EnforceMemoryConfiguration>1</EnforceMemoryConfiguration>
         <EnableCache>1</EnableCache>
+        <EnforceMemoryConfiguration>1</EnforceMemoryConfiguration>
     </ArmDriver>
     <PlDdfRanges>
         <ConfigRanges0>Memory ROM 536805376 32768 1</ConfigRanges0>
@@ -320,23 +320,6 @@
     <CallStackStripe>
         <ShowTiming>1</ShowTiming>
     </CallStackStripe>
-    <LogFile>
-        <LoggingEnabled>_ 0</LoggingEnabled>
-        <LogFile>_ ""</LogFile>
-        <Category2>_ 0</Category2>
-    </LogFile>
-    <DisassembleMode>
-        <mode>0</mode>
-    </DisassembleMode>
-    <Breakpoints2>
-        <Bp0>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Middlewares\Third_Party\LwIP\src\core\ipv4\igmp.c}.505.3" 0 0 1 "" 0 "" 0</Bp0>
-        <Bp1>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Middlewares\Third_Party\LwIP\src\core\ipv4\igmp.c}.498.3" 0 0 1 "" 0 "" 0</Bp1>
-        <Bp2>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Middlewares\Third_Party\LwIP\src\core\ipv4\igmp.c}.503.3" 0 0 1 "" 0 "" 0</Bp2>
-        <Bp3>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Middlewares\Third_Party\LwIP\src\core\init.c}.354.3" 0 0 1 "" 0 "" 0</Bp3>
-        <Bp4>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Src\spi_flash.c}.86.9" 0 0 1 "" 0 "" 0</Bp4>
-        <Bp5>_ 0 "EMUL_DATA" "RF_POWN_EN_Pin" 0 0 0 0 4294967295</Bp5>
-        <Count>6</Count>
-    </Breakpoints2>
     <Aliases>
         <A0>_ "C:\Users\jang duksu\Documents\Github\SEPTA_ML\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\EWARM\startup_stm32f407xx.s" ""</A0>
         <A1>_ "D:\GitHub_Pro\LEDC5.1_TRACE_TEST\LwIP_TCP_Echo_Server(SDI)_Ver1.1.1\EWARM\startup_stm32f407xx.s" ""</A1>
@@ -361,4 +344,21 @@
         <Count>20</Count>
         <SuppressDialog>1</SuppressDialog>
     </Aliases>
+    <LogFile>
+        <LoggingEnabled>_ 0</LoggingEnabled>
+        <LogFile>_ ""</LogFile>
+        <Category2>_ 0</Category2>
+    </LogFile>
+    <DisassembleMode>
+        <mode>0</mode>
+    </DisassembleMode>
+    <Breakpoints2>
+        <Bp0>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Middlewares\Third_Party\LwIP\src\core\ipv4\igmp.c}.505.3" 0 0 1 "" 0 "" 0</Bp0>
+        <Bp1>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Middlewares\Third_Party\LwIP\src\core\ipv4\igmp.c}.498.3" 0 0 1 "" 0 "" 0</Bp1>
+        <Bp2>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Middlewares\Third_Party\LwIP\src\core\ipv4\igmp.c}.503.3" 0 0 1 "" 0 "" 0</Bp2>
+        <Bp3>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Middlewares\Third_Party\LwIP\src\core\init.c}.354.3" 0 0 1 "" 0 "" 0</Bp3>
+        <Bp4>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Src\spi_flash.c}.86.9" 0 0 1 "" 0 "" 0</Bp4>
+        <Bp5>_ 0 "EMUL_DATA" "RF_POWN_EN_Pin" 0 0 0 0 4294967295</Bp5>
+        <Count>6</Count>
+    </Breakpoints2>
 </settings>
