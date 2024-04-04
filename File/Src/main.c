@@ -357,6 +357,8 @@ int main(void)
 	/* Notify user about the network interface config */
 	User_notification(&gnetif);
       
+    RFMOccPaStop();
+   
       
     
 	while (1)
@@ -432,17 +434,19 @@ int main(void)
 						
 						if ( s_bMstIn )
 						{
-							MyPrintf_USART1("getVccIn():%d,%d,%d\n", getVccIn(),sVccOff_TimeCnt,sVccInFlag);
+							MyPrintf_USART1("getVccIn():%d,%d,%d\n\r", getVccIn(),sVccOff_TimeCnt,sVccInFlag);
 
 							//RFMOccPaStop();
 							RFMOccPaStart();
+                            RFMOccPaStart();
 						}
 						else
 						{
-							MyPrintf_USART1("getVccIn():%d,%d,%d\n", getVccIn(),sVccOff_TimeCnt,sVccInFlag);
+							MyPrintf_USART1("getVccIn():%d,%d,%d\n\r", getVccIn(),sVccOff_TimeCnt,sVccInFlag);
 
 							//RFMOccPaStart();
 							RFMOccPaStop();
+                            RFMOccPaStop();
 						}
 					}
         		}
@@ -466,7 +470,8 @@ int main(void)
 			s_nTick = nTick;
 			processGetBatVol();			//	ADC
             
-                
+            
+             /*   
 			if(getAmpFault())
 			{
 
@@ -476,6 +481,7 @@ int main(void)
 			{
 				MyPrintf_USART1( "getAmpFault \r\n" );
 			}
+            */
 
 			
 		}
@@ -1567,7 +1573,8 @@ void AUDIO_AMP_Boot_Set(void)
 	//AMP MUTE
 //
 //    AMP_Mute_ON(AMP_ID_1, AMP_CH_All, AMP_ID_2, AMP_CH_All, AMP_ID_3, AMP_CH_All); // amp ic all mute
-
+    
+    AMP_Mute_ON(AMP_ID_1, AMP_CH_All, AMP_ID_2, AMP_CH_All, AMP_ID_3, AMP_CH_All); 
     
     nRbuf_1[0] = 0xFF;
     I2C_HAL_ReadBytes(&hi2c1, AMP_ID_1, 0x06, (uint8_t *)nRbuf_1, 1);

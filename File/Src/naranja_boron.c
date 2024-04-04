@@ -91,7 +91,7 @@ bool getChargerDet(void){ return !HAL_GPIO_ReadPin(CHARGER_DET_GPIO_Port, CHARGE
 /**
   * @brief  get Charge rate
   */
-uint8_t getChargeRate(void){ return (Get_Adc1_Value() * 100) / ADC_MAX_DATA; }
+uint8_t getChargeRate(void){ return (Get_Adc2_Value() * 100) / ADC_MAX_DATA; }
 //--------------------------------------------------------------------------------------------//
 //
 //--------------------------------------------------------------------------------------------//
@@ -431,13 +431,17 @@ void processLightLed(void)
 void processAudioAmpProcess(void)
 {
 
+   // MyPrintf_USART1("%s(%d)\n\r", __func__, __LINE__ );
     
 	if(getAudioOn())
 	{
         
+        
 		bAmpOnOff = true;
 		if(bCurAmpOnOff != bAmpOnOff)
 		{
+            //MyPrintf_USART1("getAudioOn -> bCurAmpOnOff(ON) \r\n"); 
+            
 			bCurAmpOnOff = bAmpOnOff;
 			AMP_Init(AMP_ID_1);
 

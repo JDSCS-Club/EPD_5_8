@@ -25,8 +25,8 @@
 //========================================================================
 // Define
 
-const char *sCmdOccPaStart	=	"occ 1 TEST\r";
-const char *sCmdOccPaStop	=	"occ 0 TEST\r";
+const char *sCmdOccPaStart	=	"occ 1\r";
+const char *sCmdOccPaStop	=	"occ 0\r";
 
 //========================================================================
 // Function
@@ -36,7 +36,7 @@ void RFMOccPaStart( void )
 //========================================================================
 {
 	//	RFMBase -> RFM 명령 전송 : UART2
-	MyPrintf_USART1("%s(%d)\n", __func__, __LINE__ );
+	MyPrintf_USART1("%s(%d)\n\r", __func__, __LINE__ );
 
 	HAL_UART_Transmit_IT( &UartHandle6, (uint8_t *)sCmdOccPaStart, strlen(sCmdOccPaStart));
     
@@ -48,7 +48,7 @@ void RFMOccPaStop( void )
 //========================================================================
 {
 	//	RFMBase -> RFM 명령 전송 : UART2
-	MyPrintf_USART1("%s(%d)\n", __func__, __LINE__ );
+	MyPrintf_USART1("%s(%d)\n\r", __func__, __LINE__ );
 
 	HAL_UART_Transmit_IT( &UartHandle6, (uint8_t *)sCmdOccPaStop, strlen(sCmdOccPaStop) );
 }
@@ -59,7 +59,7 @@ int cmd_occ(int argc, char *argv[])
 //========================================================================
 {
 	//	RFMBase -> RFM 명령 전송 : UART2
-	MyPrintf_USART1("%s(%d)\n", __func__, __LINE__ );
+	MyPrintf_USART1("%s(%d)\n\r", __func__, __LINE__ );
 
     //	occ [0/1]
 

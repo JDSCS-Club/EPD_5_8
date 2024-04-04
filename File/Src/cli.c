@@ -927,7 +927,7 @@ int cmd_rfm(int argc, char *argv[])
 //========================================================================
 {
 	//	RFM 명령 전송.
-	MyPrintf_USART1("%s(%d)\n", __func__, __LINE__ );
+	MyPrintf_USART1("%s(%d)\n\r", __func__, __LINE__ );
 
 	return 0;
 }
