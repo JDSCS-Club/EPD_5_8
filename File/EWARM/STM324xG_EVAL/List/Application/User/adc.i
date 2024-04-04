@@ -28975,7 +28975,7 @@ uint32_t Get_Adc2_Value(void)
  
 uint16_t getAdc2Vol(void)
 {
-	return (Get_Adc2_Value() * 3300) / 0xFFF;
+	return (Get_Adc2_Value() * 3400) / 0xFFF;
 }
 
 

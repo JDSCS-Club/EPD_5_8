@@ -29012,8 +29012,8 @@ extern void RF_POWN_OFF(void);
 
 
 
-const char *sCmdOccPaStart	=	"occ 1 TEST\r";
-const char *sCmdOccPaStop	=	"occ 0 TEST\r";
+const char *sCmdOccPaStart	=	"occ 1\r";
+const char *sCmdOccPaStop	=	"occ 0\r";
 
 
 
@@ -29023,7 +29023,7 @@ void RFMOccPaStart( void )
 
 {
 	
-	MyPrintf_USART1("%s(%d)\n", __func__, 39 );
+	MyPrintf_USART1("%s(%d)\n\r", __func__, 39 );
 
 	HAL_UART_Transmit_IT( &UartHandle6, (uint8_t *)sCmdOccPaStart, strlen(sCmdOccPaStart));
     
@@ -29035,7 +29035,7 @@ void RFMOccPaStop( void )
 
 {
 	
-	MyPrintf_USART1("%s(%d)\n", __func__, 51 );
+	MyPrintf_USART1("%s(%d)\n\r", __func__, 51 );
 
 	HAL_UART_Transmit_IT( &UartHandle6, (uint8_t *)sCmdOccPaStop, strlen(sCmdOccPaStop) );
 }
@@ -29046,7 +29046,7 @@ int cmd_occ(int argc, char *argv[])
 
 {
 	
-	MyPrintf_USART1("%s(%d)\n", __func__, 62 );
+	MyPrintf_USART1("%s(%d)\n\r", __func__, 62 );
 
     
 

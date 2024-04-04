@@ -29056,7 +29056,7 @@ _Bool getChargerDet(void){ return !HAL_GPIO_ReadPin(((GPIO_TypeDef *) ((0x400000
 
 
  
-uint8_t getChargeRate(void){ return (Get_Adc1_Value() * 100) / 0xFFF; }
+uint8_t getChargeRate(void){ return (Get_Adc2_Value() * 100) / 0xFFF; }
 
 
 
@@ -29396,13 +29396,17 @@ void processLightLed(void)
 void processAudioAmpProcess(void)
 {
 
+   
     
 	if(getAudioOn())
 	{
         
+        
 		bAmpOnOff = 1;
 		if(bCurAmpOnOff != bAmpOnOff)
 		{
+            
+            
 			bCurAmpOnOff = bAmpOnOff;
 			AMP_Init(AMP_ID_1);
 

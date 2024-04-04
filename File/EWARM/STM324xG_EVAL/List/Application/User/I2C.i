@@ -30445,7 +30445,7 @@ char s_sLogBuf[257];
 void TestEEPLog( void )
 
 {
-	printf("%s(%d)\n", __func__, 1288);
+	printf("%s(%d)\n\r", __func__, 1288);
 
 	EEPLogWrite( "TEST Log Write\n");		
 	EEPLogWrite( "TEST Log2\n");
@@ -30672,7 +30672,7 @@ int EEPLogPrint(void)
 	if ( g_qLog.front == g_qLog.rear )
 	{
 		
-		printf("%s(%d) - No Log Skip ( front(0x%02X) / rear(0x%02X) )\n",
+		printf("%s(%d) - No Log Skip ( front(0x%02X) / rear(0x%02X) )\n\r",
 			__func__, 1518, g_qLog.front, g_qLog.rear );
 	}
 	else if ( g_qLog.front < g_qLog.rear )
@@ -30775,7 +30775,7 @@ int EEPLogPrint(void)
 int cmd_logPrint(int argc, char *argv[])
 
 {
-	printf("%s(%d)\n", __func__, 1620);
+	printf("%s(%d)\n\r", __func__, 1620);
 	EEPLogPrint();
 }
 
@@ -30787,7 +30787,7 @@ int cmd_logPrint(int argc, char *argv[])
 int cmd_logTest(int argc, char *argv[])
 
 {
-	printf("%s(%d)\n", __func__, 1632);
+	printf("%s(%d)\n\r", __func__, 1632);
 	TestEEPLog();
 }
 
@@ -30799,7 +30799,7 @@ int cmd_logTest(int argc, char *argv[])
 int cmd_logReset(int argc, char *argv[])
 
 {
-	printf("%s(%d)\n", __func__, 1644);
+	printf("%s(%d)\n\r", __func__, 1644);
 	EEPLogReset();
 }
 

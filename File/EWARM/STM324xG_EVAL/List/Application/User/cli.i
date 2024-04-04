@@ -30106,7 +30106,7 @@ int cmd_rfm(int argc, char *argv[])
 
 {
 	
-	MyPrintf_USART1("%s(%d)\n", __func__, 930 );
+	MyPrintf_USART1("%s(%d)\n\r", __func__, 930 );
 
 	return 0;
 }

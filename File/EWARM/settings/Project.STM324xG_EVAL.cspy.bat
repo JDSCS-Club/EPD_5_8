@@ -25,7 +25,7 @@ if not "%~1" == "" goto debugFile
 
 @echo on 
 
-"C:\Program Files\IAR Systems\Embedded Workbench 9.1\common\bin\cspybat" -f "X:\Git_Data\git\EPD_5_8\File\EWARM\settings\Project.STM324xG_EVAL.general.xcl" --backend -f "X:\Git_Data\git\EPD_5_8\File\EWARM\settings\Project.STM324xG_EVAL.driver.xcl" 
+"C:\Program Files\IAR Systems\Embedded Workbench 9.1\common\bin\cspybat" -f "C:\D\Git_Hub\EPD_5_8\File\EWARM\settings\Project.STM324xG_EVAL.general.xcl" --backend -f "C:\D\Git_Hub\EPD_5_8\File\EWARM\settings\Project.STM324xG_EVAL.driver.xcl" 
 
 @echo off 
 goto end 
@@ -34,7 +34,7 @@ goto end
 
 @echo on 
 
-"C:\Program Files\IAR Systems\Embedded Workbench 9.1\common\bin\cspybat" -f "X:\Git_Data\git\EPD_5_8\File\EWARM\settings\Project.STM324xG_EVAL.general.xcl" "--debug_file=%~1" --backend -f "X:\Git_Data\git\EPD_5_8\File\EWARM\settings\Project.STM324xG_EVAL.driver.xcl" 
+"C:\Program Files\IAR Systems\Embedded Workbench 9.1\common\bin\cspybat" -f "C:\D\Git_Hub\EPD_5_8\File\EWARM\settings\Project.STM324xG_EVAL.general.xcl" "--debug_file=%~1" --backend -f "C:\D\Git_Hub\EPD_5_8\File\EWARM\settings\Project.STM324xG_EVAL.driver.xcl" 
 
 @echo off 
 :end
