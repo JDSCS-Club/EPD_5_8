@@ -84,7 +84,7 @@ void led100GreenOff(void){ HAL_GPIO_WritePin(LED_100_GREEN_GPIO_Port, LED_100_GR
 /**
   * @brief  get Charger detection
   */
-bool getChargerDet(void){ return !HAL_GPIO_ReadPin(CHARGER_DET_GPIO_Port, CHARGER_DET_Pin); }
+bool getChargerDet(void){ return HAL_GPIO_ReadPin(CHARGER_DET_GPIO_Port, CHARGER_DET_Pin); }
 //--------------------------------------------------------------------------------------------//
 //
 //--------------------------------------------------------------------------------------------//
@@ -148,6 +148,7 @@ void setOverrideOn(GPIO_PinState state){ HAL_GPIO_WritePin(OVERRIDE_GPIO_Port, O
   * @brief  set RF LED
   */
 void setRfLed(GPIO_PinState state){ HAL_GPIO_WritePin(RF_LED_GPIO_Port, RF_LED_Pin, state); }
+
 void rfLedOn(void){ HAL_GPIO_WritePin(RF_LED_GPIO_Port, RF_LED_Pin, false); }
 void rfLedOff(void){ HAL_GPIO_WritePin(RF_LED_GPIO_Port, RF_LED_Pin, true); }
 //--------------------------------------------------------------------------------------------//
@@ -219,7 +220,7 @@ ChargeRateState getChargeRateState(void)
 	else if(u16BatVol >= VOLTAGE_BAT_75 && u16BatVol < VOLTAGE_BAT_100)
 		return CHARGE_RATE_100_UNDER;
 	else if(u16BatVol >= VOLTAGE_BAT_100)
-		return CHARGE_RATE_100_UNDER;
+		return CHARGE_RATE_100;
 	else
 		return CHARGE_RATE_UNKNOWN;
 }
@@ -324,7 +325,7 @@ void processChargeLed(void)
 				led100RedOff();
 				led100GreenOff();
                 
-//                printf( "CHARGE_RATE_75_UNDER \n");
+               // MyPrintf_USART1( "CHARGE_RATE_75_UNDER \r\n");
                 
 			}
 			break;
@@ -337,7 +338,7 @@ void processChargeLed(void)
 				led75On();
 				toggleLed100Red();
 				led100GreenOff();
-//                 printf( "CHARGE_RATE_100_UNDER \n");
+                // MyPrintf_USART1( "CHARGE_RATE_100_UNDER \r\n");
 			}
 			break;
 		}
@@ -347,7 +348,7 @@ void processChargeLed(void)
 			led100RedOff();
 			led100GreenOn();
             
-//            printf( "CHARGE_RATE_100 \n");
+           // MyPrintf_USART1( "CHARGE_RATE_100 \r\n");
             
 			break;
 		}
@@ -358,7 +359,7 @@ void processChargeLed(void)
 			led100RedOff();
 			led100GreenOff();
             
-//            printf( "default \n");
+           // MyPrintf_USART1( "default \r\n");
             
 			break;
 		}
